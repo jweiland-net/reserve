@@ -1,0 +1,36 @@
+{
+	"name": "jweiland/reserve",
+	"type": "typo3-cms-extension",
+	"description": "",
+	"license": "GPL-2.0-or-later",
+	"keywords": ["typo3", "TYPO3 CMS", "jw", "reserve"],
+	"homepage": "http://www.jweiland.net",
+	"authors": [
+		{
+			"name": "Markus Kugler",
+			"email": "projects@jweiland.net",
+			"role": "Developer"
+		},
+		{
+			"name": "Pascal Rinker",
+			"email": "projects@jweiland.net",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "projects@jweiland.net",
+		"issues": "https://github.com/jweiland-net/reserve/issues",
+		"source": "https://github.com/jweiland-net/reserve"
+	},
+	"require": {
+		"typo3/cms-core": "^8.7 || ^9.5 || ^10.4"
+	},
+	"replace": {
+		"typo3-ter/reserve": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"JWeiland\\Reserve\\": "Classes"
+		}
+	}
+}
