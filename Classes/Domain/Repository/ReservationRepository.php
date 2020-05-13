@@ -20,27 +20,17 @@ namespace JWeiland\Reserve\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-class PeriodRepository extends Repository
+class ReservationRepository extends Repository
 {
     /**
-     * @param int $uid
+     * @param string $code
      * @return QueryResultInterface
      */
-    public function findByFacility(int $uid): QueryResultInterface
+    public function findByCode(string $code): QueryResultInterface
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->equals('facility', $uid)
-        );
-        $query->getQuerySettings()->setRespectStoragePage(false);
-        return $query->execute();
-    }
-
-    public function findCurrent()
-    {
-        $query = $this->createQuery();
-        $query = $query->matching(
-            $query->equals('date', new \DateTime('midnight'))
+            $query->equals('code', $code)
         );
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
