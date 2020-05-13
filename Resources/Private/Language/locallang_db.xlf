@@ -9,6 +9,9 @@
 			<trans-unit id="tx_reserve_domain_model_facility.name">
 				<source>Name</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.periods">
+				<source>Periods</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>
@@ -29,6 +32,9 @@
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.booking_begin">
 				<source>Booking begin</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.orders">
+				<source>Orders</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order">
 				<source>Order</source>
