@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
+	<file t3:id="1589355594067" source-language="en" datatype="plaintext">
+		<header/>
+		<body>
+			<trans-unit id="tx_reserve_domain_model_facility">
+				<source>Facility</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period">
+				<source>Period</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.begin">
+				<source>Begin</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.end">
+				<source>End</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.max_participants">
+				<source>Max participants</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
+				<source>Max participants per order</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.booking_begin">
+				<source>Booking begin</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order">
+				<source>Order</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.activation_code">
+				<source>Activation code</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.reservations">
+				<source>Reservations</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation">
+				<source>Reservation</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.code">
+				<source>Code</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.used">
+				<source>Used</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
