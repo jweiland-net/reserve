@@ -25,10 +25,12 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Reservation extends AbstractEntity
 {
     /**
-     * @var Order
+     * @var \JWeiland\Reserve\Domain\Model\Order
      */
     protected $customerOrder;
+
     protected $code = '';
+
     protected $used = '';
 
     /**
