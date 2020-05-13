@@ -33,6 +33,9 @@
 			<trans-unit id="tx_reserve_domain_model_period.booking_begin">
 				<source>Booking begin</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.orders">
+				<source>Orders</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order">
 				<source>Order</source>
 			</trans-unit>
