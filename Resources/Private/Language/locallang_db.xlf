@@ -33,6 +33,9 @@
 			<trans-unit id="tx_reserve_domain_model_order">
 				<source>Order</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.activated">
+				<source>Activated</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.activation_code">
 				<source>Activation code</source>
 			</trans-unit>
