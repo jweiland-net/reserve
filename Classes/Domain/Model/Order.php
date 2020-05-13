@@ -27,11 +27,17 @@ class Order extends AbstractEntity
 {
     /**
      * @var \JWeiland\Reserve\Domain\Model\Period
+     * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\BookedPeriodValidator")
      */
     protected $bookedPeriod;
 
     protected $activationCode = '';
 
+    protected $activated = false;
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\Validate("EmailAddress")
+     */
     protected $email = '';
 
     /**
@@ -74,6 +80,22 @@ class Order extends AbstractEntity
     public function setActivationCode(string $activationCode)
     {
         $this->activationCode = $activationCode;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivated(): bool
+    {
+        return $this->activated;
+    }
+
+    /**
+     * @param bool $activated
+     */
+    public function setActivated(bool $activated)
+    {
+        $this->activated = $activated;
     }
 
     /**

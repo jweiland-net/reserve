@@ -92,6 +92,13 @@ return [
                 'default' => 0,
             ]
         ],
+        'activated' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.activated',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+            ],
+        ],
         'activation_code' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.activation_code',
             'config' => [
@@ -128,7 +135,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'booked_period,email,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'booked_period,email,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [

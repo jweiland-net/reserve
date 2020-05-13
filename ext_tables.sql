@@ -76,6 +76,7 @@ CREATE TABLE tx_reserve_domain_model_order (
 	sorting int(11) DEFAULT '0' NOT NULL,
 
 	booked_period int(11) DEFAULT '0' NOT NULL,
+	activated tinyint(4) DEFAULT '0' NOT NULL,
 	activation_code varchar(64) DEFAULT '0' NOT NULL,
 	email tinytext,
 	reservations int(11) DEFAULT '0' NOT NULL,
