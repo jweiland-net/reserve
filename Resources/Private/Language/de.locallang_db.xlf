@@ -9,6 +9,9 @@
 			<trans-unit id="tx_reserve_domain_model_facility.name">
 				<target>Name</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.periods">
+				<target>Zeitblöcke</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>

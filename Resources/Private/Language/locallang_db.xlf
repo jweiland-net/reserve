@@ -9,6 +9,9 @@
 			<trans-unit id="tx_reserve_domain_model_facility.name">
 				<source>Name</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.periods">
+				<source>Periods</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>
