@@ -87,7 +87,7 @@ return [
                 'internal_type' => 'db',
                 'allowed' => 'tx_reserve_domain_model_period',
                 'maxitems' => 1,
-                'minitems' => 0,
+                'minitems' => 1,
                 'size' => 1,
                 'default' => 0,
             ]

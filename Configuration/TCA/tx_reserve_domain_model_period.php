@@ -87,7 +87,7 @@ return [
                 'internal_type' => 'db',
                 'allowed' => 'tx_reserve_domain_model_facility',
                 'maxitems' => 1,
-                'minitems' => 0,
+                'minitems' => 1,
                 'size' => 1,
                 'default' => 0,
             ]
@@ -144,7 +144,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.orders',
             'config' => [
                 'type' => 'inline',
-                'foreign_table' => 'tx_reserve_domain_model_orders',
+                'foreign_table' => 'tx_reserve_domain_model_order',
                 'foreign_field' => 'booked_period',
                 'maxitems' => 500,
                 'appearance' => [
