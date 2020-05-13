@@ -8,13 +8,11 @@ CREATE TABLE tx_reserve_domain_model_facility (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	cruser_id int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumtext,
-	l10n_source int(11) DEFAULT '0' NOT NULL,
+	l18n_parent int(11) DEFAULT '0' NOT NULL,
+	l18n_diffsource mediumtext,
+	l18n_source int(11) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
-	starttime int(11) DEFAULT '0' NOT NULL,
-	endtime int(11) DEFAULT '0' NOT NULL,
 	sorting int(11) DEFAULT '0' NOT NULL,
 
 	name tinytext,
@@ -22,7 +20,7 @@ CREATE TABLE tx_reserve_domain_model_facility (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY sys_language_uid_l10n_parent (sys_language_uid,l10n_parent)
+	KEY sys_language_uid_l18n_parent (sys_language_uid,l18n_parent)
 );
 
 #
@@ -35,15 +33,17 @@ CREATE TABLE tx_reserve_domain_model_period (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	cruser_id int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumtext,
-	l10n_source int(11) DEFAULT '0' NOT NULL,
+	l18n_parent int(11) DEFAULT '0' NOT NULL,
+	l18n_diffsource mediumtext,
+	l18n_source int(11) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	starttime int(11) DEFAULT '0' NOT NULL,
 	endtime int(11) DEFAULT '0' NOT NULL,
 	sorting int(11) DEFAULT '0' NOT NULL,
 
+	facility int(11) DEFAULT '0' NOT NULL,
+	date int(11) DEFAULT '0' NOT NULL,
 	begin int(11) DEFAULT '0' NOT NULL,
 	end int(11) DEFAULT '0' NOT NULL,
 	max_participants int(11) DEFAULT '0' NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE tx_reserve_domain_model_period (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY sys_language_uid_l10n_parent (sys_language_uid,l10n_parent)
+	KEY sys_language_uid_l18n_parent (sys_language_uid,l18n_parent)
 );
 
 #
@@ -66,9 +66,9 @@ CREATE TABLE tx_reserve_domain_model_order (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	cruser_id int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumtext,
-	l10n_source int(11) DEFAULT '0' NOT NULL,
+	l18n_parent int(11) DEFAULT '0' NOT NULL,
+	l18n_diffsource mediumtext,
+	l18n_source int(11) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	starttime int(11) DEFAULT '0' NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE tx_reserve_domain_model_order (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY sys_language_uid_l10n_parent (sys_language_uid,l10n_parent)
+	KEY sys_language_uid_l18n_parent (sys_language_uid,l18n_parent)
 );
 
 #
@@ -95,9 +95,9 @@ CREATE TABLE tx_reserve_domain_model_reservation (
 	crdate int(11) DEFAULT '0' NOT NULL,
 	cruser_id int(11) DEFAULT '0' NOT NULL,
 	sys_language_uid int(11) DEFAULT '0' NOT NULL,
-	l10n_parent int(11) DEFAULT '0' NOT NULL,
-	l10n_diffsource mediumtext,
-	l10n_source int(11) DEFAULT '0' NOT NULL,
+	l18n_parent int(11) DEFAULT '0' NOT NULL,
+	l18n_diffsource mediumtext,
+	l18n_source int(11) DEFAULT '0' NOT NULL,
 	deleted tinyint(4) DEFAULT '0' NOT NULL,
 	hidden tinyint(4) DEFAULT '0' NOT NULL,
 	starttime int(11) DEFAULT '0' NOT NULL,
@@ -110,5 +110,5 @@ CREATE TABLE tx_reserve_domain_model_reservation (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
-	KEY sys_language_uid_l10n_parent (sys_language_uid,l10n_parent)
+	KEY sys_language_uid_l18n_parent (sys_language_uid,l18n_parent)
 );
