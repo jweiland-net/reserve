@@ -141,7 +141,7 @@ return [
             ],
         ],
         'orders' => [
-            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.orders',
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.orders',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_reserve_domain_model_order',

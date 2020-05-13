@@ -21,3 +21,11 @@ $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['reserve_rese
 );
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['reserve_reservation'] = 'recursive,pages';
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['reserve_management'] = 'pi_flexform';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
+    'reserve_management',
+    'FILE:EXT:reserve/Configuration/FlexForms/Management.xml'
+);
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['reserve_management'] = 'recursive,pages';

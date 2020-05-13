@@ -31,7 +31,7 @@ class Reservation extends AbstractEntity
 
     protected $code = '';
 
-    protected $used = '';
+    protected $used = false;
 
     /**
      * @return Order
@@ -66,17 +66,17 @@ class Reservation extends AbstractEntity
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getUsed(): string
+    public function isUsed(): bool
     {
         return $this->used;
     }
 
     /**
-     * @param string $used
+     * @param bool $used
      */
-    public function setUsed(string $used)
+    public function setUsed(bool $used): void
     {
         $this->used = $used;
     }
