@@ -2,31 +2,34 @@
 <f:layout name="Default" />
 <f:section name="Main">
 	<h1>Scanner</h1>
+	<f:flashMessages />
 
-	<video id="scanner"></video>
+	<div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+	<canvas id="canvas" hidden></canvas>
 
-	<h2>Scanned: {reservation.code}</h2>
-	<h3>{status}</h3>
-	<f:form action="scan">
-		<f:form.textfield name="code" />
-		<f:form.submit value="Submit" />
-	</f:form>
-	<f:for each="{periods}" as="period">
-		<f:for as="order" each="{period.orders}">
-			<p>E-Mail: {order.email}</p>
-			<ul>
-				<f:for as="reservation" each="{order.reservations}">
-					<f:if condition="{reservation.used}">
-						<f:then>
-							<li style="color: red;">{reservation.code}</li>
-						</f:then>
-						<f:else>
-							<li style="color: green;">{reservation.code}</li>
-						</f:else>
-					</f:if>
-				</f:for>
-			</ul>
-		</f:for>
-	</f:for>
+	<table id="reservations" class="display" style="width:100%">
+		<thead>
+			<tr>
+				<th>Code</th>
+				<th>E-Mail</th>
+				<th>Scanned</th>
+			</tr>
+		</thead>
+		<tbody>
+			<f:for each="{reservations}" as="reservation">
+				<tr>
+					<td>
+						{reservation.code}
+					</td>
+					<td>
+						{reservation.customerOrder.email}
+					</td>
+					<td>
+						{reservation.used}
+					</td>
+				</tr>
+			</f:for>
+		</tbody>
+	</table>
 </f:section>
 </html>

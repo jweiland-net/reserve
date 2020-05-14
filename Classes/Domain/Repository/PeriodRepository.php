@@ -35,14 +35,4 @@ class PeriodRepository extends Repository
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
     }
-
-    public function findCurrent()
-    {
-        $query = $this->createQuery();
-        $query = $query->matching(
-            $query->equals('date', new \DateTime('midnight'))
-        );
-        $query->getQuerySettings()->setRespectStoragePage(false);
-        return $query->execute();
-    }
 }
