@@ -1,0 +1,13 @@
+{
+    "name": "jweiland/reserve-dependencies",
+    "type": "library",
+    "require": {
+        "endroid/qr-code": "^2.5"
+    },
+    "authors": [
+        {
+            "name": "Pascal Rinker",
+            "email": "projects@jweiland.net"
+        }
+    ]
+}

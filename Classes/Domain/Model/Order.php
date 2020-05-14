@@ -115,7 +115,7 @@ class Order extends AbstractEntity
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage|Reservation[]
      */
     public function getReservations(): ObjectStorage
     {

@@ -12,6 +12,12 @@
 			<trans-unit id="tx_reserve_domain_model_facility.periods">
 				<target>Zeitblöcke</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
+				<target>Bestätigungsmail Betreff</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
+				<target>Bestätigungsmail Vorlage</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>
