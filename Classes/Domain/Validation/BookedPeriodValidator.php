@@ -26,9 +26,9 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 class BookedPeriodValidator extends AbstractValidator
 {
     protected function isValid($value)
-   {
-      if (!$value instanceof Period || ($value instanceof Period && !$value->isBookable())) {
-        $this->addError('The selected period can not be booked at the moment!', 1589379319);
-      }
-   }
+    {
+        if (!$value instanceof Period || ($value instanceof Period && !$value->isBookable())) {
+            $this->addError('The selected period can not be booked at the moment!', 1589379319);
+        }
+    }
 }

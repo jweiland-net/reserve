@@ -20,8 +20,10 @@ namespace JWeiland\Reserve\Controller;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
+use JWeiland\Reserve\Service\CheckoutService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
@@ -34,9 +36,20 @@ class CheckoutController extends ActionController
      */
     protected $periodRepository;
 
-    public function __construct(PeriodRepository $periodRepository)
+    /**
+     * @var CheckoutService
+     */
+    protected $checkoutService;
+
+    /**
+     * @var PersistenceManager
+     */
+    protected $persistenceManager;
+
+    public function __construct(PeriodRepository $periodRepository, CheckoutService $checkoutService)
     {
         $this->periodRepository = $periodRepository;
+        $this->checkoutService = $checkoutService;
     }
 
     public function listAction()
@@ -46,14 +59,23 @@ class CheckoutController extends ActionController
 
     public function formAction(Period $period)
     {
+        /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
         $order->setBookedPeriod($period);
         $this->view->assign('order', $order);
     }
 
+    /**
+     * @param Order $order
+     * @param int $amountOfPeople
+     */
     public function createAction(Order $order, int $amountOfPeople)
     {
+        if ($this->checkoutService->checkout($order, $amountOfPeople)) {
+            // send confirmation mail
+        } else {
+            // render error message
+        }
         DebuggerUtility::var_dump($order);
-        DebuggerUtility::var_dump($amountOfPeople);
     }
 }
