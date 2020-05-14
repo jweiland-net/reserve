@@ -1,0 +1,4 @@
+#reservations tr[data-used="1"] {
+  background-color: #DD1010;
+  color: #FFFFFF;
+}

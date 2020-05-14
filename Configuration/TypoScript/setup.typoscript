@@ -1,4 +1,7 @@
 page {
+  includeCSSLibs {
+    scanner = EXT:reserve/Resources/Public/Css/scanner.css
+  }
   includeJSFooterlibs {
     jsQr = EXT:reserve/Resources/Public/JavaScript/jsQR.js
     jQuery = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
@@ -24,4 +27,21 @@ plugin.tx_reserve {
       1 = {$plugin.tx_reserve.view.layoutRootPath}
     }
   }
+}
+
+reserve_scan = PAGE
+reserve_scan {
+  config {
+    disableAllHeaderCode = 1
+    debug = 0
+    no_cache = 1
+    additionalHeaders {
+      10 {
+        header = Content-Type: application/json
+        replace = 1
+      }
+    }
+  }
+  typeNum = 1589460150
+  10 < tt_content.list.20.reserve_management
 }

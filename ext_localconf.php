@@ -17,6 +17,9 @@ defined('TYPO3_MODE') or die();
     'JWeiland.Reserve',
     'Management',
     [
-        'Management' => 'overview, scanner, period'
+        'Management' => 'overview, period, scan'
+    ],
+    [
+        'Management' => 'scan'
     ]
 );

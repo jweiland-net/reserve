@@ -18,9 +18,12 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Controller;
 
 use JWeiland\Reserve\Domain\Model\Period;
+use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\View\JsonView;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
 {
@@ -44,13 +47,32 @@ class ManagementController extends ActionController
         $this->view->assign('periods', $this->periodRepository->findByFacility((int)$this->settings['facility']));
     }
 
-    public function periodAction(Period $period)
+    public function periodAction(Period $period, string $code = '')
     {
         $this->view->assign('period', $period);
     }
 
-    public function scannerAction()
+    public function scanAction(Reservation $reservation)
     {
-        $this->view->assign('reservations', $this->reservationRepository->findAll());
+        $view = $this->objectManager->get(JsonView::class);
+
+        $view->setControllerContext($this->controllerContext);
+        $view->setVariablesToRender(['status']);
+
+        $statusCode = '';
+
+        if (!$reservation->isUsed()) {
+            $reservation->setUsed(true);
+            $this->reservationRepository->update($reservation);
+            $statusCode = 'activated';
+        } else {
+            $statusCode = 'active';
+        }
+
+        $statusMessage = LocalizationUtility::translate('scan.status.' . $statusCode, 'reserve');
+
+        $view->assign('status', ['status' => ['code' => $statusCode, 'message' => $statusMessage]]);
+
+        return $view->render();
     }
 }

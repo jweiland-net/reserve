@@ -21,6 +21,13 @@
 			<trans-unit id="form.order.amountOfPeople">
 				<source>Amount of people</source>
 			</trans-unit>
+
+			<trans-unit id="scan.status.activated">
+				<source>Reservation now active</source>
+			</trans-unit>
+			<trans-unit id="scan.status.active">
+				<source>Reservation already active</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
