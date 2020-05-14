@@ -80,4 +80,22 @@ class Reservation extends AbstractEntity
     {
         $this->used = $used;
     }
+
+    public function getIsCurrentlyValid(): bool
+    {
+        $period = $this->getCustomerOrder()->getBookedPeriod();
+        $currentDate = strtotime('today');
+        $currentDateTime = time();
+        $currentTime = $currentDateTime - $currentDate;
+
+        if (
+            $period->getDate()->getTimestamp() === $currentDate
+            && $period->getBegin()->getTimestamp() <= $currentTime
+            && $period->getEnd()->getTimestamp() > $currentTime
+        ) {
+            return true;
+        }
+
+        return false;
+    }
 }
