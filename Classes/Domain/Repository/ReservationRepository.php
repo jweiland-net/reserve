@@ -23,15 +23,11 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 class ReservationRepository extends Repository
 {
     /**
-     * @param string $code
      * @return QueryResultInterface
      */
-    public function findByCode(string $code): QueryResultInterface
+    public function findAll(): QueryResultInterface
     {
         $query = $this->createQuery();
-        $query = $query->matching(
-            $query->equals('code', $code)
-        );
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
     }
