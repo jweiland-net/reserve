@@ -1,3 +1,12 @@
+page {
+  includeJSFooterlibs {
+    jsQr = EXT:reserve/Resources/Public/JavaScript/jsQR.js
+    jQuery = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
+    dataTables = EXT:reserve/Resources/Public/JavaScript/jquery.dataTables.min.js
+    scanner = EXT:reserve/Resources/Public/JavaScript/scanner.js
+  }
+}
+
 plugin.tx_reserve {
   view {
     templateRootPaths {
