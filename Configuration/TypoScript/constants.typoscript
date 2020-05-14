@@ -1,0 +1,10 @@
+plugin.tx_reserve {
+  view {
+    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template root
+    templateRootPath  = EXT:reserve/Resources/Private/Templates/
+    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template partials
+    partialRootPath = EXT:reserve/Resources/Private/Partials/
+    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template layouts
+    layoutRootPath = EXT:reserve/Resources/Private/Layouts/
+  }
+}

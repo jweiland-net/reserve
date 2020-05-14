@@ -59,10 +59,20 @@ class ManagementController extends ActionController
 
     public function scanAction(string $code)
     {
+        $status = 1;
         /** @var Reservation $reservation */
         $reservation = $this->reservationRepository->findByCode($code)->getFirst();
-        $reservation->setUsed(true);
-        $this->reservationRepository->update($reservation);
-        $this->forward('scanner', null, null, ['reservation' => $reservation]);
+        if ($reservation->getIsCurrentlyValid()) {
+            $reservation->setUsed(true);
+            $this->reservationRepository->update($reservation);
+            $status = 0;
+        }
+
+        $arguments = [
+            'reservation' => $reservation,
+            'status' => $status
+        ];
+
+        $this->forward('scanner', null, null, $arguments);
     }
 }
