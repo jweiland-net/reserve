@@ -9,6 +9,18 @@
 			<trans-unit id="plugin.management.title">
 				<target>Verwalte Reservierungen und scanne Reservierungscodes</target>
 			</trans-unit>
+			<trans-unit id="form.order.submit">
+				<target>Bestellen</target>
+			</trans-unit>
+			<trans-unit id="form.order.email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="form.order.period">
+				<target>Gewählter Zeitblock</target>
+			</trans-unit>
+			<trans-unit id="form.order.amountOfPeople">
+				<source>Anzahl Personen</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

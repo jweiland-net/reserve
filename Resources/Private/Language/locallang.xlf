@@ -9,6 +9,18 @@
 			<trans-unit id="plugin.management.title">
 				<source>Manage reservations and scan reservation codes</source>
 			</trans-unit>
+			<trans-unit id="form.order.submit">
+				<source>Order</source>
+			</trans-unit>
+			<trans-unit id="form.order.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="form.order.period">
+				<source>Selected period</source>
+			</trans-unit>
+			<trans-unit id="form.order.amountOfPeople">
+				<source>Amount of people</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

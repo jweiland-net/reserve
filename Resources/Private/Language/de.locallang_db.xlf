@@ -39,6 +39,9 @@
 			<trans-unit id="tx_reserve_domain_model_order">
 				<target>Bestellung</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.activated">
+				<target>Aktiviert</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.activation_code">
 				<target>Aktivierungscode</target>
 			</trans-unit>
