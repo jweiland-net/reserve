@@ -29,6 +29,10 @@ class Facility extends AbstractEntity
      */
     protected $periods;
 
+    protected $confirmationMailSubject = '';
+
+    protected $confirmationMailHtml = '';
+
     public function __construct()
     {
         $this->periods = new ObjectStorage();
@@ -64,5 +68,37 @@ class Facility extends AbstractEntity
     public function setPeriods(ObjectStorage $periods)
     {
         $this->periods = $periods;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirmationMailSubject(): string
+    {
+        return $this->confirmationMailSubject;
+    }
+
+    /**
+     * @param string $confirmationMailSubject
+     */
+    public function setConfirmationMailSubject(string $confirmationMailSubject)
+    {
+        $this->confirmationMailSubject = $confirmationMailSubject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirmationMailHtml(): string
+    {
+        return $this->confirmationMailHtml;
+    }
+
+    /**
+     * @param string $confirmationMailHtml
+     */
+    public function setConfirmationMailHtml(string $confirmationMailHtml)
+    {
+        $this->confirmationMailHtml = $confirmationMailHtml;
     }
 }
