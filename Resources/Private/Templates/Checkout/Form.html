@@ -2,6 +2,23 @@
 <f:layout name="Default" />
 <f:section name="Main">
 
+	<f:flashMessages />
+	<f:form.validationResults>
+		<f:if condition="{validationResults.flattenedErrors}">
+			<ul class="errors">
+				<f:for each="{validationResults.flattenedErrors}" as="errors" key="propertyPath">
+					<li>{propertyPath}
+						<ul>
+							<f:for each="{errors}" as="error">
+								<li>{error.code}: {error}</li>
+							</f:for>
+						</ul>
+					</li>
+				</f:for>
+			</ul>
+		</f:if>
+	</f:form.validationResults>
+
 	<f:form action="create" name="order" object="{order}">
 		Selected period: UID {order.bookedPeriod.uid}
 

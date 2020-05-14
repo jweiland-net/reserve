@@ -191,6 +191,6 @@ class Period extends AbstractEntity
 
     public function isBookable(): bool
     {
-        return $this->bookingBegin->getTimestamp() >= time();
+        return time() >= $this->bookingBegin->getTimestamp();
     }
 }
