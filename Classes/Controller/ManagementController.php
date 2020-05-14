@@ -18,7 +18,6 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Controller;
 
 use JWeiland\Reserve\Domain\Model\Period;
-use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -50,29 +49,8 @@ class ManagementController extends ActionController
         $this->view->assign('period', $period);
     }
 
-    public function scannerAction(Reservation $reservation = null, string $status = '')
+    public function scannerAction()
     {
-        $this->view->assign('periods', $this->periodRepository->findCurrent());
-        $this->view->assign('reservation', $reservation);
-        $this->view->assign('status', $status);
-    }
-
-    public function scanAction(string $code)
-    {
-        $status = 1;
-        /** @var Reservation $reservation */
-        $reservation = $this->reservationRepository->findByCode($code)->getFirst();
-        if ($reservation->getIsCurrentlyValid()) {
-            $reservation->setUsed(true);
-            $this->reservationRepository->update($reservation);
-            $status = 0;
-        }
-
-        $arguments = [
-            'reservation' => $reservation,
-            'status' => $status
-        ];
-
-        $this->forward('scanner', null, null, $arguments);
+        $this->view->assign('reservations', $this->reservationRepository->findAll());
     }
 }
