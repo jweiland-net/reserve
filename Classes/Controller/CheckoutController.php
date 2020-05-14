@@ -19,8 +19,10 @@ namespace JWeiland\Reserve\Controller;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
+use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CheckoutService;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -37,6 +39,11 @@ class CheckoutController extends ActionController
     protected $periodRepository;
 
     /**
+     * @var OrderRepository
+     */
+    protected $orderRepository;
+
+    /**
      * @var CheckoutService
      */
     protected $checkoutService;
@@ -46,9 +53,10 @@ class CheckoutController extends ActionController
      */
     protected $persistenceManager;
 
-    public function __construct(PeriodRepository $periodRepository, CheckoutService $checkoutService)
+    public function __construct(PeriodRepository $periodRepository, OrderRepository $orderRepository, CheckoutService $checkoutService)
     {
         $this->periodRepository = $periodRepository;
+        $this->orderRepository = $orderRepository;
         $this->checkoutService = $checkoutService;
     }
 
@@ -65,17 +73,33 @@ class CheckoutController extends ActionController
         $this->view->assign('order', $order);
     }
 
-    /**
-     * @param Order $order
-     * @param int $amountOfPeople
-     */
     public function createAction(Order $order, int $amountOfPeople)
     {
-        if ($this->checkoutService->checkout($order, $amountOfPeople)) {
-            // send confirmation mail
-        } else {
-            // render error message
+        if (!$order->_isNew()) {
+            return;
         }
-        DebuggerUtility::var_dump($order);
+        if ($this->checkoutService->checkout($order, $amountOfPeople)) {
+            $this->checkoutService->sendConfirmationMail($order);
+        } else {
+            $this->addFlashMessage(
+                'Could not create an order for your selected amount of people',
+                '',
+                AbstractMessage::ERROR
+            );
+        }
+    }
+
+    public function confirmAction(string $email, string $activationCode)
+    {
+        $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
+        if ($order instanceof Order) {
+            $this->checkoutService->confirm($order);
+        } else {
+            $this->addFlashMessage(
+                'Could not find any order with current combination of email and activation code.',
+                '',
+                AbstractMessage::ERROR
+            );
+        }
     }
 }
