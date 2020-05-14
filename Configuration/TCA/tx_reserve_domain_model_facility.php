@@ -102,10 +102,35 @@ return [
                 ]
             ],
         ],
+        'confirmation_mail_subject' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_subject',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim',
+                'default' => 'Please confirm your reservation'
+            ]
+        ],
+        'confirmation_mail_html' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_html',
+            'config' => [
+                'type' => 'text',
+                'enableRichtext' => true,
+                'default' => <<<DEFAULT_CONFIRMATION
+<p>Dear visitor,</p>
+<p>thank you for your reservation.</p>
+
+<p>###ORDER_DETAILS###</p>
+DEFAULT_CONFIRMATION
+                ,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ]
+        ]
     ],
     'types' => [
         '1' => [
-            'showitem' => 'name,periods,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'name,periods,confirmation_mail_html,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [

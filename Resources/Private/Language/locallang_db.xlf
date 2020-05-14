@@ -12,6 +12,12 @@
 			<trans-unit id="tx_reserve_domain_model_facility.periods">
 				<source>Periods</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
+				<source>Confirmation mail subject</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
+				<source>Confirmation mail Text</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>

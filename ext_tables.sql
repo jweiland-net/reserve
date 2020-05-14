@@ -17,6 +17,8 @@ CREATE TABLE tx_reserve_domain_model_facility (
 
 	name tinytext,
 	periods int(11) DEFAULT '0' NOT NULL,
+	confirmation_mail_subject tinytext,
+	confirmation_mail_html text,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
