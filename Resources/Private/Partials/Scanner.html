@@ -1,0 +1,34 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+<canvas id="canvas" hidden></canvas>
+
+<table id="reservations" class="display" style="width:100%">
+	<thead>
+	<tr>
+		<th>Code</th>
+		<th>E-Mail</th>
+		<th>Scanned</th>
+		<th>Actions</th>
+	</tr>
+	</thead>
+	<tbody>
+	<f:for each="{reservations}" as="reservation">
+		<tr data-code="{reservation.code}" data-used="{reservation.used}">
+			<td>
+				{reservation.code}
+			</td>
+			<td>
+				{reservation.customerOrder.email}
+			</td>
+			<td>
+				{reservation.used}
+			</td>
+			<td>
+				<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150">Scan</f:link.action>
+			</td>
+		</tr>
+	</f:for>
+	</tbody>
+</table>
+</html>
