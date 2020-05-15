@@ -75,7 +75,8 @@ class CheckoutController extends ActionController
     public function createAction(Order $order, int $amountOfPeople)
     {
         if (!$order->_isNew()) {
-            return;
+            $this->addFlashMessage('This order already exists!','', AbstractMessage::ERROR);
+            $this->redirect('list');
         }
         if ($this->checkoutService->checkout($order, $amountOfPeople)) {
             $this->checkoutService->sendConfirmationMail($order);
@@ -85,6 +86,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::ERROR
             );
+            $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
         }
     }
 
@@ -92,8 +94,17 @@ class CheckoutController extends ActionController
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
-            $this->checkoutService->confirm($order);
-            $this->view->assign('order', $order);
+            if ($order->isActivated()) {
+                $this->addFlashMessage(
+                    'Your order is already confirmed! Please check your mailbox.',
+                    '',
+                    AbstractMessage::INFO
+                );
+                $this->redirect('list');
+            } else {
+                $this->checkoutService->confirm($order);
+                $this->view->assign('order', $order);
+            }
         } else {
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
