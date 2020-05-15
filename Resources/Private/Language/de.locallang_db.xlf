@@ -12,11 +12,26 @@
 			<trans-unit id="tx_reserve_domain_model_facility.periods">
 				<target>Zeitblöcke</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
+				<target>E-Mail Einstellungen</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
 				<target>Bestätigungsmail Betreff</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
 				<target>Bestätigungsmail Vorlage</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
+				<target>Reservierungsmail Betreff (nach Bestätigung)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
+				<target>Reservierungsmail Vorlage</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
+				<target>Antwortadresse Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
+				<target>Antwordadresse E-Mail (optional)</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>

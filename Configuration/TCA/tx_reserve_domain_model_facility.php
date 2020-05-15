@@ -102,6 +102,22 @@ return [
                 ]
             ],
         ],
+        'reply_to_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+            ],
+        ],
+        'reply_to_email' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_email',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'email',
+            ],
+        ],
         'confirmation_mail_subject' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_subject',
             'config' => [
@@ -126,14 +142,45 @@ DEFAULT_CONFIRMATION
                     'allowLanguageSynchronization' => true
                 ]
             ]
+        ],
+        'reservation_mail_subject' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_subject',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim',
+                'default' => 'Details of your reservation'
+            ]
+        ],
+        'reservation_mail_html' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_html',
+            'config' => [
+                'type' => 'text',
+                'enableRichtext' => true,
+                'default' => <<<DEFAULT_RESERVATION
+<p>Dear visitor,</p>
+<p>thank you for your reservation.</p>
+
+<p>###RESERVATION###</p>
+DEFAULT_RESERVATION
+                ,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true
+                ]
+            ]
         ]
     ],
     'types' => [
         '1' => [
-            'showitem' => 'name,periods,confirmation_mail_html,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'name,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
+            --palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [
+        'reply_to' => [
+            'showitem' => 'reply_to_name,reply_to_email'
+        ],
         'hidden' => [
             'showitem' => '
                 hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden

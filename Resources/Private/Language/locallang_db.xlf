@@ -12,11 +12,26 @@
 			<trans-unit id="tx_reserve_domain_model_facility.periods">
 				<source>Periods</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
+				<source>E-Mail settings</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
 				<source>Confirmation mail subject</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
 				<source>Confirmation mail Text</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
+				<source>Reservation mail subject</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
+				<source>Reservation mail Text</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
+				<source>Reply to name (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
+				<source>Reply to email (optional)</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>

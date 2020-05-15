@@ -31,7 +31,15 @@ class Facility extends AbstractEntity
 
     protected $confirmationMailSubject = '';
 
+    protected $replyToName = '';
+
+    protected $replyToEmail = '';
+
     protected $confirmationMailHtml = '';
+
+    protected $reservationMailSubject = '';
+
+    protected $reservationMailHtml = '';
 
     public function __construct()
     {
@@ -73,6 +81,38 @@ class Facility extends AbstractEntity
     /**
      * @return string
      */
+    public function getReplyToName(): string
+    {
+        return $this->replyToName;
+    }
+
+    /**
+     * @param string $replyToName
+     */
+    public function setReplyToName(string $replyToName)
+    {
+        $this->replyToName = $replyToName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReplyToEmail(): string
+    {
+        return $this->replyToEmail;
+    }
+
+    /**
+     * @param string $replyToEmail
+     */
+    public function setReplyToEmail(string $replyToEmail)
+    {
+        $this->replyToEmail = $replyToEmail;
+    }
+
+    /**
+     * @return string
+     */
     public function getConfirmationMailSubject(): string
     {
         return $this->confirmationMailSubject;
@@ -100,5 +140,37 @@ class Facility extends AbstractEntity
     public function setConfirmationMailHtml(string $confirmationMailHtml)
     {
         $this->confirmationMailHtml = $confirmationMailHtml;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationMailSubject(): string
+    {
+        return $this->reservationMailSubject;
+    }
+
+    /**
+     * @param string $reservationMailSubject
+     */
+    public function setReservationMailSubject(string $reservationMailSubject)
+    {
+        $this->reservationMailSubject = $reservationMailSubject;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReservationMailHtml(): string
+    {
+        return $this->reservationMailHtml;
+    }
+
+    /**
+     * @param string $reservationMailHtml
+     */
+    public function setReservationMailHtml(string $reservationMailHtml)
+    {
+        $this->reservationMailHtml = $reservationMailHtml;
     }
 }

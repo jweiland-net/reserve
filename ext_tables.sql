@@ -17,8 +17,12 @@ CREATE TABLE tx_reserve_domain_model_facility (
 
 	name tinytext,
 	periods int(11) DEFAULT '0' NOT NULL,
+	reply_to_name tinytext,
+	reply_to_email tinytext,
 	confirmation_mail_subject tinytext,
 	confirmation_mail_html text,
+	reservation_mail_subject tinytext,
+	reservation_mail_html text,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
