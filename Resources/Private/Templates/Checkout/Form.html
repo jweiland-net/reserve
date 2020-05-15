@@ -1,24 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="Main">
-
-	<f:flashMessages />
-	<f:form.validationResults>
-		<f:if condition="{validationResults.flattenedErrors}">
-			<ul class="errors">
-				<f:for each="{validationResults.flattenedErrors}" as="errors" key="propertyPath">
-					<li>{propertyPath}
-						<ul>
-							<f:for each="{errors}" as="error">
-								<li>{error.code}: {error}</li>
-							</f:for>
-						</ul>
-					</li>
-				</f:for>
-			</ul>
-		</f:if>
-	</f:form.validationResults>
-
 	<f:form action="create" name="order" object="{order}">
 		Selected period: UID {order.bookedPeriod.uid}
 
@@ -29,6 +11,5 @@
 		<f:form.textfield type="number" name="amountOfPeople" />
 		<f:form.submit value="{f:translate(key: 'form.order.submit')}" />
 	</f:form>
-
 </f:section>
 </html>
