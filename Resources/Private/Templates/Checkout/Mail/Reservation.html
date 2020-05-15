@@ -1,0 +1,25 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment><!--
+The rendered content of this template will be used as ###RESERVATION### marker inside the reservation mail.
+
+Variables:
+order: Current order
+--></f:comment>
+<p>Please print out this mail or save the code<f:if condition="{order.reservations -> f:count()} > 1">s</f:if> on your phone.</p>
+
+<ul>
+	<li>Facility: {order.bookedPeriod.facility.name}</li>
+	<li>Time: <f:format.date>{order.bookedPeriod.date}</f:format.date> <f:format.date format="H:i">{order.bookedPeriod.begin}</f:format.date> - <f:format.date format="H:i">{order.bookedPeriod.end}</f:format.date></li>
+</ul>
+
+<f:for each="{order.reservations}" as="reservation">
+	<jw:qrCode reservation="{reservation}" />
+</f:for>
+
+<p>If you neither have a printer nor a phone you can write down the following code<f:if condition="{order.reservations -> f:count()} > 1">s</f:if> by hand and bring them to the event:</p>
+<ul>
+	<f:for each="{order.reservations}" as="reservation">
+		<li>{reservation.code}</li>
+	</f:for>
+</ul>
+</html>

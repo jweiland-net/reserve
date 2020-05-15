@@ -112,8 +112,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'trim',
-                // todo: validate e-mail address in FE (and BE)
+                'eval' => 'email',
             ],
         ],
         'reservations' => [

@@ -26,7 +26,6 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 /**
  * Controller to list and order reservable periods of a selected facility
@@ -94,6 +93,7 @@ class CheckoutController extends ActionController
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
             $this->checkoutService->confirm($order);
+            $this->view->assign('order', $order);
         } else {
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',

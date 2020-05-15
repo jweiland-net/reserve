@@ -17,18 +17,13 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
-use Endroid\QrCode\QrCode;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-
-// include QR code library
-@include 'phar://' . ExtensionManagementUtility::extPath('reserve') . 'Libraries/Dependencies.phar/vendor/autoload.php';
 
 class CheckoutService
 {
@@ -72,36 +67,54 @@ class CheckoutService
         return $success;
     }
 
-    protected function generateQrCodeForOrder(Order $order)
+    public function sendConfirmationMail(Order $order): bool
     {
-        foreach ($order->getReservations() as $reservation) {
-            $qrCode = new QrCode($reservation->getCode());
-            // todo: Add facility name and date to label
-            $qrCode->setLabel($reservation->getCode());
-            // ...
-        }
+        return $this->sendMailToCustomer(
+            $order,
+            $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
+            $this->replaceMarkerByRenderedTemplate(
+                '###ORDER_DETAILS###',
+                'Confirmation',
+                $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml(),
+                ['pageUid' => $GLOBALS['TSFE']->id, 'order' => $order]
+            )
+        );
     }
 
-    public function sendConfirmationMail(Order $order)
+    public function confirm(Order $order): bool
     {
-        /** @var StandaloneView $standaloneView */
-        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->assignMultiple([
-            'pageUid' => $GLOBALS['TSFE']->id,
-            'order' => $order
-        ]);
-        // todo: allow users to override this template
-        $standaloneView->setTemplatePathAndFilename('EXT:reserve/Resources/Private/Templates/Checkout/Mail/Confirmation.html');
+        $success = true;
+        $order->setActivated(true);
+        $this->sendReservationMail($order);
+        $this->persistenceManager->add($order);
+        $this->persistenceManager->persistAll();
+        return $success;
+    }
 
+    public function sendReservationMail(Order $order)
+    {
+        return $this->sendMailToCustomer(
+            $order,
+            $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
+            $this->replaceMarkerByRenderedTemplate(
+                '###RESERVATION###',
+                'Reservation',
+                $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
+                ['order' => $order]
+            )
+        );
+    }
+
+    protected function sendMailToCustomer(Order $order, string $subject, string $bodyHtml): bool
+    {
         /** @var MailMessage $mail */
         $mail = GeneralUtility::makeInstance(MailMessage::class);
         $mail
-            ->setSubject($order->getBookedPeriod()->getFacility()->getConfirmationMailSubject())
+            ->setSubject($subject)
             ->setTo([$order->getEmail()]);
-        if ('todo:' === 'add reply to to tca') {
-            $mail->setReplyTo('', '');
+        if ($order->getBookedPeriod()->getFacility()->getReplyToEmail()) {
+            $mail->setReplyTo([$order->getBookedPeriod()->getFacility()->getReplyToEmail() => $order->getBookedPeriod()->getFacility()->getReplyToName()]);
         }
-        $bodyHtml = str_replace('###ORDER_DETAILS###', $standaloneView->render(), $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml());
         if (method_exists($mail, 'addPart')) {
             // TYPO3 < 10 (Swift_Message)
             $mail->setBody($bodyHtml, 'text/html');
@@ -109,17 +122,27 @@ class CheckoutService
             // TYPO3 >= 10 (Symfony Mail)
             $mail->html($bodyHtml);
         }
-        $mail->send();
+        return $mail->send();
     }
 
-    public function confirm(Order $order): bool
-    {
-        $success = true;
-        $order->setActivated(true);
-        // todo: send QR codes via mail
-        // todo: display QR codes
-        $this->persistenceManager->add($order);
-        $this->persistenceManager->persistAll();
-        return $success;
+    /**
+     * @param string $marker content to replace e.g. ###MY_MARKER###
+     * @param string $template fluid template name
+     * @param string $content string which may contain $marker
+     * @param array $vars additional vars for the fluid template
+     * @return string
+     */
+    protected function replaceMarkerByRenderedTemplate(
+        string $marker,
+        string $template,
+        string $content,
+        array $vars = []
+    ): string {
+        /** @var StandaloneView $standaloneView */
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->assignMultiple($vars);
+        // todo: allow users to override this template
+        $standaloneView->setTemplatePathAndFilename('EXT:reserve/Resources/Private/Templates/Checkout/Mail/' . $template . '.html');
+        return str_replace($marker, $standaloneView->render(), $content);
     }
 }
