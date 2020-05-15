@@ -205,13 +205,15 @@ class Period extends AbstractEntity
         return time() >= $this->bookingBegin->getTimestamp();
     }
 
-    public function getReservations(): array
+    public function getReservations(bool $activeOnly = false): array
     {
         $reservations = [];
 
         foreach ($this->orders as $order) {
-            foreach ($order->getReservations() as $reservation) {
-                $reservations[] = $reservation;
+            if (!$activeOnly || $order->isActivated()) {
+                foreach ($order->getReservations() as $reservation) {
+                    $reservations[] = $reservation;
+                }
             }
         }
 

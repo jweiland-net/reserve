@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="Main">
 	<f:if condition="{periods}">
@@ -21,7 +21,7 @@
 					<td><f:format.date>{period.date}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
-					<td><!-- TODO: insert remaining participants -->{period.maxParticipants}</td>
+					<td>{jw:remainingParticipants(period: period)} of {period.maxParticipants}</td>
 					<td><f:link.action action="form" arguments="{period: period}">Order</f:link.action></td>
 				</tr>
 			</f:for>
