@@ -30,6 +30,9 @@
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
 			</trans-unit>
+			<trans-unit id="list.alerts.isBookingAllowed">
+			<source>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</source>
+			</trans-unit>
 			<trans-unit id="list.date">
 				<target>Date</target>
 			</trans-unit>

@@ -20,6 +20,7 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CheckoutUtility;
+use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -94,6 +95,7 @@ class CheckoutService
         $success = true;
         $order->setActivated(true);
         $this->sendReservationMail($order);
+        OrderSessionUtility::addConfirmedOrderToSession($order->getBookedPeriod()->getFacility()->getUid());
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
         return $success;

@@ -22,6 +22,7 @@ use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CheckoutService;
+use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -62,10 +63,15 @@ class CheckoutController extends ActionController
     public function listAction()
     {
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
+        $this->view->assign('isBookingAllowed', OrderSessionUtility::isUserAllowedToOrder((int)$this->settings['facility']));
     }
 
     public function formAction(Period $period)
     {
+        if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
+            // no need for a flashMessage because of {isBookingAllowed} inside the listAction fluid template
+            return $this->redirect('list');
+        }
         /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
         $order->setBookedPeriod($period);
@@ -76,7 +82,7 @@ class CheckoutController extends ActionController
     {
         if (!$order->_isNew()) {
             $this->addFlashMessage('This order already exists!','', AbstractMessage::ERROR);
-            $this->redirect('list');
+            return $this->redirect('list');
         }
         if ($this->checkoutService->checkout($order, $amountOfPeople)) {
             $this->checkoutService->sendConfirmationMail($order);
@@ -86,7 +92,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::ERROR
             );
-            $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
+            return $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
         }
     }
 
@@ -100,7 +106,7 @@ class CheckoutController extends ActionController
                     '',
                     AbstractMessage::INFO
                 );
-                $this->redirect('list');
+                return $this->redirect('list');
             } else {
                 $this->checkoutService->confirm($order);
                 $this->view->assign('order', $order);

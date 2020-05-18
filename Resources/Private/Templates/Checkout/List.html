@@ -5,6 +5,12 @@
 		<h2>{periods.0.facility.name}</h2>
 	</f:if>
 
+	<f:if condition="{isBookingAllowed} === false">
+		<div class="alert alert-info">
+			<f:translate key="list.alerts.isBookingAllowed" />
+		</div>
+	</f:if>
+
 	<table>
 		<thead>
 			<tr>

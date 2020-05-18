@@ -35,6 +35,10 @@
 				<source>Reservation already active</source>
 			</trans-unit>
 
+			<trans-unit id="list.alerts.isBookingAllowed">
+				<source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can reserve more tickets.
+				</source>
+			</trans-unit>
 			<trans-unit id="list.date">
 				<source>Date</source>
 			</trans-unit>
