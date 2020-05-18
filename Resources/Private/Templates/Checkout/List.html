@@ -8,11 +8,11 @@
 	<table>
 		<thead>
 			<tr>
-				<th>Date</th>
-				<th>Begin</th>
-				<th>End</th>
-				<th>Participants</th>
-				<th>Action</th>
+				<th><f:translate key="list.date" /></th>
+				<th><f:translate key="list.begin" /></th>
+				<th><f:translate key="list.end" /></th>
+				<th><f:translate key="list.participants" /></th>
+				<th><f:translate key="list.action" /></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,7 +22,9 @@
 					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
 					<td>{jw:remainingParticipants(period: period)} of {period.maxParticipants}</td>
-					<td><f:link.action action="form" arguments="{period: period}">Order</f:link.action></td>
+					<td><f:link.action action="form" arguments="{period: period}">
+						<f:translate key="list.choose_this_period" />
+					</f:link.action></td>
 				</tr>
 			</f:for>
 		</tbody>

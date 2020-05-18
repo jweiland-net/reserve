@@ -28,6 +28,25 @@
 			<trans-unit id="scan.status.active">
 				<source>Reservation already active</source>
 			</trans-unit>
+
+			<trans-unit id="list.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="list.begin">
+				<source>Begin</source>
+			</trans-unit>
+			<trans-unit id="list.end">
+				<source>End</source>
+			</trans-unit>
+			<trans-unit id="list.participants">
+				<source>Participants</source>
+			</trans-unit>
+			<trans-unit id="list.action">
+				<source>Action</source>
+			</trans-unit>
+			<trans-unit id="list.choose_this_period">
+				<source>Choose this period</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
