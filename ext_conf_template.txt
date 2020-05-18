@@ -1,0 +1,2 @@
+# cat=Frontend; type=int; label=Block multiple orders for x seconds: This may prevent primitive users from placing multiple orders.
+blockMultipleOrdersInSeconds = 3600
