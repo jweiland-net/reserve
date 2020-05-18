@@ -16,17 +16,30 @@
 			</tr>
 		</thead>
 		<tbody>
-			<f:for each="{periods}" as="period">
-				<tr>
-					<td><f:format.date>{period.date}</f:format.date></td>
-					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
-					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
-					<td>{jw:remainingParticipants(period: period)} of {period.maxParticipants}</td>
-					<td><f:link.action action="form" arguments="{period: period}">
-						<f:translate key="list.choose_this_period" />
-					</f:link.action></td>
-				</tr>
-			</f:for>
+			<f:widget.paginate as="paginatedPeriods" objects="{periods}" configuration="{itemsPerPage: 10}">
+				<f:for each="{paginatedPeriods}" as="period">
+					<tr>
+						<td><f:format.date>{period.date}</f:format.date></td>
+						<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
+						<td><f:format.date format="H:i">{period.end}</f:format.date></td>
+						<td>{jw:remainingParticipants(period: period)} of {period.maxParticipants}</td>
+						<td>
+							<f:if condition="{period.isBookable}">
+								<f:then>
+									<f:if condition="{jw:remainingParticipants(period: period)} > 0">
+										<f:link.action action="form" arguments="{period: period}">
+											<f:translate key="list.choose_this_period" />
+										</f:link.action>
+									</f:if>
+								</f:then>
+								<f:else>
+									<f:translate key="list.bookable_from" arguments="{0: '{f:format.date(date: period.bookingBegin, format: \'d.m.Y H:i\' )}'}" />
+								</f:else>
+							</f:if>
+						</td>
+					</tr>
+				</f:for>
+			</f:widget.paginate>
 		</tbody>
 	</table>
 </f:section>

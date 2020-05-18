@@ -35,4 +35,20 @@ class PeriodRepository extends Repository
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
     }
+
+    public function findUpcomingAndRunningByFacility(int $uid): QueryResultInterface
+    {
+        $todayMidnight = new \DateTime('today midnight');
+        $currentTime = new \DateTime('now');
+        $currentTime->setDate(1970, 1, 1);
+        $query = $this->findByFacility($uid)->getQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->getConstraint(),
+                $query->greaterThanOrEqual('date', $todayMidnight->getTimestamp()),
+                $query->greaterThanOrEqual('end', $currentTime->getTimestamp())
+            )
+        );
+        return $query->execute();
+    }
 }

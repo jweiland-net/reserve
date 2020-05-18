@@ -42,6 +42,9 @@
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
 			</trans-unit>
+			<trans-unit id="list.bookable_from">
+				<target>Buchbar ab %s</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

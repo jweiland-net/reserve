@@ -47,6 +47,9 @@
 			<trans-unit id="list.choose_this_period">
 				<source>Choose this period</source>
 			</trans-unit>
+			<trans-unit id="list.bookable_from">
+				<source>Bookable from %s</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

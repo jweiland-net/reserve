@@ -61,7 +61,7 @@ class CheckoutController extends ActionController
 
     public function listAction()
     {
-        $this->view->assign('periods', $this->periodRepository->findByFacility((int)$this->settings['facility']));
+        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
     }
 
     public function formAction(Period $period)
