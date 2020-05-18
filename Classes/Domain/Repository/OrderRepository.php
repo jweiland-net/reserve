@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use JWeiland\Reserve\Domain\Model\Order;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class OrderRepository extends Repository
@@ -24,6 +26,7 @@ class OrderRepository extends Repository
     public function findByEmailAndActivationCode(string $email, string $activationCode)
     {
         $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
             $query->logicalAnd(
                 $query->equals('email', $email),
@@ -31,5 +34,25 @@ class OrderRepository extends Repository
             )
         );
         return $query->execute()->getFirst();
+    }
+
+    /**
+     * @param int $olderThanInSeconds
+     * @return QueryResultInterface|Order[]
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findInactiveOrders(int $olderThanInSeconds): QueryResultInterface
+    {
+        $olderThan = new \DateTime();
+        $olderThan->modify('-' . $olderThanInSeconds . 'seconds');
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('activated', 0),
+                $query->lessThan('crdate', $olderThan->getTimestamp())
+            )
+        );
+        return $query->execute();
     }
 }

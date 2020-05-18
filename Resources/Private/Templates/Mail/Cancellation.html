@@ -1,0 +1,21 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment><!--
+The rendered content of this template will be used as cancellation mail for multiple reasons. Please make sure
+to check the reason using if conditions or a switch case!
+
+Variables:
+order: Current order
+reason: The reason why the cancellation mail will be sent. Possible Values:
+				inactive = The order has not been activated in a given period of time {expirationTime}
+				customer = The customer cancelled the order using the link in the confirmation mail
+expirationTime: Will only be set if reason equals "inactive" and contains the expiration time in seconds.
+--></f:comment>
+<p>Dear visitor,</p>
+<p></p>
+<f:if condition="{reason} === 'inactive'">
+	<p>your order for {order.bookedPeriod.facility} has been cancelled because you have not confirmed it within {expirationTime / 60} minutes.</p>
+</f:if>
+<f:if condition="{reason} === 'customer'">
+	<p>we cancelled your order for {order.bookedPeriod.facility}.</p>
+</f:if>
+</html>
