@@ -202,7 +202,17 @@ class Period extends AbstractEntity
 
     public function isBookable(): bool
     {
+        // todo: implement bookingEnd
         return time() >= $this->bookingBegin->getTimestamp();
+    }
+
+    /**
+     * @internal fluid only! Use isBookable() instead!
+     * @return bool
+     */
+    public function getIsBookable(): bool
+    {
+        return $this->isBookable();
     }
 
     public function getReservations(bool $activeOnly = false): array
