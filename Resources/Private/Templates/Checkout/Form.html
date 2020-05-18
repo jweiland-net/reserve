@@ -2,13 +2,14 @@
 <f:layout name="Default" />
 <f:section name="Main">
 	<f:form action="create" name="order" object="{order}">
-		Selected period: UID {order.bookedPeriod.uid}
+		<h2><f:translate key="form.order.header" arguments="{0: order.bookedPeriod.facility.name}" /></h2>
+		<p><f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date)}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:format.date(date: order.bookedPeriod.end, format: \'H:i\')}'}" /></p>
 
 		<f:form.hidden property="bookedPeriod" />
 		<label for="email"><f:translate key="form.order.email" /></label>
 		<f:form.textfield type="email" property="email" />
-		<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" /></label>
-		<f:form.textfield type="number" name="amountOfPeople" />
+		<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
+		<f:form.textfield type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
 		<f:form.submit value="{f:translate(key: 'form.order.submit')}" />
 	</f:form>
 </f:section>

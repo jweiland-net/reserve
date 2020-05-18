@@ -10,7 +10,7 @@
 				<source>Manage reservations and scan reservation codes</source>
 			</trans-unit>
 			<trans-unit id="form.order.submit">
-				<source>Order</source>
+				<source>Reserve</source>
 			</trans-unit>
 			<trans-unit id="form.order.email">
 				<source>E-Mail</source>
@@ -19,7 +19,13 @@
 				<source>Selected period</source>
 			</trans-unit>
 			<trans-unit id="form.order.amountOfPeople">
-				<source>Amount of people</source>
+				<source>Amount of people (maximum allowed: %d)</source>
+			</trans-unit>
+			<trans-unit id="form.order.header">
+				<source>Reserve a ticket for %s</source>
+			</trans-unit>
+			<trans-unit id="form.order.description">
+				<source>This reservation will be valid at %s between %s - %s</source>
 			</trans-unit>
 
 			<trans-unit id="scan.status.activated">

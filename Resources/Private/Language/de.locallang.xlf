@@ -19,7 +19,13 @@
 				<target>Gewählter Zeitblock</target>
 			</trans-unit>
 			<trans-unit id="form.order.amountOfPeople">
-				<source>Anzahl Personen</source>
+				<source>Anzahl Personen (maximal zulässig: %d)</source>
+			</trans-unit>
+			<trans-unit id="form.order.header">
+				<source>Reserviere ein Ticket für %s</source>
+			</trans-unit>
+			<trans-unit id="form.order.description">
+				<target>Die Reservierung wird gültig sein am %s zwischen %s - %s</target>
 			</trans-unit>
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
