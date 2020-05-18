@@ -20,6 +20,8 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CheckoutUtility;
+use JWeiland\Reserve\Utility\FluidUtility;
+use JWeiland\Reserve\Utility\MailUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -78,7 +80,7 @@ class CheckoutService
 
     public function sendConfirmationMail(Order $order): bool
     {
-        return $this->sendMailToCustomer(
+        return MailUtility::sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
             $this->replaceMarkerByRenderedTemplate(
@@ -103,7 +105,7 @@ class CheckoutService
 
     public function sendReservationMail(Order $order)
     {
-        return $this->sendMailToCustomer(
+        return MailUtility::sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
             $this->replaceMarkerByRenderedTemplate(
@@ -113,26 +115,6 @@ class CheckoutService
                 ['order' => $order]
             )
         );
-    }
-
-    protected function sendMailToCustomer(Order $order, string $subject, string $bodyHtml): bool
-    {
-        /** @var MailMessage $mail */
-        $mail = GeneralUtility::makeInstance(MailMessage::class);
-        $mail
-            ->setSubject($subject)
-            ->setTo([$order->getEmail()]);
-        if ($order->getBookedPeriod()->getFacility()->getReplyToEmail()) {
-            $mail->setReplyTo([$order->getBookedPeriod()->getFacility()->getReplyToEmail() => $order->getBookedPeriod()->getFacility()->getReplyToName()]);
-        }
-        if (method_exists($mail, 'addPart')) {
-            // TYPO3 < 10 (Swift_Message)
-            $mail->setBody($bodyHtml, 'text/html');
-        } else {
-            // TYPO3 >= 10 (Symfony Mail)
-            $mail->html($bodyHtml);
-        }
-        return $mail->send();
     }
 
     /**
@@ -150,30 +132,9 @@ class CheckoutService
     ): string {
         /** @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-            'reserve',
-            'Reservation'
-        );
-        // Mail templates can be overridden using the standard Extbase way plugin.tx_reserve.templateRootPaths ...
-        // $extbaseFrameworkConfiguration is filled only if the default TypoScript setup is included, oterhwise
-        // $extbaseFrameworkConfiguration['view']['templateRootPaths'] would be null and throw an exception so let's
-        // set some default values!
-        $standaloneView->setTemplateRootPaths(
-            $extbaseFrameworkConfiguration['view']['templateRootPaths']
-        ?? ['EXT:reserve/Resources/Private/Templates/']
-        );
-        $standaloneView->setLayoutRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
-            ?? ['EXT:reserve/Resources/Private/Layouts/']
-        );
-        $standaloneView->setPartialRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
-            ?? ['EXT:reserve/Resources/Private/Partials/']
-        );
-        $standaloneView->getRenderingContext()->setControllerName('Checkout');
+        FluidUtility::configureStandaloneViewForMailing($standaloneView);
         $standaloneView->assignMultiple($vars);
-        $standaloneView->setTemplate('Mail/' . $template);
+        $standaloneView->setTemplate($template);
         return str_replace($marker, $standaloneView->render(), $content);
     }
 }
