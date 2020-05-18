@@ -21,6 +21,27 @@
 			<trans-unit id="form.order.amountOfPeople">
 				<source>Anzahl Personen</source>
 			</trans-unit>
+			<trans-unit id="list.choose_this_period">
+				<target>Diesen Termin wählen</target>
+			</trans-unit>
+			<trans-unit id="list.date">
+				<target>Date</target>
+			</trans-unit>
+			<trans-unit id="list.begin">
+				<target>Beginn</target>
+			</trans-unit>
+			<trans-unit id="list.end">
+				<target>Ende</target>
+			</trans-unit>
+			<trans-unit id="list.participants">
+				<target>Teilnehmer</target>
+			</trans-unit>
+			<trans-unit id="list.action">
+				<target>Aktion</target>
+			</trans-unit>
+			<trans-unit id="list.choose_this_period">
+				<target>Diesen Termin wählen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
