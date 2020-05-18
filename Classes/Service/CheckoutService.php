@@ -22,6 +22,8 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -32,9 +34,15 @@ class CheckoutService
      */
     protected $persistenceManager;
 
-    public function __construct(PersistenceManager $persistenceManager)
+    /**
+     * @var ConfigurationManager
+     */
+    protected $configurationManager;
+
+    public function __construct(PersistenceManager $persistenceManager, ConfigurationManager $configurationManager)
     {
         $this->persistenceManager = $persistenceManager;
+        $this->configurationManager = $configurationManager;
     }
 
     /**
@@ -127,7 +135,7 @@ class CheckoutService
 
     /**
      * @param string $marker content to replace e.g. ###MY_MARKER###
-     * @param string $template fluid template name
+     * @param string $template fluid template name lowercase!
      * @param string $content string which may contain $marker
      * @param array $vars additional vars for the fluid template
      * @return string
@@ -140,9 +148,30 @@ class CheckoutService
     ): string {
         /** @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+            'reserve',
+            'Reservation'
+        );
+        // Mail templates can be overridden using the standard Extbase way plugin.tx_reserve.templateRootPaths ...
+        // $extbaseFrameworkConfiguration is filled only if the default TypoScript setup is included, oterhwise
+        // $extbaseFrameworkConfiguration['view']['templateRootPaths'] would be null and throw an exception so let's
+        // set some default values!
+        $standaloneView->setTemplateRootPaths(
+            $extbaseFrameworkConfiguration['view']['templateRootPaths']
+        ?? ['EXT:reserve/Resources/Private/Templates/']
+        );
+        $standaloneView->setLayoutRootPaths(
+            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
+            ?? ['EXT:reserve/Resources/Private/Layouts/']
+        );
+        $standaloneView->setPartialRootPaths(
+            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
+            ?? ['EXT:reserve/Resources/Private/Partials/']
+        );
+        $standaloneView->getRenderingContext()->setControllerName('Checkout');
         $standaloneView->assignMultiple($vars);
-        // todo: allow users to override this template
-        $standaloneView->setTemplatePathAndFilename('EXT:reserve/Resources/Private/Templates/Checkout/Mail/' . $template . '.html');
+        $standaloneView->setTemplate('Mail/' . $template);
         return str_replace($marker, $standaloneView->render(), $content);
     }
 }
