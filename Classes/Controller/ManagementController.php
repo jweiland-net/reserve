@@ -63,8 +63,6 @@ class ManagementController extends ActionController
     /**
      * @param \JWeiland\Reserve\Domain\Model\Reservation $reservation
      * @return mixed
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      */
     public function scanAction(Reservation $reservation)
     {
@@ -73,19 +71,31 @@ class ManagementController extends ActionController
         $view->setControllerContext($this->controllerContext);
         $view->setVariablesToRender(['status']);
 
-        $statusCode = '';
-
-        if (!$reservation->isUsed()) {
+        $error = 0;
+        if (!$reservation->getCustomerOrder()->isActivated()) {
+            $statusCode = 'orderNotActive';
+            $error = 1;
+        } elseif ($reservation->isUsed()) {
+            $statusCode = 'codeAlreadyScanned';
+            $error = 1;
+        } else {
             $reservation->setUsed(true);
             $this->reservationRepository->update($reservation);
-            $statusCode = 'activated';
-        } else {
-            $statusCode = 'active';
+
+            $statusCode = 'reservationActivated';
         }
 
-        $statusMessage = LocalizationUtility::translate('scan.status.' . $statusCode, 'reserve');
-
-        $view->assign('status', ['status' => ['code' => $statusCode, 'message' => $statusMessage]]);
+        $view->assign(
+            'status',
+            [
+                'status' => [
+                    'code' => $statusCode,
+                    'title' => LocalizationUtility::translate('scan.status.error.' . $error, 'reserve'),
+                    'message' => LocalizationUtility::translate('scan.status.' . $statusCode, 'reserve'),
+                    'error' => $error
+                ]
+            ]
+        );
 
         return $view->render();
     }

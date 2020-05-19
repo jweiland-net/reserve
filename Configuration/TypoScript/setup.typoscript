@@ -1,10 +1,12 @@
 page {
   includeCSSLibs {
     scanner = EXT:reserve/Resources/Public/Css/scanner.css
+    jQueryModal = EXT:reserve/Resources/Public/Css/jquery.modal.min.css
   }
   includeJSFooterlibs {
     jsQr = EXT:reserve/Resources/Public/JavaScript/jsQR.js
     jQuery = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
+    jQueryModal = EXT:reserve/Resources/Public/JavaScript/jquery.modal.min.js
     dataTables = EXT:reserve/Resources/Public/JavaScript/jquery.dataTables.min.js
     scanner = EXT:reserve/Resources/Public/JavaScript/scanner.js
   }
