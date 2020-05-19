@@ -29,7 +29,9 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'checkboxToggle',
+                'renderType' => (function() {
+                    return class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class) ? 'checkboxToggle' : null;
+                })(),
                 'items' => [
                     [
                         0 => '',

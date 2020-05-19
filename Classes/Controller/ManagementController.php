@@ -36,6 +36,10 @@ class ManagementController extends ActionController
      */
     private $reservationRepository;
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Repository\PeriodRepository $periodRepository
+     * @param \JWeiland\Reserve\Domain\Repository\ReservationRepository $reservationRepository
+     */
     public function __construct(PeriodRepository $periodRepository, ReservationRepository $reservationRepository)
     {
         $this->periodRepository = $periodRepository;
@@ -47,11 +51,21 @@ class ManagementController extends ActionController
         $this->view->assign('periods', $this->periodRepository->findByFacility((int)$this->settings['facility']));
     }
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Period $period
+     * @param string $code
+     */
     public function periodAction(Period $period, string $code = '')
     {
         $this->view->assign('period', $period);
     }
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Reservation $reservation
+     * @return mixed
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     */
     public function scanAction(Reservation $reservation)
     {
         $view = $this->objectManager->get(JsonView::class);
