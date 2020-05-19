@@ -19,6 +19,7 @@ namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\MailUtility;
@@ -75,6 +76,7 @@ class CheckoutService
             $this->persistenceManager->add($order);
             $this->persistenceManager->persistAll();
             OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession($order->getBookedPeriod()->getFacility()->getUid());
+            CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
         }
         return $success;
     }

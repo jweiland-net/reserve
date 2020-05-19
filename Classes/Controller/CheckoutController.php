@@ -22,6 +22,7 @@ use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CheckoutService;
+use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -69,6 +70,7 @@ class CheckoutController extends ActionController
     {
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
         $this->view->assign('isBookingAllowed', OrderSessionUtility::isUserAllowedToOrder((int)$this->settings['facility']));
+        CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
 
     /**
