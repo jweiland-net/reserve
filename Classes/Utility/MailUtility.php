@@ -26,7 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailUtility
 {
-    public static function sendMailToCustomer(Order $order, string $subject, string $bodyHtml): bool
+    public static function sendMailToCustomer(Order $order, string $subject, string $bodyHtml, \Closure $postProcess = null): bool
     {
         /** @var MailMessage $mail */
         $mail = GeneralUtility::makeInstance(MailMessage::class);
@@ -36,13 +36,23 @@ class MailUtility
         if ($order->getBookedPeriod()->getFacility()->getReplyToEmail()) {
             $mail->setReplyTo([$order->getBookedPeriod()->getFacility()->getReplyToEmail() => $order->getBookedPeriod()->getFacility()->getReplyToName()]);
         }
+
         if (method_exists($mail, 'addPart')) {
+            $isSymfonyEmail = false;
             // TYPO3 < 10 (Swift_Message)
             $mail->setBody($bodyHtml, 'text/html');
         } else {
+            $isSymfonyEmail = true;
             // TYPO3 >= 10 (Symfony Mail)
             $mail->html($bodyHtml);
         }
+
+        // closure hook to add your own stuff to the $mail
+        // use $isSymfonyEmail to check if current TYPO3 is running >= v10 with the new symfony email!
+        if ($postProcess) {
+            $postProcess($order, $subject, $bodyHtml, $mail, $isSymfonyEmail);
+        }
+
         return (bool)$mail->send();
     }
 }
