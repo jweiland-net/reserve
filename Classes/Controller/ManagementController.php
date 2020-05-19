@@ -53,9 +53,16 @@ class ManagementController extends ActionController
 
     /**
      * @param \JWeiland\Reserve\Domain\Model\Period $period
-     * @param string $code
      */
-    public function periodAction(Period $period, string $code = '')
+    public function scannerAction(Period $period)
+    {
+        $this->view->assign('period', $period);
+    }
+
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Period $period
+     */
+    public function periodAction(Period $period)
     {
         $this->view->assign('period', $period);
     }

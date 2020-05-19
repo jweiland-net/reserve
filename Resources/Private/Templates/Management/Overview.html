@@ -4,11 +4,11 @@
 	<table>
 		<thead>
 		<tr>
-			<th>Date</th>
-			<th>Begin</th>
-			<th>End</th>
-			<th>Participants</th>
-			<th>Action</th>
+			<th><f:translate key="list.date" /></th>
+			<th><f:translate key="list.begin" /></th>
+			<th><f:translate key="list.end" /></th>
+			<th><f:translate key="list.participants" /></th>
+			<th><f:translate key="list.action" /></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -17,8 +17,9 @@
 				<td><f:format.date>{period.date}</f:format.date></td>
 				<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 				<td><f:format.date format="H:i">{period.end}</f:format.date></td>
-				<td><!-- TODO: insert remaining participants -->{period.maxParticipants}</td>
-				<td><f:link.action action="period" arguments="{period: period}">Show</f:link.action></td>
+				<td>{period.remainingParticipants} of {period.maxParticipants}</td>
+				<td><f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action></td>
+				<td><f:link.action action="period" arguments="{period: period}">List</f:link.action></td>
 			</tr>
 		</f:for>
 		</tbody>
