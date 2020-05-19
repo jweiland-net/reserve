@@ -23,6 +23,7 @@ use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\MailUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
+use JWeiland\Reserve\Utility\QrCodeUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -113,7 +114,22 @@ class CheckoutService
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
                 ['order' => $order]
-            )
+            ),
+            function(Order $order, string $subject, string $bodyHtml, MailMessage $mailMessage, bool $isSymfonyEmail) {
+                foreach ($order->getReservations() as $reservation) {
+                    $qrCode = QrCodeUtility::generateQrCode($reservation);
+                    if ($isSymfonyEmail) {
+                        $mailMessage->attach($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType());
+                    } else {
+                        $cid = $mailMessage->embed(\Swift_Image::newInstance($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType()));
+                        $bodyHtml = str_replace('cid:' . $reservation->getCode(), $cid, $bodyHtml);
+                    }
+                }
+                if (!$isSymfonyEmail) {
+                    // apply modified cid's
+                    $mailMessage->setBody($bodyHtml, 'text/html');
+                }
+            }
         );
     }
 
