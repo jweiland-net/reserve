@@ -27,7 +27,6 @@ use JWeiland\Reserve\Utility\QrCodeUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -75,6 +74,7 @@ class CheckoutService
             }
             $this->persistenceManager->add($order);
             $this->persistenceManager->persistAll();
+            OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession($order->getBookedPeriod()->getFacility()->getUid());
         }
         return $success;
     }
@@ -98,7 +98,6 @@ class CheckoutService
         $success = true;
         $order->setActivated(true);
         $this->sendReservationMail($order);
-        OrderSessionUtility::addConfirmedOrderToSession($order->getBookedPeriod()->getFacility()->getUid());
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
         return $success;

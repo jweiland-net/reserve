@@ -37,7 +37,7 @@ class OrderSessionUtility
      */
     protected static $extConf;
 
-    public static function addConfirmedOrderToSession(int $facilityUid)
+    public static function blockNewOrdersForFacilityInCurrentSession(int $facilityUid)
     {
         // [<facility_uid> => <timestamp_of_confirmation>]
         $orders = [];
