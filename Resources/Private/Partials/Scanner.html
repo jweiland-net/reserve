@@ -2,29 +2,5 @@
 
 <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
 <canvas id="canvas" hidden></canvas>
-
-<table id="reservations" class="display" style="width:100%">
-	<thead>
-	<tr>
-		<th>Code</th>
-		<th>E-Mail</th>
-		<th>Actions</th>
-	</tr>
-	</thead>
-	<tbody>
-	<f:for each="{reservations}" as="reservation">
-		<tr data-code="{reservation.code}">
-			<td>
-				{reservation.code}
-			</td>
-			<td>
-				{reservation.customerOrder.email}
-			</td>
-			<td>
-				<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150">Scan</f:link.action>
-			</td>
-		</tr>
-	</f:for>
-	</tbody>
-</table>
+<f:render partial="Reservations" arguments="{reservations: reservations}" />
 </html>
