@@ -50,19 +50,31 @@ $(document).ready(function() {
 
     let activeScan = false;
     $('a[data-action="scan"]').on('click', function(event) {
+        event.preventDefault();
+
         if (activeScan) {
             return;
         }
-
         activeScan = true;
-        event.preventDefault();
+
         let request = $.ajax({
             url: this.href
         });
 
         request.done((response) => {
-            alert(response.status.message);
-        }).complete(() => {
+            let $modal = $('<div class="modal">');
+
+            let $title = $('<h3>').text(response.status.title);
+            let $message = $('<p>').text(response.status.message);
+
+            if (response.status.error) {
+                $modal.addClass('error');
+            }
+
+            $modal.append($title).append($message);
+
+            $modal.appendTo('body').modal();
+        }).always(() => {
             activeScan = false;
         });
     });
