@@ -43,6 +43,6 @@ class MailUtility
             // TYPO3 >= 10 (Symfony Mail)
             $mail->html($bodyHtml);
         }
-        return $mail->send();
+        return (bool)$mail->send();
     }
 }

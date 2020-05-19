@@ -53,6 +53,11 @@ class CheckoutController extends ActionController
      */
     protected $persistenceManager;
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Repository\PeriodRepository $periodRepository
+     * @param \JWeiland\Reserve\Domain\Repository\OrderRepository $orderRepository
+     * @param \JWeiland\Reserve\Service\CheckoutService $checkoutService
+     */
     public function __construct(PeriodRepository $periodRepository, OrderRepository $orderRepository, CheckoutService $checkoutService)
     {
         $this->periodRepository = $periodRepository;
@@ -66,6 +71,10 @@ class CheckoutController extends ActionController
         $this->view->assign('isBookingAllowed', OrderSessionUtility::isUserAllowedToOrder((int)$this->settings['facility']));
     }
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Period $period
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     */
     public function formAction(Period $period)
     {
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
@@ -78,6 +87,11 @@ class CheckoutController extends ActionController
         $this->view->assign('order', $order);
     }
 
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Order $order
+     * @param int $amountOfPeople
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     */
     public function createAction(Order $order, int $amountOfPeople)
     {
         if (!$order->_isNew()) {
@@ -96,6 +110,11 @@ class CheckoutController extends ActionController
         }
     }
 
+    /**
+     * @param string $email
+     * @param string $activationCode
+     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     */
     public function confirmAction(string $email, string $activationCode)
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
