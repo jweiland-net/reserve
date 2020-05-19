@@ -22,6 +22,9 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Facility extends AbstractEntity
 {
+    /**
+     * @var string
+     */
     protected $name = '';
 
     /**
@@ -29,16 +32,34 @@ class Facility extends AbstractEntity
      */
     protected $periods;
 
+    /**
+     * @var string
+     */
     protected $confirmationMailSubject = '';
 
+    /**
+     * @var string
+     */
     protected $replyToName = '';
 
+    /**
+     * @var string
+     */
     protected $replyToEmail = '';
 
+    /**
+     * @var string
+     */
     protected $confirmationMailHtml = '';
 
+    /**
+     * @var string
+     */
     protected $reservationMailSubject = '';
 
+    /**
+     * @var string
+     */
     protected $reservationMailHtml = '';
 
     public function __construct()

@@ -48,8 +48,14 @@ class Period extends AbstractEntity
      */
     protected $end;
 
+    /**
+     * @var int
+     */
     protected $maxParticipants = 0;
 
+    /**
+     * @var int
+     */
     protected $maxParticipantsPerOrder = 0;
 
     /**

@@ -29,8 +29,14 @@ class Reservation extends AbstractEntity
      */
     protected $customerOrder;
 
+    /**
+     * @var string
+     */
     protected $code = '';
 
+    /**
+     * @var bool
+     */
     protected $used = false;
 
     /**
