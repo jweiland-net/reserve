@@ -1,13 +1,12 @@
 $(document).ready(function() {
-    let reservations = $('#reservations').DataTable();
+    let reservations = $('#datatable').DataTable();
     let canvasElement = document.getElementById('canvas');
-
+    let activeScan = false;
 
     if (canvasElement) {
         initializeScanner();
     }
 
-    let activeScan = false;
     $('a[data-action="scan"]').on('click', function(event) {
         event.preventDefault();
 
