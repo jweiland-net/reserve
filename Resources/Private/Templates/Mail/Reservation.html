@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:comment><!--
 The rendered content of this template will be used as ###RESERVATION### marker inside the reservation mail.
 
@@ -13,7 +13,7 @@ order: Current order
 </ul>
 
 <f:for each="{order.reservations}" as="reservation">
-	<jw:qrCode reservation="{reservation}" />
+	<img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" />
 </f:for>
 
 <p>If you neither have a printer nor a phone you can write down the following code<f:if condition="{order.reservations -> f:count()} > 1">s</f:if> by hand and bring them to the event:</p>
