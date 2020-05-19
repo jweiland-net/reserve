@@ -50,12 +50,13 @@ $(document).ready(function() {
 
     let activeScan = false;
     $('a[data-action="scan"]').on('click', function(event) {
+        event.preventDefault();
+
         if (activeScan) {
             return;
         }
-
         activeScan = true;
-        event.preventDefault();
+
         let request = $.ajax({
             url: this.href
         });
