@@ -1,7 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="Main">
-	<table>
+	<table id="datatable">
 		<thead>
 		<tr>
 			<th><f:translate key="list.date" /></th>
@@ -18,8 +18,15 @@
 				<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 				<td><f:format.date format="H:i">{period.end}</f:format.date></td>
 				<td>{period.remainingParticipants} of {period.maxParticipants}</td>
-				<td><f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action></td>
-				<td><f:link.action action="period" arguments="{period: period}">List</f:link.action></td>
+				<f:if condition="{period.remainingParticipants} < {period.maxParticipants}">
+					<f:then>
+						<td><f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action></td>
+						<td><f:link.action action="period" arguments="{period: period}">List</f:link.action></td>
+					</f:then>
+					<f:else>
+						<td>-</td>
+					</f:else>
+				</f:if>
 			</tr>
 		</f:for>
 		</tbody>

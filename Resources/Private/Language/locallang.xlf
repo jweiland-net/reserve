@@ -69,6 +69,9 @@
 			<trans-unit id="list.bookable_from">
 				<source>Bookable from %s</source>
 			</trans-unit>
+			<trans-unit id="list.in_use">
+				<source>Is in use?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
