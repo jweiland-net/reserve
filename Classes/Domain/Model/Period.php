@@ -175,7 +175,7 @@ class Period extends AbstractEntity
 
     public function getRemainingParticipants(): int
     {
-        return $this->maxParticipants - count($this->getReservations(true));
+        return $this->maxParticipants - count($this->getReservations());
     }
 
     /**

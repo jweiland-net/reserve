@@ -19,6 +19,7 @@ namespace JWeiland\Reserve\Command;
 
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Service\CancellationService;
+use JWeiland\Reserve\Utility\CacheUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -50,8 +51,10 @@ class RemoveInactiveOrdersCommand extends Command
         $inactiveOrders->getQuery()->setLimit(30);
         $progressBar = new ProgressBar($output, $inactiveOrders->count());
         $progressBar->start();
+        $affectedFacilities = [];
         foreach ($inactiveOrders as $inactiveOrder) {
             try {
+                $affectedFacilities[$inactiveOrder->getBookedPeriod()->getFacility()->getUid()] = true;
                 $cancellationService->cancel(
                     $inactiveOrder,
                     CancellationService::REASON_INACTIVE,
@@ -66,6 +69,10 @@ class RemoveInactiveOrdersCommand extends Command
         }
         $progressBar->finish();
         $cancellationService->getPersistenceManager()->persistAll();
+        $output->writeln('Clear caches for affected facilities list views...');
+        foreach($affectedFacilities as $facilityUid => $_) {
+            CacheUtility::clearPageCachesForPagesWithCurrentFacility($facilityUid);
+        }
         return 0;
     }
 }
