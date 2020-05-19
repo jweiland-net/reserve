@@ -28,11 +28,20 @@
 				<source>This reservation will be valid at %s between %s - %s</source>
 			</trans-unit>
 
-			<trans-unit id="scan.status.activated">
-				<source>Reservation now active</source>
+			<trans-unit id="scan.status.orderNotActive">
+				<source>Order not active</source>
 			</trans-unit>
-			<trans-unit id="scan.status.active">
-				<source>Reservation already active</source>
+			<trans-unit id="scan.status.codeAlreadyScanned">
+				<source>Code was already scanned</source>
+			</trans-unit>
+			<trans-unit id="scan.status.reservationActivated">
+				<source>Reservation is now active</source>
+			</trans-unit>
+			<trans-unit id="scan.status.error.0">
+				<source>Success</source>
+			</trans-unit>
+			<trans-unit id="scan.status.error.1">
+				<source>Error</source>
 			</trans-unit>
 
 			<trans-unit id="list.alerts.isBookingAllowed">

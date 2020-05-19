@@ -8,21 +8,17 @@
 	<tr>
 		<th>Code</th>
 		<th>E-Mail</th>
-		<th>Scanned</th>
 		<th>Actions</th>
 	</tr>
 	</thead>
 	<tbody>
 	<f:for each="{reservations}" as="reservation">
-		<tr data-code="{reservation.code}" data-used="{reservation.used}">
+		<tr data-code="{reservation.code}">
 			<td>
 				{reservation.code}
 			</td>
 			<td>
 				{reservation.customerOrder.email}
-			</td>
-			<td>
-				{reservation.used}
 			</td>
 			<td>
 				<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150">Scan</f:link.action>
