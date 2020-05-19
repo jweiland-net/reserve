@@ -27,12 +27,19 @@ class Order extends AbstractEntity
 {
     /**
      * @var \JWeiland\Reserve\Domain\Model\Period
+     * @validate \JWeiland\Reserve\Domain\Validation\BookedPeriodValidator
      * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\BookedPeriodValidator")
      */
     protected $bookedPeriod;
 
+    /**
+     * @var string
+     */
     protected $activationCode = '';
 
+    /**
+     * @var bool
+     */
     protected $activated = false;
 
     /**
