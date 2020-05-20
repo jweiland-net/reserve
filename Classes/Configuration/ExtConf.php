@@ -52,10 +52,10 @@ class ExtConf implements SingletonInterface
     }
 
     /**
-     * @param int $blockMultipleOrdersInSeconds
+     * @param mixed $blockMultipleOrdersInSeconds
      */
-    public function setBlockMultipleOrdersInSeconds(int $blockMultipleOrdersInSeconds)
+    public function setBlockMultipleOrdersInSeconds($blockMultipleOrdersInSeconds)
     {
-        $this->blockMultipleOrdersInSeconds = $blockMultipleOrdersInSeconds;
+        $this->blockMultipleOrdersInSeconds = (int)$blockMultipleOrdersInSeconds;
     }
 }
