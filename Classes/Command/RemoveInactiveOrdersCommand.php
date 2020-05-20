@@ -25,6 +25,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -62,8 +63,10 @@ class RemoveInactiveOrdersCommand extends Command
                     true,
                     false
                 );
-            } catch (\Exception $exception) {
-                $output->writeln('Could not send mail for order ' . $inactiveOrder->getUid() . '!');
+            } catch (\Throwable $exception) {
+                $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');
+                // anyway make sure to remove the order!
+                $cancellationService->getPersistenceManager()->remove($inactiveOrder);
             }
             $progressBar->advance(1);
         }
