@@ -1,6 +1,7 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Management" />
 <f:section name="Main">
+	<h2><f:format.date>{period.date}</f:format.date> <f:format.date format="H:i">{period.begin}</f:format.date> - <f:format.date format="H:i">{period.end}</f:format.date></h2>
 	<f:render partial="Reservations" arguments="{reservations: period.reservations}" />
 </f:section>
 </html>
