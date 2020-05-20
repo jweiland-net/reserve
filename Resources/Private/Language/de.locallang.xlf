@@ -75,6 +75,9 @@
 			<trans-unit id="scanner_unavailable">
 				<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
 			</trans-unit>
+			<trans-unit id="of">
+				<source>von</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
