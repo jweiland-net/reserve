@@ -56,18 +56,21 @@ class CheckoutService
      *
      * @param Order $order
      * @param int $amountOfReservations
+     * @param int $pid
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $amountOfReservations): bool
+    public function checkout(Order $order, int $amountOfReservations, int $pid = 0): bool
     {
         $success = true;
         if ($amountOfReservations > $order->getBookedPeriod()->getMaxParticipantsPerOrder()) {
             $success = false;
         } else {
+            $order->setPid($pid);
             $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
             for ($i = 0; $i < $amountOfReservations; $i++) {
                 /** @var Reservation $reservation */
                 $reservation = GeneralUtility::makeInstance(Reservation::class);
+                $reservation->setPid($pid);
                 $reservation->setCustomerOrder($order);
                 $reservation->setCode(CheckoutUtility::generateCodeForReservation());
                 $order->getReservations()->attach($reservation);
