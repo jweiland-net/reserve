@@ -51,7 +51,7 @@
 				<target>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</target>
 			</trans-unit>
 			<trans-unit id="list.date">
-				<target>Date</target>
+				<target>Datum</target>
 			</trans-unit>
 			<trans-unit id="list.begin">
 				<target>Beginn</target>
