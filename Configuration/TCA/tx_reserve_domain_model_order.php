@@ -116,7 +116,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'email',
+                'eval' => 'email,required',
             ],
         ],
         'reservations' => [

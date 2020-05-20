@@ -97,7 +97,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'trim',
+                'eval' => 'trim,required',
             ],
         ],
         'used' => [
