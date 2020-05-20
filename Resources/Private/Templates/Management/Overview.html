@@ -17,8 +17,8 @@
 					<td><f:format.date>{period.date}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
-					<td>{period.remainingParticipants} of {period.maxParticipants}</td>
-					<f:if condition="{period.remainingParticipants} < {period.maxParticipants}">
+					<td>{period.activeReservations -> f:count()} of {period.maxParticipants}</td>
+					<f:if condition="{period.activeReservations}">
 						<f:then>
 							<td>
 								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action> <f:link.action action="period" arguments="{period: period}">List</f:link.action>
