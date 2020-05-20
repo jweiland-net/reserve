@@ -28,6 +28,7 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Controller to list and order reservable periods of a selected facility
@@ -69,7 +70,6 @@ class CheckoutController extends ActionController
     public function listAction()
     {
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
-        $this->view->assign('isBookingAllowed', OrderSessionUtility::isUserAllowedToOrder((int)$this->settings['facility']));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
 
@@ -80,7 +80,11 @@ class CheckoutController extends ActionController
     public function formAction(Period $period)
     {
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
-            // no need for a flashMessage because of {isBookingAllowed} inside the listAction fluid template
+            $this->addFlashMessage(
+                LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
+                '',
+                AbstractMessage::INFO
+            );
             return $this->redirect('list');
         }
         /** @var Order $order */
