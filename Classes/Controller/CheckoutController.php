@@ -104,7 +104,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage('You are not allowed to order right now.','', AbstractMessage::ERROR);
             return $this->redirect('list');
         }
-        if ($this->checkoutService->checkout($order, $amountOfPeople)) {
+        if ($this->checkoutService->checkout($order, $amountOfPeople, (int)$this->settings['orderPid'])) {
             $this->checkoutService->sendConfirmationMail($order);
         } else {
             $this->addFlashMessage(

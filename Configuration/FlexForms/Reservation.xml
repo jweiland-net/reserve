@@ -22,6 +22,20 @@
 							</config>
 						</TCEforms>
 					</settings.facility>
+					<settings.orderPid>
+						<TCEforms>
+							<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.orderPid</label>
+							<config>
+								<type>group</type>
+								<internal_type>db</internal_type>
+								<allowed>pages</allowed>
+								<maxitems>1</maxitems>
+								<minitems>1</minitems>
+								<size>1</size>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</settings.orderPid>
 				</el>
 			</ROOT>
 		</sDEF>
