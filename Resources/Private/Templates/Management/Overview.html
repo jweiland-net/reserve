@@ -1,34 +1,35 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Default" />
+<f:layout name="Management" />
 <f:section name="Main">
 	<table id="datatable">
 		<thead>
-		<tr>
-			<th><f:translate key="list.date" /></th>
-			<th><f:translate key="list.begin" /></th>
-			<th><f:translate key="list.end" /></th>
-			<th><f:translate key="list.participants" /></th>
-			<th><f:translate key="list.action" /></th>
-		</tr>
+			<tr>
+				<th><f:translate key="list.date" /></th>
+				<th><f:translate key="list.begin" /></th>
+				<th><f:translate key="list.end" /></th>
+				<th><f:translate key="list.participants" /></th>
+				<th><f:translate key="list.action" /></th>
+			</tr>
 		</thead>
 		<tbody>
-		<f:for each="{periods}" as="period">
-			<tr>
-				<td><f:format.date>{period.date}</f:format.date></td>
-				<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
-				<td><f:format.date format="H:i">{period.end}</f:format.date></td>
-				<td>{period.remainingParticipants} of {period.maxParticipants}</td>
-				<f:if condition="{period.remainingParticipants} < {period.maxParticipants}">
-					<f:then>
-						<td><f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action></td>
-						<td><f:link.action action="period" arguments="{period: period}">List</f:link.action></td>
-					</f:then>
-					<f:else>
-						<td>-</td>
-					</f:else>
-				</f:if>
-			</tr>
-		</f:for>
+			<f:for each="{periods}" as="period">
+				<tr>
+					<td><f:format.date>{period.date}</f:format.date></td>
+					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
+					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
+					<td>{period.activeReservations -> f:count()} of {period.maxParticipants}</td>
+					<f:if condition="{period.activeReservations}">
+						<f:then>
+							<td>
+								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action> <f:link.action action="period" arguments="{period: period}">List</f:link.action>
+							</td>
+						</f:then>
+						<f:else>
+							<td>-</td>
+						</f:else>
+					</f:if>
+				</tr>
+			</f:for>
 		</tbody>
 	</table>
 </f:section>
