@@ -27,11 +27,28 @@
 			<trans-unit id="form.order.description">
 				<target>Die Reservierung wird gültig sein am %s zwischen %s - %s</target>
 			</trans-unit>
+
+			<trans-unit id="scan.status.orderNotActive">
+				<source>Bestellung wurde nicht aktiviert.</source>
+			</trans-unit>
+			<trans-unit id="scan.status.codeAlreadyScanned">
+				<source>Code wurde bereits gescannt.</source>
+			</trans-unit>
+			<trans-unit id="scan.status.reservationActivated">
+				<source>Reservierung erfolgreich gescannt.</source>
+			</trans-unit>
+			<trans-unit id="scan.status.error.0">
+				<source>Erfolgreich</source>
+			</trans-unit>
+			<trans-unit id="scan.status.error.1">
+				<source>Fehler</source>
+			</trans-unit>
+
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
 			</trans-unit>
 			<trans-unit id="list.alerts.isBookingAllowed">
-			<source>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</source>
+				<source>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</source>
 			</trans-unit>
 			<trans-unit id="list.date">
 				<target>Date</target>
@@ -53,6 +70,10 @@
 			</trans-unit>
 			<trans-unit id="list.bookable_from">
 				<target>Buchbar ab %s</target>
+			</trans-unit>
+
+			<trans-unit id="scanner_unavailable">
+				<source>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</source>
 			</trans-unit>
 		</body>
 	</file>
