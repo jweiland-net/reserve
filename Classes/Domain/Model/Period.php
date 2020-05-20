@@ -123,8 +123,8 @@ class Period extends AbstractEntity
      */
     public function getBegin(): \DateTime
     {
-        if ($this->begin->timezone_type !== 3) {
-            $this->begin->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        if ($this->begin->getTimezone() !== 'UTC') {
+            $this->begin->setTimezone(new \DateTimeZone('UTC'));
         }
         return $this->begin;
     }
@@ -142,10 +142,9 @@ class Period extends AbstractEntity
      */
     public function getEnd(): \DateTime
     {
-        if ($this->end->timezone_type !== 3) {
-            $this->end->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        if ($this->end->getTimezone() !== 'UTC') {
+            $this->end->setTimezone(new \DateTimeZone('UTC'));
         }
-
         return $this->end;
     }
 
