@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    let reservations = $('#datatable').DataTable();
+    let config = JSON.parse(document.getElementById('reserve-conf').getAttribute('data-conf'));
+
+    let reservations = $('#datatable').DataTable(config.datatables);
     let canvasElement = document.getElementById('canvas');
     let activeScan = false;
 
