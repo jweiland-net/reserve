@@ -29,13 +29,13 @@
 			</trans-unit>
 
 			<trans-unit id="scan.status.orderNotActive">
-				<source>Order not active</source>
+				<source>Order was not activated</source>
 			</trans-unit>
 			<trans-unit id="scan.status.codeAlreadyScanned">
 				<source>Code was already scanned</source>
 			</trans-unit>
 			<trans-unit id="scan.status.reservationActivated">
-				<source>Reservation is now active</source>
+				<source>Reservation successfully scanned.</source>
 			</trans-unit>
 			<trans-unit id="scan.status.error.0">
 				<source>Success</source>
@@ -45,8 +45,7 @@
 			</trans-unit>
 
 			<trans-unit id="list.alerts.isBookingAllowed">
-				<source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can reserve more tickets.
-				</source>
+				<source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can reserve more tickets.</source>
 			</trans-unit>
 			<trans-unit id="list.date">
 				<source>Date</source>
@@ -73,9 +72,8 @@
 				<source>Is in use?</source>
 			</trans-unit>
 
-
 			<trans-unit id="scanner_unavailable">
-				<source>Unable to access video stream (please make sure you have a webcam enabled)</source>
+				<source>Unable to access video stream (please make sure you have a camera enabled)</source>
 			</trans-unit>
 		</body>
 	</file>

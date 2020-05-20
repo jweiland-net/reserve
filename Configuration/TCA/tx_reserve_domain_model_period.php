@@ -10,7 +10,7 @@ return [
         'label' => 'date',
         'label_alt' => 'begin,end',
         'label_alt_force' => true,
-        'sortby' => 'sorting',
+        'default_sortby' => 'date DESC, end DESC',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
