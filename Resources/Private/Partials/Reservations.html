@@ -5,9 +5,6 @@
 			<th>Code</th>
 			<th>E-Mail</th>
 			<f:if condition="{showAdditionalInformation}">
-				<th><f:translate key="list.in_use" /></th>
-			</f:if>
-			<f:if condition="{showAdditionalInformation}">
 				<th><f:translate key="list.action" /></th>
 			</f:if>
 		</tr>
@@ -22,14 +19,6 @@
 					<td>
 						{reservation.customerOrder.email}
 					</td>
-					<f:if condition="{showAdditionalInformation}">
-						<td>
-							<f:if condition="{reservation.used}">
-								<f:then>&#10003;</f:then>
-								<f:else>X</f:else>
-							</f:if>
-						</td>
-					</f:if>
 					<f:if condition="{showAdditionalInformation}">
 						<td>
 							<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150">Scan</f:link.action>
