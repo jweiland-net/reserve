@@ -86,6 +86,7 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 255,
+                'eval' => 'trim,required'
             ],
         ],
         'periods' => [
@@ -124,7 +125,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_subject',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim',
+                'eval' => 'trim,required',
                 'default' => 'Please confirm your reservation'
             ]
         ],
@@ -140,6 +141,7 @@ return [
 <p>###ORDER_DETAILS###</p>
 DEFAULT_CONFIRMATION
                 ,
+                'eval' => 'trim,required',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
@@ -149,7 +151,7 @@ DEFAULT_CONFIRMATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_subject',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim',
+                'eval' => 'trim,required',
                 'default' => 'Details of your reservation'
             ]
         ],
@@ -165,6 +167,7 @@ DEFAULT_CONFIRMATION
 <p>###RESERVATION###</p>
 DEFAULT_RESERVATION
                 ,
+                'eval' => 'trim,required',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]

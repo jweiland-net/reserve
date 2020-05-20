@@ -99,7 +99,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime,null',
+                'eval' => 'datetime,null,required',
             ],
         ],
         'date' => [
@@ -107,7 +107,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'date,null',
+                'eval' => 'date,null,required',
             ],
         ],
         'begin' => [
@@ -115,7 +115,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'time,null',
+                'eval' => 'time,null,required',
             ],
         ],
         'end' => [
@@ -123,7 +123,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
-                'eval' => 'time,null',
+                'eval' => 'time,null,required',
             ],
         ],
         'max_participants' => [
@@ -131,7 +131,10 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'num'
+                'eval' => 'num,required',
+                'range' => [
+                    'lower' => 1
+                ],
             ],
         ],
         'max_participants_per_order' => [
@@ -139,7 +142,10 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'num'
+                'eval' => 'num,required',
+                'range' => [
+                    'lower' => 1
+                ],
             ],
         ],
         'orders' => [
