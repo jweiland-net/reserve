@@ -75,6 +75,9 @@
 			<trans-unit id="scanner_unavailable">
 				<source>Unable to access video stream (please make sure you have a camera enabled)</source>
 			</trans-unit>
+			<trans-unit id="of">
+				<source>of</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
