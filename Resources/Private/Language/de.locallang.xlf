@@ -19,36 +19,36 @@
 				<target>Gewählter Zeitblock</target>
 			</trans-unit>
 			<trans-unit id="form.order.amountOfPeople">
-				<source>Anzahl Personen (maximal zulässig: %d)</source>
+				<target>Anzahl Personen (maximal zulässig: %d)</target>
 			</trans-unit>
 			<trans-unit id="form.order.header">
-				<source>Reserviere ein Ticket für %s</source>
+				<target>Reserviere ein Ticket für %s</target>
 			</trans-unit>
 			<trans-unit id="form.order.description">
 				<target>Die Reservierung wird gültig sein am %s zwischen %s - %s</target>
 			</trans-unit>
 
 			<trans-unit id="scan.status.orderNotActive">
-				<source>Bestellung wurde nicht aktiviert.</source>
+				<target>Bestellung wurde nicht aktiviert.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.codeAlreadyScanned">
-				<source>Code wurde bereits gescannt.</source>
+				<target>Code wurde bereits gescannt.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.reservationActivated">
-				<source>Reservierung erfolgreich gescannt.</source>
+				<target>Reservierung erfolgreich gescannt.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.error.0">
-				<source>Erfolgreich</source>
+				<target>Erfolgreich</target>
 			</trans-unit>
 			<trans-unit id="scan.status.error.1">
-				<source>Fehler</source>
+				<target>Fehler</target>
 			</trans-unit>
 
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
 			</trans-unit>
 			<trans-unit id="list.alerts.isBookingAllowed">
-				<source>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</source>
+				<target>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</target>
 			</trans-unit>
 			<trans-unit id="list.date">
 				<target>Date</target>
@@ -73,7 +73,7 @@
 			</trans-unit>
 
 			<trans-unit id="scanner_unavailable">
-				<source>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</source>
+				<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
 			</trans-unit>
 		</body>
 	</file>
