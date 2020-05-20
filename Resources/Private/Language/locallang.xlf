@@ -72,6 +72,11 @@
 			<trans-unit id="list.in_use">
 				<source>Is in use?</source>
 			</trans-unit>
+
+
+			<trans-unit id="scanner_unavailable">
+				<source>Unable to access video stream (please make sure you have a webcam enabled)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
