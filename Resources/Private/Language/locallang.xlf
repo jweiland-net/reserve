@@ -78,6 +78,33 @@
 			<trans-unit id="of">
 				<source>of</source>
 			</trans-unit>
+
+			<trans-unit id="mail.salutation">
+				<source>Dear visitor,</source>
+			</trans-unit>
+			<trans-unit id="mail.cancellation.inactive">
+				<source>your order for %s has been cancelled because you have not confirmed it within %d minutes.</source>
+			</trans-unit>
+			<trans-unit id="mail.cancellation.customer">
+				<source>we cancelled your order for %s.</source>
+			</trans-unit>
+
+			<trans-unit id="mail.confirmation.confirm_link_text">
+				<source>Confirm your reservation</source>
+			</trans-unit>
+			<trans-unit id="mail.facility">
+				<source>Facility</source>
+			</trans-unit>
+			<trans-unit id="mail.period">
+				<source>Period</source>
+			</trans-unit>
+
+			<trans-unit id="mail.reservation.print_notice">
+				<source>Please print out this mail or save the code(s) on your phone.</source>
+			</trans-unit>
+			<trans-unit id="mail.reservation.no_printer_notice">
+				<source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
