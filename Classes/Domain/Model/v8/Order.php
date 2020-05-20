@@ -18,7 +18,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Model\v8;
 
 /**
- * XCLASS Order for TYPO3 v8 because of validate annotation
+ * Order for TYPO3 v8 because of annotations
  * @internal
  */
 class Order extends \JWeiland\Reserve\Domain\Model\Order
@@ -34,4 +34,10 @@ class Order extends \JWeiland\Reserve\Domain\Model\Order
      * @validate EmailAddress
      */
     protected $email = '';
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
+     * @cascade remove
+     */
+    protected $reservations;
 }
