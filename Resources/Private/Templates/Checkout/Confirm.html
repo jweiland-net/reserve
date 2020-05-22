@@ -1,9 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="Main">
-	<p>Your reservation at {order.bookedPeriod.facility.name} has been confirmed successfully.</p>
-	<p>We sent you a second mail that contains your reservation code.</p>
-	<p>Please either print out this page, the second mail or show your mail at the entrance.</p>
+	<p><f:translate key="reservation.confirmed" arguments="{0: '{order.bookedPeriod.facility.name}'}" /></p>
+	<p><f:translate key="reservation.mail_with_code_sent" /></p>
+	<p><f:translate key="reservation.print_or_show_code" /></p>
 
 	<f:for each="{order.reservations}" as="reservation">
 		<jw:qrCode reservation="{reservation}" />

@@ -116,6 +116,15 @@
 			<trans-unit id="reservation.created">
 				<target>Vielen dank für Ihre Reservierung. Wir haben Ihnen eine E-Mail mit Bestätigungslink an Ihr Postfach gesendet.</target>
 			</trans-unit>
+			<trans-unit id="reservation.confirmed">
+				<target>Sie haben Ihre Reservierung für %s erfolgreich bestätigt.</target>
+			</trans-unit>
+			<trans-unit id="reservation.mail_with_code_sent">
+				<target>Wir haben Ihnen eine E-Mail mit Ihrem Reservierungscodes gesendet.</target>
+			</trans-unit>
+			<trans-unit id="reservation.print_or_show_code">
+				<target>Bitte drucken Sie sich den Code von dieser Seite oder der E-Mail aus. Alternativ können Sie die E-Mail mit dem Code am Eingang vorzeigen.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
