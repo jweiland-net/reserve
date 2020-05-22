@@ -54,6 +54,12 @@ class PeriodRepository extends Repository
                 )
             )
         );
+        $query->setOrderings(
+            [
+                'date' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+                'begin' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+            ]
+        );
         return $query->execute();
     }
 }
