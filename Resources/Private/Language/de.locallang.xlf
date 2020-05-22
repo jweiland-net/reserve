@@ -25,7 +25,7 @@
 				<target>Reserviere ein Ticket für %s</target>
 			</trans-unit>
 			<trans-unit id="form.order.description">
-				<target>Die Reservierung wird gültig sein am %s zwischen %s - %s</target>
+				<target>Diese Reservierung ist gültig für den %s zwischen %s - %s</target>
 			</trans-unit>
 
 			<trans-unit id="scan.status.orderNotActive">
@@ -111,6 +111,10 @@
 			</trans-unit>
 			<trans-unit id="date_format">
 				<target>d.m.Y</target>
+			</trans-unit>
+
+			<trans-unit id="reservation.created">
+				<target>Vielen dank für Ihre Reservierung. Wir haben Ihnen eine E-Mail mit Bestätigungslink an Ihr Postfach gesendet.</target>
 			</trans-unit>
 		</body>
 	</file>
