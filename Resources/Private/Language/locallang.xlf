@@ -116,6 +116,15 @@
 			<trans-unit id="reservation.created">
 				<source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
 			</trans-unit>
+			<trans-unit id="reservation.confirmed">
+				<source>Your reservation at %s has been confirmed successfully.</source>
+			</trans-unit>
+			<trans-unit id="reservation.mail_with_code_sent">
+				<source>We sent you a second mail that contains your reservation code.</source>
+			</trans-unit>
+			<trans-unit id="reservation.print_or_show_code">
+				<source>Please either print out this page, the second mail or show your mail at the entrance.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
