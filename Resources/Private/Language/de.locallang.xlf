@@ -32,10 +32,10 @@
 				<target>Bestellung wurde nicht aktiviert.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.codeAlreadyScanned">
-				<target>Code wurde bereits gescannt.</target>
+				<target>Code wurde bereits eingelöst.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.reservationActivated">
-				<target>Reservierung erfolgreich gescannt.</target>
+				<target>Reservierung erfolgreich eingelöst.</target>
 			</trans-unit>
 			<trans-unit id="scan.status.error.0">
 				<target>Erfolgreich</target>
