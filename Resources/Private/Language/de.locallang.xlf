@@ -59,8 +59,8 @@
 			<trans-unit id="list.end">
 				<target>Ende</target>
 			</trans-unit>
-			<trans-unit id="list.participants">
-				<target>Teilnehmer</target>
+			<trans-unit id="list.free_slots">
+				<target>Freie Plätze</target>
 			</trans-unit>
 			<trans-unit id="list.action">
 				<target>Aktion</target>
@@ -104,6 +104,13 @@
 			</trans-unit>
 			<trans-unit id="mail.reservation.no_printer_notice">
 				<target>Sollte weder ein Drucker, noch ein Smartphone zur Verfügung stehen, so können diese Codes manuell aufgeschrieben und vor Ort vorgezeigt werden:</target>
+			</trans-unit>
+
+			<trans-unit id="list">
+				<target>Liste</target>
+			</trans-unit>
+			<trans-unit id="date_format">
+				<target>d.m.Y</target>
 			</trans-unit>
 		</body>
 	</file>
