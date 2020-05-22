@@ -14,14 +14,14 @@
 		<tbody>
 			<f:for each="{periods}" as="period">
 				<tr>
-					<td><f:format.date>{period.date}</f:format.date></td>
+					<td><f:format.date format="{f:translate(key: 'format_date')}">{period.date}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
 					<td>{period.activeReservations -> f:count()} <f:translate key="of" /> {period.maxParticipants}</td>
 					<f:if condition="{period.activeReservations}">
 						<f:then>
 							<td>
-								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action> <f:link.action action="period" arguments="{period: period}">List</f:link.action>
+								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action>&nbsp;<f:link.action action="period" arguments="{period: period}"><f:translate key="list" /></f:link.action>
 							</td>
 						</f:then>
 						<f:else>

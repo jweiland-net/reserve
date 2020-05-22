@@ -9,7 +9,7 @@ defined('TYPO3_MODE') or die();
         'Checkout' => 'list,form,create,confirm'
     ],
     [
-        'Checkout' => 'form,create,confirm'
+        'Checkout' => 'list,form,create,confirm'
     ]
 );
 

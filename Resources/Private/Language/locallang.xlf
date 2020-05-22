@@ -56,8 +56,8 @@
 			<trans-unit id="list.end">
 				<source>End</source>
 			</trans-unit>
-			<trans-unit id="list.participants">
-				<source>Participants</source>
+			<trans-unit id="list.free_slots">
+				<source>Remaining slots</source>
 			</trans-unit>
 			<trans-unit id="list.action">
 				<source>Action</source>
@@ -104,6 +104,13 @@
 			</trans-unit>
 			<trans-unit id="mail.reservation.no_printer_notice">
 				<source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
+			</trans-unit>
+
+			<trans-unit id="list">
+				<source>List</source>
+			</trans-unit>
+			<trans-unit id="date_format">
+				<source>d-m-Y</source>
 			</trans-unit>
 		</body>
 	</file>

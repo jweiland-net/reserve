@@ -7,10 +7,14 @@
 
 		<f:form.hidden property="bookedPeriod" />
 		<label for="email"><f:translate key="form.order.email" /></label>
-		<f:form.textfield type="email" property="email" />
+		<f:form.textfield id="email" type="email" property="email" />
 		<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
-		<f:form.textfield type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
-		<f:form.submit value="{f:translate(key: 'form.order.submit')}" />
+		<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
+		<div class="powermail_fieldwrap powermail_fieldwrap_type_submit">
+			<div>
+				<f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}" />
+			</div>
+		</div>
 	</f:form>
 </f:section>
 </html>
