@@ -115,6 +115,9 @@
 			<trans-unit id="date_format">
 				<target>d.m.Y</target>
 			</trans-unit>
+			<trans-unit id="redeem">
+				<target>Einlösen</target>
+			</trans-unit>
 
 			<trans-unit id="reservation.created">
 				<target>Vielen dank für Ihre Reservierung. Wir haben Ihnen eine E-Mail mit Bestätigungslink an Ihr Postfach gesendet.</target>
