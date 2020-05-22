@@ -14,7 +14,7 @@
 		<tbody>
 			<f:for each="{periods}" as="period">
 				<tr>
-					<td><f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date></td>
+					<td data-sort="{period.date.timestamp}"><f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
 					<td><f:format.date format="H:i">{period.end}</f:format.date></td>
 					<td>{period.activeReservations -> f:count()} <f:translate key="of" /> {period.maxParticipants}</td>
