@@ -62,6 +62,9 @@
 			<trans-unit id="list.free_slots">
 				<target>Freie Plätze</target>
 			</trans-unit>
+			<trans-unit id="list.participants">
+				<target>Teilnehmer</target>
+			</trans-unit>
 			<trans-unit id="list.action">
 				<target>Aktion</target>
 			</trans-unit>

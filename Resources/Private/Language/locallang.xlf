@@ -59,6 +59,9 @@
 			<trans-unit id="list.free_slots">
 				<source>Remaining slots</source>
 			</trans-unit>
+			<trans-unit id="list.participants">
+				<source>Participants</source>
+			</trans-unit>
 			<trans-unit id="list.action">
 				<source>Action</source>
 			</trans-unit>
