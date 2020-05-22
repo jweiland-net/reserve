@@ -79,7 +79,10 @@ $(document).ready(function() {
                     drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#3BFF58');
                     reservations.search(code.data).draw();
                     let $scan = $('tr[data-code="'+ code.data + '"]').find('a[data-action="scan"]');
-                    $scan.trigger('click');
+
+                    if ($scan.length) {
+                        $scan.trigger('click');
+                    }
                 }
             } else {
                 loadingMessage.innerText = '⌛ Loading video...';
