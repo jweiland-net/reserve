@@ -19,6 +19,7 @@ namespace JWeiland\Reserve\Domain\Model;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class Period extends AbstractEntity
 {
@@ -243,5 +244,16 @@ class Period extends AbstractEntity
     public function getActiveReservations(): array
     {
         return $this->getReservations(true);
+    }
+
+    public function getActiveReservationsOrderedByCode(): array
+    {
+        $reservations = $this->getActiveReservations();
+
+        usort($reservations, static function ($a, $b) {
+            return strcmp($a->getCode(), $b->getCode());
+        });
+
+        return $reservations;
     }
 }
