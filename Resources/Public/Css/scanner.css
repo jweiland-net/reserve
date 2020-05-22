@@ -2,3 +2,16 @@
   background-color: #DD1010;
   color: #FFFFFF;
 }
+
+.dataTables_paginate {
+  float: right;
+  display: inline-block;
+}
+
+.dataTables_paginate * {
+  padding-left: 0.5rem;
+}
+
+.dataTables_info {
+  display: inline-block;
+}
