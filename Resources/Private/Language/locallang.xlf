@@ -115,6 +115,9 @@
 			<trans-unit id="date_format">
 				<source>d-m-Y</source>
 			</trans-unit>
+			<trans-unit id="redeem">
+				<source>Redeem</source>
+			</trans-unit>
 
 			<trans-unit id="reservation.created">
 				<source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
