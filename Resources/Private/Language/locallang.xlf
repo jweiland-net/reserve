@@ -131,6 +131,10 @@
 			<trans-unit id="reservation.print_or_show_code">
 				<source>Please either print out this page, the second mail or show your mail at the entrance.</source>
 			</trans-unit>
+
+			<trans-unit id="loading_video">
+				<source>Loading video..</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

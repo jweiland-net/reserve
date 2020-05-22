@@ -57,6 +57,9 @@ class ManagementController extends ActionController
                 'language' => [
                     'url' => file_exists($dataTablesLanguageFile) ? '/' . $dataTablesLanguageFile : ''
                 ]
+            ],
+            'language' => [
+                'loading_video' => LocalizationUtility::translate('loading_video', 'reserve')
             ]
         ]);
     }

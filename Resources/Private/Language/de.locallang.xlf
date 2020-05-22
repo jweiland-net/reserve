@@ -131,6 +131,10 @@
 			<trans-unit id="reservation.print_or_show_code">
 				<target>Bitte drucken Sie sich den Code von dieser Seite oder der E-Mail aus. Alternativ können Sie die E-Mail mit dem Code am Eingang vorzeigen.</target>
 			</trans-unit>
+
+			<trans-unit id="loading_video">
+				<target>Video wird geladen..</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
