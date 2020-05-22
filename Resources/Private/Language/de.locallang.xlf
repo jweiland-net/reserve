@@ -76,7 +76,7 @@
 				<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
 			</trans-unit>
 			<trans-unit id="of">
-				<source>von</source>
+				<target>von</target>
 			</trans-unit>
 
 			<trans-unit id="mail.salutation">
