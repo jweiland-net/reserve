@@ -85,7 +85,7 @@ $(document).ready(function() {
                     }
                 }
             } else {
-                loadingMessage.innerText = '⌛ Loading video...';
+                loadingMessage.innerText = '⌛ ' + config.language.loading_video;
             }
             requestAnimationFrame(tick);
         }
