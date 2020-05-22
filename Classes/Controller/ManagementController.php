@@ -21,6 +21,7 @@ use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -49,12 +50,12 @@ class ManagementController extends ActionController
 
     protected function initializeView(ViewInterface $view)
     {
-        $dataTablesLanguageFile = '/typo3conf/ext/reserve/Resources/Public/JavaScript/datatables/' . $GLOBALS['TSFE']->sys_language_isocode . '.json';
+        $dataTablesLanguageFile = ExtensionManagementUtility::siteRelPath('reserve') . 'Resources/Public/JavaScript/datatables/' . $GLOBALS['TSFE']->sys_language_isocode . '.json';
 
         $view->assign('jsConf', [
             'datatables' => [
                 'language' => [
-                    'url' => file_exists($dataTablesLanguageFile) ? $dataTablesLanguageFile : ''
+                    'url' => file_exists($dataTablesLanguageFile) ? '/' . $dataTablesLanguageFile : ''
                 ]
             ]
         ]);
