@@ -65,7 +65,8 @@ class ManagementController extends ActionController
                         'title' => LocalizationUtility::translate('scan.status.error.1', 'reserve'),
                         'message' => LocalizationUtility::translate('code_not_found', 'reserve')
                     ]
-                ]
+                ],
+                'close' => LocalizationUtility::translate('close', 'reserve')
             ]
         ]);
     }

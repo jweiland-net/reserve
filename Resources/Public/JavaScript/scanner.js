@@ -22,10 +22,13 @@ $(document).ready(function() {
 
         let $title = $('<h3>').text(title);
         let $message = $('<p>').text(message);
+        let $close = $('<button>').css('float', 'right').width(200).height(40).text('close').on('click', () => {
+            $.modal.close();
+        });
 
         $modal.addClass(classes);
 
-        $modal.append($title).append($message);
+        $modal.append($title).append($message).append($close);
 
         $modal.appendTo('body').modal();
     }
