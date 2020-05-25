@@ -4,10 +4,17 @@ $(document).ready(function() {
     let reservations = $('#datatable').DataTable({...config.datatables, ...{"lengthChange": false}});
     let canvasElement = document.getElementById('canvas');
     let activeScan = false;
+    let video = null;
 
     if (canvasElement) {
-        initializeScanner();
+        video = document.createElement('video');
+        initializeScanner(video);
     }
+
+    $('body').on($.modal.BEFORE_CLOSE, function() {
+        activeScan = false;
+        video.play();
+    });
 
     function createModal(title, message, classes = '')
     {
@@ -22,10 +29,6 @@ $(document).ready(function() {
 
         $modal.appendTo('body').modal();
     }
-
-    $('body').on($.modal.BEFORE_CLOSE, function() {
-        activeScan = false;
-    });
 
     $('a[data-action="scan"]').on('click', function(event) {
         event.preventDefault();
@@ -53,10 +56,12 @@ $(document).ready(function() {
         });
     });
 
-    function initializeScanner() {
-        let video = document.createElement('video');
+    function initializeScanner(video) {
         let canvas = canvasElement.getContext('2d');
         let loadingMessage = document.getElementById('loadingMessage');
+
+        let startTime = 0;
+        let codeInImage = null;
 
         function drawLine(begin, end, color) {
             canvas.beginPath();
@@ -74,14 +79,12 @@ $(document).ready(function() {
             requestAnimationFrame(tick);
         });
 
-        let start = null;
-        console.log(start);
         function tick(timestamp) {
-            if (!start) {
-                start = timestamp;
+            if (!startTime) {
+                startTime = timestamp;
             }
 
-            let delta = timestamp - start;
+            let delta = timestamp - startTime;
 
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
                 loadingMessage.hidden = true;
@@ -91,19 +94,25 @@ $(document).ready(function() {
                 canvasElement.width = video.videoWidth;
                 canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
-                if (delta > 1000) {
-                    start = timestamp;
+                if (codeInImage) {
+                    drawLine(codeInImage.location.topLeftCorner, codeInImage.location.topRightCorner, '#3BFF58');
+                    drawLine(codeInImage.location.topRightCorner, codeInImage.location.bottomRightCorner, '#3BFF58');
+                    drawLine(codeInImage.location.bottomRightCorner, codeInImage.location.bottomLeftCorner, '#3BFF58');
+                    drawLine(codeInImage.location.bottomLeftCorner, codeInImage.location.topLeftCorner, '#3BFF58');
+                }
+
+                if (!video.paused && delta > 500) {
+                    startTime = timestamp;
                     let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-                    let code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    codeInImage = jsQR(imageData.data, imageData.width, imageData.height, {
                         inversionAttempts: 'dontInvert',
                     });
-                    if (code) {
-                        drawLine(code.location.topLeftCorner, code.location.topRightCorner, '#3BFF58');
-                        drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#3BFF58');
-                        drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#3BFF58');
-                        drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#3BFF58');
-                        reservations.search(code.data).draw();
-                        let $scan = $('tr[data-code="'+ code.data + '"]').find('a[data-action="scan"]');
+                    if (codeInImage) {
+                        video.pause();
+
+                        reservations.search(codeInImage.data).draw();
+
+                        let $scan = $('tr[data-code="'+ codeInImage.data + '"]').find('a[data-action="scan"]');
 
                         if ($scan.length) {
                             $scan.trigger('click');
