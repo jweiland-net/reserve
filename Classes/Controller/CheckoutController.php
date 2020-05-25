@@ -108,7 +108,7 @@ class CheckoutController extends ActionController
             $this->checkoutService->sendConfirmationMail($order);
         } else {
             $this->addFlashMessage(
-                'Could not create an order for your selected amount of people',
+                LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
                 '',
                 AbstractMessage::ERROR
             );
