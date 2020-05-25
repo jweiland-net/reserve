@@ -84,6 +84,17 @@ $(document).ready(function() {
 
                     if ($scan.length) {
                         $scan.trigger('click');
+                    } else {
+                        let $modal = $('<div class="modal">');
+
+                        let $title = $('<h3>').text(config.language.status.code_not_found.title);
+                        let $message = $('<p>').text(config.language.status.code_not_found.message);
+
+                        $modal.addClass('error');
+
+                        $modal.append($title).append($message);
+
+                        $modal.appendTo('body').modal();
                     }
                 }
             } else {
