@@ -1,7 +1,10 @@
 $(document).ready(function() {
     let config = JSON.parse(document.getElementById('reserve-conf').getAttribute('data-conf'));
 
-    let reservations = $('#datatable').DataTable({...config.datatables, ...{"lengthChange": false}});
+    let reservations = $('#datatable').DataTable({
+        ...config.datatables,
+        ...{"lengthChange": false}
+    });
     let canvasElement = document.getElementById('canvas');
     let activeScan = false;
     let video = null;

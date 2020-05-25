@@ -19,7 +19,7 @@
 				<source>Selected period</source>
 			</trans-unit>
 			<trans-unit id="form.order.amountOfPeople">
-				<source>Amount of people (maximum allowed: %d)</source>
+				<source>Amount of people (max. %d)</source>
 			</trans-unit>
 			<trans-unit id="form.order.header">
 				<source>Reserve a ticket for %s</source>

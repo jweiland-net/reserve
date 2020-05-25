@@ -19,7 +19,7 @@
 				<target>Gewählter Zeitblock</target>
 			</trans-unit>
 			<trans-unit id="form.order.amountOfPeople">
-				<target>Anzahl Personen (maximal zulässig: %d)</target>
+				<target>Anzahl Personen (max. %d)</target>
 			</trans-unit>
 			<trans-unit id="form.order.header">
 				<target>Reserviere ein Ticket für %s</target>
