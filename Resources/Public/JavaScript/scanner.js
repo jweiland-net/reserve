@@ -74,7 +74,15 @@ $(document).ready(function() {
             requestAnimationFrame(tick);
         });
 
-        function tick() {
+        let start = null;
+        console.log(start);
+        function tick(timestamp) {
+            if (!start) {
+                start = timestamp;
+            }
+
+            let delta = timestamp - start;
+
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
                 loadingMessage.hidden = true;
                 canvasElement.hidden = false;
@@ -82,31 +90,36 @@ $(document).ready(function() {
                 canvasElement.height = video.videoHeight;
                 canvasElement.width = video.videoWidth;
                 canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-                let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-                let code = jsQR(imageData.data, imageData.width, imageData.height, {
-                    inversionAttempts: 'dontInvert',
-                });
-                if (code) {
-                    drawLine(code.location.topLeftCorner, code.location.topRightCorner, '#3BFF58');
-                    drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#3BFF58');
-                    drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#3BFF58');
-                    drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#3BFF58');
-                    reservations.search(code.data).draw();
-                    let $scan = $('tr[data-code="'+ code.data + '"]').find('a[data-action="scan"]');
 
-                    if ($scan.length) {
-                        $scan.trigger('click');
-                    } else {
-                        createModal(
-                            config.language.status.code_not_found.title,
-                            config.language.status.code_not_found.message,
-                            'error'
-                        );
+                if (delta > 1000) {
+                    start = timestamp;
+                    let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                    let code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts: 'dontInvert',
+                    });
+                    if (code) {
+                        drawLine(code.location.topLeftCorner, code.location.topRightCorner, '#3BFF58');
+                        drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#3BFF58');
+                        drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#3BFF58');
+                        drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#3BFF58');
+                        reservations.search(code.data).draw();
+                        let $scan = $('tr[data-code="'+ code.data + '"]').find('a[data-action="scan"]');
+
+                        if ($scan.length) {
+                            $scan.trigger('click');
+                        } else {
+                            createModal(
+                                config.language.status.code_not_found.title,
+                                config.language.status.code_not_found.message,
+                                'error'
+                            );
+                        }
                     }
                 }
             } else {
                 loadingMessage.innerText = '⌛ ' + config.language.loading_video;
             }
+
             requestAnimationFrame(tick);
         }
     }
