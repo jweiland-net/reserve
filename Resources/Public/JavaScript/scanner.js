@@ -9,6 +9,10 @@ $(document).ready(function() {
         initializeScanner();
     }
 
+    $('body').on($.modal.BEFORE_CLOSE, function() {
+        activeScan = false;
+    });
+
     $('a[data-action="scan"]').on('click', function(event) {
         event.preventDefault();
 
@@ -34,8 +38,6 @@ $(document).ready(function() {
             $modal.append($title).append($message);
 
             $modal.appendTo('body').modal();
-        }).always(() => {
-            activeScan = false;
         });
     });
 
