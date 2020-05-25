@@ -1,12 +1,26 @@
 $(document).ready(function() {
     let config = JSON.parse(document.getElementById('reserve-conf').getAttribute('data-conf'));
 
-    let reservations = $('#datatable').DataTable(config.datatables);
+    let reservations = $('#datatable').DataTable({...config.datatables, ...{"lengthChange": false}});
     let canvasElement = document.getElementById('canvas');
     let activeScan = false;
 
     if (canvasElement) {
         initializeScanner();
+    }
+
+    function createModal(title, message, classes = '')
+    {
+        let $modal = $('<div class="modal">');
+
+        let $title = $('<h3>').text(title);
+        let $message = $('<p>').text(message);
+
+        $modal.addClass(classes);
+
+        $modal.append($title).append($message);
+
+        $modal.appendTo('body').modal();
     }
 
     $('body').on($.modal.BEFORE_CLOSE, function() {
@@ -26,18 +40,16 @@ $(document).ready(function() {
         });
 
         request.done((response) => {
-            let $modal = $('<div class="modal">');
-
-            let $title = $('<h3>').text(response.status.title);
-            let $message = $('<p>').text(response.status.message);
+            let classes = ''
 
             if (response.status.error) {
-                $modal.addClass('error');
+                classes += 'error';
             }
-
-            $modal.append($title).append($message);
-
-            $modal.appendTo('body').modal();
+            createModal(
+                response.status.title,
+                response.status.message,
+                classes
+            );
         });
     });
 
@@ -85,16 +97,11 @@ $(document).ready(function() {
                     if ($scan.length) {
                         $scan.trigger('click');
                     } else {
-                        let $modal = $('<div class="modal">');
-
-                        let $title = $('<h3>').text(config.language.status.code_not_found.title);
-                        let $message = $('<p>').text(config.language.status.code_not_found.message);
-
-                        $modal.addClass('error');
-
-                        $modal.append($title).append($message);
-
-                        $modal.appendTo('body').modal();
+                        createModal(
+                            config.language.status.code_not_found.title,
+                            config.language.status.code_not_found.message,
+                            'error'
+                        );
                     }
                 }
             } else {
