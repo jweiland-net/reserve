@@ -90,8 +90,10 @@ $(document).ready(function() {
                 loadingMessage.hidden = true;
                 canvasElement.hidden = false;
 
-                canvasElement.height = video.videoHeight;
-                canvasElement.width = video.videoWidth;
+                let size = video.videoHeight > video.videoWidth ? video.videoWidth : video.videoHeight;
+
+                canvasElement.height = size;
+                canvasElement.width = size;
                 canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
 
                 if (codeInImage) {
