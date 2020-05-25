@@ -59,7 +59,13 @@ class ManagementController extends ActionController
                 ]
             ],
             'language' => [
-                'loading_video' => LocalizationUtility::translate('loading_video', 'reserve')
+                'loading_video' => LocalizationUtility::translate('loading_video', 'reserve'),
+                'status' => [
+                    'code_not_found' => [
+                        'title' => LocalizationUtility::translate('scan.status.error.1', 'reserve'),
+                        'message' => LocalizationUtility::translate('code_not_found', 'reserve')
+                    ]
+                ]
             ]
         ]);
     }

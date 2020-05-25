@@ -135,6 +135,9 @@
 			<trans-unit id="loading_video">
 				<target>Video wird geladen..</target>
 			</trans-unit>
+			<trans-unit id="code_not_found">
+				<target>Code wurde nicht gefunden!</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
