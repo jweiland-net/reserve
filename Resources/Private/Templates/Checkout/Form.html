@@ -12,7 +12,7 @@
 		</div>
 		<div class="powermail_fieldwrap">
 			<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
-			<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
+			<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{min: 1, max: order.bookedPeriod.maxParticipantsPerOrder}" />
 		</div>
 		<div class="powermail_fieldwrap powermail_fieldwrap_type_submit">
 			<div>
