@@ -62,7 +62,10 @@ class CheckoutService
     public function checkout(Order $order, int $amountOfReservations, int $pid = 0): bool
     {
         $success = true;
-        if ($amountOfReservations > $order->getBookedPeriod()->getMaxParticipantsPerOrder()) {
+        if (
+            !$amountOfReservations
+            || $amountOfReservations > $order->getBookedPeriod()->getMaxParticipantsPerOrder()
+        ) {
             $success = false;
         } else {
             $order->setPid($pid);
