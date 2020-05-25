@@ -1,32 +1,34 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<table id="{f:if(condition: '{datatable}', then: 'datatable')}">
-	<thead>
-		<tr>
-			<th>Code</th>
-			<th>E-Mail</th>
-			<f:if condition="{showAdditionalInformation}">
-				<th><f:translate key="list.action" /></th>
-			</f:if>
-		</tr>
-	</thead>
-	<tbody>
-		<f:for each="{reservations}" as="reservation">
-			<f:if condition="{reservation.customerOrder.activated}">
-				<tr data-code="{reservation.code}">
-					<td>
-						{reservation.code}
-					</td>
-					<td>
-						{reservation.customerOrder.email}
-					</td>
-					<f:if condition="{showAdditionalInformation}">
+<div class="tablescrolling">
+	<table class="table table-responsive" id="{f:if(condition: '{datatable}', then: 'datatable')}">
+		<thead>
+			<tr>
+				<th>Code</th>
+				<th>E-Mail</th>
+				<f:if condition="{showAdditionalInformation}">
+					<th><f:translate key="list.action" /></th>
+				</f:if>
+			</tr>
+		</thead>
+		<tbody>
+			<f:for each="{reservations}" as="reservation">
+				<f:if condition="{reservation.customerOrder.activated}">
+					<tr data-code="{reservation.code}">
 						<td>
-							<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150"><f:translate key="redeem" /></f:link.action>
+							{reservation.code}
 						</td>
-					</f:if>
-				</tr>
-			</f:if>
-		</f:for>
-	</tbody>
-</table>
+						<td>
+							{reservation.customerOrder.email}
+						</td>
+						<f:if condition="{showAdditionalInformation}">
+							<td>
+								<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150"><f:translate key="redeem" /></f:link.action>
+							</td>
+						</f:if>
+					</tr>
+				</f:if>
+			</f:for>
+		</tbody>
+	</table>
+</div>
 </html>
