@@ -6,10 +6,14 @@
 		<p><f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:format.date(date: order.bookedPeriod.end, format: \'H:i\')}'}" /></p>
 
 		<f:form.hidden property="bookedPeriod" />
-		<label for="email"><f:translate key="form.order.email" /></label>
-		<f:form.textfield id="email" type="email" property="email" />
-		<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
-		<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
+		<div class="powermail_fieldwrap">
+			<label for="email"><f:translate key="form.order.email" /></label>
+			<f:form.textfield id="email" type="email" property="email" />
+		</div>
+		<div class="powermail_fieldwrap">
+			<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
+			<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{max: order.bookedPeriod.maxParticipantsPerOrder}" />
+		</div>
 		<div class="powermail_fieldwrap powermail_fieldwrap_type_submit">
 			<div>
 				<f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}" />
