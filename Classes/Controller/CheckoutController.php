@@ -96,6 +96,7 @@ class CheckoutController extends ActionController
     /**
      * @param \JWeiland\Reserve\Domain\Model\Order $order
      * @param int $amountOfPeople
+     * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
     public function createAction(Order $order, int $amountOfPeople)

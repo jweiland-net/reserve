@@ -27,7 +27,6 @@ class Order extends AbstractEntity
 {
     /**
      * @var \JWeiland\Reserve\Domain\Model\Period
-     * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\BookedPeriodValidator")
      */
     protected $bookedPeriod;
 
@@ -43,7 +42,6 @@ class Order extends AbstractEntity
 
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("EmailAddress")
      */
     protected $email = '';
 
