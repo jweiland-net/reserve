@@ -16,7 +16,6 @@ $(document).ready(function() {
 
     $('body').on($.modal.BEFORE_CLOSE, function() {
         activeScan = false;
-        video.play();
     });
 
     function createModal(title, message, classes = '')
@@ -86,7 +85,9 @@ $(document).ready(function() {
             video.setAttribute('autoplay', true);
             video.setAttribute('muted', true);
             video.setAttribute('playsinline', true);
-            video.play();
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
             requestAnimationFrame(tick);
         });
 
@@ -115,15 +116,13 @@ $(document).ready(function() {
                     drawLine(codeInImage.location.bottomLeftCorner, codeInImage.location.topLeftCorner, '#3BFF58');
                 }
 
-                if (!video.paused && delta > 500) {
+                if (delta > 500) {
                     startTime = timestamp;
                     let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
                     codeInImage = jsQR(imageData.data, imageData.width, imageData.height, {
                         inversionAttempts: 'dontInvert',
                     });
                     if (codeInImage) {
-                        video.pause();
-
                         reservations.search(codeInImage.data).draw();
 
                         let $scan = $('tr[data-code="'+ codeInImage.data + '"]').find('a[data-action="scan"]');
