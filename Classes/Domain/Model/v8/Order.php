@@ -25,13 +25,11 @@ class Order extends \JWeiland\Reserve\Domain\Model\Order
 {
     /**
      * @var \JWeiland\Reserve\Domain\Model\Period
-     * @validate \JWeiland\Reserve\Domain\Validation\BookedPeriodValidator
      */
     protected $bookedPeriod;
 
     /**
      * @var string
-     * @validate EmailAddress
      */
     protected $email = '';
 

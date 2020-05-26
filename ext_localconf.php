@@ -44,4 +44,8 @@ plugin.tx_reserve {
         }
     }
 }');
+
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\JWeiland\Reserve\Controller\CheckoutController::class] = [
+        'className' => \JWeiland\Reserve\Controller\v8\CheckoutController::class
+    ];
 }

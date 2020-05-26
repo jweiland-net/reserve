@@ -8,7 +8,7 @@
 		<f:form.hidden property="bookedPeriod" />
 		<div class="powermail_fieldwrap">
 			<label for="email"><f:translate key="form.order.email" /></label>
-			<f:form.textfield id="email" type="email" property="email" />
+			<f:form.textfield id="email" type="email" property="email" required="required" />
 		</div>
 		<div class="powermail_fieldwrap">
 			<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
