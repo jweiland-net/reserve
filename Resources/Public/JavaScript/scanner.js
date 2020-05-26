@@ -8,6 +8,7 @@ $(document).ready(function() {
     let canvasElement = document.getElementById('canvas');
     let activeScan = false;
     let video = null;
+    let codeInImage = null;
 
     if (canvasElement) {
         video = document.createElement('video');
@@ -66,7 +67,6 @@ $(document).ready(function() {
         let loadingMessage = document.getElementById('loadingMessage');
 
         let startTime = 0;
-        let codeInImage = null;
 
         function drawLine(begin, end, color) {
             canvas.beginPath();
@@ -90,6 +90,9 @@ $(document).ready(function() {
             };
             requestAnimationFrame(tick);
         });
+
+        let qrReader = new Worker(`/typo3conf/ext/reserve/Resources/Public/JavaScript/qrReader.js`);
+        let qrReaderReady = true;
 
         function tick(timestamp) {
             if (!startTime) {
@@ -116,30 +119,38 @@ $(document).ready(function() {
                     drawLine(codeInImage.location.bottomLeftCorner, codeInImage.location.topLeftCorner, '#3BFF58');
                 }
 
-                if (delta > 500) {
+                if (delta > 300) {
                     startTime = timestamp;
-                    let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-                    codeInImage = jsQR(imageData.data, imageData.width, imageData.height, {
-                        inversionAttempts: 'dontInvert',
-                    });
-                    if (codeInImage) {
-                        reservations.search(codeInImage.data).draw();
 
-                        let $scan = $('tr[data-code="'+ codeInImage.data + '"]').find('a[data-action="scan"]');
-
-                        if ($scan.length) {
-                            $scan.trigger('click');
-                        } else {
-                            createModal(
-                                config.language.status.code_not_found.title,
-                                config.language.status.code_not_found.message,
-                                'error'
-                            );
-                        }
+                    if (qrReaderReady && !activeScan) {
+                        qrReaderReady = false;
+                        let imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                        qrReader.postMessage(imageData, [imageData.data.buffer]);
                     }
                 }
             } else {
                 loadingMessage.innerText = '⌛ ' + config.language.loading_video;
+            }
+
+            qrReader.onmessage = function(message) {
+                codeInImage = message.data;
+
+                if (codeInImage) {
+                    reservations.search(codeInImage.data).draw();
+
+                    let $scan = $('tr[data-code="'+ codeInImage.data + '"]').find('a[data-action="scan"]');
+
+                    if ($scan.length) {
+                        $scan.trigger('click');
+                    } else {
+                        createModal(
+                            config.language.status.code_not_found.title,
+                            config.language.status.code_not_found.message,
+                            'error'
+                        );
+                    }
+                }
+                qrReaderReady = true;
             }
 
             requestAnimationFrame(tick);
