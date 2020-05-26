@@ -172,12 +172,69 @@ DEFAULT_RESERVATION
                     'allowLanguageSynchronization' => true
                 ]
             ]
-        ]
+        ],
+        'qr_code_size' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_size',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim,int',
+                'range' => [
+                    'lower' => 10,
+                    'upper' => 800,
+                ],
+                'default' => 350,
+                'slider' => [
+                    'step' => 10,
+                    'width' => 200,
+                ],
+            ]
+        ],
+        'qr_code_label_size' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_label_size',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim,int',
+                'range' => [
+                    'lower' => 10,
+                    'upper' => 800,
+                ],
+                'default' => 16,
+                'slider' => [
+                    'step' => 10,
+                    'width' => 200,
+                ],
+            ]
+        ],
+        'qr_code_logo' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo',
+            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+                'qr_code_logo',
+                [],
+                'png,jpg,jpeg,gif,bmp'
+            )
+        ],
+        'qr_code_logo_width' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo_width',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim,int',
+                'range' => [
+                    'lower' => 10,
+                    'upper' => 800,
+                ],
+                'default' => 150,
+                'slider' => [
+                    'step' => 10,
+                    'width' => 200,
+                ],
+            ]
+        ],
     ],
     'types' => [
         '1' => [
             'showitem' => 'name,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
             --palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
+            --div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.qr_code,qr_code_size,qr_code_label_size,qr_code_logo,qr_code_logo_width,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],

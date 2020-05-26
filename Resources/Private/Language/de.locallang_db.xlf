@@ -33,6 +33,21 @@
 			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
 				<target>Antwordadresse E-Mail (optional)</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
+				<target>QR Code Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
+				<target>QR Code Größe (in px)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
+				<target>QR Code Label Schriftgröße (in px)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
+				<target>Logo in den QR Code einfügen (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
+				<target>Logo Breite (in px)</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>
