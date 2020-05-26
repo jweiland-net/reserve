@@ -22,6 +22,7 @@ use Endroid\QrCode\QrCode;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 // include QR code library
 @include 'phar://' . ExtensionManagementUtility::extPath('reserve') . 'Libraries/Dependencies.phar/vendor/autoload.php';
@@ -38,11 +39,13 @@ class QrCodeUtility
         $qrCode->setSize(350);
 
         $qrCode
-            // todo: add some flexibility! Make at least the date format configurable
             ->setLabel(sprintf(
                 '%s %s %s - %s',
                 $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
-                $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->format($GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy']),
+                strftime(
+                    LocalizationUtility::translate('date_format', 'reserve'),
+                    $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
+                ),
                 $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
                 $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')
             ),
