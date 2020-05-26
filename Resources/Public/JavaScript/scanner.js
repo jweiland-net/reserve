@@ -78,9 +78,14 @@ $(document).ready(function() {
             canvas.stroke();
         }
 
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(function(stream) {
+        navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment' },
+            width: screen.width
+        }).then(function(stream) {
             video.srcObject = stream;
-            video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
+            video.setAttribute('autoplay', true);
+            video.setAttribute('muted', true);
+            video.setAttribute('playsinline', true);
             video.play();
             requestAnimationFrame(tick);
         });
@@ -96,11 +101,12 @@ $(document).ready(function() {
                 loadingMessage.hidden = true;
                 canvasElement.hidden = false;
 
-                let size = video.videoHeight > video.videoWidth ? video.videoWidth : video.videoHeight;
-
-                canvasElement.height = size;
-                canvasElement.width = size;
+                let scale = video.videoWidth / canvasElement.parentNode.parentElement.offsetWidth;
+                canvasElement.width = canvasElement.parentNode.parentElement.offsetWidth;
+                canvasElement.height = video.videoHeight / scale;
                 canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                canvasElement.style.display = 'block';
+                canvasElement.style.margin = 'auto';
 
                 if (codeInImage) {
                     drawLine(codeInImage.location.topLeftCorner, codeInImage.location.topRightCorner, '#3BFF58');
