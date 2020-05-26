@@ -83,7 +83,9 @@ $(document).ready(function() {
             width: screen.width
         }).then(function(stream) {
             video.srcObject = stream;
-            video.setAttribute('playsinline', true); // required to tell iOS safari we don't want fullscreen
+            video.setAttribute('autoplay', true);
+            video.setAttribute('muted', true);
+            video.setAttribute('playsinline', true);
             video.play();
             requestAnimationFrame(tick);
         });
