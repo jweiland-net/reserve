@@ -116,7 +116,7 @@
 				<target>Liste</target>
 			</trans-unit>
 			<trans-unit id="date_format">
-				<target>d.m.Y</target>
+				<target>%a %e.%m.%Y</target>
 			</trans-unit>
 			<trans-unit id="redeem">
 				<target>Einlösen</target>
