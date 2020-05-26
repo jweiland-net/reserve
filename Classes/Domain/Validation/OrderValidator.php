@@ -17,18 +17,26 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Validation;
 
-use JWeiland\Reserve\Domain\Model\Period;
+use JWeiland\Reserve\Domain\Model\Order;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
- * Validator to check if current $value is instance of Period and if it's bookable at the moment.
+ * Validator to validate a new order
  */
-class BookedPeriodValidator extends AbstractValidator
+class OrderValidator extends AbstractValidator
 {
-    protected function isValid($value)
+    protected function isValid($order)
     {
-        if (!$value instanceof Period || ($value instanceof Period && !$value->isBookable())) {
+        if (!$order instanceof Order) {
+            $this->addError('The given object is not an order!', 1590479923299);
+            return;
+        }
+        if (!$order->getBookedPeriod()->isBookable()) {
             $this->addError('The selected period can not be booked at the moment!', 1589379319);
+        }
+        if (!GeneralUtility::validEmail($order->getEmail())) {
+            $this->addError('The selected email is not valid!', 1590480086004);
         }
     }
 }

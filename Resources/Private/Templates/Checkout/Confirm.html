@@ -6,7 +6,7 @@
 	<p><f:translate key="reservation.print_or_show_code" /></p>
 
 	<f:for each="{order.reservations}" as="reservation">
-		<jw:qrCode reservation="{reservation}" />
+		<img src="{jw:qrCode(reservation: reservation)}" alt="{reservation.code}" title="QR Code" style="padding: 40px;"/>
 	</f:for>
 
 </f:section>
