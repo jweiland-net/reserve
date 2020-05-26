@@ -89,15 +89,23 @@
 				<source>Dear visitor,</source>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.inactive">
-				<source>your order for %s has been cancelled because you have not confirmed it within %d minutes.</source>
+				<source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.customer">
-				<source>we cancelled your order for %s.</source>
+				<source>we cancelled your reservation for %s.</source>
 			</trans-unit>
 
 			<trans-unit id="mail.confirmation.confirm_link_text">
 				<source>Confirm your reservation</source>
 			</trans-unit>
+			<trans-unit id="mail.confirmation.cancel_link_text">
+				<source>Cancel your reservation</source>
+			</trans-unit>
+
+			<trans-unit id="mail.confirmation.cancel_notice">
+				<source>Not your order or placed by mistake?</source>
+			</trans-unit>
+
 			<trans-unit id="mail.facility">
 				<source>Facility</source>
 			</trans-unit>
@@ -143,6 +151,16 @@
 			</trans-unit>
 			<trans-unit id="close">
 				<source>Close</source>
+			</trans-unit>
+
+			<trans-unit id="cancel.warning">
+				<source>Do you really want to cancel the reservation for %s?</source>
+			</trans-unit>
+			<trans-unit id="cancel.button">
+				<source>Cancel reservation</source>
+			</trans-unit>
+			<trans-unit id="cancel.cancelled">
+				<source>The reservation has been cancelled sucessfully.</source>
 			</trans-unit>
 		</body>
 	</file>

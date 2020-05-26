@@ -21,6 +21,7 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
+use JWeiland\Reserve\Service\CancellationService;
 use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
@@ -136,6 +137,39 @@ class CheckoutController extends ActionController
             } else {
                 $this->checkoutService->confirm($order);
                 $this->view->assign('order', $order);
+            }
+        } else {
+            $this->addFlashMessage(
+                'Could not find any order with current combination of email and activation code.',
+                '',
+                AbstractMessage::ERROR
+            );
+        }
+    }
+
+    /**
+     * @param string $email
+     * @param string $activationCode
+     * @param bool $confirm
+     */
+    public function cancelAction(string $email, string $activationCode, bool $confirm = false)
+    {
+        $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
+        if ($order instanceof Order && $order->isActivated() === false) {
+            $this->view->assign('order', $order);
+            if ($confirm) {
+                $cancellationService = $this->objectManager->get(CancellationService::class);
+                try {
+                    $cancellationService->cancel($order);
+                    $this->addFlashMessage(LocalizationUtility::translate('cancel.cancelled', 'reserve'));
+                } catch (\Throwable $exception) {
+                    $this->addFlashMessage(
+                        'Could not cancel your order. Please contact the administrator!',
+                        '',
+                        AbstractMessage::ERROR
+                    );
+                }
+                return $this->redirect('list');
             }
         } else {
             $this->addFlashMessage(

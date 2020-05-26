@@ -10,7 +10,7 @@ reason: The reason why the cancellation mail will be sent. Possible Values:
 				customer = The customer cancelled the order using the link in the confirmation mail
 expirationTime: Will only be set if reason equals "inactive" and contains the expiration time in seconds.
 --></f:comment>
-<p><f:translate extensionName="reserve" key="mail.cancellation.salutation" /></p>
+<p><f:translate extensionName="reserve" key="mail.salutation" /></p>
 <p></p>
 <f:if condition="{reason} === 'inactive'">
 	<f:translate extensionName="reserve" key="mail.cancellation.inactive" arguments="{0: order.bookedPeriod.facility, 1: '{expirationTime / 60}'}" />

@@ -67,7 +67,7 @@ class CancellationService implements SingletonInterface
             /** @var StandaloneView $standaloneView */
             $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
             FluidUtility::configureStandaloneViewForMailing($standaloneView);
-            $standaloneView->assign('reason', $reason);
+            $standaloneView->assignMultiple(['order' => $order, 'reason' => $reason]);
             $standaloneView->assignMultiple($vars);
             $standaloneView->setTemplate('Cancellation');
             MailUtility::sendMailToCustomer(
