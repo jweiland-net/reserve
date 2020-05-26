@@ -6,10 +6,10 @@ defined('TYPO3_MODE') or die();
     'JWeiland.Reserve',
     'Reservation',
     [
-        'Checkout' => 'list,form,create,confirm'
+        'Checkout' => 'list,form,create,confirm,cancel'
     ],
     [
-        'Checkout' => 'list,form,create,confirm'
+        'Checkout' => 'list,form,create,confirm,cancel'
     ]
 );
 

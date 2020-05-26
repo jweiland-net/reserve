@@ -89,15 +89,23 @@
 				<target>Sehr geehrter Besucher,</target>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.inactive">
-				<target>die Bestellung für %s  wurde storniert, da sie nicht innerhalb von %d Minuten aktiviert wurde.</target>
+				<target>die Reservierung für %s  wurde storniert, da sie nicht innerhalb von %d Minuten aktiviert wurde.</target>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.customer">
-				<target>die Bestellung für %s wurde soeben storniert.</target>
+				<target>die Reservierung für %s wurde soeben storniert.</target>
 			</trans-unit>
 
 			<trans-unit id="mail.confirmation.confirm_link_text">
 				<target>Reservierung bestätigen</target>
 			</trans-unit>
+			<trans-unit id="mail.confirmation.cancel_link_text">
+				<target>Reservierung stornieren</target>
+			</trans-unit>
+
+			<trans-unit id="mail.confirmation.cancel_notice">
+				<target>Wurde die Reservierung irrtümlich ausgelöst?</target>
+			</trans-unit>
+
 			<trans-unit id="mail.facility">
 				<target>Einrichtung</target>
 			</trans-unit>
@@ -143,6 +151,16 @@
 			</trans-unit>
 			<trans-unit id="close">
 				<target>Schließen</target>
+			</trans-unit>
+
+			<trans-unit id="cancel.warning">
+				<target>Möchten Sie die Reservierung für %s wirklich stornieren?</target>
+			</trans-unit>
+			<trans-unit id="cancel.button">
+				<target>Reservierung stornieren</target>
+			</trans-unit>
+			<trans-unit id="cancel.cancelled">
+				<target>Die Reservierung wurde erfolgreich storniert.</target>
 			</trans-unit>
 		</body>
 	</file>
