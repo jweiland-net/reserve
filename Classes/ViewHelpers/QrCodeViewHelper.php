@@ -25,6 +25,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ViewHelper to render QrCodes inside an image tag
+ * Example: <img src="{jw:qrCode(reservation: reservation)}" alt="{reservation.code}" title="QR Code" />
  */
 class QrCodeViewHelper extends AbstractViewHelper
 {
@@ -43,6 +44,6 @@ class QrCodeViewHelper extends AbstractViewHelper
         RenderingContextInterface $renderingContext
     )
     {
-        return '<img src="' . QrCodeUtility::generateQrCode($arguments['reservation'])->writeDataUri() . '" />';
+        return QrCodeUtility::generateQrCode($arguments['reservation'])->writeDataUri();
     }
 }
