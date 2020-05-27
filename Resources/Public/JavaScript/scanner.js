@@ -19,7 +19,7 @@ $(document).ready(function() {
         activeScan = false;
     });
 
-    function createModal(title, message, classes = '')
+    function createModal(title, message, classes = '', $additionalElement = null)
     {
         let $modal = $('<div class="modal">');
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
 
         $modal.addClass(classes);
 
-        $modal.append($title).append($message).append($close);
+        $modal.append($title).append($message).append($additionalElement).append($close);
 
         $modal.appendTo('body').modal();
     }
@@ -57,7 +57,8 @@ $(document).ready(function() {
             createModal(
                 response.status.title,
                 response.status.message,
-                classes
+                classes,
+                $('<p>').text(config.language.reservations_found + ': ' + response.codes.length)
             );
         });
     });
