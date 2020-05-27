@@ -19,6 +19,7 @@ namespace JWeiland\Reserve\Utility;
 
 use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
+use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -36,7 +37,6 @@ class QrCodeUtility
     {
         /** @var QrCode $qrCode */
         $qrCode = GeneralUtility::makeInstance(QrCode::class, $reservation->getCode());
-        $qrCode->setSize(350);
 
         $qrCode
             ->setLabel(sprintf(
@@ -54,6 +54,20 @@ class QrCodeUtility
                 LabelAlignment::CENTER
             );
 
+        static::applyQrCodeSettingsFromFacility($qrCode, $reservation->getCustomerOrder()->getBookedPeriod()->getFacility());
+
         return $qrCode;
+    }
+
+    protected static function applyQrCodeSettingsFromFacility(QrCode $qrCode, Facility $facility)
+    {
+        $qrCode
+            ->setSize($facility->getQrCodeSize())
+            ->setLabelFontSize($facility->getQrCodeLabelSize());
+        if ($facility->getQrCodeLogo()) {
+            // todo: implement QR Code logo
+            //$qrCode->setLogoPath(...);
+            //$qrCode->setLogoWidth()
+        }
     }
 }
