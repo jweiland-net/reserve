@@ -36,7 +36,7 @@ $(document).ready(function() {
         $modal.appendTo('body').modal();
     }
 
-    $('a[data-action="scan"]').on('click', function(event) {
+    $('#datatable').on('click', 'a[data-action="scan"]', function(event) {
         event.preventDefault();
 
         if (activeScan) {
