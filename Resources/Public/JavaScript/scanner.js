@@ -54,11 +54,21 @@ $(document).ready(function() {
             if (response.status.error) {
                 classes += 'error';
             }
+
+            let $codes = $('<ul>');
+            for (let i = 0; i < response.codes.length; i++) {
+                $codes.append($('<li>').text(response.codes[i]));
+            }
+
             createModal(
                 response.status.title,
                 response.status.message,
                 classes,
-                $('<p>').text(config.language.reservations_found + ': ' + response.codes.length)
+                $('<div>')
+                    .append(
+                        $('<p>').text(config.language.reservations_found + ': ' + response.codes.length)
+                    )
+                    .append($codes)
             );
         });
     });
