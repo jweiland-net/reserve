@@ -17,6 +17,7 @@ declare(strict_types = 1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
+use TYPO3\CMS\Extbase\Domain\Model\File;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -61,6 +62,30 @@ class Facility extends AbstractEntity
      * @var string
      */
     protected $reservationMailHtml = '';
+
+    /**
+     * QR Code settings
+     */
+
+    /**
+     * @var int
+     */
+    protected $qrCodeSize = 0;
+
+    /**
+     * @var int
+     */
+    protected $qrCodeLabelSize = 0;
+
+    /**
+     * @var \TYPO3\CMS\Extbase\Domain\Model\File
+     */
+    protected $qrCodeLogo;
+
+    /**
+     * @var int
+     */
+    protected $qrCodeLogoWidth = 0;
 
     public function __construct()
     {
@@ -193,5 +218,69 @@ class Facility extends AbstractEntity
     public function setReservationMailHtml(string $reservationMailHtml)
     {
         $this->reservationMailHtml = $reservationMailHtml;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQrCodeSize(): int
+    {
+        return $this->qrCodeSize;
+    }
+
+    /**
+     * @param int $qrCodeSize
+     */
+    public function setQrCodeSize(int $qrCodeSize)
+    {
+        $this->qrCodeSize = $qrCodeSize;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQrCodeLabelSize(): int
+    {
+        return $this->qrCodeLabelSize;
+    }
+
+    /**
+     * @param int $qrCodeLabelSize
+     */
+    public function setQrCodeLabelSize(int $qrCodeLabelSize)
+    {
+        $this->qrCodeLabelSize = $qrCodeLabelSize;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getQrCodeLogo()
+    {
+        return $this->qrCodeLogo;
+    }
+
+    /**
+     * @param File $qrCodeLogo
+     */
+    public function setQrCodeLogo(File $qrCodeLogo)
+    {
+        $this->qrCodeLogo = $qrCodeLogo;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQrCodeLogoWidth(): int
+    {
+        return $this->qrCodeLogoWidth;
+    }
+
+    /**
+     * @param int $qrCodeLogoWidth
+     */
+    public function setQrCodeLogoWidth(int $qrCodeLogoWidth)
+    {
+        $this->qrCodeLogoWidth = $qrCodeLogoWidth;
     }
 }
