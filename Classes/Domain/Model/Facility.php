@@ -78,7 +78,7 @@ class Facility extends AbstractEntity
     protected $qrCodeLabelSize = 0;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Model\File
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $qrCodeLogo;
 
@@ -90,6 +90,7 @@ class Facility extends AbstractEntity
     public function __construct()
     {
         $this->periods = new ObjectStorage();
+        $this->qrCodeLogo = new ObjectStorage();
     }
 
     /**
