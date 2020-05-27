@@ -149,6 +149,9 @@
 			<trans-unit id="code_not_found">
 				<source>Code not found!</source>
 			</trans-unit>
+			<trans-unit id="reservations_found">
+				<source>Reservations found</source>
+			</trans-unit>
 			<trans-unit id="close">
 				<source>Close</source>
 			</trans-unit>

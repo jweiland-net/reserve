@@ -69,7 +69,8 @@ class ManagementController extends ActionController
                         'message' => LocalizationUtility::translate('code_not_found', 'reserve')
                     ]
                 ],
-                'close' => LocalizationUtility::translate('close', 'reserve')
+                'close' => LocalizationUtility::translate('close', 'reserve'),
+                'reservations_found' => LocalizationUtility::translate('reservations_found', 'reserve')
             ]
         ]);
     }
@@ -120,6 +121,13 @@ class ManagementController extends ActionController
             $statusCode = 'reservationActivated';
         }
 
+        $reservations = $reservation->getCustomerOrder()->getReservations();
+
+        $codes = [];
+        foreach ($reservations as $otherReservations) {
+            $codes[] = $otherReservations->getCode();
+        }
+
         $view->assign(
             'status',
             [
@@ -127,8 +135,10 @@ class ManagementController extends ActionController
                     'code' => $statusCode,
                     'title' => LocalizationUtility::translate('scan.status.error.' . $error, 'reserve'),
                     'message' => LocalizationUtility::translate('scan.status.' . $statusCode, 'reserve'),
-                    'error' => $error
-                ]
+                    'error' => $error,
+
+                ],
+                'codes' => $codes
             ]
         );
 
