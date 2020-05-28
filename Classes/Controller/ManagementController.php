@@ -70,7 +70,7 @@ class ManagementController extends ActionController
                     ]
                 ],
                 'close' => LocalizationUtility::translate('close', 'reserve'),
-                'reservations_found' => LocalizationUtility::translate('reservations_found', 'reserve')
+                'reservations' => LocalizationUtility::translate('reservations', 'reserve')
             ]
         ]);
     }
@@ -97,10 +97,19 @@ class ManagementController extends ActionController
     }
 
     /**
+     * @param \JWeiland\Reserve\Domain\Model\Period $period
+     */
+    public function periodsOnSameDayAction(Period $period)
+    {
+        $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate()));
+    }
+
+    /**
      * @param \JWeiland\Reserve\Domain\Model\Reservation $reservation
+     * @param bool $entireOrder
      * @return mixed
      */
-    public function scanAction(Reservation $reservation)
+    public function scanAction(Reservation $reservation, bool $entireOrder = false)
     {
         $view = $this->objectManager->get(JsonView::class);
 
@@ -124,8 +133,14 @@ class ManagementController extends ActionController
         $reservations = $reservation->getCustomerOrder()->getReservations();
 
         $codes = [];
-        foreach ($reservations as $otherReservations) {
-            $codes[] = $otherReservations->getCode();
+
+        if ($entireOrder) {
+            foreach ($reservations as $otherReservations) {
+                if ($entireOrder) {
+                    $otherReservations->setUsed(true);
+                }
+                $codes[] = $otherReservations->getCode();
+            }
         }
 
         $view->assign(

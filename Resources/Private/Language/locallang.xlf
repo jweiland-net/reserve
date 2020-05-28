@@ -149,11 +149,20 @@
 			<trans-unit id="code_not_found">
 				<source>Code not found!</source>
 			</trans-unit>
-			<trans-unit id="reservations_found">
-				<source>Reservations found</source>
+			<trans-unit id="reservations">
+				<source>Reservations</source>
 			</trans-unit>
 			<trans-unit id="close">
 				<source>Close</source>
+			</trans-unit>
+			<trans-unit id="day_list">
+				<source>Day list</source>
+			</trans-unit>
+			<trans-unit id="scanEntireOrder">
+				<source>Activate entire order with all its reservations</source>
+			</trans-unit>
+			<trans-unit id="redeemed">
+				<source>Redeemed</source>
 			</trans-unit>
 
 			<trans-unit id="cancel.warning">

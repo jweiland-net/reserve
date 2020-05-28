@@ -149,11 +149,20 @@
 			<trans-unit id="code_not_found">
 				<target>Code wurde nicht gefunden!</target>
 			</trans-unit>
-			<trans-unit id="reservations_found">
-				<target>Reservierungen gefunden</target>
+			<trans-unit id="reservations">
+				<target>Reservierungen</target>
 			</trans-unit>
 			<trans-unit id="close">
 				<target>Schließen</target>
+			</trans-unit>
+			<trans-unit id="day_list">
+				<target>Tagesliste</target>
+			</trans-unit>
+			<trans-unit id="scanEntireOrder">
+				<target>Aktiviere die gesamte Bestellung mit allen Reservierungen</target>
+			</trans-unit>
+			<trans-unit id="redeemed">
+				<target>Eingelöst</target>
 			</trans-unit>
 
 			<trans-unit id="cancel.warning">
