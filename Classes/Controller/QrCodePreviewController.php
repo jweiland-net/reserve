@@ -24,7 +24,7 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\FacilityRepository;
 use JWeiland\Reserve\Utility\QrCodeUtility;
 use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Core\Http\JsonResponse;
+use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -66,6 +66,9 @@ class QrCodePreviewController
             $data['hasErrors'] = true;
             $data['message'] = 'You have to provide the facility uid with param \'facility\'!';
         }
-        return new JsonResponse($data);
+        // replace this by JsonResponse as soon as TYPO3 v8 is removed from requirements!
+        $response = new Response('php://temp', 200, ['Content-Type' => 'application/json; charset=utf-8']);
+        $response->getBody()->write(json_encode($data));
+        return $response;
     }
 }
