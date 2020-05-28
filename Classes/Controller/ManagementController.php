@@ -26,7 +26,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
@@ -107,9 +106,10 @@ class ManagementController extends ActionController
 
     /**
      * @param \JWeiland\Reserve\Domain\Model\Reservation $reservation
+     * @param bool $entireOrder
      * @return mixed
      */
-    public function scanAction(Reservation $reservation)
+    public function scanAction(Reservation $reservation, bool $entireOrder = false)
     {
         $view = $this->objectManager->get(JsonView::class);
 
@@ -133,8 +133,14 @@ class ManagementController extends ActionController
         $reservations = $reservation->getCustomerOrder()->getReservations();
 
         $codes = [];
-        foreach ($reservations as $otherReservations) {
-            $codes[] = $otherReservations->getCode();
+
+        if ($entireOrder) {
+            foreach ($reservations as $otherReservations) {
+                if ($entireOrder) {
+                    $otherReservations->setUsed(true);
+                }
+                $codes[] = $otherReservations->getCode();
+            }
         }
 
         $view->assign(

@@ -158,6 +158,9 @@
 			<trans-unit id="day_list">
 				<source>Day list</source>
 			</trans-unit>
+			<trans-unit id="scanEntireOrder">
+				<source>Activate entire order with all its reservations</source>
+			</trans-unit>
 
 			<trans-unit id="cancel.warning">
 				<source>Do you really want to cancel the reservation for %s?</source>

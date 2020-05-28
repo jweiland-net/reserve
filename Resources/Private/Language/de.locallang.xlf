@@ -158,6 +158,9 @@
 			<trans-unit id="day_list">
 				<target>Tagesliste</target>
 			</trans-unit>
+			<trans-unit id="scanEntireOrder">
+				<target>Aktiviere die gesamte Bestellung mit allen Reservierungen</target>
+			</trans-unit>
 
 			<trans-unit id="cancel.warning">
 				<target>Möchten Sie die Reservierung für %s wirklich stornieren?</target>
