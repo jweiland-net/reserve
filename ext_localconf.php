@@ -49,3 +49,9 @@ plugin.tx_reserve {
         'className' => \JWeiland\Reserve\Controller\v8\CheckoutController::class
     ];
 }
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1590659241206] = [
+    'nodeName' => 'reserveQrCodePreview',
+    'priority' => '70',
+    'class' => \JWeiland\Reserve\Form\Element\QrCodePreviewElement::class,
+];

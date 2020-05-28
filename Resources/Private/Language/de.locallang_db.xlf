@@ -48,6 +48,15 @@
 			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
 				<target>Logo Breite (in px)</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
+				<target>Beispiel QR Code erstellen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
+				<target>Beispiel rendern</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
+				<target>Nur gespeicherte Änderungen werden verarbeitet!</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>
