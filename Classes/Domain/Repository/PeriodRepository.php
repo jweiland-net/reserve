@@ -36,6 +36,20 @@ class PeriodRepository extends Repository
         return $query->execute();
     }
 
+    /**
+     * @param \DateTime $uid
+     * @return QueryResultInterface
+     */
+    public function findByDate(\DateTime $date): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query = $query->matching(
+            $query->equals('date', $date->getTimestamp())
+        );
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        return $query->execute();
+    }
+
     public function findUpcomingAndRunningByFacility(int $uid): QueryResultInterface
     {
         $todayMidnight = new \DateTime('today midnight');
@@ -46,7 +60,7 @@ class PeriodRepository extends Repository
             $query->logicalAnd(
                 $query->getConstraint(),
                 $query->logicalOr(
-                    $query->greaterThanOrEqual('date', $todayMidnight->getTimestamp()),
+                    $query->greaterThanOrEqual('date', (new \DateTime('tomorrow'))->getTimestamp()),
                     $query->logicalAnd(
                         $query->equals('date', $todayMidnight->getTimestamp()),
                         $query->greaterThanOrEqual('end', $currentTime->getTimestamp())

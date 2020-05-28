@@ -255,4 +255,17 @@ class Period extends AbstractEntity
 
         return $reservations;
     }
+
+    public function getUsedReservations(): array
+    {
+        $reservations = [];
+
+        foreach ($this->getActiveReservations() as $reservation) {
+            if ($reservation->isUsed()) {
+                $reservations[] = $reservation;
+            }
+        }
+
+        return $reservations;
+    }
 }
