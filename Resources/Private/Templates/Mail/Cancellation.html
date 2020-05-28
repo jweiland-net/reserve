@@ -13,9 +13,9 @@ expirationTime: Will only be set if reason equals "inactive" and contains the ex
 <p><f:translate extensionName="reserve" key="mail.salutation" /></p>
 <p></p>
 <f:if condition="{reason} === 'inactive'">
-	<f:translate extensionName="reserve" key="mail.cancellation.inactive" arguments="{0: order.bookedPeriod.facility, 1: '{expirationTime / 60}'}" />
+	<f:translate extensionName="reserve" key="mail.cancellation.inactive" arguments="{0: order.bookedPeriod.facility.name, 1: '{expirationTime / 60}'}" />
 </f:if>
 <f:if condition="{reason} === 'customer'">
-	<f:translate extensionName="reserve" key="mail.cancellation.customer" arguments="{0: order.bookedPeriod.facility}" />
+	<f:translate extensionName="reserve" key="mail.cancellation.customer" arguments="{0: order.bookedPeriod.facility.name}" />
 </f:if>
 </html>
