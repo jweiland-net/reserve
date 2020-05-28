@@ -55,20 +55,14 @@ $(document).ready(function() {
                 classes += 'error';
             }
 
-            let $codes = $('<ul>');
-            for (let i = 0; i < response.codes.length; i++) {
-                $codes.append($('<li>').text(response.codes[i]));
-            }
-
             createModal(
                 response.status.title,
                 response.status.message,
                 classes,
                 $('<div>')
                     .append(
-                        $('<p>').text(config.language.reservations_found + ': ' + response.codes.length)
+                        $('<p style="font-size: 1.5rem">').text(response.codes.length + ' ' + config.language.reservations)
                     )
-                    .append($codes)
             );
         });
     });
