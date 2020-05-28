@@ -46,7 +46,7 @@ class PeriodRepository extends Repository
             $query->logicalAnd(
                 $query->getConstraint(),
                 $query->logicalOr(
-                    $query->greaterThanOrEqual('date', $todayMidnight->getTimestamp()),
+                    $query->greaterThanOrEqual('date', (new \DateTime('tomorrow'))->getTimestamp()),
                     $query->logicalAnd(
                         $query->equals('date', $todayMidnight->getTimestamp()),
                         $query->greaterThanOrEqual('end', $currentTime->getTimestamp())
