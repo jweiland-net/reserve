@@ -70,7 +70,7 @@ class ManagementController extends ActionController
                     ]
                 ],
                 'close' => LocalizationUtility::translate('close', 'reserve'),
-                'reservations_found' => LocalizationUtility::translate('reservations_found', 'reserve')
+                'reservations' => LocalizationUtility::translate('reservations', 'reserve')
             ]
         ]);
     }
