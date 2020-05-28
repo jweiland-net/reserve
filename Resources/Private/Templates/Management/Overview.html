@@ -21,7 +21,7 @@
 					<f:if condition="{period.activeReservations}">
 						<f:then>
 							<td>
-								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action>&nbsp;<f:link.action action="period" arguments="{period: period}"><f:translate key="list" /></f:link.action>
+								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action>&nbsp;<f:link.action action="period" arguments="{period: period}"><f:translate key="list" /></f:link.action>&nbsp;<f:link.action action="periodsOnSameDay" arguments="{period: period}"><f:translate key="day_list" /></f:link.action>
 							</td>
 						</f:then>
 						<f:else>

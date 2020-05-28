@@ -155,6 +155,9 @@
 			<trans-unit id="close">
 				<target>Schließen</target>
 			</trans-unit>
+			<trans-unit id="day_list">
+				<target>Tagesliste</target>
+			</trans-unit>
 
 			<trans-unit id="cancel.warning">
 				<target>Möchten Sie die Reservierung für %s wirklich stornieren?</target>
