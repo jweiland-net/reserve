@@ -24,6 +24,8 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\FacilityRepository;
 use JWeiland\Reserve\Utility\QrCodeUtility;
 use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -34,6 +36,11 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class QrCodePreviewController
 {
+    public function __construct()
+    {
+        Bootstrap::initializeLanguageObject();
+    }
+
     public function ajaxAction(ServerRequestInterface $request)
     {
         $facilityUid = (int)($request->getQueryParams()['facility'] ?? 0);
