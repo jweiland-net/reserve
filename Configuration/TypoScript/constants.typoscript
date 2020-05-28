@@ -7,4 +7,9 @@ plugin.tx_reserve {
     # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template layouts
     layoutRootPath = EXT:reserve/Resources/Private/Layouts/
   }
+
+  settings {
+    # cat=plugin.tx_reserve; type=boolean; label=Include jQuery
+    includeJQueryLibrary = 1
+  }
 }
