@@ -18,6 +18,7 @@ declare(strict_types = 1);
 namespace JWeiland\Reserve\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\File;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -254,17 +255,17 @@ class Facility extends AbstractEntity
     }
 
     /**
-     * @return File|null
+     * @return ObjectStorage
      */
-    public function getQrCodeLogo()
+    public function getQrCodeLogo(): ObjectStorage
     {
         return $this->qrCodeLogo;
     }
 
     /**
-     * @param File $qrCodeLogo
+     * @param ObjectStorage $qrCodeLogo
      */
-    public function setQrCodeLogo(File $qrCodeLogo)
+    public function setQrCodeLogo(ObjectStorage $qrCodeLogo)
     {
         $this->qrCodeLogo = $qrCodeLogo;
     }

@@ -64,10 +64,9 @@ class QrCodeUtility
         $qrCode
             ->setSize($facility->getQrCodeSize())
             ->setLabelFontSize($facility->getQrCodeLabelSize());
-        if ($facility->getQrCodeLogo()) {
-            // todo: implement QR Code logo
-            //$qrCode->setLogoPath(...);
-            //$qrCode->setLogoWidth()
+        if ($facility->getQrCodeLogo()->count()) {
+            $qrCode->setLogoPath(GeneralUtility::getFileAbsFileName($facility->getQrCodeLogo()[0]->getOriginalResource()->getPublicUrl()));
+            $qrCode->setLogoWidth($facility->getQrCodeLogoWidth());
         }
     }
 }

@@ -48,6 +48,15 @@
 			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
 				<source>Logo width (in px)</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
+				<source>Preview QR code</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
+				<source>Render preview</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
+				<source>Only saved changes are processed!</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>
