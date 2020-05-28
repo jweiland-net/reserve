@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Utility;
 
+use Endroid\QrCode\ErrorCorrectionLevel;
 use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use JWeiland\Reserve\Domain\Model\Facility;
@@ -62,10 +63,12 @@ class QrCodeUtility
     protected static function applyQrCodeSettingsFromFacility(QrCode $qrCode, Facility $facility)
     {
         $qrCode
+            ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH)
+            ->setEncoding('UTF-8')
             ->setSize($facility->getQrCodeSize())
             ->setLabelFontSize($facility->getQrCodeLabelSize());
         if ($facility->getQrCodeLogo()->count()) {
-            $qrCode->setLogoPath(GeneralUtility::getFileAbsFileName($facility->getQrCodeLogo()[0]->getOriginalResource()->getPublicUrl()));
+            $qrCode->setLogoPath(GeneralUtility::getFileAbsFileName(current($facility->getQrCodeLogo()->toArray())->getOriginalResource()->getPublicUrl()));
             $qrCode->setLogoWidth($facility->getQrCodeLogoWidth());
         }
     }
