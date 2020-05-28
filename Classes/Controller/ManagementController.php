@@ -26,6 +26,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
@@ -94,6 +95,14 @@ class ManagementController extends ActionController
     public function periodAction(Period $period)
     {
         $this->view->assign('period', $period);
+    }
+
+    /**
+     * @param \JWeiland\Reserve\Domain\Model\Period $period
+     */
+    public function periodsOnSameDayAction(Period $period)
+    {
+        $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate()));
     }
 
     /**

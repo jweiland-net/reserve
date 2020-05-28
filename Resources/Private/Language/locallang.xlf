@@ -155,6 +155,9 @@
 			<trans-unit id="close">
 				<source>Close</source>
 			</trans-unit>
+			<trans-unit id="day_list">
+				<source>Day list</source>
+			</trans-unit>
 
 			<trans-unit id="cancel.warning">
 				<source>Do you really want to cancel the reservation for %s?</source>
