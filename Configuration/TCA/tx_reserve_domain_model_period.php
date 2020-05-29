@@ -23,7 +23,10 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'searchFields' => 'name'
+        'searchFields' => 'name',
+        'typeicon_classes' => [
+            'default' => 'tx_reserve_domain_model_period'
+        ]
     ],
     'columns' => [
         'hidden' => [
