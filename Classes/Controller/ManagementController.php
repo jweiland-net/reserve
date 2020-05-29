@@ -101,7 +101,7 @@ class ManagementController extends ActionController
      */
     public function periodsOnSameDayAction(Period $period)
     {
-        $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate()));
+        $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate(), (int)$this->settings['facility']));
     }
 
     /**
