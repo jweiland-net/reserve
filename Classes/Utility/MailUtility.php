@@ -33,6 +33,9 @@ class MailUtility
         $mail
             ->setSubject($subject)
             ->setTo([$order->getEmail()]);
+        if ($order->getBookedPeriod()->getFacility()->getFromEmail()) {
+            $mail->setFrom([$order->getBookedPeriod()->getFacility()->getFromEmail() => $order->getBookedPeriod()->getFacility()->getFromName()]);
+        }
         if ($order->getBookedPeriod()->getFacility()->getReplyToEmail()) {
             $mail->setReplyTo([$order->getBookedPeriod()->getFacility()->getReplyToEmail() => $order->getBookedPeriod()->getFacility()->getReplyToName()]);
         }

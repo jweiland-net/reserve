@@ -17,6 +17,8 @@ CREATE TABLE tx_reserve_domain_model_facility (
 
 	name tinytext,
 	periods int(11) DEFAULT '0' NOT NULL,
+	from_name tinytext,
+	from_email tinytext,
 	reply_to_name tinytext,
 	reply_to_email tinytext,
 	confirmation_mail_subject tinytext,

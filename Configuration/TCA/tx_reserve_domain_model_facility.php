@@ -105,6 +105,22 @@ return [
                 ]
             ],
         ],
+        'from_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.from_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+            ],
+        ],
+        'from_email' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.from_email',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'email',
+            ],
+        ],
         'reply_to_name' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_name',
             'config' => [
@@ -265,13 +281,16 @@ DEFAULT_RESERVATION
     'types' => [
         '1' => [
             'showitem' => 'name,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
-            --palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
+            --palette--;;mail_from,--palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
             --div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.qr_code,qr_code_example,qr_code_size,qr_code_label_size,qr_code_logo,qr_code_logo_width,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [
+        'mail_from' => [
+            'showitem' => 'from_name,from_email'
+        ],
         'reply_to' => [
             'showitem' => 'reply_to_name,reply_to_email'
         ],
