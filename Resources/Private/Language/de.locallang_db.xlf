@@ -102,6 +102,15 @@
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
 				<target>Reservierungen</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type">
+				<target>Bestellungstyp</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type.default">
+				<target>Standard</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type.archived">
+				<target>Archiviert</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation">
 				<target>Reservierung</target>
 			</trans-unit>
