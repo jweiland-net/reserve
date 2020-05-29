@@ -27,11 +27,17 @@
 			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
 				<target>Reservierungsmail Vorlage</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_name">
+				<target>Absender Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_email">
+				<target>Absender E-Mail Adresse (optional)</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
 				<target>Antwortadresse Name (optional)</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
-				<target>Antwordadresse E-Mail (optional)</target>
+				<target>Antwortadresse E-Mail (optional)</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
 				<target>QR Code Einstellungen</target>

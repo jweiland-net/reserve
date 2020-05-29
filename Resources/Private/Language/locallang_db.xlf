@@ -27,6 +27,12 @@
 			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
 				<source>Reservation mail Text</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_name">
+				<source>From name (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_email">
+				<source>From email (optional)</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
 				<source>Reply to name (optional)</source>
 			</trans-unit>

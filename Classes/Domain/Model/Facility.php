@@ -17,8 +17,6 @@ declare(strict_types = 1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
-use TYPO3\CMS\Extbase\Domain\Model\File;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -38,6 +36,16 @@ class Facility extends AbstractEntity
      * @var string
      */
     protected $confirmationMailSubject = '';
+
+    /**
+     * @var string
+     */
+    protected $fromName = '';
+
+    /**
+     * @var string
+     */
+    protected $fromEmail = '';
 
     /**
      * @var string
@@ -124,6 +132,38 @@ class Facility extends AbstractEntity
     public function setPeriods(ObjectStorage $periods)
     {
         $this->periods = $periods;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromName(): string
+    {
+        return $this->fromName;
+    }
+
+    /**
+     * @param string $fromName
+     */
+    public function setFromName(string $fromName)
+    {
+        $this->fromName = $fromName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromEmail(): string
+    {
+        return $this->fromEmail;
+    }
+
+    /**
+     * @param string $fromEmail
+     */
+    public function setFromEmail(string $fromEmail)
+    {
+        $this->fromEmail = $fromEmail;
     }
 
     /**
