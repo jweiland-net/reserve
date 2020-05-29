@@ -102,6 +102,15 @@
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
 				<source>Reservations</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type">
+				<source>Order type</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type.default">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.order_type.archived">
+				<source>Archived</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation">
 				<source>Reservation</source>
 			</trans-unit>
