@@ -40,11 +40,14 @@ class PeriodRepository extends Repository
      * @param \DateTime $uid
      * @return QueryResultInterface
      */
-    public function findByDate(\DateTime $date): QueryResultInterface
+    public function findByDate(\DateTime $date, int $facilityUid): QueryResultInterface
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->equals('date', $date->getTimestamp())
+            $query->logicalAnd(
+                $query->equals('date', $date->getTimestamp()),
+                $query->equals('facility', $facilityUid)
+            )
         );
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
