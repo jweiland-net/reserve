@@ -21,7 +21,10 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'searchFields' => 'code'
+        'searchFields' => 'code',
+        'typeicon_classes' => [
+            'default' => 'tx_reserve_domain_model_reservation'
+        ]
     ],
     'columns' => [
         'hidden' => [

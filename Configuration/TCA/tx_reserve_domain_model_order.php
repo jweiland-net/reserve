@@ -24,7 +24,12 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'email,activation_code',
-        'type' => 'order_type'
+        'type' => 'order_type',
+        'typeicon_column' => 'order_type',
+        'typeicon_classes' => [
+            \JWeiland\Reserve\Domain\Model\Order::TYPE_DEFAULT => 'tx_reserve_domain_model_order',
+            \JWeiland\Reserve\Domain\Model\Order::TYPE_ARCHIVED => 'tx_reserve_domain_model_order_1',
+        ]
     ],
     'columns' => [
         'hidden' => [

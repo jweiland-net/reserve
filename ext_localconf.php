@@ -55,3 +55,14 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1590659241206] 
     'priority' => '70',
     'class' => \JWeiland\Reserve\Form\Element\QrCodePreviewElement::class,
 ];
+
+$icons = ['tx_reserve_domain_model_facility', 'tx_reserve_domain_model_order', 'tx_reserve_domain_model_order_1', 'tx_reserve_domain_model_period', 'tx_reserve_domain_model_reservation'];
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+foreach ($icons AS $identifier) {
+    $iconRegistry->registerIcon(
+        $identifier,
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:reserve/Resources/Public/Icons/' . $identifier . '.svg']
+    );
+}
+unset($icons, $iconRegistry);
