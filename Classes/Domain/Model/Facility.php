@@ -28,6 +28,7 @@ class Facility extends AbstractEntity
     protected $name = '';
 
     /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Period>
      */
     protected $periods;
@@ -87,6 +88,7 @@ class Facility extends AbstractEntity
     protected $qrCodeLabelSize = 0;
 
     /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
      */
     protected $qrCodeLogo;
@@ -121,7 +123,7 @@ class Facility extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getPeriods(): ObjectStorage
+    public function getPeriods()
     {
         return $this->periods;
     }
@@ -297,7 +299,7 @@ class Facility extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getQrCodeLogo(): ObjectStorage
+    public function getQrCodeLogo()
     {
         return $this->qrCodeLogo;
     }
