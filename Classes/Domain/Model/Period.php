@@ -207,7 +207,7 @@ class Period extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getOrders()
+    public function getOrders(): ObjectStorage
     {
         return $this->orders;
     }

@@ -123,7 +123,7 @@ class Facility extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getPeriods()
+    public function getPeriods(): ObjectStorage
     {
         return $this->periods;
     }
@@ -299,7 +299,7 @@ class Facility extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getQrCodeLogo()
+    public function getQrCodeLogo(): ObjectStorage
     {
         return $this->qrCodeLogo;
     }
