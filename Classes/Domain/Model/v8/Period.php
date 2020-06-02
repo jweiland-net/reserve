@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 /*
  * This file is part of the TYPO3 CMS project.
@@ -18,24 +18,14 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Model\v8;
 
 /**
- * Order for TYPO3 v8 because of annotations
+ * Period for TYPO3 v8 because of annotations
  * @internal
  */
-class Order extends \JWeiland\Reserve\Domain\Model\Order
+class Period extends \JWeiland\Reserve\Domain\Model\Period
 {
     /**
-     * @var \JWeiland\Reserve\Domain\Model\Period
+     * @lazy
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Order>
      */
-    protected $bookedPeriod;
-
-    /**
-     * @var string
-     */
-    protected $email = '';
-
-    /**
-     * @cascade remove
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
-     */
-    protected $reservations;
+    protected $orders;
 }

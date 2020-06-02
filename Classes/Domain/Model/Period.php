@@ -17,6 +17,9 @@ declare(strict_types = 1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -58,9 +61,16 @@ class Period extends AbstractEntity
     protected $maxParticipantsPerOrder = 0;
 
     /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Order>
      */
     protected $orders;
+
+    /**
+     * @internal cache property for query results
+     * @var array
+     */
+    protected $cache = [];
 
     public function __construct()
     {
@@ -174,7 +184,7 @@ class Period extends AbstractEntity
 
     public function getRemainingParticipants(): int
     {
-        return $this->maxParticipants - count($this->getReservations());
+        return $this->maxParticipants - $this->countReservations();
     }
 
     /**
@@ -197,7 +207,7 @@ class Period extends AbstractEntity
     /**
      * @return ObjectStorage
      */
-    public function getOrders(): ObjectStorage
+    public function getOrders()
     {
         return $this->orders;
     }
@@ -240,9 +250,34 @@ class Period extends AbstractEntity
         return $reservations;
     }
 
+    public function countReservations(bool $activeOnly = false): int
+    {
+        $cacheIdentifier = 'countReservations' . ($activeOnly ? 'ActiveOnly' : '');
+        if (!array_key_exists($cacheIdentifier, $this->cache)) {
+            /** @var QueryBuilder $queryBuilder */
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_reservation');
+            $queryBuilder
+                ->count('r.uid')
+                ->from('tx_reserve_domain_model_order', 'o')
+                ->leftJoin('o', 'tx_reserve_domain_model_reservation', 'r', 'r.customer_order = o.uid')
+                ->where($queryBuilder->expr()->eq('o.booked_period',
+                    $queryBuilder->createNamedParameter($this->getUid())));
+            if ($activeOnly) {
+                $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
+            }
+            $this->cache[$cacheIdentifier] = $queryBuilder->execute()->fetchColumn(0);
+        }
+        return $this->cache[$cacheIdentifier];
+    }
+
     public function getActiveReservations(): array
     {
         return $this->getReservations(true);
+    }
+
+    public function getCountActiveReservations(): int
+    {
+        return $this->countReservations(true);
     }
 
     public function getActiveReservationsOrderedByCode(): array
