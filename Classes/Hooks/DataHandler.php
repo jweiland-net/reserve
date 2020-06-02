@@ -102,7 +102,7 @@ class DataHandler
     protected function replaceNewWithIds(array $ids, \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler): array
     {
         foreach ($ids as &$id) {
-            if (strpos($id, 'NEW') === 0) {
+            if (is_string($id) && strpos($id, 'NEW') === 0) {
                 $id = $dataHandler->substNEWwithIDs[$id];
             }
         }
