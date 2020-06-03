@@ -9,5 +9,13 @@
 		<img src="{jw:qrCode(reservation: reservation)}" alt="{reservation.code}" title="QR Code" style="padding: 40px;"/>
 	</f:for>
 
+	<p></p>
+	<p><f:translate key="reservation.no_printer_notice" /></p>
+	<ul>
+		<f:for each="{order.reservations}" as="reservation">
+			<li>{reservation.code}</li>
+		</f:for>
+	</ul>
+
 </f:section>
 </html>

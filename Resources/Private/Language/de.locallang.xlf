@@ -116,7 +116,7 @@
 			<trans-unit id="mail.reservation.print_notice">
 				<target>Bitte speichere die/den unten angezeigte(n) Code(s) oder zeige die E-Mail mit den Codes am Handy vor Ort vor.</target>
 			</trans-unit>
-			<trans-unit id="mail.reservation.no_printer_notice">
+			<trans-unit id="reservation.no_printer_notice">
 				<target>Sollte weder ein Drucker, noch ein Smartphone zur Verfügung stehen, so können diese Codes manuell aufgeschrieben und vor Ort vorgezeigt werden:</target>
 			</trans-unit>
 

@@ -116,7 +116,7 @@
 			<trans-unit id="mail.reservation.print_notice">
 				<source>Please print out this mail or save the code(s) on your phone.</source>
 			</trans-unit>
-			<trans-unit id="mail.reservation.no_printer_notice">
+			<trans-unit id="reservation.no_printer_notice">
 				<source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
 			</trans-unit>
 
