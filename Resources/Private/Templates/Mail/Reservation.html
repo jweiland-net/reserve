@@ -16,7 +16,7 @@ order: Current order
 	<img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>
 </f:for>
 
-<p></p>
+<p><f:translate extensionName="reserve" key="reservation.no_printer_notice" /></p>
 <ul>
 	<f:for each="{order.reservations}" as="reservation">
 		<li>{reservation.code}</li>
