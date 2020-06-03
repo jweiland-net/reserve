@@ -42,7 +42,8 @@ class QrCodeUtility
         $qrCode
             ->setLabel(sprintf(
                 '%s %s %s - %s',
-                $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
+                $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
+                ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
                 strftime(
                     LocalizationUtility::translate('date_format', 'reserve'),
                     $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()

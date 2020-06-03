@@ -28,6 +28,11 @@ class Facility extends AbstractEntity
     protected $name = '';
 
     /**
+     * @var string
+     */
+    protected $shortName = '';
+
+    /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Period>
      */
@@ -118,6 +123,22 @@ class Facility extends AbstractEntity
     public function setName(string $name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortName(): string
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * @param string $shortName
+     */
+    public function setShortName(string $shortName)
+    {
+        $this->shortName = $shortName;
     }
 
     /**

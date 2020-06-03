@@ -9,6 +9,9 @@
 			<trans-unit id="tx_reserve_domain_model_facility.name">
 				<target>Name</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.short_name">
+				<target>Kurzname für das QR Code Label</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_facility.periods">
 				<target>Zeitblöcke</target>
 			</trans-unit>

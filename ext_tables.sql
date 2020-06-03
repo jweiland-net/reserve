@@ -16,6 +16,7 @@ CREATE TABLE tx_reserve_domain_model_facility (
 	sorting int(11) DEFAULT '0' NOT NULL,
 
 	name tinytext,
+	short_name tinytext,
 	periods int(11) DEFAULT '0' NOT NULL,
 	from_name tinytext,
 	from_email tinytext,

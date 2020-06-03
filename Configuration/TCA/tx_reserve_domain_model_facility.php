@@ -21,7 +21,7 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'searchFields' => 'name',
+        'searchFields' => 'name,short_name',
         'typeicon_classes' => [
             'default' => 'tx_reserve_domain_model_facility'
         ]
@@ -90,6 +90,15 @@ return [
                 'size' => 50,
                 'max' => 255,
                 'eval' => 'trim,required'
+            ],
+        ],
+        'short_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.short_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'max' => 8,
+                'eval' => 'trim'
             ],
         ],
         'periods' => [
@@ -283,7 +292,7 @@ DEFAULT_RESERVATION
     ],
     'types' => [
         '1' => [
-            'showitem' => 'name,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
+            'showitem' => 'name,short_name,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
             --palette--;;mail_from,--palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
             --div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.qr_code,qr_code_example,qr_code_size,qr_code_label_size,qr_code_logo,qr_code_logo_width,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
