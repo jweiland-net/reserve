@@ -123,6 +123,18 @@
 			<trans-unit id="tx_reserve_domain_model_reservation.used">
 				<target>Eingelöst</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.subject">
+				<target>Betreff</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.body">
+				<target>Nachricht</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.periods">
+				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
