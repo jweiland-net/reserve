@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Hooks;
 
 use Doctrine\DBAL\Connection;
+use JWeiland\Reserve\Service\AskForMailService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -31,6 +32,9 @@ class DataHandler
 {
     public function processDatamap_afterAllOperations(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler)
     {
+        GeneralUtility::makeInstance(AskForMailService::class)->processDataHandlerResultAfterAllOperations($dataHandler);
+
+        // TODO: Create own method or class for that cache conditions!
         $facilityNames = [];
         if (array_key_exists('tx_reserve_domain_model_facility', $dataHandler->datamap)) {
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {

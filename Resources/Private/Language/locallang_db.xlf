@@ -123,6 +123,18 @@
 			<trans-unit id="tx_reserve_domain_model_reservation.used">
 				<source>Used</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.body">
+				<source>Body</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.periods">
+				<source>Send mail to visitors of selected periods</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
