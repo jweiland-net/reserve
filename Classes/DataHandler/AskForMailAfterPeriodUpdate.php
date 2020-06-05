@@ -15,19 +15,20 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace JWeiland\Reserve\Service;
+namespace JWeiland\Reserve\DataHandler;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Service to process the result of the DataHandler hook processDatamap_afterAllOperations
  * to notify the user about changes of periods and ask them to send a mail to the visitors.
  */
-class AskForMailService
+class AskForMailAfterPeriodUpdate
 {
     const TABLE = 'tx_reserve_domain_model_period';
 
@@ -94,17 +95,23 @@ class AskForMailService
 
         $params = [
             'edit' => ['tx_reserve_domain_model_email' => [$row['pid'] => 'new']],
-            'returnUrl' => '',
-            'defVals' => ['tx_reserve_domain_model_email' => ['subject' => 'Test', 'periods' => implode(',', $this->updatedRecords)]]
+            'returnUrl' => '#txReserveCloseModal',
+            'defVals' => ['tx_reserve_domain_model_email' => ['subject' => 'Test', 'periods' => implode(',', $this->updatedRecords)]],
+            'noView' => true,
+
         ];
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $pageRenderer->addInlineSettingArray(
-            'reserve.modals',
-            [[
-                'title' => 'Replace by title ;)',
-                'message' => 'The time of at least one period has changed! Do you want to compose a mail to the affected visitors?',
+            'reserve.showModal',
+            [
+                'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
+                'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
                 'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
-            ]]
+            ]
+        );
+        $pageRenderer->addInlineLanguageLabel(
+            'reserve.modal.periodAskForMail.button.writeMail',
+            LocalizationUtility::translate('modal.periodAskForMail.button.writeMail', 'reserve')
         );
     }
 }

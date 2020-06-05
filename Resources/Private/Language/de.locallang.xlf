@@ -178,6 +178,15 @@
 			<trans-unit id="flashMessage.clearedCacheForFacility">
 				<target>Der Cache für die %s Listenansicht(en) im Frontend wurde erfolgreich geleert.</target>
 			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.title">
+				<target>Mindestens ein Zeitblock wurde geupdated</target>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.message">
+				<target>Die Zeit von mindestens einem Zeitblock wurde verändert. Möchten Sie eine E-Mail verfassen, um die betroffenen Besucher zu informieren?</target>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.button.writeMail">
+				<target>E-Mail verfassen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -148,6 +148,8 @@ CREATE TABLE tx_reserve_domain_model_email (
 	subject tinytext,
 	body text,
 	periods int(11) DEFAULT '0' NOT NULL,
+	locked int(11) DEFAULT '0' NOT NULL,
+	command_data mediumtext,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),

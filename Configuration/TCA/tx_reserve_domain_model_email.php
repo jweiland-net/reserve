@@ -131,10 +131,23 @@ DEFAULT_CONFIRMATION
                 'minitems' => 1
             ],
         ],
+        'locked' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.locked',
+            'config' => [
+                'type' => 'check',
+                'renderType' => (function() {
+                    return class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class) ? 'checkboxToggle' : null;
+                })(),
+                'readOnly' => true
+            ],
+        ],
+        'command_data' => [
+            'config' => ['type' => 'passthrough']
+        ]
     ],
     'types' => [
         '1' => [
-            'showitem' => 'subject,body,periods,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
+            'showitem' => 'subject,body,periods,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
