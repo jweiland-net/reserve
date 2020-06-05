@@ -205,7 +205,7 @@ class Period extends AbstractEntity
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage|Order[]
      */
     public function getOrders(): ObjectStorage
     {

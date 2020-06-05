@@ -135,6 +135,9 @@
 			<trans-unit id="tx_reserve_domain_model_email.periods">
 				<source>Send mail to visitors of selected periods</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.locked">
+				<source>Mails are currently being sent</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -178,6 +178,15 @@
 			<trans-unit id="flashMessage.clearedCacheForFacility">
 				<source>Cleared cache for %s list view(s) in frontend.</source>
 			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.title">
+				<source>You updated at least one period</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.message">
+				<source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected visitors?</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.button.writeMail">
+				<source>Write e-mail</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
