@@ -20,17 +20,21 @@ namespace JWeiland\Reserve\Command;
 use JWeiland\Reserve\Domain\Model\Email;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Repository\EmailRepository;
+use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\MailUtility;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * Command to send mails using all tx_reserve_domain_model_mail records
  */
-class SendMailCommand extends Command
+class SendMailsCommand extends Command
 {
     /**
      * @var EmailRepository
@@ -52,11 +56,12 @@ class SendMailCommand extends Command
      */
     protected $orders = [];
 
-    public function __construct(string $name = null, EmailRepository $emailRepository, PersistenceManager $persistenceManager)
+    public function __construct(string $name = null)
     {
         parent::__construct($name);
-        $this->emailRepository = $emailRepository;
-        $this->persistenceManager = $persistenceManager;
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->emailRepository = $objectManager->get(EmailRepository::class);
+        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
     }
 
     protected function configure()
@@ -68,17 +73,23 @@ class SendMailCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $limit = (int)$input->getArgument('limit');
+        $limit = (int)$input->getOption('limit');
+        $progressBar = new ProgressBar($output);
+        $output->writeln('Send mails...');
         $sentMails = 0;
         while ($sentMails < $limit) {
             if (!$this->sendNextMail()) {
                 break;
             }
+            $progressBar->advance();
         }
         if ($sentMails === ($limit - 1)) {
-            // we have run into the limit so save this state
+            // we have run into the limit so save the current process
             $this->unlockAndUpdateProcessedEmail();
         }
+
+        $progressBar->finish();
+
         return 0;
     }
 
@@ -93,11 +104,20 @@ class SendMailCommand extends Command
             MailUtility::sendMailToCustomer(
                 $order,
                 $this->email->getSubject(),
-                $this->email->getBody() // TODO: str_replace('###RESERVATION###', ...) !!!
+                FluidUtility::replaceMarkerByRenderedTemplate(
+                    '###RESERVATION###',
+                    'UpdatedReservation',
+                    $this->email->getBody(),
+                    ['order' => $order]
+                )
             );
-            $this->addOrderToProcessedOrders($order);
         } catch (\Throwable $throwable) {
+            $commandData = $this->email->getCommandData();
+            $commandData['sendMailExceptions'][$order->getUid()] = json_encode($throwable);
+            $this->email->setCommandData($commandData);
         }
+
+        $this->addOrderToProcessedOrders($order);
 
         return true;
     }
@@ -107,14 +127,14 @@ class SendMailCommand extends Command
         if(empty($this->orders)) {
             if ($this->email) {
                 // all orders of current email are processed now
-                $this->unlockAndUpdateProcessedEmail();
+                $this->removeProcessedEmail();
             }
             $this->email = $this->emailRepository->findOneUnlocked();
             if ($this->email instanceof Email) {
                 // lock current record
-                $this->emailRepository->lockEmail($this->email->getUid());
+                $this->emailRepository->lockEmail($this->email->getUid(), $this->email);
                 if (!$this->email->getCommandData()) {
-                    $this->email->setCommandData(['processedOrders' => []]);
+                    $this->email->setCommandData(['processedOrders' => [], 'sendMailExceptions' => []]);
                 }
             } else {
                 // no more records in db
@@ -144,6 +164,12 @@ class SendMailCommand extends Command
     {
         $this->email->setLocked(false);
         $this->persistenceManager->add($this->email);
+        $this->persistenceManager->persistAll();
+    }
+
+    protected function removeProcessedEmail()
+    {
+        $this->persistenceManager->remove($this->email);
         $this->persistenceManager->persistAll();
     }
 }

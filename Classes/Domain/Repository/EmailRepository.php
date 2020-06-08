@@ -47,17 +47,17 @@ class EmailRepository extends Repository
         return $query->execute()->getFirst();
     }
 
-    public function lockEmail(int $uid)
+    /**
+     * @param int $uid
+     * @param Email|null $email optional to set "locked" property in ExtBase domain model
+     */
+    public function lockEmail(int $uid, Email $email = null)
     {
         /** @var Connection $connection */
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_reserve_domain_model_email');
         $connection->update('tx_reserve_domain_model_email', ['locked' => true], ['uid' => $uid]);
-    }
-
-    public function unlockEmail(int $uid)
-    {
-        /** @var Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_reserve_domain_model_email');
-        $connection->update('tx_reserve_domain_model_email', ['locked' => false], ['uid' => $uid]);
+        if ($email) {
+            $email->setLocked(true);
+        }
     }
 }
