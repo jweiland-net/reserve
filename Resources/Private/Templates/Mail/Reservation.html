@@ -7,10 +7,7 @@ order: Current order
 --></f:comment>
 <p><f:translate extensionName="reserve" key="mail.reservation.print_notice" /></p>
 
-<ul>
-	<li><f:translate extensionName="reserve" key="mail.facility" />: {order.bookedPeriod.facility.name}</li>
-	<li><f:translate extensionName="reserve" key="mail.period" />: <f:format.date>{order.bookedPeriod.date}</f:format.date> <f:format.date format="H:i">{order.bookedPeriod.begin}</f:format.date> - <f:format.date format="H:i">{order.bookedPeriod.end}</f:format.date></li>
-</ul>
+<f:render partial="Mail/ReservationDetails" arguments="{order: order}" />
 
 <f:for each="{order.reservations}" as="reservation">
 	<img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>

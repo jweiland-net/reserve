@@ -29,7 +29,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class CheckoutService
 {
@@ -92,7 +91,7 @@ class CheckoutService
         return MailUtility::sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
-            $this->replaceMarkerByRenderedTemplate(
+            FluidUtility::replaceMarkerByRenderedTemplate(
                 '###ORDER_DETAILS###',
                 'Confirmation',
                 $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml(),
@@ -100,7 +99,7 @@ class CheckoutService
             )
         );
     }
-
+‚
     public function confirm(Order $order): bool
     {
         $success = true;
@@ -116,7 +115,7 @@ class CheckoutService
         return MailUtility::sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
-            $this->replaceMarkerByRenderedTemplate(
+            FluidUtility::replaceMarkerByRenderedTemplate(
                 '###RESERVATION###',
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
@@ -138,26 +137,5 @@ class CheckoutService
                 }
             }
         );
-    }
-
-    /**
-     * @param string $marker content to replace e.g. ###MY_MARKER###
-     * @param string $template fluid template name lowercase!
-     * @param string $content string which may contain $marker
-     * @param array $vars additional vars for the fluid template
-     * @return string
-     */
-    protected function replaceMarkerByRenderedTemplate(
-        string $marker,
-        string $template,
-        string $content,
-        array $vars = []
-    ): string {
-        /** @var StandaloneView $standaloneView */
-        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        FluidUtility::configureStandaloneViewForMailing($standaloneView);
-        $standaloneView->assignMultiple($vars);
-        $standaloneView->setTemplate($template);
-        return str_replace($marker, $standaloneView->render(), $content);
     }
 }

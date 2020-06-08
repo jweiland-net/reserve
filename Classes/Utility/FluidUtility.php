@@ -67,4 +67,25 @@ class FluidUtility
         }
         return static::$configurationManager;
     }
+
+    /**
+     * @param string $marker content to replace e.g. ###MY_MARKER###
+     * @param string $template fluid template name lowercase!
+     * @param string $content string which may contain $marker
+     * @param array $vars additional vars for the fluid template
+     * @return string
+     */
+    public static function replaceMarkerByRenderedTemplate(
+        string $marker,
+        string $template,
+        string $content,
+        array $vars = []
+    ): string {
+        /** @var StandaloneView $standaloneView */
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        static::configureStandaloneViewForMailing($standaloneView);
+        $standaloneView->assignMultiple($vars);
+        $standaloneView->setTemplate($template);
+        return str_replace($marker, $standaloneView->render(), $content);
+    }
 }
