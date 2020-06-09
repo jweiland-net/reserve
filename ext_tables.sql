@@ -147,7 +147,7 @@ CREATE TABLE tx_reserve_domain_model_email (
 
 	subject tinytext,
 	body text,
-	periods int(11) DEFAULT '0' NOT NULL,
+	periods text,
 	locked int(11) DEFAULT '0' NOT NULL,
 	command_data mediumtext,
 
