@@ -38,10 +38,19 @@ class RemoveInactiveOrdersCommand extends Command
         $this->setDescription('Remove inactive orders after a given time.');
         $this->setHelp('Remove inactive orders (orders with active = 0) after a given time.');
         $this->addOption('expiration-time', 't', InputOption::VALUE_OPTIONAL, 'Expiration time of an inactive order in seconds', '3600');
+        $this->addOption(
+            'locale',
+            'l',
+            InputOption::VALUE_OPTIONAL,
+            'Locale to be used inside templates and translations. Value that is available inside the Locales class '
+            . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
+            'default'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         /** @var CancellationService $cancellationService */
         $cancellationService = $objectManager->get(CancellationService::class);

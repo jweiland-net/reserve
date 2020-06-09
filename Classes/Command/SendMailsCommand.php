@@ -68,11 +68,20 @@ class SendMailsCommand extends Command
     {
         $this->setDescription('Send mails using all tx_reserve_domain_model_mail records.');
         $this->setHelp('Send mails using all tx_reserve_domain_model_mail records.');
-        $this->addOption('limit', 'l', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
+        $this->addOption('limit', 'm', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
+        $this->addOption(
+            'locale',
+            'l',
+            InputOption::VALUE_OPTIONAL,
+            'Locale to be used inside templates and translations. Value that is available inside the Locales class '
+            . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
+            'default'
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $limit = (int)$input->getOption('limit');
         $progressBar = new ProgressBar($output);
         $output->writeln('Send mails...');
