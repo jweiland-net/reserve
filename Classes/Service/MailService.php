@@ -15,18 +15,19 @@ declare(strict_types=1);
  * The TYPO3 project - inspiring people to share!
  */
 
-namespace JWeiland\Reserve\Utility;
+namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use TYPO3\CMS\Core\Mail\MailMessage;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Utility to send mails
+ * Service to send mails
  */
-class MailUtility
+class MailService implements SingletonInterface
 {
-    public static function sendMailToCustomer(Order $order, string $subject, string $bodyHtml, \Closure $postProcess = null): bool
+    public function sendMailToCustomer(Order $order, string $subject, string $bodyHtml, \Closure $postProcess = null): bool
     {
         /** @var MailMessage $mail */
         $mail = GeneralUtility::makeInstance(MailMessage::class);

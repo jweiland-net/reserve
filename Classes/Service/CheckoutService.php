@@ -22,7 +22,6 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
-use JWeiland\Reserve\Utility\MailUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use JWeiland\Reserve\Utility\QrCodeUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -88,7 +87,7 @@ class CheckoutService
 
     public function sendConfirmationMail(Order $order): bool
     {
-        return MailUtility::sendMailToCustomer(
+        return GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
             FluidUtility::replaceMarkerByRenderedTemplate(
@@ -112,7 +111,7 @@ class CheckoutService
 
     public function sendReservationMail(Order $order)
     {
-        return MailUtility::sendMailToCustomer(
+        return GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
             FluidUtility::replaceMarkerByRenderedTemplate(

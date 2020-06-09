@@ -20,8 +20,8 @@ namespace JWeiland\Reserve\Command;
 use JWeiland\Reserve\Domain\Model\Email;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Repository\EmailRepository;
+use JWeiland\Reserve\Service\MailService;
 use JWeiland\Reserve\Utility\FluidUtility;
-use JWeiland\Reserve\Utility\MailUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -101,7 +101,7 @@ class SendMailsCommand extends Command
         }
 
         try {
-            MailUtility::sendMailToCustomer(
+            GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
                 $order,
                 $this->email->getSubject(),
                 FluidUtility::replaceMarkerByRenderedTemplate(

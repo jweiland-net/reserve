@@ -20,7 +20,6 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
-use JWeiland\Reserve\Utility\MailUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -70,7 +69,7 @@ class CancellationService implements SingletonInterface
             $standaloneView->assignMultiple(['order' => $order, 'reason' => $reason]);
             $standaloneView->assignMultiple($vars);
             $standaloneView->setTemplate('Cancellation');
-            MailUtility::sendMailToCustomer(
+            GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
                 $order,
                 'Your cancellation',
                 $standaloneView->render()
