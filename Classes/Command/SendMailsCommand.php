@@ -127,6 +127,7 @@ class SendMailsCommand extends Command
         if(empty($this->orders)) {
             if ($this->email) {
                 // all orders of current email are processed now
+                $this->unlockAndUpdateProcessedEmail();
                 $this->removeProcessedEmail();
             }
             $this->email = $this->emailRepository->findOneUnlocked();
@@ -142,8 +143,11 @@ class SendMailsCommand extends Command
             }
             foreach ($this->email->getPeriods() as $period) {
                 foreach ($period->getOrders() as $order) {
-                    if (in_array($order->getUid(), $this->email->getCommandData(), true)) {
-                        // already processed
+                    if (
+                        $order->getOrderType() === Order::TYPE_ARCHIVED
+                        || in_array($order->getUid(), $this->email->getCommandData(), true)
+                    ) {
+                        // archived or already processed
                         continue;
                     }
                     $this->orders[] = $order;
