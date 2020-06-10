@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class PageRenderer
 {
-    const MODAL_UC_KEY = 'tx_reserve_modal';
+    const MODAL_SESSION_KEY = 'tx_reserve_modal';
 
     /**
      * Check the setting tx_reserve_modal (self::MODAL_UC_KEY) and add all necessary data
@@ -36,9 +36,8 @@ class PageRenderer
     {
         if (
             TYPO3_MODE === 'BE'
-            && $this->getBackendUserAuthentication()->uc
-            && array_key_exists('tx_reserve_modal', $this->getBackendUserAuthentication()->uc)
-            && !empty($this->getBackendUserAuthentication()->uc[self::MODAL_UC_KEY])
+            && $this->getBackendUserAuthentication()->user
+            && $configuration = $this->getBackendUserAuthentication()->getSessionData(self::MODAL_SESSION_KEY)
         ) {
             /** @var \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer */
             $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
@@ -47,7 +46,6 @@ class PageRenderer
                 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
             );
 
-            $configuration = $this->getBackendUserAuthentication()->uc[self::MODAL_UC_KEY];
             foreach ($configuration['jsInlineCode'] as $name => $block) {
                 $pageRenderer->addJsInlineCode($name, $block);
             }
@@ -59,8 +57,7 @@ class PageRenderer
             }
 
             // remove modal configuration of current modal
-            unset($this->getBackendUserAuthentication()->uc[self::MODAL_UC_KEY]);
-            $this->getBackendUserAuthentication()->writeUC();
+            $this->getBackendUserAuthentication()->setAndSaveSessionData(self::MODAL_SESSION_KEY, null);
         }
     }
 
