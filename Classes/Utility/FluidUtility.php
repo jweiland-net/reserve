@@ -53,7 +53,7 @@ class FluidUtility
             ?? ['EXT:reserve/Resources/Private/Layouts/']
         );
         $standaloneView->setPartialRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
+            $extbaseFrameworkConfiguration['view']['partialRootPaths']
             ?? ['EXT:reserve/Resources/Private/Partials/']
         );
         $standaloneView->getRenderingContext()->setControllerName('Mail');
