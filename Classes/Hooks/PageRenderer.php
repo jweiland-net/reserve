@@ -36,6 +36,7 @@ class PageRenderer
     {
         if (
             TYPO3_MODE === 'BE'
+            && $this->getBackendUserAuthentication()->uc
             && array_key_exists('tx_reserve_modal', $this->getBackendUserAuthentication()->uc)
             && !empty($this->getBackendUserAuthentication()->uc[self::MODAL_UC_KEY])
         ) {
