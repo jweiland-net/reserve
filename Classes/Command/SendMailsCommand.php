@@ -56,6 +56,16 @@ class SendMailsCommand extends Command
      */
     protected $orders = [];
 
+    /**
+     * @var array|string[]
+     */
+    protected $receivers = [];
+
+    /**
+     * @var int
+     */
+    protected $currentReceiverKey = 0;
+
     public function __construct(string $name = null)
     {
         parent::__construct($name);
@@ -104,36 +114,50 @@ class SendMailsCommand extends Command
 
     protected function sendNextMail(): bool
     {
-        if (!$order = $this->getNextOrder()) {
+        if (!$receiver = $this->getNextReceiver()) {
             // no more mails to send
             return false;
         }
 
         try {
-            GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
-                $order,
-                $this->email->getSubject(),
-                FluidUtility::replaceMarkerByRenderedTemplate(
-                    '###RESERVATION###',
-                    'UpdatedReservation',
+            if ($this->email->getReceiverType() === Email::RECEIVER_TYPE_PERIODS) {
+                // attach the associated order because we know that an order exists
+                $order = $this->orders[$this->currentReceiverKey];
+                GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
+                    $order,
+                    $this->email->getSubject(),
+                    FluidUtility::replaceMarkerByRenderedTemplate(
+                        '###RESERVATION###',
+                        'UpdatedReservation',
+                        $this->email->getBody(),
+                        ['order' => $order]
+                    )
+                );
+            } else {
+                GeneralUtility::makeInstance(MailService::class)->sendMail(
+                    $this->email->getSubject(),
                     $this->email->getBody(),
-                    ['order' => $order]
-                )
-            );
+                    $receiver,
+                    $this->email->getFromEmail(),
+                    $this->email->getFromName(),
+                    $this->email->getReplyToEmail(),
+                    $this->email->getReplyToName()
+                );
+            }
         } catch (\Throwable $throwable) {
             $commandData = $this->email->getCommandData();
-            $commandData['sendMailExceptions'][$order->getUid()] = json_encode($throwable);
+            $commandData['sendMailExceptions'][$this->currentReceiverKey] = json_encode($throwable);
             $this->email->setCommandData($commandData);
         }
 
-        $this->addOrderToProcessedOrders($order);
+        $this->addCurrentReceiverToProcessedReceivers();
 
         return true;
     }
 
-    protected function getNextOrder()
+    protected function getNextReceiver(): string
     {
-        if(empty($this->orders)) {
+        if(empty($this->receivers)) {
             if ($this->email) {
                 // all orders of current email are processed now
                 $this->unlockAndUpdateProcessedEmail();
@@ -144,32 +168,22 @@ class SendMailsCommand extends Command
                 // lock current record
                 $this->emailRepository->lockEmail($this->email->getUid(), $this->email);
                 if (!$this->email->getCommandData()) {
-                    $this->email->setCommandData(['processedOrders' => [], 'sendMailExceptions' => []]);
+                    $this->email->setCommandData(['processedReceiversByKey' => [], 'sendMailExceptions' => []]);
                 }
             } else {
                 // no more records in db
-                return null;
+                return '';
             }
-            foreach ($this->email->getPeriods() as $period) {
-                foreach ($period->getOrders() as $order) {
-                    if (
-                        $order->getOrderType() === Order::TYPE_ARCHIVED
-                        || in_array($order->getUid(), $this->email->getCommandData(), true)
-                    ) {
-                        // archived or already processed
-                        continue;
-                    }
-                    $this->orders[] = $order;
-                }
-            }
+            $this->receivers = $this->email->getReceivers($this->orders);
         }
-        return array_shift($this->orders);
+        $this->currentReceiverKey = key($this->receivers);
+        return (string)array_shift($this->receivers);
     }
 
-    protected function addOrderToProcessedOrders(Order $order)
+    protected function addCurrentReceiverToProcessedReceivers()
     {
         $commandData = $this->email->getCommandData();
-        $commandData['processedOrders'][] = $order->getUid();
+        $commandData['processedReceiversByKey'][] = $this->currentReceiverKey;
         $this->email->setCommandData($commandData);
     }
 

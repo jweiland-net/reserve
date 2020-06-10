@@ -29,16 +29,40 @@ class MailService implements SingletonInterface
 {
     public function sendMailToCustomer(Order $order, string $subject, string $bodyHtml, \Closure $postProcess = null): bool
     {
+        return $this->sendMail(
+            $subject,
+            $bodyHtml,
+            $order->getEmail(),
+            $order->getBookedPeriod()->getFacility()->getFromEmail(),
+            $order->getBookedPeriod()->getFacility()->getFromName(),
+            $order->getBookedPeriod()->getFacility()->getReplyToEmail(),
+            $order->getBookedPeriod()->getFacility()->getReplyToName(),
+            $postProcess,
+            ['order' => $order]
+        );
+    }
+
+    public function sendMail(
+        string $subject,
+        string $bodyHtml,
+        string $to,
+        string $from = '',
+        string $fromName = '',
+        string $replyTo = '',
+        string $replyToName = '',
+        \Closure $postProcess = null,
+        array $postProcessData = []
+    ): bool {
         /** @var MailMessage $mail */
         $mail = GeneralUtility::makeInstance(MailMessage::class);
         $mail
             ->setSubject($subject)
-            ->setTo([$order->getEmail()]);
-        if ($order->getBookedPeriod()->getFacility()->getFromEmail()) {
-            $mail->setFrom([$order->getBookedPeriod()->getFacility()->getFromEmail() => $order->getBookedPeriod()->getFacility()->getFromName()]);
+            ->setTo([$to]);
+        if ($from) {
+            $mail->setFrom([$from => $fromName]);
         }
-        if ($order->getBookedPeriod()->getFacility()->getReplyToEmail()) {
-            $mail->setReplyTo([$order->getBookedPeriod()->getFacility()->getReplyToEmail() => $order->getBookedPeriod()->getFacility()->getReplyToName()]);
+        if ($replyTo) {
+            $mail->setReplyTo([$replyTo => $replyToName]);
         }
 
         if (method_exists($mail, 'addPart')) {
@@ -54,7 +78,7 @@ class MailService implements SingletonInterface
         // closure hook to add your own stuff to the $mail
         // use $isSymfonyEmail to check if current TYPO3 is running >= v10 with the new symfony email!
         if ($postProcess) {
-            $postProcess($order, $subject, $bodyHtml, $mail, $isSymfonyEmail);
+            $postProcess($postProcessData, $subject, $bodyHtml, $mail, $isSymfonyEmail);
         }
 
         return (bool)$mail->send();

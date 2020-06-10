@@ -22,9 +22,11 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'subject',
+        // todo: add icon for email records
 //        'typeicon_classes' => [
-//            'default' => 'tx_reserve_domain_model_facility'
-//        ]
+//            'default' => 'tx_reserve_domain_model_email'
+//        ],
+        'type' => 'receiver_type',
     ],
     'columns' => [
         'hidden' => [
@@ -73,8 +75,8 @@ return [
                         0
                     ]
                 ],
-                'foreign_table' => 'tx_reserve_domain_model_facility',
-                'foreign_table_where' => 'AND tx_reserve_domain_model_facility.pid=###CURRENT_PID### AND tx_reserve_domain_model_facility.sys_language_uid IN (-1,0)',
+                'foreign_table' => 'tx_reserve_domain_model_email',
+                'foreign_table_where' => 'AND tx_reserve_domain_model_email.pid=###CURRENT_PID### AND tx_reserve_domain_model_email.sys_language_uid IN (-1,0)',
                 'default' => 0
             ]
         ],
@@ -97,18 +99,63 @@ return [
             'config' => [
                 'type' => 'text',
                 'enableRichtext' => true,
-                'default' => <<<DEFAULT_CONFIRMATION
-<p>Dear visitor,</p>
-<p>we changed some details of your booked time period!</p>
-
-<p>Updated reservation data:</p>
-<p>###RESERVATION###</p>
-DEFAULT_CONFIRMATION
-                ,
                 'eval' => 'trim,required',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
+            ]
+        ],
+        'receiver_type' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'default' => \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS,
+                'items' => [
+                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.0', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS],
+                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.1', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL],
+                ],
+            ]
+        ],
+        'from_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.from_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+            ],
+        ],
+        'from_email' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.from_email',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'email',
+            ],
+        ],
+        'reply_to_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.reply_to_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim',
+            ],
+        ],
+        'reply_to_email' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.reply_to_email',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'email',
+            ],
+        ],
+        'custom_receivers' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.custom_receivers',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'required'
             ]
         ],
         'periods' => [
@@ -146,12 +193,22 @@ DEFAULT_CONFIRMATION
         ]
     ],
     'types' => [
-        '1' => [
-            'showitem' => 'subject,body,periods,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
+        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS => [
+            'showitem' => 'subject,body,receiver_type,periods,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
+        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL => [
+            'showitem' => 'subject,body,receiver_type,--palette--;;mail_from,--palette--;;reply_to,custom_receivers,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+        ]
     ],
     'palettes' => [
+        'mail_from' => [
+            'showitem' => 'from_name,from_email'
+        ],
+        'reply_to' => [
+            'showitem' => 'reply_to_name,reply_to_email'
+        ],
         'hidden' => [
             'showitem' => '
                 hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden

@@ -184,8 +184,27 @@
 			<trans-unit id="modal.periodAskForMail.message">
 				<target>Die Zeit von mindestens einem Zeitblock wurde verändert. Möchten Sie eine E-Mail verfassen, um die betroffenen Besucher zu informieren?</target>
 			</trans-unit>
-			<trans-unit id="modal.periodAskForMail.button.writeMail">
+			<trans-unit id="modal.button.writeMail">
 				<target>E-Mail verfassen</target>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMailAfterDeletion.title">
+				<target>Mindestens ein Zeitblock wurde entfernt</target>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMailAfterDeletion.message">
+				<target>Möchten Sie die Kunden über die Streichung der reservierten Tickets informieren?</target>
+			</trans-unit>
+
+			<trans-unit id="email.body.afterPeriodUpdate">
+				<target><![CDATA[<p>Lieber Besucher,</p>
+<p>wir haben ein paar Änderungen an den Zeiten ihrer gebuchten Tickets vorgenommen.</p>
+
+<p>Aktualisierte Reservierungszeit:</p>
+<p>###RESERVATION###</p>]]></target>
+			</trans-unit>
+			<trans-unit id="email.body.afterPeriodDeletion">
+				<target><![CDATA[<p>Lieber Besucher,</p>
+<p>es tut uns sehr leid, aber Ihr gebuchtes Ticket wurde leider gestrichen!</p>
+]]></target>
 			</trans-unit>
 		</body>
 	</file>

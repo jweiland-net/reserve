@@ -22,6 +22,9 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Email extends AbstractEntity
 {
+    const RECEIVER_TYPE_PERIODS = 0;
+    const RECEIVER_TYPE_MANUAL = 1;
+
     /**
      * @var string
      */
@@ -31,6 +34,36 @@ class Email extends AbstractEntity
      * @var string
      */
     protected $body = '';
+
+    /**
+     * @var int use RECEIVER_TYPE_ constants!
+     */
+    protected $receiverType = self::RECEIVER_TYPE_PERIODS;
+
+    /**
+     * @var string
+     */
+    protected $fromName = '';
+
+    /**
+     * @var string
+     */
+    protected $fromEmail = '';
+
+    /**
+     * @var string
+     */
+    protected $replyToName = '';
+
+    /**
+     * @var string
+     */
+    protected $replyToEmail = '';
+
+    /**
+     * @var string
+     */
+    protected $customReceivers = '';
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Period>
@@ -92,6 +125,102 @@ class Email extends AbstractEntity
     }
 
     /**
+     * @return int
+     */
+    public function getReceiverType(): int
+    {
+        return $this->receiverType;
+    }
+
+    /**
+     * @param int $receiverType use RECEIVER_TYPE constants!
+     */
+    public function setReceiverType(int $receiverType)
+    {
+        $this->receiverType = $receiverType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromName(): string
+    {
+        return $this->fromName;
+    }
+
+    /**
+     * @param string $fromName
+     */
+    public function setFromName(string $fromName)
+    {
+        $this->fromName = $fromName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromEmail(): string
+    {
+        return $this->fromEmail;
+    }
+
+    /**
+     * @param string $fromEmail
+     */
+    public function setFromEmail(string $fromEmail)
+    {
+        $this->fromEmail = $fromEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReplyToName(): string
+    {
+        return $this->replyToName;
+    }
+
+    /**
+     * @param string $replyToName
+     */
+    public function setReplyToName(string $replyToName)
+    {
+        $this->replyToName = $replyToName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReplyToEmail(): string
+    {
+        return $this->replyToEmail;
+    }
+
+    /**
+     * @param string $replyToEmail
+     */
+    public function setReplyToEmail(string $replyToEmail)
+    {
+        $this->replyToEmail = $replyToEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomReceivers(): string
+    {
+        return $this->customReceivers;
+    }
+
+    /**
+     * @param string $customReceivers
+     */
+    public function setCustomReceivers(string $customReceivers)
+    {
+        $this->customReceivers = $customReceivers;
+    }
+
+    /**
      * @return ObjectStorage|Period[]
      */
     public function getPeriods(): ObjectStorage
@@ -143,5 +272,42 @@ class Email extends AbstractEntity
     {
         $this->commandData = serialize($commandData);
         $this->commandDataUnserialized = [];
+    }
+
+    /**
+     * Get all receivers of this E-Mail instance using this method. Works
+     * with all receiver types!
+     *
+     * @param array|null $orders reference if you need the associated orders if type is RECEIVER_TYPE_PERIODS
+     * @return array
+     */
+    public function getReceivers(array &$orders = null): array
+    {
+        if ($this->receiverType === self::RECEIVER_TYPE_PERIODS) {
+            $receivers = $this->getReceiversTypePeriods($orders);
+        } else {
+            $receivers = explode(',', $this->getCustomReceivers());
+        }
+        return $receivers;
+    }
+
+    protected function getReceiversTypePeriods(array &$orders = null)
+    {
+        $orders = [];
+        $emails = [];
+        foreach ($this->getPeriods() as $period) {
+            foreach ($period->getOrders() as $order) {
+                if (
+                    $order->getOrderType() === Order::TYPE_ARCHIVED
+                    || in_array($order->getUid(), $this->getCommandData(), true)
+                ) {
+                    // archived or already processed
+                    continue;
+                }
+                $emails[$order->getUid()] = $order->getEmail();
+                $orders[$order->getUid()] = $order;
+            }
+        }
+        return $emails;
     }
 }
