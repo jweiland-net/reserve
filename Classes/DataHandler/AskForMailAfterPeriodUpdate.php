@@ -59,9 +59,19 @@ class AskForMailAfterPeriodUpdate
 
     protected function checkForUpdatedRecords()
     {
+        if (!array_key_exists(self::TABLE, $this->dataHandler->datamap)) {
+            return;
+        }
+        // This looks very dangerous but it's safe because we just use this to read
+        // the historyRecords after all operations. In TYPO3 v10 $dataHandler->getHistoryRecords()
+        // has been added, so replace this reflection when this extension requires TYPO3 >= v10
+        $dataHandlerReflection = new \ReflectionClass($this->dataHandler);
+        $historyRecordsProperty = $dataHandlerReflection->getProperty('historyRecords');
+        $historyRecordsProperty->setAccessible(true);
+
         $checkFields = ['begin', 'end', 'date'];
         $updatedRecords = [];
-        foreach ($this->dataHandler->getHistoryRecords() as $recordId => $historyRecord) {
+        foreach ($historyRecordsProperty->getValue($this->dataHandler) as $recordId => $historyRecord) {
             if (strpos($recordId, self::TABLE) === false) {
                 continue;
             }
