@@ -147,6 +147,12 @@ CREATE TABLE tx_reserve_domain_model_email (
 
 	subject tinytext,
 	body text,
+	receiver_type int(11) DEFAULT '0' NOT NULL,
+	from_name tinytext,
+	from_email tinytext,
+	reply_to_name tinytext,
+	reply_to_email tinytext,
+	custom_receivers text,
 	periods text,
 	locked int(11) DEFAULT '0' NOT NULL,
 	command_data mediumtext,

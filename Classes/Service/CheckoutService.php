@@ -98,7 +98,7 @@ class CheckoutService
             )
         );
     }
-‚
+
     public function confirm(Order $order): bool
     {
         $success = true;
@@ -120,8 +120,8 @@ class CheckoutService
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
                 ['order' => $order]
             ),
-            function(Order $order, string $subject, string $bodyHtml, MailMessage $mailMessage, bool $isSymfonyEmail) {
-                foreach ($order->getReservations() as $reservation) {
+            function(array $data, string $subject, string $bodyHtml, MailMessage $mailMessage, bool $isSymfonyEmail) {
+                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
                     if ($isSymfonyEmail) {
                         $mailMessage->attach($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType());

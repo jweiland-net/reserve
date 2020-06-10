@@ -5,7 +5,7 @@ define(['TYPO3/CMS/Backend/Modal'], function(Modal) {
             content: TYPO3.settings.reserve.showModal.message,
             buttons: [
                 {
-                    text: TYPO3.lang['reserve.modal.periodAskForMail.button.writeMail'],
+                    text: TYPO3.lang['reserve.modal.button.writeMail'],
                     name: 'write-mail',
                     icon: 'content-elements-mailform',
                     active: true,

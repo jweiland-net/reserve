@@ -102,7 +102,7 @@ class AskForMailAfterPeriodUpdate
             'returnUrl' => '#txReserveCloseModal',
             'defVals' => [
                 'tx_reserve_domain_model_email' => [
-                    'subject' => 'Test',
+                    'body' => LocalizationUtility::translate('email.body.afterPeriodUpdate', 'reserve'),
                     'periods' => implode(',', $this->updatedRecords)
                 ]
             ],
@@ -126,7 +126,7 @@ class AskForMailAfterPeriodUpdate
                     ]
                 ],
                 'inlineLanguageLabel' => [
-                    'reserve.modal.periodAskForMail.button.writeMail' => LocalizationUtility::translate('modal.periodAskForMail.button.writeMail', 'reserve')
+                    'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail', 'reserve')
                 ]
             ]
         );
