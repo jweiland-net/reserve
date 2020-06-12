@@ -78,7 +78,7 @@
 				<target>Buchbar ab %s</target>
 			</trans-unit>
 			<trans-unit id="list.no_more_tickets">
-				<source>Keine Buchung mehr möglich!</source>
+				<target>Keine Buchung mehr möglich!</target>
 			</trans-unit>
 
 			<trans-unit id="scanner_unavailable">
