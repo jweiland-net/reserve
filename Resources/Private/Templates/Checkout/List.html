@@ -28,9 +28,14 @@
 								<f:if condition="{period.isBookable}">
 									<f:then>
 										<f:if condition="{period.remainingParticipants} > 0">
-											<f:link.action action="form" arguments="{period: period}">
-												<f:translate key="list.choose_this_period" />
-											</f:link.action>
+											<f:then>
+												<f:link.action action="form" arguments="{period: period}">
+													<f:translate key="list.choose_this_period" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<f:translate key="list.no_more_tickets" />
+											</f:else>
 										</f:if>
 									</f:then>
 									<f:else>

@@ -77,6 +77,9 @@
 			<trans-unit id="list.bookable_from">
 				<target>Buchbar ab %s</target>
 			</trans-unit>
+			<trans-unit id="list.no_more_tickets">
+				<source>Keine Buchung mehr möglich!</source>
+			</trans-unit>
 
 			<trans-unit id="scanner_unavailable">
 				<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
