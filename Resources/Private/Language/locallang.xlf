@@ -88,6 +88,9 @@
 			<trans-unit id="mail.salutation">
 				<source>Dear visitor,</source>
 			</trans-unit>
+			<trans-unit id="mail.cancellation.subject">
+				<source>Your cancellation</source>
+			</trans-unit>
 			<trans-unit id="mail.cancellation.inactive">
 				<source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
 			</trans-unit>

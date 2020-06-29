@@ -2,5 +2,5 @@
 
 <ul>
 	<li><f:translate extensionName="reserve" key="mail.facility" />: {order.bookedPeriod.facility.name}</li>
-	<li><f:translate extensionName="reserve" key="mail.period" />: <f:format.date>{order.bookedPeriod.date}</f:format.date> <f:format.date format="H:i">{order.bookedPeriod.begin}</f:format.date> - <f:format.date format="H:i">{order.bookedPeriod.end}</f:format.date></li>
+	<li><f:translate extensionName="reserve" key="mail.period" />: <f:format.date format="{f:translate(key: 'date_format', extensionName: 'reserve')}">{order.bookedPeriod.date}</f:format.date> <f:format.date format="H:i">{order.bookedPeriod.begin}</f:format.date> - <f:format.date format="H:i">{order.bookedPeriod.end}</f:format.date></li>
 </ul>

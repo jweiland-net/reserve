@@ -3,16 +3,10 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+ * This file is part of the package jweiland/reserve.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
+ * LICENSE file that was distributed with this source code.
  */
 
 namespace JWeiland\Reserve\Command;
@@ -78,7 +72,7 @@ class SendMailsCommand extends Command
     {
         $this->setDescription('Send mails using all tx_reserve_domain_model_mail records.');
         $this->setHelp('Send mails using all tx_reserve_domain_model_mail records.');
-        $this->addOption('limit', 'm', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
+        $this->addOption('mailLimit', 'm', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
         $this->addOption(
             'locale',
             'l',
@@ -92,18 +86,19 @@ class SendMailsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
-        $limit = (int)$input->getOption('limit');
+        $mailLimit = (int)$input->getOption('mailLimit');
         $progressBar = new ProgressBar($output);
         $output->writeln('Send mails...');
         $sentMails = 0;
-        while ($sentMails < $limit) {
+        while ($sentMails < $mailLimit) {
             if (!$this->sendNextMail()) {
                 break;
             }
+            $sentMails++;
             $progressBar->advance();
         }
-        if ($sentMails === ($limit - 1)) {
-            // we have run into the limit so save the current process
+        if ($sentMails === ($mailLimit - 1)) {
+            // we have run into the mailLimit so save the current process
             $this->unlockAndUpdateProcessedEmail();
         }
 
@@ -157,7 +152,7 @@ class SendMailsCommand extends Command
 
     protected function getNextReceiver(): string
     {
-        if(empty($this->receivers)) {
+        if (empty($this->receivers)) {
             if ($this->email) {
                 // all orders of current email are processed now
                 $this->unlockAndUpdateProcessedEmail();
