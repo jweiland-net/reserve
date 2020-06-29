@@ -88,6 +88,9 @@
 			<trans-unit id="mail.salutation">
 				<target>Sehr geehrter Besucher,</target>
 			</trans-unit>
+			<trans-unit id="mail.cancellation.subject">
+				<target>Stornierung der Reservierung</target>
+			</trans-unit>
 			<trans-unit id="mail.cancellation.inactive">
 				<target>die Reservierung für %s  wurde storniert, da sie nicht innerhalb von %d Minuten aktiviert wurde.</target>
 			</trans-unit>

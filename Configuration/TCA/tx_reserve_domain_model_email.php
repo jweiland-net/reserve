@@ -34,9 +34,7 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => (function() {
-                    return class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class) ? 'checkboxToggle' : null;
-                })(),
+                'renderType' => 'reserveCheckboxToggle',
                 'items' => [
                     [
                         0 => '',
@@ -182,9 +180,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.locked',
             'config' => [
                 'type' => 'check',
-                'renderType' => (function() {
-                    return class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class) ? 'checkboxToggle' : null;
-                })(),
+                'renderType' => 'reserveCheckboxToggle',
                 'readOnly' => true
             ],
         ],
