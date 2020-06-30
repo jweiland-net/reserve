@@ -3,16 +3,10 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the TYPO3 CMS project.
- *
- * It is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License, either version 2
- * of the License, or any later version.
+ * This file is part of the package jweiland/reserve.
  *
  * For the full copyright and license information, please read the
- * LICENSE.txt file that was distributed with this source code.
- *
- * The TYPO3 project - inspiring people to share!
+ * LICENSE file that was distributed with this source code.
  */
 
 namespace JWeiland\Reserve\Utility;
@@ -53,7 +47,7 @@ class FluidUtility
             ?? ['EXT:reserve/Resources/Private/Layouts/']
         );
         $standaloneView->setPartialRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
+            $extbaseFrameworkConfiguration['view']['partialRootPaths']
             ?? ['EXT:reserve/Resources/Private/Partials/']
         );
         $standaloneView->getRenderingContext()->setControllerName('Mail');
@@ -66,5 +60,26 @@ class FluidUtility
             static::$configurationManager = $objectManager->get(ConfigurationManager::class);
         }
         return static::$configurationManager;
+    }
+
+    /**
+     * @param string $marker content to replace e.g. ###MY_MARKER###
+     * @param string $template fluid template name lowercase!
+     * @param string $content string which may contain $marker
+     * @param array $vars additional vars for the fluid template
+     * @return string
+     */
+    public static function replaceMarkerByRenderedTemplate(
+        string $marker,
+        string $template,
+        string $content,
+        array $vars = []
+    ): string {
+        /** @var StandaloneView $standaloneView */
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        static::configureStandaloneViewForMailing($standaloneView);
+        $standaloneView->assignMultiple($vars);
+        $standaloneView->setTemplate($template);
+        return str_replace($marker, $standaloneView->render(), $content);
     }
 }

@@ -123,6 +123,45 @@
 			<trans-unit id="tx_reserve_domain_model_reservation.used">
 				<target>Eingelöst</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.subject">
+				<target>Betreff</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.body">
+				<target>Nachricht</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.periods">
+				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.locked">
+				<target>E-Mails werden aktuell verschickt</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type">
+				<source>Receiver type</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
+				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
+				<target>E-Mail Adressen händisch eintragen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.custom_receivers">
+				<target>Empfänger (kommaseparierte Liste von E-Mail Adressen)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_name">
+				<target>Absender Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_email">
+				<target>Absender E-Mail Adresse (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_name">
+				<target>Antwortadresse Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_email">
+				<target>Antwortadresse E-Mail (optional)</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
