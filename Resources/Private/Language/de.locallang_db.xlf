@@ -120,6 +120,12 @@
 			<trans-unit id="tx_reserve_domain_model_order.order_type.archived">
 				<target>Archiviert</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.first_name">
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.last_name">
+				<source>Nachname</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation">
 				<target>Reservierung</target>
 			</trans-unit>

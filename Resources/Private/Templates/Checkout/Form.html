@@ -7,6 +7,14 @@
 
 		<f:form.hidden property="bookedPeriod" />
 		<div class="powermail_fieldwrap">
+			<label for="firstName"><f:translate key="form.order.firstName" /></label>
+			<f:form.textfield id="firstName" property="firstName" required="required" />
+		</div>
+		<div class="powermail_fieldwrap">
+			<label for="lastName"><f:translate key="form.order.lastName" /></label>
+			<f:form.textfield id="lastName" property="lastName" required="required" />
+		</div>
+		<div class="powermail_fieldwrap">
 			<label for="email"><f:translate key="form.order.email" /></label>
 			<f:form.textfield id="email" type="email" property="email" required="required" />
 		</div>

@@ -40,6 +40,16 @@ class Order extends AbstractEntity
     /**
      * @var string
      */
+    protected $firstName = '';
+
+    /**
+     * @var string
+     */
+    protected $lastName = '';
+
+    /**
+     * @var string
+     */
     protected $email = '';
 
     /**
@@ -104,6 +114,38 @@ class Order extends AbstractEntity
     public function setActivated(bool $activated)
     {
         $this->activated = $activated;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName(string $firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName(string $lastName)
+    {
+        $this->lastName = $lastName;
     }
 
     /**

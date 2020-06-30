@@ -3,6 +3,8 @@
 	<table class="table table-responsive" id="{f:if(condition: '{datatable}', then: 'datatable')}">
 		<thead>
 			<tr>
+				<th>First name</th>
+				<th>Last name</th>
 				<th>Code</th>
 				<th>E-Mail</th>
 				<f:if condition="{showAdditionalInformation}">
@@ -14,6 +16,8 @@
 			<f:for each="{reservations}" as="reservation">
 				<f:if condition="{reservation.customerOrder.activated}">
 					<tr data-code="{reservation.code}">
+						<td>{reservation.customerOrder.firstName}</td>
+						<td>{reservation.customerOrder.lastName}</td>
 						<td>
 							{reservation.code}
 						</td>
