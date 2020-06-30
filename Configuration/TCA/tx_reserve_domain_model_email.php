@@ -22,10 +22,9 @@ return [
             'disabled' => 'hidden'
         ],
         'searchFields' => 'subject',
-        // todo: add icon for email records
-//        'typeicon_classes' => [
-//            'default' => 'tx_reserve_domain_model_email'
-//        ],
+        'typeicon_classes' => [
+            'default' => 'tx_reserve_domain_model_email'
+        ],
         'type' => 'receiver_type',
     ],
     'columns' => [

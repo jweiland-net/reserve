@@ -27,7 +27,7 @@ return [
         'type' => 'order_type',
         'typeicon_column' => 'order_type',
         'typeicon_classes' => [
-            \JWeiland\Reserve\Domain\Model\Order::TYPE_DEFAULT => 'tx_reserve_domain_model_order',
+            'default' => 'tx_reserve_domain_model_order',
             \JWeiland\Reserve\Domain\Model\Order::TYPE_ARCHIVED => 'tx_reserve_domain_model_order_1',
         ]
     ],
