@@ -123,6 +123,45 @@
 			<trans-unit id="tx_reserve_domain_model_reservation.used">
 				<source>Used</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.subject">
+				<source>Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.body">
+				<source>Body</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.periods">
+				<source>Send mail to visitors of selected periods</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.locked">
+				<source>Mails are currently being sent</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type">
+				<source>Receiver type</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
+				<source>Send mail to visitors of selected periods</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
+				<source>Write down E-Mail addresses manually</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.custom_receivers">
+				<source>Receivers (comma separated list of mail addresses)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_name">
+				<source>From name (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_email">
+				<source>From email (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_name">
+				<source>Reply to name (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_email">
+				<source>Reply to email (optional)</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -91,6 +91,9 @@
 			<trans-unit id="mail.salutation">
 				<source>Dear visitor,</source>
 			</trans-unit>
+			<trans-unit id="mail.cancellation.subject">
+				<source>Your cancellation</source>
+			</trans-unit>
 			<trans-unit id="mail.cancellation.inactive">
 				<source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
 			</trans-unit>
@@ -180,6 +183,34 @@
 
 			<trans-unit id="flashMessage.clearedCacheForFacility">
 				<source>Cleared cache for %s list view(s) in frontend.</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.title">
+				<source>You updated at least one period</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMail.message">
+				<source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected visitors?</source>
+			</trans-unit>
+			<trans-unit id="modal.button.writeMail">
+				<source>Write e-mail</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMailAfterDeletion.title">
+				<source>You deleted at least one period</source>
+			</trans-unit>
+			<trans-unit id="modal.periodAskForMailAfterDeletion.message">
+				<source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
+			</trans-unit>
+
+			<trans-unit id="email.body.afterPeriodUpdate">
+				<source><![CDATA[<p>Dear visitor,</p>
+<p>we changed some details of your booked time period!</p>
+
+<p>Updated reservation data:</p>
+<p>###RESERVATION###</p>]]></source>
+			</trans-unit>
+			<trans-unit id="email.body.afterPeriodDeletion">
+				<source><![CDATA[<p>Dear visitor,</p>
+<p>we are sorry but your reserved ticket got cancelled!</p>
+]]></source>
 			</trans-unit>
 		</body>
 	</file>

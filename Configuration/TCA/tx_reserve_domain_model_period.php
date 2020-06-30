@@ -34,9 +34,7 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => (function() {
-                    return class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class) ? 'checkboxToggle' : null;
-                })(),
+                'renderType' => 'reserveCheckboxToggle',
                 'items' => [
                     [
                         0 => '',
