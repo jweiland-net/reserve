@@ -66,6 +66,12 @@
 			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
 				<source>Only saved changes are processed!</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable">
+				<source>Reservations are cancelable</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
+				<source>Reservations are cancelable until x minutes before begin</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<source>Period</source>
 			</trans-unit>

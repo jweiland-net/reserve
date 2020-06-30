@@ -122,6 +122,9 @@
 			<trans-unit id="mail.reservation.print_notice">
 				<target>Bitte speichere die/den unten angezeigte(n) Code(s) oder zeige die E-Mail mit den Codes am Handy vor Ort vor.</target>
 			</trans-unit>
+			<trans-unit id="mail.reservation.cancelable_until">
+				<target>Falls die Reservierung doch nicht mehr benötigt wird, kann sie bis zum %s storniert werden.</target>
+			</trans-unit>
 			<trans-unit id="reservation.no_printer_notice">
 				<target>Sollte weder ein Drucker, noch ein Smartphone zur Verfügung stehen, so können diese Codes manuell aufgeschrieben und vor Ort vorgezeigt werden:</target>
 			</trans-unit>
@@ -131,6 +134,9 @@
 			</trans-unit>
 			<trans-unit id="date_format">
 				<target>%a %e.%m.%Y</target>
+			</trans-unit>
+			<trans-unit id="date_format_full">
+				<target>%a %e.%m.%Y %H:%I</target>
 			</trans-unit>
 			<trans-unit id="redeem">
 				<target>Einlösen</target>
@@ -183,6 +189,9 @@
 
 			<trans-unit id="flashMessage.clearedCacheForFacility">
 				<target>Der Cache für die %s Listenansicht(en) im Frontend wurde erfolgreich geleert.</target>
+			</trans-unit>
+			<trans-unit id="flashMessage.noLongerCancelable">
+				<target>Die Reservierung konnte bis zum %s storniert werden. Sie kann nun nicht mehr storniert werden!</target>
 			</trans-unit>
 			<trans-unit id="modal.periodAskForMail.title">
 				<target>Mindestens ein Zeitblock wurde geupdated</target>

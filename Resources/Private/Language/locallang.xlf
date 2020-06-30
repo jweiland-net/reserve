@@ -122,6 +122,9 @@
 			<trans-unit id="mail.reservation.print_notice">
 				<source>Please print out this mail or save the code(s) on your phone.</source>
 			</trans-unit>
+			<trans-unit id="mail.reservation.cancelable_until">
+				<source>If the reservation is no longer needed, it can be cancelled until %s.</source>
+			</trans-unit>
 			<trans-unit id="reservation.no_printer_notice">
 				<source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
 			</trans-unit>
@@ -131,6 +134,9 @@
 			</trans-unit>
 			<trans-unit id="date_format">
 				<source>%a %e-%m-%Y</source>
+			</trans-unit>
+			<trans-unit id="date_format_full">
+				<source>%a %e-%m-%Y %H:%I</source>
 			</trans-unit>
 			<trans-unit id="redeem">
 				<source>Redeem</source>
@@ -183,6 +189,9 @@
 
 			<trans-unit id="flashMessage.clearedCacheForFacility">
 				<source>Cleared cache for %s list view(s) in frontend.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.noLongerCancelable">
+				<source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
 			</trans-unit>
 			<trans-unit id="modal.periodAskForMail.title">
 				<source>You updated at least one period</source>

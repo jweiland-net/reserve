@@ -128,10 +128,9 @@ class CheckoutController extends ActionController
                     AbstractMessage::INFO
                 );
                 return $this->redirect('list');
-            } else {
-                $this->checkoutService->confirm($order);
-                $this->view->assign('order', $order);
             }
+            $this->checkoutService->confirm($order);
+            $this->view->assign('order', $order);
         } else {
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
@@ -149,20 +148,43 @@ class CheckoutController extends ActionController
     public function cancelAction(string $email, string $activationCode, bool $confirm = false)
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
-        if ($order instanceof Order && $order->isActivated() === false) {
-            $this->view->assign('order', $order);
-            if ($confirm) {
-                $cancellationService = $this->objectManager->get(CancellationService::class);
-                try {
-                    $cancellationService->cancel($order);
-                    $this->addFlashMessage(LocalizationUtility::translate('cancel.cancelled', 'reserve'));
-                } catch (\Throwable $exception) {
-                    $this->addFlashMessage(
-                        'Could not cancel your order. Please contact the administrator!',
-                        '',
-                        AbstractMessage::ERROR
-                    );
+        if ($order instanceof Order) {
+            $redirect = true;
+            if ($order->isCancelable()) {
+                $this->view->assign('order', $order);
+                if ($confirm) {
+                    $cancellationService = $this->objectManager->get(CancellationService::class);
+                    try {
+                        $cancellationService->cancel($order);
+                        $this->addFlashMessage(LocalizationUtility::translate('cancel.cancelled', 'reserve'));
+                    } catch (\Throwable $exception) {
+                        $this->addFlashMessage(
+                            'Could not cancel your order. Please contact the administrator!',
+                            '',
+                            AbstractMessage::ERROR
+                        );
+                    }
+                } else {
+                    $redirect = false;
                 }
+            } elseif ($order->isActivated() && $order->getBookedPeriod()->getFacility()->isCancelable()) {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate(
+                        'flashMessage.noLongerCancelable',
+                        'reserve',
+                        [
+                            strftime(
+                                LocalizationUtility::translate('date_format_full', 'reserve'),
+                                $order->getCancelableUntil()->getTimestamp()
+                            )
+                        ]
+                    ),
+                    '',
+                    AbstractMessage::WARNING
+                );
+            }
+            if ($redirect) {
+                CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
                 return $this->redirect('list');
             }
         } else {
@@ -171,6 +193,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::ERROR
             );
+            return $this->redirect('list');
         }
     }
 }

@@ -153,4 +153,30 @@ class Order extends AbstractEntity
     {
         $this->orderType = $orderType;
     }
+
+    public function isCancelable(): bool
+    {
+        $cancelable = false;
+        if ($this->activated === false) {
+            // non activated orders can be cancelled in any case
+            $cancelable = true;
+        } elseif ($this->getBookedPeriod()->getFacility()->isCancelable()) {
+            // if the facility allows cancellations then check if it's not to late to cancel
+            return new \DateTime() <= $this->getCancelableUntil();
+        }
+        return $cancelable;
+    }
+
+    /**
+     * @return \DateTime|null DateTime or null if facility does not allow to cancel reservations
+     */
+    public function getCancelableUntil()
+    {
+        $cancelableUntil = null;
+        if ($this->getBookedPeriod()->getFacility()->isCancelable()) {
+            $cancelableUntil = clone $this->getBookedPeriod()->getBeginDateAndTime();
+            $cancelableUntil->modify('-' . $this->getBookedPeriod()->getFacility()->getCancelableUntilMinutes() . 'minutes');
+        }
+        return $cancelableUntil;
+    }
 }
