@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Form\Resolver;
 
+use TYPO3\CMS\Backend\Form\Element\CheckboxElement;
 use TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement;
 use TYPO3\CMS\Backend\Form\NodeFactory;
 use TYPO3\CMS\Backend\Form\NodeResolverInterface;
@@ -30,6 +31,6 @@ class CheckboxToggleElementResolver implements NodeResolverInterface
         if (class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class)) {
             return CheckboxToggleElement::class;
         }
-        return null;
+        return CheckboxElement::class;
     }
 }
