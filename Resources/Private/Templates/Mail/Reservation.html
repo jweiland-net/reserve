@@ -4,6 +4,7 @@ The rendered content of this template will be used as ###RESERVATION### marker i
 
 Variables:
 order: Current order
+pageUid: Page uid which contains the reserve checkout plugin
 --></f:comment>
 <p><f:translate extensionName="reserve" key="mail.reservation.print_notice" /></p>
 
@@ -19,4 +20,13 @@ order: Current order
 		<li>{reservation.code}</li>
 	</f:for>
 </ul>
+
+<f:if condition="{order.bookedPeriod.facility.isCancelable}">
+	<p><f:translate
+		extensionName="reserve"
+		key="mail.reservation.cancelable_until"
+		arguments="{0: '{f:format.date(date: \'{order.cancelableUntil}\', format: \'{f:translate(extensionName: \\\'reserve\\\', key: \\\'date_format_full\\\')}\')}'}"
+	/></p>
+	<f:render partial="Mail/CancelReservationLink" arguments="{pageUid: pageUid, order: order}" />
+</f:if>
 </html>

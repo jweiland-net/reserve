@@ -97,6 +97,16 @@ class Facility extends AbstractEntity
      */
     protected $qrCodeLogoWidth = 0;
 
+    /**
+     * @var bool
+     */
+    protected $cancelable = false;
+
+    /**
+     * @var int
+     */
+    protected $cancelableUntilMinutes = 0;
+
     public function __construct()
     {
         $this->periods = new ObjectStorage();
@@ -341,5 +351,46 @@ class Facility extends AbstractEntity
     public function setQrCodeLogoWidth(int $qrCodeLogoWidth)
     {
         $this->qrCodeLogoWidth = $qrCodeLogoWidth;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCancelable(): bool
+    {
+        return $this->cancelable;
+    }
+
+    /**
+     * @return bool
+     * @internal fluid getter! In PHP code use isCancelable() instead!
+     */
+    public function getIsCancelable(): bool
+    {
+        return $this->isCancelable();
+    }
+
+    /**
+     * @param bool $cancelable
+     */
+    public function setCancelable(bool $cancelable)
+    {
+        $this->cancelable = $cancelable;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCancelableUntilMinutes(): int
+    {
+        return $this->cancelableUntilMinutes;
+    }
+
+    /**
+     * @param int $cancelableUntilMinutes
+     */
+    public function setCancelableUntilMinutes(int $cancelableUntilMinutes)
+    {
+        $this->cancelableUntilMinutes = $cancelableUntilMinutes;
     }
 }

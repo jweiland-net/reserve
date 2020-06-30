@@ -11,6 +11,6 @@ pageUid: Page uid which contains the reserve checkout plugin
 <f:link.action absolute="true" pageUid="{pageUid}" pluginName="Reservation" extensionName="reserve" controller="Checkout" action="confirm" arguments="{email: order.email, activationCode: order.activationCode}"><f:translate extensionName="reserve" key="mail.confirmation.confirm_link_text" /></f:link.action>
 
 <p><f:translate extensionName="reserve" key="mail.confirmation.cancel_notice" /></p>
-<f:link.action absolute="true" pageUid="{pageUid}" pluginName="Reservation" extensionName="reserve" controller="Checkout" action="cancel" arguments="{email: order.email, activationCode: order.activationCode}"><f:translate extensionName="reserve" key="mail.confirmation.cancel_link_text" /></f:link.action>
+<f:render partial="Mail/CancelReservationLink" arguments="{pageUid: pageUid, order: order}"/>
 
 </html>

@@ -66,6 +66,12 @@
 			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
 				<target>Nur gespeicherte Änderungen werden verarbeitet!</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable">
+				<target>Reservierungen sind stornierbar</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
+				<target>Reservierung sind stornierbar bis x Minuten vor Beginn</target>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period">
 				<target>Zeitblock</target>
 			</trans-unit>

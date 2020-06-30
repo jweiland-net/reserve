@@ -30,6 +30,8 @@ CREATE TABLE tx_reserve_domain_model_facility (
 	qr_code_label_size int(11) unsigned DEFAULT '16' NOT NULL,
 	qr_code_logo int(11) unsigned DEFAULT '0' NOT NULL,
 	qr_code_logo_width int(11) unsigned DEFAULT '150' NOT NULL,
+	cancelable tinyint(4) DEFAULT '0' NOT NULL,
+	cancelable_until_minutes int(11) unsigned DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),

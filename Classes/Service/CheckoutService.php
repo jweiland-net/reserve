@@ -112,7 +112,7 @@ class CheckoutService
                 '###RESERVATION###',
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
-                ['order' => $order]
+                ['pageUid' => $GLOBALS['TSFE']->id, 'order' => $order]
             ),
             function(array $data, string $subject, string $bodyHtml, MailMessage $mailMessage, bool $isSymfonyEmail) {
                  foreach ($data['order']->getReservations() as $reservation) {

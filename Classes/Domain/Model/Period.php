@@ -297,4 +297,13 @@ class Period extends AbstractEntity
 
         return $reservations;
     }
+
+    public function getBeginDateAndTime(): \DateTime
+    {
+        $cacheIdentifier = 'beginDateAndTime';
+        if (!array_key_exists($cacheIdentifier, $this->cache)) {
+            $this->cache[$cacheIdentifier] = new \DateTime($this->date->format('m/d/Y') . ' ' . $this->begin->format('H:i'));
+        }
+        return $this->cache[$cacheIdentifier];
+    }
 }
