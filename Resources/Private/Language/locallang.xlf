@@ -27,6 +27,12 @@
 			<trans-unit id="form.order.description">
 				<source>This reservation will be valid at %s between %s - %s</source>
 			</trans-unit>
+			<trans-unit id="form.order.firstName">
+				<source>First name</source>
+			</trans-unit>
+			<trans-unit id="form.order.lastName">
+				<source>Last name</source>
+			</trans-unit>
 
 			<trans-unit id="scan.status.orderNotActive">
 				<source>Order was not activated</source>
@@ -89,7 +95,7 @@
 			</trans-unit>
 
 			<trans-unit id="mail.salutation">
-				<source>Dear visitor,</source>
+				<source>Dear %s %s,</source>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.subject">
 				<source>Your cancellation</source>

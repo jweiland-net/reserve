@@ -7,8 +7,8 @@ if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangG
 
 return [
     'ctrl' => [
-        'label' => 'email',
-        'label_alt' => 'booked_period',
+        'label' => 'first_name',
+        'label_alt' => 'last_name,email,booked_period',
         'label_alt_force' => true,
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
@@ -124,6 +124,22 @@ return [
                 'eval' => 'trim',
             ],
         ],
+        'first_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.first_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'required',
+            ],
+        ],
+        'last_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.last_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'required',
+            ],
+        ],
         'email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.email',
             'config' => [
@@ -151,10 +167,10 @@ return [
     ],
     'types' => [
         \JWeiland\Reserve\Domain\Model\Order::TYPE_DEFAULT => [
-            'showitem' => 'order_type,booked_period,email,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'order_type,booked_period,--palette--;;name,email,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
         \JWeiland\Reserve\Domain\Model\Order::TYPE_ARCHIVED => [
-            'showitem' => 'order_type,booked_period,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'order_type,booked_period,--palette--;;name,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ]
     ],
     'palettes' => [
@@ -168,5 +184,8 @@ return [
                 sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
             ',
         ],
+        'name' => [
+            'showitem' => 'first_name,last_name'
+        ]
     ]
 ];

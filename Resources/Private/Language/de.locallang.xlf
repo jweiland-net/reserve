@@ -27,6 +27,12 @@
 			<trans-unit id="form.order.description">
 				<target>Diese Reservierung ist gültig für den %s zwischen %s - %s</target>
 			</trans-unit>
+			<trans-unit id="form.order.firstName">
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="form.order.lastName">
+				<target>Nachname</target>
+			</trans-unit>
 
 			<trans-unit id="scan.status.orderNotActive">
 				<target>Bestellung wurde nicht aktiviert.</target>
@@ -89,7 +95,7 @@
 			</trans-unit>
 
 			<trans-unit id="mail.salutation">
-				<target>Sehr geehrter Besucher,</target>
+				<target>Guten Tag %s %s,</target>
 			</trans-unit>
 			<trans-unit id="mail.cancellation.subject">
 				<target>Stornierung der Reservierung</target>
