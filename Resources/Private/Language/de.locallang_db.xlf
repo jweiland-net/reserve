@@ -93,6 +93,9 @@
 			<trans-unit id="tx_reserve_domain_model_period.booking_begin">
 				<target>Reservierbar ab</target>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.booking_end">
+				<source>Reservierbar bis (optional)</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.orders">
 				<target>Bestellungen</target>
 			</trans-unit>

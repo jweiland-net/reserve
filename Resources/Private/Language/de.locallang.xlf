@@ -227,6 +227,10 @@
 <p>es tut uns sehr leid, aber Ihr gebuchtes Ticket wurde leider gestrichen!</p>
 ]]></target>
 			</trans-unit>
+
+			<trans-unit id="orderValidator.isNotBookable">
+				<target>Der ausgewählte Zeitblock kann nicht gebucht werden!</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

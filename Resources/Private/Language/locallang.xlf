@@ -227,6 +227,10 @@
 <p>we are sorry but your reserved ticket got cancelled!</p>
 ]]></source>
 			</trans-unit>
+
+			<trans-unit id="orderValidator.isNotBookable">
+				<source>The selected period can not be booked at the moment!</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

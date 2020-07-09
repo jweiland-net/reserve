@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Domain\Validation;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
@@ -27,7 +28,7 @@ class OrderValidator extends AbstractValidator
             return;
         }
         if (!$order->getBookedPeriod()->isBookable()) {
-            $this->addError('The selected period can not be booked at the moment!', 1589379319);
+            $this->addError(LocalizationUtility::translate('orderValidator.isNotBookable', 'reserve'), 1589379319);
         }
         if (!GeneralUtility::validEmail($order->getEmail())) {
             $this->addError('The selected email is not valid!', 1590480086004);
