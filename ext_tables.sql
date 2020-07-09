@@ -64,6 +64,7 @@ CREATE TABLE tx_reserve_domain_model_period (
 	max_participants int(11) DEFAULT '0' NOT NULL,
 	max_participants_per_order int(11) DEFAULT '0' NOT NULL,
 	booking_begin int(11) DEFAULT '0' NOT NULL,
+	booking_end int(11) DEFAULT '0',
 	orders int(11) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),

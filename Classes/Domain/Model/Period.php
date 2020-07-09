@@ -32,6 +32,11 @@ class Period extends AbstractEntity
     /**
      * @var \DateTime
      */
+    protected $bookingEnd;
+
+    /**
+     * @var \DateTime
+     */
     protected $date;
 
     /**
@@ -101,6 +106,22 @@ class Period extends AbstractEntity
     public function setBookingBegin(\DateTime $bookingBegin)
     {
         $this->bookingBegin = $bookingBegin;
+    }
+
+    /**
+     * @return \DateTime|null null if no booking end was set!
+     */
+    public function getBookingEnd()
+    {
+        return $this->bookingEnd;
+    }
+
+    /**
+     * @param \DateTime $bookingEnd
+     */
+    public function setBookingEnd(\DateTime $bookingEnd)
+    {
+        $this->bookingEnd = $bookingEnd;
     }
 
     /**
@@ -216,8 +237,44 @@ class Period extends AbstractEntity
 
     public function isBookable(): bool
     {
-        // todo: implement bookingEnd
-        return time() >= $this->bookingBegin->getTimestamp();
+        $bookable = true;
+        if (!$this->isBookingBeginReached()) {
+            // bookings have not started yet
+            $bookable = false;
+        }
+        if ($this->isBookingTimeOver()) {
+            // booking time is over
+            $bookable = false;
+        }
+        return $bookable;
+    }
+
+    public function isBookingBeginReached(): bool
+    {
+        return (time() >= $this->bookingBegin->getTimestamp());
+    }
+
+    public function isBookingTimeOver(): bool
+    {
+        return ($this->bookingEnd && $this->bookingEnd->getTimestamp() <= time());
+    }
+
+    /**
+     * @internal fluid only!
+     * @return bool
+     */
+    public function getIsBookingBeginReached(): bool
+    {
+        return $this->isBookingBeginReached();
+    }
+
+    /**
+     * @internal fluid only!
+     * @return bool
+     */
+    public function getIsBookingTimeOver(): bool
+    {
+        return $this->isBookingTimeOver();
     }
 
     /**

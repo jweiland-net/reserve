@@ -99,14 +99,25 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_begin',
             'config' => [
                 'type' => 'input',
+                'size' => 30,
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime,null,required',
+            ],
+        ],
+        'booking_end' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_end',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime,null',
             ],
         ],
         'date' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.date',
             'config' => [
                 'type' => 'input',
+                'size' => 30,
                 'renderType' => 'inputDateTime',
                 'eval' => 'date,null,required',
             ],
@@ -115,6 +126,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.begin',
             'config' => [
                 'type' => 'input',
+                'size' => 30,
                 'renderType' => 'inputDateTime',
                 'eval' => 'time,null,required',
             ],
@@ -123,6 +135,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.end',
             'config' => [
                 'type' => 'input',
+                'size' => 30,
                 'renderType' => 'inputDateTime',
                 'eval' => 'time,null,required',
             ],
@@ -131,7 +144,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.max_participants',
             'config' => [
                 'type' => 'input',
-                'size' => 50,
+                'size' => 30,
                 'eval' => 'num,required',
                 'range' => [
                     'lower' => 1
@@ -142,7 +155,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.max_participants_per_order',
             'config' => [
                 'type' => 'input',
-                'size' => 50,
+                'size' => 30,
                 'eval' => 'num,required',
                 'range' => [
                     'lower' => 1
@@ -168,19 +181,24 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'facility,date,begin,end,max_participants,max_participants_per_order,booking_begin,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'facility,--palette--;;date,--palette--;;max_participants,--palette--;;booking_restrictions,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [
+        'date' => [
+            'showitem' => 'date,begin,end'
+        ],
+        'max_participants' => [
+            'showitem' => 'max_participants,max_participants_per_order'
+        ],
+        'booking_restrictions' => [
+            'showitem' => 'booking_begin,booking_end'
+        ],
         'hidden' => [
-            'showitem' => '
-                hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden
-            ',
+            'showitem' => 'hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden',
         ],
         'language' => [
-            'showitem' => '
-                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
-            ',
+            'showitem' => 'sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent',
         ],
     ]
 ];

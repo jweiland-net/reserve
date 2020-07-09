@@ -39,7 +39,14 @@
 										</f:if>
 									</f:then>
 									<f:else>
-										<f:translate key="list.bookable_from" arguments="{0: '{f:format.date(date: period.bookingBegin, format: \'d.m.Y H:i\' )}'}" />
+										<f:if condition="{period.isBookingBeginReached} === false">
+											<f:then>
+												<f:translate key="list.bookable_from" arguments="{0: '{f:format.date(date: period.bookingBegin, format: \'d.m.Y H:i\' )}'}" />
+											</f:then>
+											<f:else>
+												<f:translate key="list.no_more_tickets" />
+											</f:else>
+										</f:if>
 									</f:else>
 								</f:if>
 							</td>
