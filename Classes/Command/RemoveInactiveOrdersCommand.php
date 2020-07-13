@@ -75,7 +75,7 @@ class RemoveInactiveOrdersCommand extends Command
         $progressBar->finish();
         $cancellationService->getPersistenceManager()->persistAll();
         $output->writeln('Clear caches for affected facilities list views...');
-        foreach($affectedFacilities as $facilityUid => $_) {
+        foreach ($affectedFacilities as $facilityUid => $_) {
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($facilityUid);
         }
         return 0;

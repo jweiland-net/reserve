@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 /*
  * This file is part of the package jweiland/reserve.
@@ -251,12 +251,12 @@ class Period extends AbstractEntity
 
     public function isBookingBeginReached(): bool
     {
-        return (time() >= $this->bookingBegin->getTimestamp());
+        return time() >= $this->bookingBegin->getTimestamp();
     }
 
     public function isBookingTimeOver(): bool
     {
-        return ($this->bookingEnd && $this->bookingEnd->getTimestamp() <= time());
+        return $this->bookingEnd && $this->bookingEnd->getTimestamp() <= time();
     }
 
     /**
@@ -311,8 +311,10 @@ class Period extends AbstractEntity
                 ->count('r.uid')
                 ->from('tx_reserve_domain_model_order', 'o')
                 ->leftJoin('o', 'tx_reserve_domain_model_reservation', 'r', 'r.customer_order = o.uid')
-                ->where($queryBuilder->expr()->eq('o.booked_period',
-                    $queryBuilder->createNamedParameter($this->getUid())));
+                ->where($queryBuilder->expr()->eq(
+                    'o.booked_period',
+                    $queryBuilder->createNamedParameter($this->getUid())
+                ));
             if ($activeOnly) {
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
             }

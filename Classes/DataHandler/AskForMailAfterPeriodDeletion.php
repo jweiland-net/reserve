@@ -122,7 +122,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                     'from_email' => $this->fromEmail,
                     'reply_to_name' => $this->replyToName,
                     'reply_to_email' => $this->replyToEmail,
-                    'custom_receivers' => implode(',', array_map(function($a) {return implode(',', $a);}, $this->visitorEmails)),
+                    'custom_receivers' => implode(',', array_map(function ($a) {return implode(',', $a);}, $this->visitorEmails)),
                 ]
             ],
             'noView' => true,

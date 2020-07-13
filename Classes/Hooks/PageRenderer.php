@@ -43,7 +43,7 @@ class PageRenderer
             foreach ($configuration['jsInlineCode'] as $name => $block) {
                 $pageRenderer->addJsInlineCode($name, $block);
             }
-            foreach ($configuration['inlineSettings'] as $namespace => $array){
+            foreach ($configuration['inlineSettings'] as $namespace => $array) {
                 $pageRenderer->addInlineSettingArray($namespace, $array);
             }
             foreach ($configuration['inlineLanguageLabel'] as $namespace => $value) {

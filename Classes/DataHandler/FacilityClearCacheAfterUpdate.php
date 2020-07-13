@@ -100,8 +100,12 @@ class FacilityClearCacheAfterUpdate
             /** @var FlashMessageQueue $flashMessageQueue */
             $flashMessageQueue = GeneralUtility::makeInstance(FlashMessageService::class)->getMessageQueueByIdentifier();
             /** @var FlashMessage $flashMessage */
-            $flashMessage = GeneralUtility::makeInstance(FlashMessage::class,
-                LocalizationUtility::translate('flashMessage.clearedCacheForFacility', 'reserve', [implode(', ', $this->facilityNames)]), '', FlashMessage::INFO);
+            $flashMessage = GeneralUtility::makeInstance(
+                FlashMessage::class,
+                LocalizationUtility::translate('flashMessage.clearedCacheForFacility', 'reserve', [implode(', ', $this->facilityNames)]),
+                '',
+                FlashMessage::INFO
+            );
             $flashMessageQueue->addMessage($flashMessage);
             return true;
         }
