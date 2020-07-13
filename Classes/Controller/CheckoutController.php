@@ -97,7 +97,7 @@ class CheckoutController extends ActionController
     public function createAction(Order $order, int $amountOfPeople)
     {
         if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
-            $this->addFlashMessage('You are not allowed to order right now.','', AbstractMessage::ERROR);
+            $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
             return $this->redirect('list');
         }
         if ($this->checkoutService->checkout($order, $amountOfPeople, (int)$this->settings['orderPid'])) {

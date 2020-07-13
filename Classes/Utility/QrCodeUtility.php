@@ -34,7 +34,8 @@ class QrCodeUtility
         $qrCode = GeneralUtility::makeInstance(QrCode::class, $reservation->getCode());
 
         $qrCode
-            ->setLabel(sprintf(
+            ->setLabel(
+                sprintf(
                 '%s %s %s - %s',
                 $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
                 ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
