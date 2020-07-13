@@ -42,14 +42,16 @@ class ArchiveOrdersFromPastPeriodsCommand extends Command
         /** @var OrderRepository $orderRepository */
         $orderRepository = $objectManager->get(OrderRepository::class);
         $endedOrders = $orderRepository->findWherePeriodEnded((int)$input->getOption('ended-since'));
-        $endedOrders->getQuery()->setLimit(30);
+        $endedOrders->getQuery()->getStatement()->getStatement()->setMaxResults(500);
         $progressBar = new ProgressBar($output, $endedOrders->count());
         $progressBar->start();
         foreach ($endedOrders as $endedOrder) {
+            $progressBar->advance();
             $endedOrder->setOrderType(Order::TYPE_ARCHIVED);
+            $endedOrder->setFirstName('');
+            $endedOrder->setLastName('');
             $endedOrder->setEmail('');
             $persistenceManager->add($endedOrder);
-            $progressBar->advance();
         }
         $persistenceManager->persistAll();
         $progressBar->finish();
