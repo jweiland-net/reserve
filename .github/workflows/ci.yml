@@ -20,6 +20,9 @@ jobs:
             php: '7.0'
           - typo3: ^10.4
             php: '7.1'
+        include:
+          - php: '7.0'
+            os: 'ubuntu-16.04'
 
     steps:
 
