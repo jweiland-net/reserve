@@ -36,16 +36,16 @@ class QrCodeUtility
         $qrCode
             ->setLabel(
                 sprintf(
-                '%s %s %s - %s',
-                $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
+                    '%s %s %s - %s',
+                    $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
                 ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
-                strftime(
+                    strftime(
                     LocalizationUtility::translate('date_format', 'reserve'),
                     $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
                 ),
-                $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
-                $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')
-            ),
+                    $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
+                    $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')
+                ),
                 16,
                 ExtensionManagementUtility::extPath('reserve') . 'Resources/Private/Fonts/noto_sans.otf',
                 LabelAlignment::CENTER
