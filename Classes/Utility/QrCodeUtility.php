@@ -40,9 +40,9 @@ class QrCodeUtility
                     $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
                 ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
                     strftime(
-                    LocalizationUtility::translate('date_format', 'reserve'),
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
-                ),
+                        LocalizationUtility::translate('date_format', 'reserve'),
+                        $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
+                    ),
                     $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
                     $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')
                 ),
