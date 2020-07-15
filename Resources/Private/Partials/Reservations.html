@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <div class="tablescrolling">
-	<table class="table table-responsive" id="{f:if(condition: '{datatable}', then: 'datatable')}">
+	<table data-config="{f:format.json(value: '')}" class="table table-responsive" id="{f:if(condition: '{datatable}', then: 'datatable')}">
 		<thead>
 			<tr>
 				<th>First name</th>
