@@ -5,10 +5,11 @@ let config = null;
 if (reserveConf) {
     config = JSON.parse(reserveConf.getAttribute('data-conf'));
 }
-
-let reservations = $('#datatable').DataTable({
+let $datatable = $('#datatable');
+let reservations = $datatable.DataTable({
     ...config.datatables,
-    ...{"lengthChange": false}
+    ...{"lengthChange": false},
+    ...$datatable.data('config')
 });
 
 let canvasElement = document.getElementById('canvas');
@@ -42,7 +43,7 @@ function createModal(title, message, classes = '', $additionalElement = null)
     $modal.appendTo('body').modal();
 }
 
-$('#datatable').on('click', 'a[data-action="scan"]', function(event) {
+$datatable.on('click', 'a[data-action="scan"]', function(event) {
     event.preventDefault();
 
     if (activeScan) {
@@ -85,6 +86,10 @@ $('#datatable').on('click', 'a[data-action="scan"]', function(event) {
 });
 
 function initializeScanner(video) {
+    if (!navigator.mediaDevices) {
+        return;
+    }
+
     let canvas = canvasElement.getContext('2d');
     let loadingMessage = document.getElementById('loadingMessage');
 
