@@ -26,7 +26,7 @@ class CheckoutController extends \JWeiland\Reserve\Controller\CheckoutController
      * @validate $order \JWeiland\Reserve\Domain\Validation\OrderValidator
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function createAction(Order $order, int $amountOfPeople)
+    public function createAction(Order $order, int $amountOfPeople = 1)
     {
         return parent::createAction($order, $amountOfPeople);
     }
