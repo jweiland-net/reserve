@@ -45,7 +45,10 @@ class FacilityClearCacheAfterUpdate
         // maybe split this big condition block into separated methods
         if (array_key_exists('tx_reserve_domain_model_facility', $dataHandler->datamap)) {
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {
-                $this->clearPageCacheAndAddFacilityName($uid, $row['name']);
+                if (is_int($uid) && !empty($row['name'])) {
+                    // only call this method if current facility isn't new, hidden or deleted!
+                    $this->clearPageCacheAndAddFacilityName($uid, $row['name']);
+                }
             }
         } elseif (array_key_exists('tx_reserve_domain_model_order', $dataHandler->datamap)) {
             /** @var QueryBuilder $queryBuilder */
