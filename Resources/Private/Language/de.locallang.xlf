@@ -86,6 +86,9 @@
 			<trans-unit id="list.no_more_tickets">
 				<target>Keine Buchung mehr möglich!</target>
 			</trans-unit>
+			<trans-unit id="list.code">
+				<target>Code</target>
+			</trans-unit>
 
 			<trans-unit id="scanner_unavailable">
 				<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
