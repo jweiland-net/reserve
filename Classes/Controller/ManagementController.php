@@ -15,8 +15,8 @@ use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
+use JWeiland\Reserve\Service\DataTablesService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -46,13 +46,7 @@ class ManagementController extends ActionController
     protected function initializeView(ViewInterface $view)
     {
         $view->assign('jsConf', [
-            'datatables' => [
-                'language' => [
-                    'url' => LocalizationUtility::translate('datatables.languageFile', 'reserve')
-                        ? PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName(LocalizationUtility::translate('datatables.languageFile', 'reserve')))
-                        : ''
-                ]
-            ],
+            'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration(),
             'language' => [
                 'loading_video' => LocalizationUtility::translate('loading_video', 'reserve'),
                 'status' => [

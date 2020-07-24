@@ -1,0 +1,6 @@
+page {
+  includeJSFooterlibs {
+    reservationList = EXT:reserve/Resources/Public/JavaScript/reservationList.js
+  }
+}
+
