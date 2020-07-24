@@ -6,26 +6,21 @@
 		<p><f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:format.date(date: order.bookedPeriod.end, format: \'H:i\')}'}" /></p>
 
 		<f:form.hidden property="bookedPeriod" />
-		<div class="powermail_fieldwrap">
-			<label for="firstName"><f:translate key="form.order.firstName" /></label>
-			<f:form.textfield id="firstName" property="firstName" required="required" />
-		</div>
-		<div class="powermail_fieldwrap">
-			<label for="lastName"><f:translate key="form.order.lastName" /></label>
-			<f:form.textfield id="lastName" property="lastName" required="required" />
-		</div>
-		<div class="powermail_fieldwrap">
-			<label for="email"><f:translate key="form.order.email" /></label>
-			<f:form.textfield id="email" type="email" property="email" required="required" />
-		</div>
-		<div class="powermail_fieldwrap">
-			<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
-			<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{min: 1, max: order.bookedPeriod.maxParticipantsPerOrder}" required="true" />
-		</div>
-		<div class="powermail_fieldwrap powermail_fieldwrap_type_submit">
-			<div>
-				<f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}" />
-			</div>
+
+		<label for="firstName"><f:translate key="form.order.firstName" /></label>
+		<f:form.textfield id="firstName" property="firstName" required="required" />
+
+		<label for="lastName"><f:translate key="form.order.lastName" /></label>
+		<f:form.textfield id="lastName" property="lastName" required="required" />
+
+		<label for="email"><f:translate key="form.order.email" /></label>
+		<f:form.textfield id="email" type="email" property="email" required="required" />
+
+		<label for="amountOfPeople"><f:translate key="form.order.amountOfPeople" arguments="{0: order.bookedPeriod.maxParticipantsPerOrder}"/></label>
+		<f:form.textfield id="amountOfPeople" type="number" name="amountOfPeople" additionalAttributes="{min: 1, max: order.bookedPeriod.maxParticipantsPerOrder}" required="true" />
+
+		<div>
+			<f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}" />
 		</div>
 	</f:form>
 </f:section>
