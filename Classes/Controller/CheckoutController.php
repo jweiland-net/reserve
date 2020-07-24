@@ -17,6 +17,7 @@ use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CancellationService;
 use JWeiland\Reserve\Service\CheckoutService;
+use JWeiland\Reserve\Service\DataTablesService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -64,6 +65,10 @@ class CheckoutController extends ActionController
 
     public function listAction()
     {
+        $this->view->assign('jsConf', [
+            'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
+                + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]]]
+        ]);
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }

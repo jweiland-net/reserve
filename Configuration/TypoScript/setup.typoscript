@@ -1,14 +1,8 @@
 page {
-  includeCSSLibs {
-    scanner = EXT:reserve/Resources/Public/Css/scanner.css
-    jQueryModal = EXT:reserve/Resources/Public/Css/jquery.modal.min.css
-  }
   includeJSFooterlibs {
     jQueryForReserve = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
     jQueryForReserve.if.isTrue = {$plugin.tx_reserve.settings.includeJQueryLibrary}
-    jQueryModal = EXT:reserve/Resources/Public/JavaScript/jquery.modal.min.js
     dataTables = EXT:reserve/Resources/Public/JavaScript/jquery.dataTables.min.js
-    scanner = EXT:reserve/Resources/Public/JavaScript/scanner.js
   }
 }
 
@@ -29,21 +23,4 @@ plugin.tx_reserve {
       1 = {$plugin.tx_reserve.view.layoutRootPath}
     }
   }
-}
-
-reserve_scan = PAGE
-reserve_scan {
-  config {
-    disableAllHeaderCode = 1
-    debug = 0
-    no_cache = 1
-    additionalHeaders {
-      10 {
-        header = Content-Type: application/json
-        replace = 1
-      }
-    }
-  }
-  typeNum = 1589460150
-  10 < tt_content.list.20.reserve_management
 }
