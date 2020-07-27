@@ -142,10 +142,10 @@
 				<target>Liste</target>
 			</trans-unit>
 			<trans-unit id="date_format">
-				<target>%a %e.%m.%Y</target>
+				<target>%a %d.%m.%Y</target>
 			</trans-unit>
 			<trans-unit id="date_format_full">
-				<target>%a %e.%m.%Y %H:%I</target>
+				<target>%a %d.%m.%Y %H:%I</target>
 			</trans-unit>
 			<trans-unit id="redeem">
 				<target>Einlösen</target>
