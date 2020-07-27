@@ -11,7 +11,9 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Configuration;
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Extension configuration for EXT:reserve
@@ -22,16 +24,20 @@ class ExtConf implements SingletonInterface
 
     public function __construct()
     {
-        if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve'])) {
-            // get global configuration
-            $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve']);
-            if (is_array($extConf) && count($extConf)) {
-                // call setter method foreach configuration entry
-                foreach ($extConf as $key => $value) {
-                    $methodName = 'set' . ucfirst($key);
-                    if (method_exists($this, $methodName)) {
-                        $this->$methodName($value);
-                    }
+        $extConf = [];
+        if (class_exists(ExtensionConfiguration::class)) {
+            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('reserve');
+        } else {
+            if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve'])) {
+                $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve']);
+            }
+        }
+        if (is_array($extConf) && count($extConf)) {
+            // call setter method foreach configuration entry
+            foreach ($extConf as $key => $value) {
+                $methodName = 'set' . ucfirst($key);
+                if (method_exists($this, $methodName)) {
+                    $this->$methodName($value);
                 }
             }
         }
