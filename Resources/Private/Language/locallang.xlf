@@ -142,10 +142,10 @@
 				<source>List</source>
 			</trans-unit>
 			<trans-unit id="date_format">
-				<source>%a %e-%m-%Y</source>
+				<source>%a %d-%m-%Y</source>
 			</trans-unit>
 			<trans-unit id="date_format_full">
-				<source>%a %e-%m-%Y %H:%I</source>
+				<source>%a %d-%m-%Y %H:%I</source>
 			</trans-unit>
 			<trans-unit id="redeem">
 				<source>Redeem</source>
