@@ -12,9 +12,6 @@
 			<trans-unit id="reservation.orderPid">
 				<source>Storage folder for orders</source>
 			</trans-unit>
-			<trans-unit id="reservation.formPid">
-				<source>Render the form on another page (optional)</source>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>

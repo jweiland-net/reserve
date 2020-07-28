@@ -12,9 +12,6 @@
 			<trans-unit id="reservation.orderPid">
 				<target>Speicherort für Bestellungen</target>
 			</trans-unit>
-			<trans-unit id="reservation.formPid">
-				<target>Andere Seite für das rendern der Form verwenden (optional)</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
