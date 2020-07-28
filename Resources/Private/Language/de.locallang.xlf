@@ -50,6 +50,9 @@
 				<target>Fehler</target>
 			</trans-unit>
 
+			<trans-unit id="list.noFacility">
+				<target>Diese Einrichtung ist aktuell nicht aktiv!</target>
+			</trans-unit>
 			<trans-unit id="list.choose_this_period">
 				<target>Diesen Termin wählen</target>
 			</trans-unit>
