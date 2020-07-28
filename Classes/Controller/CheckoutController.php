@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Controller;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
+use JWeiland\Reserve\Domain\Repository\FacilityRepository;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CancellationService;
@@ -31,6 +32,11 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class CheckoutController extends ActionController
 {
+    /**
+     * @var FacilityRepository
+     */
+    protected $facilityRepository;
+
     /**
      * @var PeriodRepository
      */
@@ -52,12 +58,14 @@ class CheckoutController extends ActionController
     protected $persistenceManager;
 
     /**
-     * @param \JWeiland\Reserve\Domain\Repository\PeriodRepository $periodRepository
-     * @param \JWeiland\Reserve\Domain\Repository\OrderRepository $orderRepository
-     * @param \JWeiland\Reserve\Service\CheckoutService $checkoutService
+     * @param FacilityRepository $facilityRepository
+     * @param PeriodRepository $periodRepository
+     * @param OrderRepository $orderRepository
+     * @param CheckoutService $checkoutService
      */
-    public function __construct(PeriodRepository $periodRepository, OrderRepository $orderRepository, CheckoutService $checkoutService)
+    public function __construct(FacilityRepository $facilityRepository, PeriodRepository $periodRepository, OrderRepository $orderRepository, CheckoutService $checkoutService)
     {
+        $this->facilityRepository = $facilityRepository;
         $this->periodRepository = $periodRepository;
         $this->orderRepository = $orderRepository;
         $this->checkoutService = $checkoutService;
@@ -69,6 +77,7 @@ class CheckoutController extends ActionController
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
                 + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]]]
         ]);
+        $this->view->assign('facility', $this->facilityRepository->findByUid((int)$this->settings['facility']));
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
