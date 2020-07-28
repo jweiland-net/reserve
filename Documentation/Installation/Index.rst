@@ -1,15 +1,15 @@
 .. include:: ../Includes.txt
 
-.. _plugins:
+.. _installation:
 
 =============
-Plugins
+Installation
 =============
 
 Example structure and plugin usage
 ===================================
 
-.. figure:: ../../Images/ExampleStructure.png
+.. figure:: ../Images/ExampleStructure.png
    :class: with-shadow
    :alt: Example structure
    :width: 300px

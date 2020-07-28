@@ -12,5 +12,4 @@ Configuration
   Commands/Index
   EMail/Index
   ExtConf/Index
-  Plugins/Index
   QrCode/Index
