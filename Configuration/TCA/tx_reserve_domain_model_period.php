@@ -101,7 +101,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime,null,required',
+                'eval' => 'datetime,int,required',
             ],
         ],
         'booking_end' => [
@@ -110,7 +110,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'datetime,null',
+                'eval' => 'datetime,int',
             ],
         ],
         'date' => [
@@ -119,7 +119,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'date,null,required',
+                'eval' => 'date,int,required',
             ],
         ],
         'begin' => [
@@ -128,7 +128,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'time,null,required',
+                'eval' => 'time,int,required',
             ],
         ],
         'end' => [
@@ -137,7 +137,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'time,null,required',
+                'eval' => 'time,int,required',
             ],
         ],
         'max_participants' => [
