@@ -46,6 +46,6 @@ TypoScript.
 .. code-block:: typoscript
 
    # override english label
-   plugin.tx_reserve._LOCAL_LANG.default.form\.order\.submit = Get your ticket!
+   plugin.tx_reserve._LOCAL_LANG.default.form.order.submit = Get your ticket!
    # override german label
-   plugin.tx_reserve._LOCAL_LANG.de.form\.order\.submit = Hol dir dein Ticket!
+   plugin.tx_reserve._LOCAL_LANG.de.form.order.submit = Hol dir dein Ticket!
