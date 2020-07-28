@@ -1,7 +1,7 @@
-let reserveConf = document.getElementById('reserve-conf');
-config = {'datatables': {}};
-if (reserveConf) {
-    config = JSON.parse(reserveConf.getAttribute('data-conf'));
+let reserveConfReservation = document.getElementById('reserve-conf');
+reservationConfig = {'datatables': {}};
+if (reserveConfReservation) {
+    reservationConfig = JSON.parse(reserveConfReservation.getAttribute('data-conf'));
 }
 
-$('#datatable').DataTable(config.datatables);
+$('#datatable').DataTable(reservationConfig.datatables);
