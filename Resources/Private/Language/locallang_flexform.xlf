@@ -10,7 +10,7 @@
 				<source>Facility</source>
 			</trans-unit>
 			<trans-unit id="reservation.orderPid">
-				<source>Storage folder for orders</source>
+				<source>Storage folder for reservations</source>
 			</trans-unit>
 		</body>
 	</file>

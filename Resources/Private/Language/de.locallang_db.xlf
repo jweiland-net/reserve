@@ -94,13 +94,13 @@
 				<target>Reservierbar ab</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.booking_end">
-				<source>Reservierbar bis (optional)</source>
+				<target>Reservierbar bis (optional)</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_period.orders">
 				<target>Bestellungen</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order">
-				<target>Bestellung</target>
+				<target>Reservierung</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.activated">
 				<target>Aktiviert</target>
@@ -112,10 +112,10 @@
 				<target>E-Mail</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
-				<target>Reservierungen</target>
+				<target>Reservierungscodes</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.order_type">
-				<target>Bestellungstyp</target>
+				<target>Typ</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.order_type.default">
 				<target>Standard</target>
@@ -127,10 +127,13 @@
 				<target>Vorname</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.last_name">
-				<source>Nachname</source>
+				<target>Nachname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.booked_period">
+				<target>Bitte Zeitblock wählen</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation">
-				<target>Reservierung</target>
+				<target>Reservierungscode</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation.code">
 				<target>Code</target>
@@ -154,7 +157,7 @@
 				<target>E-Mails werden aktuell verschickt</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_email.receiver_type">
-				<source>Receiver type</source>
+				<target>Empfängertyp</target>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
 				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>

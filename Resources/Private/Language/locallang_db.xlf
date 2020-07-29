@@ -100,7 +100,7 @@
 				<source>Orders</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order">
-				<source>Order</source>
+				<source>Reservation</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.activated">
 				<source>Activated</source>
@@ -112,10 +112,10 @@
 				<source>E-Mail</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
-				<source>Reservations</source>
+				<source>Reservation codes</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.order_type">
-				<source>Order type</source>
+				<source>Type</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.order_type.default">
 				<source>Default</source>
@@ -129,14 +129,20 @@
 			<trans-unit id="tx_reserve_domain_model_order.last_name">
 				<source>Last name</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.booked_period">
+				<source>Select a period</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation">
-				<source>Reservation</source>
+				<source>Reservation code</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation.code">
 				<source>Code</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_reservation.used">
 				<source>Used</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.customer_order">
+				<source>Reservation</source>
 			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_email">
 				<source>E-Mail</source>
