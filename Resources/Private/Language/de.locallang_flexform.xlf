@@ -10,7 +10,7 @@
 				<target>Einrichtung</target>
 			</trans-unit>
 			<trans-unit id="reservation.orderPid">
-				<target>Speicherort für Bestellungen</target>
+				<target>Speicherort für Reservierungen</target>
 			</trans-unit>
 		</body>
 	</file>

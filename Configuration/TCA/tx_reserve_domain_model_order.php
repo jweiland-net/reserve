@@ -98,7 +98,7 @@ return [
             ]
         ],
         'booked_period' => [
-            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period',
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.booked_period',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',

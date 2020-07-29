@@ -82,7 +82,7 @@ return [
             ]
         ],
         'customer_order' => [
-            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order',
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.customer_order',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
