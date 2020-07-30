@@ -1,30 +1,74 @@
-let reserveConf = document.getElementById('reserve-conf');
+if (document.getElementsByClassName('tx-reserve-management').length) {
+    let reserveConf = document.getElementById('reserve-conf');
 
-let config = null;
+    let config = {};
 
-if (reserveConf) {
-    config = JSON.parse(reserveConf.getAttribute('data-conf'));
+    if (reserveConf) {
+        config = JSON.parse(reserveConf.getAttribute('data-conf'));
+    }
+    let $datatable = $('#datatable');
+    let reservations = $datatable.DataTable({
+        ...config.datatables,
+        ...{"lengthChange": false},
+        ...$datatable.data('config')
+    });
+
+    let canvasElement = document.getElementById('canvas');
+    let activeScan = false;
+    let video = null;
+    let codeInImage = null;
+
+    if (canvasElement) {
+        video = document.createElement('video');
+        initializeScanner(video);
+    }
+
+    $('body').on($.modal.BEFORE_CLOSE, function() {
+        activeScan = false;
+    });
+
+    $datatable.on('click', 'a[data-action="scan"]', function(event) {
+        event.preventDefault();
+
+        if (activeScan) {
+            return;
+        }
+        activeScan = true;
+
+        let request = $.ajax({
+            url: this.href,
+            data: {
+                tx_reserve_management: {
+                    entireOrder: $('#entireOrder').is(':checked') ? 1 : 0
+                }
+            }
+        });
+
+        request.done((response) => {
+            let classes = ''
+
+            if (response.status.error) {
+                classes += 'error';
+            }
+
+            let $additionalElements = null;
+
+            if (response.codes.length) {
+                $additionalElements =
+                    $('<div>').append(
+                        $('<p style="font-size: 1.5rem">').text(response.codes.length + ' ' + config.language.reservations)
+                    );
+            }
+
+            createModal(
+                response.status.title,
+                response.status.message,
+                classes,
+                $additionalElements
+            );
+        });
+    });
 }
-let $datatable = $('#datatable');
-let reservations = $datatable.DataTable({
-    ...config.datatables,
-    ...{"lengthChange": false},
-    ...$datatable.data('config')
-});
-
-let canvasElement = document.getElementById('canvas');
-let activeScan = false;
-let video = null;
-let codeInImage = null;
-
-if (canvasElement) {
-    video = document.createElement('video');
-    initializeScanner(video);
-}
-
-$('body').on($.modal.BEFORE_CLOSE, function() {
-    activeScan = false;
-});
 
 function createModal(title, message, classes = '', $additionalElement = null)
 {
@@ -42,48 +86,6 @@ function createModal(title, message, classes = '', $additionalElement = null)
 
     $modal.appendTo('body').modal();
 }
-
-$datatable.on('click', 'a[data-action="scan"]', function(event) {
-    event.preventDefault();
-
-    if (activeScan) {
-        return;
-    }
-    activeScan = true;
-
-    let request = $.ajax({
-        url: this.href,
-        data: {
-            tx_reserve_management: {
-                entireOrder: $('#entireOrder').is(':checked') ? 1 : 0
-            }
-        }
-    });
-
-    request.done((response) => {
-        let classes = ''
-
-        if (response.status.error) {
-            classes += 'error';
-        }
-
-        let $additionalElements = null;
-
-        if (response.codes.length) {
-            $additionalElements =
-                $('<div>').append(
-                    $('<p style="font-size: 1.5rem">').text(response.codes.length + ' ' + config.language.reservations)
-                );
-        }
-
-        createModal(
-            response.status.title,
-            response.status.message,
-            classes,
-            $additionalElements
-        );
-    });
-});
 
 function initializeScanner(video) {
     if (!navigator.mediaDevices) {
