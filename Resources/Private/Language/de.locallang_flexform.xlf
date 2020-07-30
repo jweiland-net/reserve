@@ -12,6 +12,9 @@
 			<trans-unit id="reservation.orderPid">
 				<target>Speicherort für Reservierungen</target>
 			</trans-unit>
+			<trans-unit id="management.facility">
+				<target>Einrichtung</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -12,6 +12,9 @@
 			<trans-unit id="reservation.orderPid">
 				<source>Storage folder for reservations</source>
 			</trans-unit>
+			<trans-unit id="management.facility">
+				<source>Facility</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
