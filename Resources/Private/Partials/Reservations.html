@@ -26,6 +26,7 @@
 					<f:if condition="{showAdditionalInformation}">
 						<td>
 							<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150"><f:translate key="redeem" /></f:link.action>
+							<f:link.action data="{scan: 'all'}" action="scan" arguments="{reservation: reservation, entireOrder: 1}" pageType="1589460150" style="display:none">all</f:link.action>
 						</td>
 					</f:if>
 				</tr>
