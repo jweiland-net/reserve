@@ -20,7 +20,7 @@ defined('TYPO3_MODE') or die();
         'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
     ],
     [
-        'Management' => 'scan'
+        'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
     ]
 );
 
