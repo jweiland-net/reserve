@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+	<tx_reserve_domain_model_facility>
+		<uid>1</uid>
+		<pid>1</pid>
+		<periods>1</periods>
+		<name>Test</name>
+		<confirmation_mail_subject>Test confirmation</confirmation_mail_subject>
+		<confirmation_mail_html>Test ###ORDER_DETAILS###</confirmation_mail_html>
+		<reservation_mail_subject>Test reservation</reservation_mail_subject>
+		<reservation_mail_html>Test ###RESERVATION###</reservation_mail_html>
+	</tx_reserve_domain_model_facility>
+
+	<tx_reserve_domain_model_period>
+		<uid>1</uid>
+		<pid>1</pid>
+		<facility>1</facility>
+		<begin>46800</begin>
+		<end>54000</end>
+		<max_participants>50</max_participants>
+		<max_participants_per_order>2</max_participants_per_order>
+		<booking_begin>1596106800</booking_begin>
+		<date>2051218800</date>
+	</tx_reserve_domain_model_period>
+</dataset>
