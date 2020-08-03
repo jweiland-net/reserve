@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset>
+	<tx_reserve_domain_model_order>
+		<uid>1</uid>
+		<pid>1</pid>
+		<order_type>0</order_type>
+		<booked_period>1</booked_period>
+		<activated>0</activated>
+		<first_name>John</first_name>
+		<last_name>Doe</last_name>
+		<activation_code>123456789</activation_code>
+		<email>john@doe.tld</email>
+		<reservations>2</reservations>
+	</tx_reserve_domain_model_order>
+
+	<tx_reserve_domain_model_reservation>
+		<uid>1</uid>
+		<pid>1</pid>
+		<customer_order>1</customer_order>
+		<code>firstCode</code>
+		<used>0</used>
+	</tx_reserve_domain_model_reservation>
+
+	<tx_reserve_domain_model_reservation>
+		<uid>2</uid>
+		<pid>1</pid>
+		<customer_order>1</customer_order>
+		<code>secondCode</code>
+		<used>0</used>
+	</tx_reserve_domain_model_reservation>
+</dataset>
