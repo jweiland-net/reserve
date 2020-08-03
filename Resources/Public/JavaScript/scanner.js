@@ -1,4 +1,8 @@
-if (document.getElementsByClassName('tx-reserve-management').length) {
+$(() => {
+    if (!document.getElementsByClassName('tx-reserve-management').length) {
+       return;
+    }
+
     let reserveConf = document.getElementById('reserve-conf');
 
     let config = {};
@@ -186,4 +190,4 @@ if (document.getElementsByClassName('tx-reserve-management').length) {
             requestAnimationFrame(tick);
         }
     }
-}
+})
