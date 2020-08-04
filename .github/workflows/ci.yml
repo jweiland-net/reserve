@@ -53,7 +53,7 @@ jobs:
       - name: Functional Tests
         env:
           typo3DatabaseName: test
-          typo3DatabaseUser: root
+          typo3DatabaseUsername: root
           typo3DatabasePassword: root
           typo3DatabaseHost: 127.0.0.1
         run: |
