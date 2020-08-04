@@ -51,10 +51,11 @@ jobs:
         run: composer ci:php:lint
 
       - name: Functional Tests
+        env:
+          typo3DatabaseName: test
+          typo3DatabaseUser: root
+          typo3DatabasePassword: root
+          typo3DatabaseHost: 127.0.0.1
         run: |
           sudo systemctl start mysql.service
-          export typo3DatabaseName=test
-          export typo3DatabaseUser=root
-          export typo3DatabasePassword=root
-          export typo3DatabaseHost=127.0.0.1
           composer ci:tests:functional
