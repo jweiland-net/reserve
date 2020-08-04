@@ -48,8 +48,17 @@ class CheckoutServiceTest extends FunctionalTestCase
             // TYPO3 8
             $GLOBALS['TSFE'] = new TypoScriptFrontendController(null, 1, 1);
         }
+
         $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
-        $GLOBALS['LANG'] = LanguageService::create('default');
+
+        if (LanguageService::class) {
+            // TYPO3 >= 10
+            $GLOBALS['LANG'] = LanguageService::create('default');
+        } else {
+            // TYPO3 < 10
+            $GLOBALS['LANG'] = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            $GLOBALS['LANG']->init('default');
+        }
 
         $this->checkoutService = GeneralUtility::makeInstance(ObjectManager::class)->get(CheckoutService::class);
 
