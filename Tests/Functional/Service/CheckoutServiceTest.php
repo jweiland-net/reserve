@@ -41,7 +41,13 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         parent::setUp();
         $GLOBALS['TYPO3_REQUEST'] = new ServerRequest('https://example.tld');
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController(null, new Site('test', 1, []), new SiteLanguage(1, 'en_US', new Uri('https://example.tld'), []));
+        if (class_exists(Site::class)) {
+            // TYPO3 >= 9
+            $GLOBALS['TSFE'] = new TypoScriptFrontendController(null, new Site('test', 1, []), new SiteLanguage(1, 'en_US', new Uri('https://example.tld'), []));
+        } else {
+            // TYPO3 8
+            $GLOBALS['TSFE'] = new TypoScriptFrontendController(null, 1, 1);
+        }
         $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
         $GLOBALS['LANG'] = LanguageService::create('default');
 
