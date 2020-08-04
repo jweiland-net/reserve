@@ -52,6 +52,7 @@ jobs:
 
       - name: Functional Tests
         run: |
+          sudo systemctl start mysql.service
           export typo3DatabaseName=test
           export typo3DatabaseUser=root
           export typo3DatabasePassword=root
