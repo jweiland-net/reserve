@@ -57,5 +57,6 @@ jobs:
           typo3DatabasePassword: root
           typo3DatabaseHost: 127.0.0.1
         run: |
+          sudo timedatectl set-timezone Europe/Berlin
           sudo systemctl start mysql.service
           composer ci:tests:functional
