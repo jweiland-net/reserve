@@ -95,11 +95,13 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order = $orderRepository->findByUid(1);
 
         $mailService = $this->prophesize(MailService::class);
+
+        $mailService->sendMailToCustomer(Argument::cetera())->willReturn(false);
         $mailService
             ->sendMailToCustomer(
                 $order,
                 'Test confirmation',
-                Argument::containingString('01-01-2035'), // date from period!
+                Argument::containingString('Confirm your reservation'),
                 Argument::cetera()
             )
             ->shouldBeCalled()
@@ -123,11 +125,12 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order = $orderRepository->findByUid(1);
 
         $mailService = $this->prophesize(MailService::class);
+        $mailService->sendMailToCustomer(Argument::cetera())->willReturn(false);
         $mailService
             ->sendMailToCustomer(
                 $order,
                 'Test reservation',
-                Argument::containingString('01-01-2035'), // date from period!
+                Argument::containingString('alt="firstCode"'), // reservation code
                 Argument::cetera()
             )
             ->shouldBeCalled()
