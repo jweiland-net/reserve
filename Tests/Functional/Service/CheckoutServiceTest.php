@@ -53,12 +53,12 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         if (class_exists(LanguageService::class)) {
             // TYPO3 >= 10
-            $GLOBALS['LANG'] = LanguageService::create('default');
+            $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
         } else {
             // TYPO3 < 10
             $GLOBALS['LANG'] = GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
-            $GLOBALS['LANG']->init('default');
         }
+        $GLOBALS['LANG']->init('default');
 
         $this->checkoutService = GeneralUtility::makeInstance(ObjectManager::class)->get(CheckoutService::class);
 
