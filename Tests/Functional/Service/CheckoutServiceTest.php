@@ -51,7 +51,7 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
 
-        if (LanguageService::class) {
+        if (class_exists(LanguageService::class)) {
             // TYPO3 >= 10
             $GLOBALS['LANG'] = LanguageService::create('default');
         } else {
