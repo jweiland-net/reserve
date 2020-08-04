@@ -122,7 +122,7 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $this->checkoutService->confirm($order);
 
-        self::assertEquals(true, $order->isActivated(), 'Order is activated after CheckoutService::confirm');
+        self::assertTrue($order->isActivated(), 'Order is activated after CheckoutService::confirm');
 
         GeneralUtility::removeSingletonInstance(MailService::class, $mailService->reveal());
     }

@@ -50,6 +50,10 @@ jobs:
       - name: Lint PHP
         run: composer ci:php:lint
 
-      # TODO: Write unit tests!
-      #- name: Unit Tests
-      #  run: composer ci:tests:unit
+      - name: Functional Tests
+        run: |
+          export typo3DatabaseName=test
+          export typo3DatabaseUser=root
+          export typo3DatabasePassword=root
+          export typo3DatabaseHost=127.0.0.1
+          composer ci:tests:functional
