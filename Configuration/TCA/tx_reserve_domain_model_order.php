@@ -7,8 +7,8 @@ if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangG
 
 return [
     'ctrl' => [
-        'label' => 'first_name',
-        'label_alt' => 'last_name,email,booked_period',
+        'label' => 'last_name',
+        'label_alt' => 'first_name,email,booked_period',
         'label_alt_force' => true,
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
@@ -185,7 +185,7 @@ return [
             ',
         ],
         'name' => [
-            'showitem' => 'first_name,last_name'
+            'showitem' => 'last_name,first_name'
         ]
     ]
 ];

@@ -2,8 +2,8 @@
 <table data-config="{f:format.json(value: '')}" class="table table-responsive tx-reserve-management" id="{f:if(condition: '{datatable}', then: 'datatable')}">
 	<thead>
 		<tr>
-			<th><f:translate key="form.order.firstName" /></th>
 			<th><f:translate key="form.order.lastName" /></th>
+			<th><f:translate key="form.order.firstName" /></th>
 			<th><f:translate key="list.code" /></th>
 			<th><f:translate key="form.order.email" /></th>
 			<f:if condition="{showAdditionalInformation}">
@@ -15,8 +15,8 @@
 		<f:for each="{reservations}" as="reservation">
 			<f:if condition="{reservation.customerOrder.activated}">
 				<tr data-code="{reservation.code}">
-					<td>{reservation.customerOrder.firstName}</td>
 					<td>{reservation.customerOrder.lastName}</td>
+					<td>{reservation.customerOrder.firstName}</td>
 					<td>
 						{reservation.code}
 					</td>
