@@ -11,11 +11,18 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class PeriodRepository extends Repository
 {
+    protected $defaultOrderings = [
+        'date' => QueryInterface::ORDER_ASCENDING,
+        'begin' => QueryInterface::ORDER_ASCENDING,
+        'end' => QueryInterface::ORDER_ASCENDING
+    ];
+
     /**
      * @param int $uid
      * @return QueryResultInterface
