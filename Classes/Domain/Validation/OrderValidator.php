@@ -13,6 +13,8 @@ namespace JWeiland\Reserve\Domain\Validation;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
@@ -21,6 +23,16 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 class OrderValidator extends AbstractValidator
 {
+    /**
+     * @var Dispatcher
+     */
+    protected $dispatcher;
+
+    public function injectDispatcher(Dispatcher $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     protected function isValid($order)
     {
         if (!$order instanceof Order) {
@@ -32,6 +44,20 @@ class OrderValidator extends AbstractValidator
         }
         if (!GeneralUtility::validEmail($order->getEmail())) {
             $this->addError('The selected email is not valid!', 1590480086004);
+        }
+
+        $this->attachForeignResults($order);
+    }
+
+    protected function attachForeignResults(Order $order)
+    {
+        $results = new ObjectStorage();
+        $this->dispatcher->dispatch(__CLASS__, 'validateOrder', [
+            'order' => $order,
+            'errorResults' => $results,
+        ]);
+        foreach ($results as $result) {
+            $this->result->merge($result);
         }
     }
 }
