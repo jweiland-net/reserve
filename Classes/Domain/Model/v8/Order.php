@@ -28,6 +28,12 @@ class Order extends \JWeiland\Reserve\Domain\Model\Order
     protected $email = '';
 
     /**
+     * @transient
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Participant>
+     */
+    protected $participants = [];
+
+    /**
      * @cascade remove
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
      */

@@ -1,246 +1,267 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
-	<file t3:id="1589362740560" source-language="en" datatype="plaintext">
-		<header/>
-		<body>
-			<trans-unit id="plugin.reservation.title">
-				<source>Display and reserve periods</source>
-			</trans-unit>
-			<trans-unit id="plugin.management.title">
-				<source>Manage reservations and scan reservation codes</source>
-			</trans-unit>
-			<trans-unit id="form.order.submit">
-				<source>Reserve</source>
-			</trans-unit>
-			<trans-unit id="form.order.email">
-				<source>E-Mail</source>
-			</trans-unit>
-			<trans-unit id="form.order.period">
-				<source>Selected period</source>
-			</trans-unit>
-			<trans-unit id="form.order.amountOfPeople">
-				<source>Amount of people (max. %d)</source>
-			</trans-unit>
-			<trans-unit id="form.order.header">
-				<source>Reserve a ticket for %s</source>
-			</trans-unit>
-			<trans-unit id="form.order.description">
-				<source>This reservation will be valid at %s between %s - %s</source>
-			</trans-unit>
-			<trans-unit id="form.order.firstName">
-				<source>First name</source>
-			</trans-unit>
-			<trans-unit id="form.order.lastName">
-				<source>Last name</source>
-			</trans-unit>
+    <file t3:id="1589362740560" source-language="en" datatype="plaintext">
+        <header/>
+        <body>
+            <trans-unit id="plugin.reservation.title">
+                <source>Display and reserve periods</source>
+            </trans-unit>
+            <trans-unit id="plugin.management.title">
+                <source>Manage reservations and scan reservation codes</source>
+            </trans-unit>
+            <trans-unit id="form.order.submit">
+                <source>Reserve</source>
+            </trans-unit>
+            <trans-unit id="form.order.email">
+                <source>E-Mail</source>
+            </trans-unit>
+            <trans-unit id="form.order.phone">
+                <source>Phone</source>
+            </trans-unit>
+            <trans-unit id="form.order.address">
+                <source>Address</source>
+            </trans-unit>
+            <trans-unit id="form.order.zip">
+                <source>Zip</source>
+            </trans-unit>
+            <trans-unit id="form.order.city">
+                <source>City</source>
+            </trans-unit>
+            <trans-unit id="form.order.furtherParticipants">
+                <source>Further participants:</source>
+            </trans-unit>
+            <trans-unit id="form.order.participants.firstName">
+                <source>First name of participant %d</source>
+            </trans-unit>
+            <trans-unit id="form.order.participants.lastName">
+                <source>Last name of participant %d</source>
+            </trans-unit>
+            <trans-unit id="form.order.period">
+                <source>Selected period</source>
+            </trans-unit>
+            <trans-unit id="form.order.amountOfPeople">
+                <source>Amount of people (max. %d)</source>
+            </trans-unit>
+            <trans-unit id="form.order.header">
+                <source>Reserve a ticket for %s</source>
+            </trans-unit>
+            <trans-unit id="form.order.description">
+                <source>This reservation will be valid at %s between %s - %s</source>
+            </trans-unit>
+            <trans-unit id="form.order.firstName">
+                <source>First name</source>
+            </trans-unit>
+            <trans-unit id="form.order.lastName">
+                <source>Last name</source>
+            </trans-unit>
 
-			<trans-unit id="scan.status.orderNotActive">
-				<source>Order was not activated</source>
-			</trans-unit>
-			<trans-unit id="scan.status.codeAlreadyScanned">
-				<source>Code was already scanned</source>
-			</trans-unit>
-			<trans-unit id="scan.status.reservationActivated">
-				<source>Reservation successfully scanned.</source>
-			</trans-unit>
-			<trans-unit id="scan.status.error.0">
-				<source>Success</source>
-			</trans-unit>
-			<trans-unit id="scan.status.error.1">
-				<source>Error</source>
-			</trans-unit>
+            <trans-unit id="scan.status.orderNotActive">
+                <source>Order was not activated</source>
+            </trans-unit>
+            <trans-unit id="scan.status.codeAlreadyScanned">
+                <source>Code was already scanned</source>
+            </trans-unit>
+            <trans-unit id="scan.status.reservationActivated">
+                <source>Reservation successfully scanned.</source>
+            </trans-unit>
+            <trans-unit id="scan.status.error.0">
+                <source>Success</source>
+            </trans-unit>
+            <trans-unit id="scan.status.error.1">
+                <source>Error</source>
+            </trans-unit>
 
-			<trans-unit id="list.noFacility">
-				<source>The facility is inactive!</source>
-			</trans-unit>
-			<trans-unit id="list.alerts.isBookingAllowed">
-				<source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can reserve more tickets.</source>
-			</trans-unit>
-			<trans-unit id="list.alerts.wrongAmountOfReservations">
-				<source>Could not create an order for your selected amount of people!</source>
-			</trans-unit>
-			<trans-unit id="list.date">
-				<source>Date</source>
-			</trans-unit>
-			<trans-unit id="list.begin">
-				<source>Begin</source>
-			</trans-unit>
-			<trans-unit id="list.end">
-				<source>End</source>
-			</trans-unit>
-			<trans-unit id="list.free_slots">
-				<source>Remaining slots</source>
-			</trans-unit>
-			<trans-unit id="list.participants">
-				<source>Participants</source>
-			</trans-unit>
-			<trans-unit id="list.action">
-				<source>Action</source>
-			</trans-unit>
-			<trans-unit id="list.choose_this_period">
-				<source>Choose this period</source>
-			</trans-unit>
-			<trans-unit id="list.bookable_from">
-				<source>Bookable from %s</source>
-			</trans-unit>
-			<trans-unit id="list.in_use">
-				<source>Is in use?</source>
-			</trans-unit>
-			<trans-unit id="list.no_more_tickets">
-				<source>No more tickets!</source>
-			</trans-unit>
-			<trans-unit id="list.code">
-				<source>Code</source>
-			</trans-unit>
+            <trans-unit id="list.noFacility">
+                <source>The facility is inactive!</source>
+            </trans-unit>
+            <trans-unit id="list.alerts.isBookingAllowed">
+                <source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can reserve more tickets.</source>
+            </trans-unit>
+            <trans-unit id="list.alerts.wrongAmountOfReservations">
+                <source>Could not create an order for your selected amount of people!</source>
+            </trans-unit>
+            <trans-unit id="list.date">
+                <source>Date</source>
+            </trans-unit>
+            <trans-unit id="list.begin">
+                <source>Begin</source>
+            </trans-unit>
+            <trans-unit id="list.end">
+                <source>End</source>
+            </trans-unit>
+            <trans-unit id="list.free_slots">
+                <source>Remaining slots</source>
+            </trans-unit>
+            <trans-unit id="list.participants">
+                <source>Participants</source>
+            </trans-unit>
+            <trans-unit id="list.action">
+                <source>Action</source>
+            </trans-unit>
+            <trans-unit id="list.choose_this_period">
+                <source>Choose this period</source>
+            </trans-unit>
+            <trans-unit id="list.bookable_from">
+                <source>Bookable from %s</source>
+            </trans-unit>
+            <trans-unit id="list.in_use">
+                <source>Is in use?</source>
+            </trans-unit>
+            <trans-unit id="list.no_more_tickets">
+                <source>No more tickets!</source>
+            </trans-unit>
+            <trans-unit id="list.code">
+                <source>Code</source>
+            </trans-unit>
 
-			<trans-unit id="scanner_unavailable">
-				<source>Unable to access video stream (please make sure you have a camera enabled)</source>
-			</trans-unit>
-			<trans-unit id="of">
-				<source>of</source>
-			</trans-unit>
+            <trans-unit id="scanner_unavailable">
+                <source>Unable to access video stream (please make sure you have a camera enabled)</source>
+            </trans-unit>
+            <trans-unit id="of">
+                <source>of</source>
+            </trans-unit>
 
-			<trans-unit id="mail.salutation">
-				<source>Dear %s %s,</source>
-			</trans-unit>
-			<trans-unit id="mail.cancellation.subject">
-				<source>Your cancellation</source>
-			</trans-unit>
-			<trans-unit id="mail.cancellation.inactive">
-				<source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
-			</trans-unit>
-			<trans-unit id="mail.cancellation.customer">
-				<source>we cancelled your reservation for %s.</source>
-			</trans-unit>
+            <trans-unit id="mail.salutation">
+                <source>Dear %s %s,</source>
+            </trans-unit>
+            <trans-unit id="mail.cancellation.subject">
+                <source>Your cancellation</source>
+            </trans-unit>
+            <trans-unit id="mail.cancellation.inactive">
+                <source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
+            </trans-unit>
+            <trans-unit id="mail.cancellation.customer">
+                <source>we cancelled your reservation for %s.</source>
+            </trans-unit>
 
-			<trans-unit id="mail.confirmation.confirm_link_text">
-				<source>Confirm your reservation</source>
-			</trans-unit>
-			<trans-unit id="mail.confirmation.cancel_link_text">
-				<source>Cancel your reservation</source>
-			</trans-unit>
+            <trans-unit id="mail.confirmation.confirm_link_text">
+                <source>Confirm your reservation</source>
+            </trans-unit>
+            <trans-unit id="mail.confirmation.cancel_link_text">
+                <source>Cancel your reservation</source>
+            </trans-unit>
 
-			<trans-unit id="mail.confirmation.cancel_notice">
-				<source>Not your order or placed by mistake?</source>
-			</trans-unit>
+            <trans-unit id="mail.confirmation.cancel_notice">
+                <source>Not your order or placed by mistake?</source>
+            </trans-unit>
 
-			<trans-unit id="mail.facility">
-				<source>Facility</source>
-			</trans-unit>
-			<trans-unit id="mail.period">
-				<source>Period</source>
-			</trans-unit>
+            <trans-unit id="mail.facility">
+                <source>Facility</source>
+            </trans-unit>
+            <trans-unit id="mail.period">
+                <source>Period</source>
+            </trans-unit>
 
-			<trans-unit id="mail.reservation.print_notice">
-				<source>Please print out this mail or save the code(s) on your phone.</source>
-			</trans-unit>
-			<trans-unit id="mail.reservation.cancelable_until">
-				<source>If the reservation is no longer needed, it can be cancelled until %s.</source>
-			</trans-unit>
-			<trans-unit id="reservation.no_printer_notice">
-				<source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
-			</trans-unit>
+            <trans-unit id="mail.reservation.print_notice">
+                <source>Please print out this mail or save the code(s) on your phone.</source>
+            </trans-unit>
+            <trans-unit id="mail.reservation.cancelable_until">
+                <source>If the reservation is no longer needed, it can be cancelled until %s.</source>
+            </trans-unit>
+            <trans-unit id="reservation.no_printer_notice">
+                <source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring them to the event:</source>
+            </trans-unit>
 
-			<trans-unit id="list">
-				<source>List</source>
-			</trans-unit>
-			<trans-unit id="date_format">
-				<source>%a %d-%m-%Y</source>
-			</trans-unit>
-			<trans-unit id="date_format_full">
-				<source>%a %d-%m-%Y %H:%I</source>
-			</trans-unit>
-			<trans-unit id="redeem">
-				<source>Redeem</source>
-			</trans-unit>
+            <trans-unit id="list">
+                <source>List</source>
+            </trans-unit>
+            <trans-unit id="date_format">
+                <source>%a %d-%m-%Y</source>
+            </trans-unit>
+            <trans-unit id="date_format_full">
+                <source>%a %d-%m-%Y %H:%I</source>
+            </trans-unit>
+            <trans-unit id="redeem">
+                <source>Redeem</source>
+            </trans-unit>
 
-			<trans-unit id="reservation.created">
-				<source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
-			</trans-unit>
-			<trans-unit id="reservation.confirmed">
-				<source>Your reservation at %s has been confirmed successfully.</source>
-			</trans-unit>
-			<trans-unit id="reservation.mail_with_code_sent">
-				<source>We sent you a second mail that contains your reservation code.</source>
-			</trans-unit>
-			<trans-unit id="reservation.print_or_show_code">
-				<source>Please either print out this page, the second mail or show your mail at the entrance.</source>
-			</trans-unit>
+            <trans-unit id="reservation.created">
+                <source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
+            </trans-unit>
+            <trans-unit id="reservation.confirmed">
+                <source>Your reservation at %s has been confirmed successfully.</source>
+            </trans-unit>
+            <trans-unit id="reservation.mail_with_code_sent">
+                <source>We sent you a second mail that contains your reservation code.</source>
+            </trans-unit>
+            <trans-unit id="reservation.print_or_show_code">
+                <source>Please either print out this page, the second mail or show your mail at the entrance.</source>
+            </trans-unit>
 
-			<trans-unit id="loading_video">
-				<source>Loading video..</source>
-			</trans-unit>
-			<trans-unit id="code_not_found">
-				<source>Code not found!</source>
-			</trans-unit>
-			<trans-unit id="reservations">
-				<source>Reservations</source>
-			</trans-unit>
-			<trans-unit id="close">
-				<source>Close</source>
-			</trans-unit>
-			<trans-unit id="day_list">
-				<source>Day list</source>
-			</trans-unit>
-			<trans-unit id="scanEntireOrder">
-				<source>Activate entire order with all its reservations</source>
-			</trans-unit>
-			<trans-unit id="redeemed">
-				<source>Redeemed</source>
-			</trans-unit>
+            <trans-unit id="loading_video">
+                <source>Loading video..</source>
+            </trans-unit>
+            <trans-unit id="code_not_found">
+                <source>Code not found!</source>
+            </trans-unit>
+            <trans-unit id="reservations">
+                <source>Reservations</source>
+            </trans-unit>
+            <trans-unit id="close">
+                <source>Close</source>
+            </trans-unit>
+            <trans-unit id="day_list">
+                <source>Day list</source>
+            </trans-unit>
+            <trans-unit id="scanEntireOrder">
+                <source>Activate entire order with all its reservations</source>
+            </trans-unit>
+            <trans-unit id="redeemed">
+                <source>Redeemed</source>
+            </trans-unit>
 
-			<trans-unit id="cancel.warning">
-				<source>Do you really want to cancel the reservation for %s?</source>
-			</trans-unit>
-			<trans-unit id="cancel.button">
-				<source>Cancel reservation</source>
-			</trans-unit>
-			<trans-unit id="cancel.cancelled">
-				<source>The reservation has been cancelled sucessfully.</source>
-			</trans-unit>
+            <trans-unit id="cancel.warning">
+                <source>Do you really want to cancel the reservation for %s?</source>
+            </trans-unit>
+            <trans-unit id="cancel.button">
+                <source>Cancel reservation</source>
+            </trans-unit>
+            <trans-unit id="cancel.cancelled">
+                <source>The reservation has been cancelled sucessfully.</source>
+            </trans-unit>
 
-			<trans-unit id="flashMessage.clearedCacheForFacility">
-				<source>Cleared cache for %s list view(s) in frontend.</source>
-			</trans-unit>
-			<trans-unit id="flashMessage.noLongerCancelable">
-				<source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
-			</trans-unit>
-			<trans-unit id="modal.periodAskForMail.title">
-				<source>You updated at least one period</source>
-			</trans-unit>
-			<trans-unit id="modal.periodAskForMail.message">
-				<source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected visitors?</source>
-			</trans-unit>
-			<trans-unit id="modal.button.writeMail">
-				<source>Write e-mail</source>
-			</trans-unit>
-			<trans-unit id="modal.periodAskForMailAfterDeletion.title">
-				<source>You deleted at least one period</source>
-			</trans-unit>
-			<trans-unit id="modal.periodAskForMailAfterDeletion.message">
-				<source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
-			</trans-unit>
+            <trans-unit id="flashMessage.clearedCacheForFacility">
+                <source>Cleared cache for %s list view(s) in frontend.</source>
+            </trans-unit>
+            <trans-unit id="flashMessage.noLongerCancelable">
+                <source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
+            </trans-unit>
+            <trans-unit id="modal.periodAskForMail.title">
+                <source>You updated at least one period</source>
+            </trans-unit>
+            <trans-unit id="modal.periodAskForMail.message">
+                <source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected visitors?</source>
+            </trans-unit>
+            <trans-unit id="modal.button.writeMail">
+                <source>Write e-mail</source>
+            </trans-unit>
+            <trans-unit id="modal.periodAskForMailAfterDeletion.title">
+                <source>You deleted at least one period</source>
+            </trans-unit>
+            <trans-unit id="modal.periodAskForMailAfterDeletion.message">
+                <source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
+            </trans-unit>
 
-			<trans-unit id="email.body.afterPeriodUpdate">
-				<source><![CDATA[<p>Dear visitor,</p>
+            <trans-unit id="email.body.afterPeriodUpdate">
+                <source><![CDATA[<p>Dear visitor,</p>
 <p>we changed some details of your booked time period!</p>
 
 <p>Updated reservation data:</p>
 <p>###RESERVATION###</p>]]></source>
-			</trans-unit>
-			<trans-unit id="email.body.afterPeriodDeletion">
-				<source><![CDATA[<p>Dear visitor,</p>
+            </trans-unit>
+            <trans-unit id="email.body.afterPeriodDeletion">
+                <source><![CDATA[<p>Dear visitor,</p>
 <p>we are sorry but your reserved ticket got cancelled!</p>
 ]]></source>
-			</trans-unit>
+            </trans-unit>
 
-			<trans-unit id="orderValidator.isNotBookable">
-				<source>The selected period can not be booked at the moment!</source>
-			</trans-unit>
+            <trans-unit id="orderValidator.isNotBookable">
+                <source>The selected period can not be booked at the moment!</source>
+            </trans-unit>
 
-			<trans-unit id="datatables.languageFile">
-				<source></source>
-			</trans-unit>
-		</body>
-	</file>
+            <trans-unit id="datatables.languageFile">
+                <source></source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
