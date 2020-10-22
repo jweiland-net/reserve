@@ -332,4 +332,23 @@ class Order extends AbstractEntity
         }
         return $cancelableUntil;
     }
+
+    /**
+     * @return bool
+     */
+    public function canBeBooked(): bool
+    {
+        $numberOfParticipants = $this->getParticipants()->count();
+        return $numberOfParticipants > 0
+            && $numberOfParticipants <= $this->getBookedPeriod()->getMaxParticipantsPerOrder()
+            ;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldBlockFurtherOrdersForFacility(): bool
+    {
+        return true;
+    }
 }
