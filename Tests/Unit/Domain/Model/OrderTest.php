@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
+use JWeiland\Reserve\Domain\Model\Period;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -41,5 +42,60 @@ class OrderTest extends UnitTestCase
         $subject->setParticipants($participants);
 
         self::assertCount(2, $subject->getParticipants());
+    }
+
+    /**
+     * @test
+     */
+    public function canBeBookedIfMaxParticipantsPerOrderIsNotReached()
+    {
+        $subject = new Order();
+
+        self::assertTrue($subject->shouldBlockFurtherOrdersForFacility());
+    }
+
+    /**
+     * @test
+     */
+    public function canNotBeBookedIfNoParticipantIsDefined()
+    {
+        $subject = new Order();
+
+        self::assertFalse($subject->canBeBooked());
+    }
+
+    /**
+     * @test
+     */
+    public function canNotBeBookedIfMaxParticipantsAreExceeded()
+    {
+        $period = $this->prophesize(Period::class);
+        $period->getMaxParticipantsPerOrder()->willReturn(2);
+        $participants = $this->prophesize(ObjectStorage::class);
+        $participants->count()->willReturn(3);
+
+        $subject = new Order();
+        $subject->setBookedPeriod($period->reveal());
+        $this->forceProperty($subject, 'participants', $participants->reveal());
+
+        self::assertFalse($subject->canBeBooked());
+    }
+
+    /**
+     * @test
+     */
+    public function alwaysBlocksFurtherOrderForFacility()
+    {
+        $subject = new Order();
+
+        self::assertTrue($subject->shouldBlockFurtherOrdersForFacility());
+    }
+
+    private function forceProperty($subject, string $name, $value)
+    {
+        $objectReflection = new \ReflectionObject($subject);
+        $property = $objectReflection->getProperty($name);
+        $property->setAccessible(true);
+        $property->setValue($subject, $value);
     }
 }
