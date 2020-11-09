@@ -52,32 +52,30 @@ class CheckoutService
      */
     public function checkout(Order $order, int $pid = 0): bool
     {
-        $success = true;
-        if (
-            !$order->getParticipants()->count()
-            || $order->getParticipants()->count() > $order->getBookedPeriod()->getMaxParticipantsPerOrder()
-        ) {
-            $success = false;
-        } else {
-            $order->setPid($pid);
-            $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
-            foreach ($order->getParticipants() as $participant) {
-                /** @var Reservation $reservation */
-                $reservation = GeneralUtility::makeInstance(Reservation::class);
-                $reservation->setPid($pid);
-                $reservation->setCustomerOrder($order);
-                $reservation->setLastName($participant->getLastName());
-                $reservation->setFirstName($participant->getFirstName());
-                $reservation->setCode(CheckoutUtility::generateCodeForReservation());
-                $order->getReservations()->attach($reservation);
-                $this->persistenceManager->add($reservation);
-            }
-            $this->persistenceManager->add($order);
-            $this->persistenceManager->persistAll();
-            OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession($order->getBookedPeriod()->getFacility()->getUid());
-            CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
+        if ($order->canBeBooked() === false) {
+            return false;
         }
-        return $success;
+
+        $order->setPid($pid);
+        $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
+        foreach ($order->getParticipants() as $participant) {
+            /** @var Reservation $reservation */
+            $reservation = GeneralUtility::makeInstance(Reservation::class);
+            $reservation->setPid($pid);
+            $reservation->setCustomerOrder($order);
+            $reservation->setLastName($participant->getLastName());
+            $reservation->setFirstName($participant->getFirstName());
+            $reservation->setCode(CheckoutUtility::generateCodeForReservation());
+            $order->getReservations()->attach($reservation);
+            $this->persistenceManager->add($reservation);
+        }
+        $this->persistenceManager->add($order);
+        $this->persistenceManager->persistAll();
+        if ($order->shouldBlockFurtherOrdersForFacility()) {
+            OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession($order->getBookedPeriod()->getFacility()->getUid());
+        }
+        CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
+        return true;
     }
 
     public function sendConfirmationMail(Order $order): bool
