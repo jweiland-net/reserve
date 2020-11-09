@@ -53,6 +53,32 @@ class Order extends AbstractEntity
     protected $email = '';
 
     /**
+     * @var string
+     */
+    protected $phone = '';
+
+    /**
+     * @var string
+     */
+    protected $address = '';
+
+    /**
+     * @var string
+     */
+    protected $zip = '';
+
+    /**
+     * @var string
+     */
+    protected $city = '';
+
+    /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Participant>
+     */
+    protected $participants = [];
+
+    /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
      */
@@ -66,6 +92,7 @@ class Order extends AbstractEntity
     public function __construct()
     {
         $this->reservations = new ObjectStorage();
+        $this->participants = new ObjectStorage();
     }
 
     /**
@@ -162,6 +189,90 @@ class Order extends AbstractEntity
     public function setEmail(string $email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @param string $phone
+     */
+    public function setPhone(string $phone)
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param string $address
+     */
+    public function setAddress(string $address)
+    {
+        $this->address = $address;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $zip
+     */
+    public function setZip(string $zip)
+    {
+        $this->zip = $zip;
+    }
+
+    /**
+     * @return string
+     */
+    public function getZip(): string
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param string $city
+     */
+    public function setCity(string $city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param ObjectStorage|Participant[] $participants
+     */
+    public function setParticipants(ObjectStorage $participants)
+    {
+        foreach ($participants as $participant) {
+            if ($participant->getFirstName() || $participant->getLastName()) {
+                $this->participants->attach($participant);
+            }
+        }
+    }
+
+    /**
+     * @return ObjectStorage|Participant[]
+     */
+    public function getParticipants(): ObjectStorage
+    {
+        return $this->participants;
     }
 
     /**

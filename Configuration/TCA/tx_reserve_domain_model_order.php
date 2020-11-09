@@ -148,6 +148,34 @@ return [
                 'eval' => 'email,required',
             ],
         ],
+        'phone' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.phone',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+            ],
+        ],
+        'address' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.address',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+            ],
+        ],
+        'zip' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.zip',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+            ],
+        ],
+        'city' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.city',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+            ],
+        ],
         'reservations' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.reservations',
             'config' => [
@@ -167,7 +195,7 @@ return [
     ],
     'types' => [
         \JWeiland\Reserve\Domain\Model\Order::TYPE_DEFAULT => [
-            'showitem' => 'order_type,booked_period,--palette--;;name,email,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'order_type,booked_period,--palette--;;name,--palette--;;contact,--palette--;;address,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
         \JWeiland\Reserve\Domain\Model\Order::TYPE_ARCHIVED => [
             'showitem' => 'order_type,booked_period,--palette--;;name,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
@@ -186,6 +214,12 @@ return [
         ],
         'name' => [
             'showitem' => 'last_name,first_name'
-        ]
+        ],
+        'contact' => [
+            'showitem' => 'email,phone'
+        ],
+        'address' => [
+            'showitem' => 'address,--linebreak--,zip,city'
+        ],
     ]
 ];

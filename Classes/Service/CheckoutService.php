@@ -47,26 +47,27 @@ class CheckoutService
      * Use $order after $checkout to proceed
      *
      * @param Order $order
-     * @param int $amountOfReservations
      * @param int $pid
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $amountOfReservations, int $pid = 0): bool
+    public function checkout(Order $order, int $pid = 0): bool
     {
         $success = true;
         if (
-            !$amountOfReservations
-            || $amountOfReservations > $order->getBookedPeriod()->getMaxParticipantsPerOrder()
+            !$order->getParticipants()->count()
+            || $order->getParticipants()->count() > $order->getBookedPeriod()->getMaxParticipantsPerOrder()
         ) {
             $success = false;
         } else {
             $order->setPid($pid);
             $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
-            for ($i = 0; $i < $amountOfReservations; $i++) {
+            foreach ($order->getParticipants() as $participant) {
                 /** @var Reservation $reservation */
                 $reservation = GeneralUtility::makeInstance(Reservation::class);
                 $reservation->setPid($pid);
                 $reservation->setCustomerOrder($order);
+                $reservation->setLastName($participant->getLastName());
+                $reservation->setFirstName($participant->getFirstName());
                 $reservation->setCode(CheckoutUtility::generateCodeForReservation());
                 $order->getReservations()->attach($reservation);
                 $this->persistenceManager->add($reservation);

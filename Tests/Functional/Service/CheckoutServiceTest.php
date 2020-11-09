@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\CheckoutService;
@@ -25,6 +26,7 @@ use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -73,14 +75,20 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
+        $participants = new ObjectStorage();
+        $participant1 = new Participant();
+        $participant1->setFirstName('First Name');
+        $participant1->setLastName('Last Name');
+        $participants->attach($participant1);
 
         $order = new Order();
         $order->setFirstName('John');
         $order->setLastName('Doe');
         $order->setEmail('john.doe@domain.tld');
         $order->setBookedPeriod($period);
+        $order->setParticipants($participants);
 
-        $this->checkoutService->checkout($order, 1);
+        $this->checkoutService->checkout($order);
 
         self::assertEquals(1, $order->getUid(), 'Order UID changes to 1 after checkout');
     }

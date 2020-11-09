@@ -26,6 +26,16 @@ class Reservation extends AbstractEntity
     /**
      * @var string
      */
+    protected $firstName = '';
+
+    /**
+     * @var string
+     */
+    protected $lastName = '';
+
+    /**
+     * @var string
+     */
     protected $code = '';
 
     /**
@@ -47,6 +57,38 @@ class Reservation extends AbstractEntity
     public function setCustomerOrder(Order $customerOrder)
     {
         $this->customerOrder = $customerOrder;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param string $firstName
+     */
+    public function setFirstName(string $firstName)
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     */
+    public function setLastName(string $lastName)
+    {
+        $this->lastName = $lastName;
     }
 
     /**

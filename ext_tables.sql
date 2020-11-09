@@ -98,6 +98,10 @@ CREATE TABLE tx_reserve_domain_model_order (
 	last_name varchar(64) DEFAULT '' NOT NULL,
 	activation_code varchar(64) DEFAULT '' NOT NULL,
 	email tinytext,
+	phone tinytext,
+	address tinytext,
+	zip varchar(10) DEFAULT '' NOT NULL,
+	city tinytext,
 	reservations int(11) DEFAULT '0' NOT NULL,
 
 	PRIMARY KEY (uid),
@@ -125,6 +129,8 @@ CREATE TABLE tx_reserve_domain_model_reservation (
 	sorting int(11) DEFAULT '0' NOT NULL,
 
 	customer_order int(11) DEFAULT '0' NOT NULL,
+	first_name varchar(64) DEFAULT '' NOT NULL,
+	last_name varchar(64) DEFAULT '' NOT NULL,
 	code varchar(64) DEFAULT '0' NOT NULL,
 	used tinyint(4) DEFAULT '0' NOT NULL,
 
