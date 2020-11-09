@@ -8,6 +8,8 @@ if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangG
 return [
     'ctrl' => [
         'label' => 'code',
+        'label_alt' => 'last_name,first_name',
+        'label_alt_force' => true,
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -93,6 +95,22 @@ return [
                 'default' => 0,
             ]
         ],
+        'first_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.first_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim,required',
+            ],
+        ],
+        'last_name' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.last_name',
+            'config' => [
+                'type' => 'input',
+                'size' => 50,
+                'eval' => 'trim,required',
+            ],
+        ],
         'code' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.code',
             'config' => [
@@ -111,7 +129,7 @@ return [
     ],
     'types' => [
         '1' => [
-            'showitem' => 'customer_order,code,used,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'customer_order,first_name,last_name,code,used,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ],
     ],
     'palettes' => [

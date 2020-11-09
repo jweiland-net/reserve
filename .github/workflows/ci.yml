@@ -50,6 +50,12 @@ jobs:
       - name: Lint PHP
         run: composer ci:php:lint
 
+      - name: Unit Tests
+        run: |
+          sudo timedatectl set-timezone Europe/Berlin
+          sudo systemctl start mysql.service
+          composer ci:tests:unit
+
       - name: Functional Tests
         env:
           typo3DatabaseName: test

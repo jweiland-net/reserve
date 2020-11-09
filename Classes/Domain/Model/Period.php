@@ -212,6 +212,21 @@ class Period extends AbstractEntity
     }
 
     /**
+     * Allows to iterate over the number of allowed participants.
+     *
+     * @return array
+     */
+    public function getMaxParticipantsPerOrderIterable(): array
+    {
+        $available = $this->getMaxParticipantsPerOrder();
+        if ($available === 0) {
+            return [];
+        }
+
+        return range(1, $available);
+    }
+
+    /**
      * @param int $maxParticipantsPerOrder
      */
     public function setMaxParticipantsPerOrder(int $maxParticipantsPerOrder)
