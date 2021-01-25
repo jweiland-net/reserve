@@ -6,6 +6,12 @@
 Change log
 ==========
 
-Version 1.0.0
+Version 0.0.2
 -------------
 
+Bugfix: Use correct Namespace for QR Controller
+
+Version 0.0.1
+-------------
+
+Initial upload
