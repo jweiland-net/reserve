@@ -62,7 +62,7 @@ class OrderTest extends UnitTestCase
         $period = $this->prophesize(Period::class);
         $period->getMaxParticipantsPerOrder()->willReturn(2);
         $participants = $this->prophesize(ObjectStorage::class);
-        $participants->count()->willReturn(2);
+        $participants->count()->willReturn(3);
 
         $subject = new Order();
         $subject->setBookedPeriod($period->reveal());
