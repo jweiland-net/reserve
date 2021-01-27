@@ -24,50 +24,6 @@ defined('TYPO3_MODE') or die();
     ]
 );
 
-if (!class_exists(\TYPO3\CMS\Extbase\Annotation\Validate::class)) {
-    // TYPO3 v8 compatibility
-   \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup('
-config.tx_extbase {
-  objects {
-    JWeiland\Reserve\Domain\Model\Facility {
-      className = JWeiland\Reserve\Domain\Model\v8\Facility
-    }
-    JWeiland\Reserve\Domain\Model\Order {
-      className = JWeiland\Reserve\Domain\Model\v8\Order
-    }
-    JWeiland\Reserve\Domain\Model\Period {
-      className = JWeiland\Reserve\Domain\Model\v8\Period
-    }
-  }
-  persistence {
-    classes {
-      JWeiland\Reserve\Domain\Model\v8\Facility {
-        mapping {
-          recordType = 0
-          tableName = tx_reserve_domain_model_facility
-        }
-      }
-      JWeiland\Reserve\Domain\Model\v8\Order {
-        mapping {
-          recordType = 0
-          tableName = tx_reserve_domain_model_order
-        }
-      }
-      JWeiland\Reserve\Domain\Model\v8\Period {
-        mapping {
-          recordType = 0
-          tableName = tx_reserve_domain_model_period
-        }
-      }
-    }
-  }
-}');
-
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\JWeiland\Reserve\Controller\CheckoutController::class] = [
-        'className' => \JWeiland\Reserve\Controller\v8\CheckoutController::class
-    ];
-}
-
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1590659241206] = [
     'nodeName' => 'reserveQrCodePreview',
     'priority' => '70',
