@@ -212,14 +212,15 @@ class Period extends AbstractEntity
     }
 
     /**
-     * Allows to iterate over the number of allowed participants.
+     * Allows to iterate over the number of allowed further participants.
      *
      * @return array
      */
-    public function getMaxParticipantsPerOrderIterable(): array
+    public function getMaxFurtherParticipantsPerOrderIterable(): array
     {
-        $available = $this->getMaxParticipantsPerOrder();
-        if ($available === 0) {
+        // less 1 because the owner of the ticket is a participant too
+        $available = $this->getMaxParticipantsPerOrder() - 1;
+        if ($available < 1) {
             return [];
         }
 

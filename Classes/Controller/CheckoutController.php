@@ -104,16 +104,16 @@ class CheckoutController extends ActionController
 
     /**
      * @param \JWeiland\Reserve\Domain\Model\Order $order
+     * @param int $furtherParticipants
      * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function createAction(Order $order)
+    public function createAction(Order $order, int $furtherParticipants = 0)
     {
         if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
             return $this->redirect('list');
         }
-        if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'])) {
+        if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
         } else {
             $this->addFlashMessage(

@@ -24,7 +24,7 @@ class PeriodTest extends UnitTestCase
      * @test
      * @dataProvider possibleRemainingCombinations
      */
-    public function canReturnMaxParticipantsPerOrderAsIterableArray(
+    public function canReturnMaxFurtherParticipantsPerOrderAsIterableArray(
         int $maxParticipants,
         int $alreadyReserved,
         array $expectedResult
@@ -35,16 +35,16 @@ class PeriodTest extends UnitTestCase
 
         $this->inject($subject, 'cache', ['countReservations' => $alreadyReserved]);
 
-        self::assertSame($expectedResult, $subject->getMaxParticipantsPerOrderIterable());
+        self::assertSame($expectedResult, $subject->getMaxFurtherParticipantsPerOrderIterable());
     }
 
     public function possibleRemainingCombinations(): array
     {
         return [
-            'Two remaining' => [
+            'One remaining' => [
                 'maxParticipants' => 2,
                 'alreadyReserved' => 0,
-                'expectedResult' => [1, 2],
+                'expectedResult' => [1],
             ],
             'No remaining' => [
                 'maxParticipants' => 2,

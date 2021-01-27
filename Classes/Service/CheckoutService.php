@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
@@ -22,6 +23,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CheckoutService
 {
@@ -48,14 +50,15 @@ class CheckoutService
      *
      * @param Order $order
      * @param int $pid
+     * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $pid = 0): bool
+    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0): bool
     {
+        $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
             return false;
         }
-
         $order->setPid($pid);
         $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
         foreach ($order->getParticipants() as $participant) {
@@ -76,6 +79,27 @@ class CheckoutService
         }
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
         return true;
+    }
+
+    /**
+     * @param Order $order
+     * @param int $furtherParticipants
+     */
+    protected function addFurtherParticipantsToOrder(Order $order, int $furtherParticipants): void
+    {
+        // the reservation owner
+        $furtherParticipant = GeneralUtility::makeInstance(Participant::class);
+        $furtherParticipant->setLastName($order->getLastName());
+        $furtherParticipant->setFirstName($order->getFirstName());
+        $order->getParticipants()->attach($furtherParticipant);
+
+        // Add further participants if flexform setting "showFieldsForFurtherParticipants" is false (off) and
+        // a number field was used for further participants
+        for ($i = 0; $i < $furtherParticipants; $i++) {
+            $furtherParticipant = GeneralUtility::makeInstance(Participant::class);
+            $furtherParticipant->setFirstName(LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1));
+            $order->getParticipants()->attach($furtherParticipant);
+        }
     }
 
     public function sendConfirmationMail(Order $order): bool

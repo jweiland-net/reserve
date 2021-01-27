@@ -28,9 +28,12 @@
                 <target>Stadt</target>
             </trans-unit>
             <trans-unit id="form.order.furtherParticipants">
-                <target>Weitere Personen:</target>
+                <target>Weitere Personen</target>
             </trans-unit>
-            <trans-unit id="form.order.participants.firstName">
+            <trans-unit id="order.furtherParticipant">
+              <target>Weitere Person</target>
+            </trans-unit>
+          <trans-unit id="form.order.participants.firstName">
                 <target>Vorname von Begleitung %d</target>
             </trans-unit>
             <trans-unit id="form.order.participants.lastName">

@@ -153,6 +153,12 @@
             <trans-unit id="tx_reserve_domain_model_reservation.used">
                 <target>Eingelöst</target>
             </trans-unit>
+            <trans-unit id="tx_reserve_domain_model_reservation.first_name">
+              <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="tx_reserve_domain_model_reservation.last_name">
+              <target>Nachname</target>
+            </trans-unit>
             <trans-unit id="tx_reserve_domain_model_email">
                 <target>E-Mail</target>
             </trans-unit>

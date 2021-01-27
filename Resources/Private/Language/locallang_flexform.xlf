@@ -15,6 +15,15 @@
 			<trans-unit id="management.facility">
 				<source>Facility</source>
 			</trans-unit>
+			<trans-unit id="reservation.mainFields">
+				<source>What data should the user provide?</source>
+			</trans-unit>
+			<trans-unit id="reservation.mainFields.description">
+				<source>Fields that are always displayed: First name, E-Mail</source>
+			</trans-unit>
+			<trans-unit id="reservation.showFieldsForFurtherParticipants">
+				<source>Should the personal data of further participants be asked?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

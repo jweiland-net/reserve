@@ -57,22 +57,12 @@ class OrderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canNotBeBookedIfNoParticipantIsDefined()
-    {
-        $subject = new Order();
-
-        self::assertFalse($subject->canBeBooked());
-    }
-
-    /**
-     * @test
-     */
     public function canNotBeBookedIfMaxParticipantsAreExceeded()
     {
         $period = $this->prophesize(Period::class);
         $period->getMaxParticipantsPerOrder()->willReturn(2);
         $participants = $this->prophesize(ObjectStorage::class);
-        $participants->count()->willReturn(3);
+        $participants->count()->willReturn(2);
 
         $subject = new Order();
         $subject->setBookedPeriod($period->reveal());

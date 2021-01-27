@@ -137,7 +137,6 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'required',
             ],
         ],
         'email' => [
