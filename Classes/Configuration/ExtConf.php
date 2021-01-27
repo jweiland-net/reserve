@@ -24,14 +24,7 @@ class ExtConf implements SingletonInterface
 
     public function __construct()
     {
-        $extConf = [];
-        if (class_exists(ExtensionConfiguration::class)) {
-            $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('reserve');
-        } else {
-            if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve'])) {
-                $extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['reserve']);
-            }
-        }
+        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('reserve');
         if (is_array($extConf) && count($extConf)) {
             // call setter method foreach configuration entry
             foreach ($extConf as $key => $value) {
