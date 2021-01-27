@@ -265,6 +265,10 @@
             <trans-unit id="datatables.languageFile">
                 <target>EXT:reserve/Resources/Public/JavaScript/datatables/de.json</target>
             </trans-unit>
+
+          <trans-unit id="period.openEnd">
+            <target>Offenes Ende</target>
+          </trans-unit>
         </body>
     </file>
 </xliff>

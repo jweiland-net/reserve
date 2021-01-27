@@ -7,7 +7,7 @@
 			<f:translate key="form.order.header" arguments="{0: order.bookedPeriod.facility.name}"/>
 		</h2>
 		<p>
-			<f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:format.date(date: order.bookedPeriod.end, format: \'H:i\')}'}"/>
+			<f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:if(condition: order.bookedPeriod.end, then: \'{f:format.date(date: order.bookedPeriod.end, format: \\\'H:i\\\')}\', else: \'{f:translate(key: \\\'period.openEnd\\\')}\')}'}"/>
 		</p>
 
 		<f:form.hidden property="bookedPeriod"/>

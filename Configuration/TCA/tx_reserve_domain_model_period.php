@@ -137,7 +137,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'renderType' => 'inputDateTime',
-                'eval' => 'time,int,required',
+                'eval' => 'time,int',
             ],
         ],
         'max_participants' => [

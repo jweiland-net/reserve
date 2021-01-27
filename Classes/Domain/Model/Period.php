@@ -45,7 +45,7 @@ class Period extends AbstractEntity
     protected $begin;
 
     /**
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $end;
 
@@ -163,11 +163,11 @@ class Period extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getEnd(): \DateTime
+    public function getEnd(): ?\DateTime
     {
-        if ($this->end->getTimezone() !== 'UTC') {
+        if ($this->end && $this->end->getTimezone() !== 'UTC') {
             $this->end->setTimezone(new \DateTimeZone('UTC'));
         }
         return $this->end;

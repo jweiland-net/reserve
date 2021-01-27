@@ -36,7 +36,7 @@ class QrCodeUtility
         $qrCode
             ->setLabel(
                 sprintf(
-                    '%s %s %s - %s',
+                    '%s %s %s %s',
                     $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
                 ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
                     strftime(
@@ -44,7 +44,7 @@ class QrCodeUtility
                         $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
                     ),
                     $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')
+                    $reservation->getCustomerOrder()->getBookedPeriod()->getEnd() ? (' - ' . $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')) : ''
                 ),
                 16,
                 ExtensionManagementUtility::extPath('reserve') . 'Resources/Private/Fonts/noto_sans.otf',
