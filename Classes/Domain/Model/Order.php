@@ -338,7 +338,7 @@ class Order extends AbstractEntity
      */
     public function canBeBooked(): bool
     {
-        $numberOfParticipants = $this->getParticipants()->count() + 1;
+        $numberOfParticipants = $this->getParticipants()->count();
         return $numberOfParticipants <= $this->getBookedPeriod()->getMaxParticipantsPerOrder();
     }
 

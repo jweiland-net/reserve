@@ -133,7 +133,7 @@ class Reservation extends AbstractEntity
         if (
             $period->getDate()->getTimestamp() === $currentDate
             && $period->getBegin()->getTimestamp() <= $currentTime
-            && $period->getEnd()->getTimestamp() > $currentTime
+            && ($period->getEnd() === null || $period->getEnd()->getTimestamp() > $currentTime)
         ) {
             return true;
         }

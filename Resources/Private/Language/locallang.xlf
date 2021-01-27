@@ -265,6 +265,10 @@
             <trans-unit id="datatables.languageFile">
                 <source></source>
             </trans-unit>
+
+          <trans-unit id="period.openEnd">
+            <source>Open end</source>
+          </trans-unit>
         </body>
     </file>
 </xliff>
