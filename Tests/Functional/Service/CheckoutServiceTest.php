@@ -15,6 +15,7 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
+use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\MailService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
@@ -77,6 +78,76 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->checkoutService->checkout($order);
 
         self::assertEquals(1, $order->getUid(), 'Order UID changes to 1 after checkout');
+    }
+
+    /**
+     * @test
+     */
+    public function checkoutPersistsMultipleReservationsIntoDatabase()
+    {
+        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $period = $periodRepository->findByUid(1);
+        $participants = new ObjectStorage();
+        $participant1 = new Participant();
+        $participant1->setFirstName('First Name');
+        $participant1->setLastName('Last Name');
+        $participant2 = new Participant();
+        $participant2->setFirstName('First Name2');
+        $participant2->setLastName('Last Name2');
+        $participants->attach($participant1);
+        $participants->attach($participant2);
+
+        $order = new Order();
+        $order->setFirstName('John');
+        $order->setLastName('Doe');
+        $order->setEmail('john.doe@domain.tld');
+        $order->setBookedPeriod($period);
+        $order->setParticipants($participants);
+
+        $this->checkoutService->checkout($order);
+
+        $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(ReservationRepository::class);
+        $reservations = $reservationRepository->findByCustomerOrder(1);
+
+        self::assertCount(
+            3,
+            $reservations,
+            'Database contains 3 reservations after checkout of reservation with 2 further participants'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function checkoutDoesNotPersistBecauseTooMuchParticipants()
+    {
+        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $period = $periodRepository->findByUid(1);
+        $participants = new ObjectStorage();
+        $participant1 = new Participant();
+        $participant1->setFirstName('First Name');
+        $participant1->setLastName('Last Name');
+        $participant2 = new Participant();
+        $participant2->setFirstName('First Name2');
+        $participant2->setLastName('Last Name2');
+        $participant3 = new Participant();
+        $participant3->setFirstName('First Name3');
+        $participant3->setLastName('Last Name3');
+        $participants->attach($participant1);
+        $participants->attach($participant2);
+        $participants->attach($participant3);
+
+        $order = new Order();
+        $order->setFirstName('John');
+        $order->setLastName('Doe');
+        $order->setEmail('john.doe@domain.tld');
+        $order->setBookedPeriod($period);
+        $order->setParticipants($participants);
+
+        self::assertFalse(
+            $this->checkoutService->checkout($order),
+            'Checkout returns false and does not persist order because too much participants are requested.'
+        );
     }
 
     /**
