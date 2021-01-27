@@ -156,6 +156,12 @@
             <trans-unit id="tx_reserve_domain_model_reservation.customer_order">
                 <source>Reservation</source>
             </trans-unit>
+            <trans-unit id="tx_reserve_domain_model_reservation.first_name">
+              <source>First name</source>
+            </trans-unit>
+            <trans-unit id="tx_reserve_domain_model_reservation.last_name">
+              <source>Last name</source>
+            </trans-unit>
             <trans-unit id="tx_reserve_domain_model_email">
                 <source>E-Mail</source>
             </trans-unit>

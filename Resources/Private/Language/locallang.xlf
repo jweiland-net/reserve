@@ -28,7 +28,10 @@
                 <source>City</source>
             </trans-unit>
             <trans-unit id="form.order.furtherParticipants">
-                <source>Further participants:</source>
+                <source>Further participants</source>
+            </trans-unit>
+            <trans-unit id="order.furtherParticipant">
+              <source>Further participant</source>
             </trans-unit>
             <trans-unit id="form.order.participants.firstName">
                 <source>First name of participant %d</source>

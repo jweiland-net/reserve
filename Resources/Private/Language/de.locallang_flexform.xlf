@@ -15,6 +15,15 @@
 			<trans-unit id="management.facility">
 				<target>Einrichtung</target>
 			</trans-unit>
+			<trans-unit id="reservation.mainFields">
+				<target>Welche Angaben soll der Benutzer machen?</target>
+			</trans-unit>
+			<trans-unit id="reservation.mainFields.description">
+				<target>Felder die immer angezeigt werden: Vorname, E-Mail</target>
+			</trans-unit>
+			<trans-unit id="reservation.showFieldsForFurtherParticipants">
+				<target>Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
