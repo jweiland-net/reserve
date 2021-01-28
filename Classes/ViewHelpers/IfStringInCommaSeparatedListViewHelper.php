@@ -34,6 +34,6 @@ class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
      */
     protected static function evaluateCondition($arguments = null)
     {
-        return in_array($arguments['needle'], explode(',', $arguments['haystack']), true);
+        return in_array($arguments['needle'], explode(',', (string)$arguments['haystack']), true);
     }
 }
