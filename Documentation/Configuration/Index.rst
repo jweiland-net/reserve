@@ -13,3 +13,4 @@ Configuration
   EMail/Index
   ExtConf/Index
   QrCode/Index
+  RouteEnhancers/Index
