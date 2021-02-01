@@ -75,10 +75,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
             ->from(self::TABLE, 'p')
             ->leftJoin('p', 'tx_reserve_domain_model_order', 'o', 'o.booked_period = p.uid')
             ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f', 'f.uid = p.facility')
-            ->where(
-                $queryBuilder->expr()->eq('p.uid', $queryBuilder->createNamedParameter($periodUid)),
-                $queryBuilder->expr()->neq('o.order_type', $queryBuilder->createNamedParameter(Order::TYPE_ARCHIVED))
-            )
+            ->where($queryBuilder->expr()->eq('p.uid', $queryBuilder->createNamedParameter($periodUid)))
             ->execute()
             ->fetchAll();
         $this->visitorEmails[$periodUid] = [];

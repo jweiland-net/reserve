@@ -19,9 +19,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Order extends AbstractEntity
 {
-    const TYPE_DEFAULT = 0;
-    const TYPE_ARCHIVED = 1;
-
     /**
      * @var \JWeiland\Reserve\Domain\Model\Period
      */
@@ -83,11 +80,6 @@ class Order extends AbstractEntity
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
      */
     protected $reservations;
-
-    /**
-     * @var int use Order::TYPE_ constants to compare or set this value!
-     */
-    protected $orderType = self::TYPE_DEFAULT;
 
     public function __construct()
     {
@@ -289,22 +281,6 @@ class Order extends AbstractEntity
     public function setReservations(ObjectStorage $reservations)
     {
         $this->reservations = $reservations;
-    }
-
-    /**
-     * @return int use Order::TYPE_ constants to compare or set this value!
-     */
-    public function getOrderType(): int
-    {
-        return $this->orderType;
-    }
-
-    /**
-     * @param int $orderType use Order::TYPE_ constants to compare or set this value!
-     */
-    public function setOrderType(int $orderType)
-    {
-        $this->orderType = $orderType;
     }
 
     public function isCancelable(): bool
