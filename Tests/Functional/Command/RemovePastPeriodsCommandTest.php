@@ -37,7 +37,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             Environment::getVarPath(),
             Environment::getConfigPath(),
             Environment::getCurrentScript(),
-            Environment::toArray()['os']
+            Environment::isUnix() ? 'UNIX' : 'WINDOWS'
         );
 
         Bootstrap::initializeBackendUser();
