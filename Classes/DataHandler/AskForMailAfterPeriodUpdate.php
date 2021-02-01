@@ -43,13 +43,13 @@ class AskForMailAfterPeriodUpdate
         if (!array_key_exists(self::TABLE, $dataHandler->datamap)) {
             return false;
         }
-
         $this->dataHandler = $dataHandler;
-        $this->checkForUpdatedRecords();
-        if (!empty($this->updatedRecords)) {
-            $this->addJavaScriptAndSettingsToPageRenderer();
+        if (!Environment::isCli()) {
+            $this->checkForUpdatedRecords();
+            if (!empty($this->updatedRecords)) {
+                $this->addJavaScriptAndSettingsToPageRenderer();
+            }
         }
-
         return true;
     }
 
@@ -105,29 +105,27 @@ class AskForMailAfterPeriodUpdate
 
         ];
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        if (!Environment::isCli()) {
-            // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
-            // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
-            $this->getBackendUserAuthentication()->setAndSaveSessionData(
-                PageRenderer::MODAL_SESSION_KEY,
-                [
-                    'jsInlineCode' => [
-                        'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
-                    ],
-                    'inlineSettings' => [
-                        'reserve.showModal' => [
-                            'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
-                            'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
-                            'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
-                        ]
-                    ],
-                    'inlineLanguageLabel' => [
-                        'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail',
-                            'reserve')
+        // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
+        // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
+        $this->getBackendUserAuthentication()->setAndSaveSessionData(
+            PageRenderer::MODAL_SESSION_KEY,
+            [
+                'jsInlineCode' => [
+                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
+                ],
+                'inlineSettings' => [
+                    'reserve.showModal' => [
+                        'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
+                        'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
+                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
                     ]
+                ],
+                'inlineLanguageLabel' => [
+                    'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail',
+                        'reserve')
                 ]
-            );
-        }
+            ]
+        );
     }
 
     protected function getBackendUserAuthentication(): BackendUserAuthentication
