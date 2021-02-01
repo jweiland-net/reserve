@@ -12,5 +12,6 @@ Configuration
   Commands/Index
   EMail/Index
   ExtConf/Index
+  Frontend/Index
   QrCode/Index
   RouteEnhancers/Index

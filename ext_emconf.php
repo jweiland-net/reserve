@@ -1,7 +1,7 @@
 <?php
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Reserve',
-    'description' => '',
+    'description' => 'This extension allows you to reserve tickets for one or more persons using a period table and a form. Each reservation has it’s own QR Code that can be scanned at the event.',
     'category' => 'plugin',
     'author' => 'Markus Kugler, Pascal Rinker',
     'author_email' => 'projects@jweiland.net',
