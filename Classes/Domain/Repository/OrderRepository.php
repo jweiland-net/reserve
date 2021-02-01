@@ -58,10 +58,13 @@ class OrderRepository extends Repository
 
     /**
      * @param int $endedSinceSeconds
-     * @return QueryResultInterface|Order[]
-     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     * @param array|string[] $selects
+     * @param int|null $maxResults The maximum number of results to retrieve or NULL to retrieve all results
+     * @internal
+     * @return QueryBuilder
+     * @throws \Exception
      */
-    public function findWherePeriodEnded(int $endedSinceSeconds): QueryResultInterface
+    protected function findWherePeriodEndedQueryBuilder(int $endedSinceSeconds, array $selects = ['o.*'], ?int $maxResults = null): QueryBuilder
     {
         $dateTime = new \DateTime('now');
         $dateTime->modify('-' . $endedSinceSeconds . 'seconds');
@@ -78,26 +81,50 @@ class OrderRepository extends Repository
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
         $queryBuilder
-            ->select('o.*')
+            ->select(...$selects)
             ->from(self::TABLE, 'o')
             ->leftJoin('o', 'tx_reserve_domain_model_period', 'p', 'o.booked_period = p.uid')
             ->where($queryBuilder->expr()->andX(
                 $queryBuilder->expr()->orX(
-                    // not less than equal because this would remove events without respecting the field "end"
-                    // days before the calculated day
+                // not less than equal because this would remove events without respecting the field "end"
+                // days before the calculated day
                     $queryBuilder->expr()->lt('p.date', $queryBuilder->createNamedParameter($periodDate->getTimestamp())),
                     $queryBuilder->expr()->andX(
-                        // calculated day AND calculated end time
+                    // calculated day AND calculated end time
                         $queryBuilder->expr()->eq('p.date', $queryBuilder->createNamedParameter($periodDate->getTimestamp())),
                         $queryBuilder->expr()->lte('p.end', $queryBuilder->createNamedParameter($periodEnd->getTimestamp()))
                     )
                 )
-            ));
+            ))
+            ->setMaxResults($maxResults);
+        return $queryBuilder;
+    }
 
+    /**
+     * @param int $endedSinceSeconds
+     * @param array|string[] $selects
+     * @param int|null $maxResults The maximum number of results to retrieve or NULL to retrieve all results
+     * @return array
+     * @throws \Exception
+     */
+    public function findWherePeriodEndedRaw(int $endedSinceSeconds, array $selects = ['o.*'], ?int $maxResults = null): array
+    {
+        return $this->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults)->execute()->fetchAll();
+    }
+
+    /**
+     * @param int $endedSinceSeconds
+     * @param array $selects
+     * @param int|null $maxResults The maximum number of results to retrieve or NULL to retrieve all results
+     * @return QueryResultInterface|Order[]
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Exception
+     */
+    public function findWherePeriodEnded(int $endedSinceSeconds, array $selects = ['o.*'], ?int $maxResults = null): QueryResultInterface
+    {
         /** @var Query $query */
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
-        $query->statement($queryBuilder);
+        $query->statement($this->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults));
         return $query->execute();
     }
 }

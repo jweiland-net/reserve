@@ -121,8 +121,10 @@ class AskForMailAfterPeriodUpdate
                     ]
                 ],
                 'inlineLanguageLabel' => [
-                    'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail',
-                        'reserve')
+                    'reserve.modal.button.writeMail' => LocalizationUtility::translate(
+                        'modal.button.writeMail',
+                        'reserve'
+                    )
                 ]
             ]
         );
