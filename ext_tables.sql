@@ -91,7 +91,6 @@ CREATE TABLE tx_reserve_domain_model_order (
 	endtime int(11) DEFAULT '0' NOT NULL,
 	sorting int(11) DEFAULT '0' NOT NULL,
 
-	order_type int(11) DEFAULT '0' NOT NULL,
 	booked_period int(11) DEFAULT '0' NOT NULL,
 	activated tinyint(4) DEFAULT '0' NOT NULL,
 	first_name varchar(64) DEFAULT '' NOT NULL,

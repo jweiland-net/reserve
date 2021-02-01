@@ -291,11 +291,8 @@ class Email extends AbstractEntity
         $emails = [];
         foreach ($this->getPeriods() as $period) {
             foreach ($period->getOrders() as $order) {
-                if (
-                    $order->getOrderType() === Order::TYPE_ARCHIVED
-                    || in_array($order->getUid(), $this->getCommandData(), true)
-                ) {
-                    // archived or already processed
+                if (in_array($order->getUid(), $this->getCommandData(), true)) {
+                    // already processed
                     continue;
                 }
                 $emails[$order->getUid()] = $order->getEmail();

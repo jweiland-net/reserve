@@ -82,8 +82,6 @@ class OrderRepository extends Repository
             ->from(self::TABLE, 'o')
             ->leftJoin('o', 'tx_reserve_domain_model_period', 'p', 'o.booked_period = p.uid')
             ->where($queryBuilder->expr()->andX(
-                // we dont want archived orders
-                $queryBuilder->expr()->neq('o.order_type', $queryBuilder->createNamedParameter(Order::TYPE_ARCHIVED)),
                 $queryBuilder->expr()->orX(
                     // not less than equal because this would remove events without respecting the field "end"
                     // days before the calculated day
