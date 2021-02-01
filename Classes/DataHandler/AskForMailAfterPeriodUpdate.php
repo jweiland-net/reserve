@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\DataHandler;
 use JWeiland\Reserve\Hooks\PageRenderer;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -104,26 +105,29 @@ class AskForMailAfterPeriodUpdate
 
         ];
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
-        // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
-        $this->getBackendUserAuthentication()->setAndSaveSessionData(
-            PageRenderer::MODAL_SESSION_KEY,
-            [
-                'jsInlineCode' => [
-                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
-                ],
-                'inlineSettings' => [
-                    'reserve.showModal' => [
-                        'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
-                        'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
-                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
+        if (!Environment::isCli()) {
+            // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
+            // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
+            $this->getBackendUserAuthentication()->setAndSaveSessionData(
+                PageRenderer::MODAL_SESSION_KEY,
+                [
+                    'jsInlineCode' => [
+                        'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
+                    ],
+                    'inlineSettings' => [
+                        'reserve.showModal' => [
+                            'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
+                            'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
+                            'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
+                        ]
+                    ],
+                    'inlineLanguageLabel' => [
+                        'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail',
+                            'reserve')
                     ]
-                ],
-                'inlineLanguageLabel' => [
-                    'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail', 'reserve')
                 ]
-            ]
-        );
+            );
+        }
     }
 
     protected function getBackendUserAuthentication(): BackendUserAuthentication
