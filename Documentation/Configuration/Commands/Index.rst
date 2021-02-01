@@ -7,17 +7,21 @@ Automation using symfony commands
 =================================
 
 This extension uses symfony commands to make some tasks easier and decoupled from frontend.
-You can use crontab or the "Execute console commands" scheduler task (TYPO3 >= 9) to execute them.
+You can use crontab or the "Execute console commands" scheduler task to execute them.
 
-Archive orders from past periods
-=================================
+Remove past periods and related data
+====================================
 
-Command: ``reserve:archive_orders``
+Command: ``reserve:remove_past_periods``
 
-Purpose: Archive orders from past periods.
+Purpose: Remove past periods and all it's related data like orders and reservations.
 
-By default this command archives all order records from past periods.
-In this case archive means removing all personal information from the order and setting the order_type to archived.
+By default this command removes all periods and related records from past periods.
+Attention: This task removes the records using the DataHandler. This means that "remove" does not mean it is
+removed from the database. The records are still in the database with a deleted flag.
+You have to add a second scheduler Task / command `cleanup:deletedrecords` or scheduler task `Recycler: Remove deleted records`
+to remove them permanently from the database!
+
 Use the option ``--ended-since <amountOfSeconds>`` if you want to archive orders after a period is <amountOfSeconds> over.
 
 Remove inactive orders

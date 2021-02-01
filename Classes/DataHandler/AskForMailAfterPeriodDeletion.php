@@ -136,10 +136,14 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [
-                        'title' => LocalizationUtility::translate('modal.periodAskForMailAfterDeletion.title',
-                            'reserve'),
-                        'message' => LocalizationUtility::translate('modal.periodAskForMailAfterDeletion.message',
-                            'reserve'),
+                        'title' => LocalizationUtility::translate(
+                            'modal.periodAskForMailAfterDeletion.title',
+                            'reserve'
+                        ),
+                        'message' => LocalizationUtility::translate(
+                            'modal.periodAskForMailAfterDeletion.message',
+                            'reserve'
+                        ),
                         'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
                     ]
                 ],

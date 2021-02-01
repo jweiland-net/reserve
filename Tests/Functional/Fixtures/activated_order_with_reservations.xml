@@ -4,18 +4,18 @@
 		<uid>1</uid>
 		<pid>1</pid>
 		<booked_period>1</booked_period>
-		<activated>0</activated>
+		<activated>1</activated>
 		<first_name>John</first_name>
 		<last_name>Doe</last_name>
 		<activation_code>123456789</activation_code>
 		<email>john@doe.tld</email>
-		<reservations>2</reservations>
+		<reservations>3</reservations>
 	</tx_reserve_domain_model_order>
 
 	<tx_reserve_domain_model_reservation>
 		<uid>1</uid>
 		<pid>1</pid>
-		<first_name>Meg</first_name>
+		<first_name>Peter</first_name>
 		<last_name>Griffin</last_name>
 		<customer_order>1</customer_order>
 		<code>firstCode</code>
@@ -25,10 +25,20 @@
 	<tx_reserve_domain_model_reservation>
 		<uid>2</uid>
 		<pid>1</pid>
-		<first_name>Chris</first_name>
+		<first_name>Brian</first_name>
 		<last_name>Griffin</last_name>
 		<customer_order>1</customer_order>
 		<code>secondCode</code>
+		<used>0</used>
+	</tx_reserve_domain_model_reservation>
+
+	<tx_reserve_domain_model_reservation>
+		<uid>3</uid>
+		<pid>1</pid>
+		<first_name>Stewie</first_name>
+		<last_name>Griffin</last_name>
+		<customer_order>1</customer_order>
+		<code>thirdCode</code>
 		<used>0</used>
 	</tx_reserve_domain_model_reservation>
 </dataset>

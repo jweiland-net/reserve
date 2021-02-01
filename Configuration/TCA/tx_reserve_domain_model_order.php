@@ -179,11 +179,8 @@ return [
         ],
     ],
     'types' => [
-        \JWeiland\Reserve\Domain\Model\Order::TYPE_DEFAULT => [
+        0 => [
             'showitem' => 'booked_period,--palette--;;name,--palette--;;contact,--palette--;;address,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
-        ],
-        \JWeiland\Reserve\Domain\Model\Order::TYPE_ARCHIVED => [
-            'showitem' => 'booked_period,--palette--;;name,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ]
     ],
     'palettes' => [
