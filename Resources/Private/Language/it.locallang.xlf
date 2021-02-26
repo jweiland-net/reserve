@@ -332,7 +332,8 @@
         <target state="needs-translation">The selected period can not be booked at the moment!</target>
       </trans-unit>
       <trans-unit id="datatables.languageFile">
-        <source> </source>
+        <source>‎</source>
+        <target state="needs-translation">‎</target>
       </trans-unit>
       <trans-unit id="period.openEnd">
         <source>Open end</source>
