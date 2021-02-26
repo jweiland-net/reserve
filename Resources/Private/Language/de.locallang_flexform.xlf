@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
-	<file t3:id="1589362099839" source-language="en" target-language="de" datatype="plaintext">
-		<header/>
-		<body>
-			<trans-unit id="reservation.title">
-				<target>Reservierung</target>
-			</trans-unit>
-			<trans-unit id="reservation.facility">
-				<target>Einrichtung</target>
-			</trans-unit>
-			<trans-unit id="reservation.orderPid">
-				<target>Speicherort für Reservierungen</target>
-			</trans-unit>
-			<trans-unit id="management.facility">
-				<target>Einrichtung</target>
-			</trans-unit>
-			<trans-unit id="reservation.mainFields">
-				<target>Welche Angaben soll der Benutzer machen?</target>
-			</trans-unit>
-			<trans-unit id="reservation.mainFields.description">
-				<target>Felder die immer angezeigt werden: Vorname, E-Mail</target>
-			</trans-unit>
-			<trans-unit id="reservation.showFieldsForFurtherParticipants">
-				<target>Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
-			</trans-unit>
-		</body>
-	</file>
+<xliff xmlns:t3="http://typo3.org/schemas/xliff" version="1.0">
+  <file t3:id="1589362099839" source-language="en" datatype="plaintext" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="reservation.title" approved="yes">
+        <source>Reservation</source>
+        <target state="final">Reservierung</target>
+      </trans-unit>
+      <trans-unit id="reservation.facility" approved="yes">
+        <source>Facility</source>
+        <target state="final">Einrichtung</target>
+      </trans-unit>
+      <trans-unit id="reservation.orderPid" approved="yes">
+        <source>Storage folder for reservations</source>
+        <target state="final">Speicherordner für Reservierungen</target>
+      </trans-unit>
+      <trans-unit id="management.facility" approved="yes">
+        <source>Facility</source>
+        <target state="final">Einrichtung</target>
+      </trans-unit>
+      <trans-unit id="reservation.mainFields" approved="yes">
+        <source>What data should the user provide?</source>
+        <target state="final">Welche Angaben soll der Benutzer machen?</target>
+      </trans-unit>
+      <trans-unit id="reservation.mainFields.description" approved="yes">
+        <source>Fields that are always displayed: First name, E-Mail</source>
+        <target state="final">Felder die immer angezeigt werden: Vorname, E-Mail</target>
+      </trans-unit>
+      <trans-unit id="reservation.showFieldsForFurtherParticipants" approved="yes">
+        <source>Should the personal data of further participants be asked?</source>
+        <target state="final">Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>
