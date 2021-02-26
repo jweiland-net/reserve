@@ -78,7 +78,7 @@
 				<label for="furtherParticipants">
 					<f:translate key="form.order.furtherParticipants"/>
 				</label>
-				<f:form.textfield id="furtherParticipants" name="furtherParticipants" type="number" additionalAttributes="{min: 0, max: order.bookedPeriod.maxParticipantsPerOrder, required: 'required'}" value="0"/>
+				<f:form.textfield id="furtherParticipants" name="furtherParticipants" type="number" additionalAttributes="{min: 0, max: '{order.bookedPeriod.maxParticipantsPerOrder - 1}', required: 'required'}" value="0"/>
 			</f:else>
 		</f:if>
 
