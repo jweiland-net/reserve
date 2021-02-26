@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns:t3="http://typo3.org/schemas/xliff" version="1.0">
+  <file t3:id="1589355594067" source-language="en" datatype="plaintext" target-language="pl">
+    <header/>
+    <body>
+      <trans-unit id="tx_reserve_domain_model_facility">
+        <source>Facility</source>
+        <target state="needs-translation">Facility</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.name">
+        <source>Name</source>
+        <target state="needs-translation">Name</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.short_name">
+        <source>Short name for QR code label</source>
+        <target state="needs-translation">Short name for QR code label</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.periods">
+        <source>Periods</source>
+        <target state="needs-translation">Periods</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
+        <source>E-Mail settings</source>
+        <target state="needs-translation">E-Mail settings</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
+        <source>Confirmation mail subject</source>
+        <target state="needs-translation">Confirmation mail subject</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
+        <source>Confirmation mail Text</source>
+        <target state="needs-translation">Confirmation mail Text</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
+        <source>Reservation mail subject</source>
+        <target state="needs-translation">Reservation mail subject</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
+        <source>Reservation mail Text</source>
+        <target state="needs-translation">Reservation mail Text</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.from_name">
+        <source>From name (optional)</source>
+        <target state="needs-translation">From name (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.from_email">
+        <source>From email (optional)</source>
+        <target state="needs-translation">From email (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
+        <source>Reply to name (optional)</source>
+        <target state="needs-translation">Reply to name (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
+        <source>Reply to email (optional)</source>
+        <target state="needs-translation">Reply to email (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
+        <source>QR Code settings</source>
+        <target state="needs-translation">QR Code settings</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
+        <source>QR Code size (in px)</source>
+        <target state="needs-translation">QR Code size (in px)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
+        <source>QR Code label size (in px)</source>
+        <target state="needs-translation">QR Code label size (in px)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
+        <source>Insert logo into QR Code (optional)</source>
+        <target state="needs-translation">Insert logo into QR Code (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
+        <source>Logo width (in px)</source>
+        <target state="needs-translation">Logo width (in px)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
+        <source>Preview QR code</source>
+        <target state="needs-translation">Preview QR code</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
+        <source>Render preview</source>
+        <target state="needs-translation">Render preview</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
+        <source>Only saved changes are processed!</source>
+        <target state="needs-translation">Only saved changes are processed!</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.cancelable">
+        <source>Reservations are cancelable</source>
+        <target state="needs-translation">Reservations are cancelable</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
+        <source>Reservations are cancelable until x minutes before begin</source>
+        <target state="needs-translation">Reservations are cancelable until x minutes before begin</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period">
+        <source>Period</source>
+        <target state="needs-translation">Period</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.date">
+        <source>Date</source>
+        <target state="needs-translation">Date</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.begin">
+        <source>Begin</source>
+        <target state="needs-translation">Begin</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.end">
+        <source>End</source>
+        <target state="needs-translation">End</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.max_participants">
+        <source>Max participants</source>
+        <target state="needs-translation">Max participants</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
+        <source>Max participants per order</source>
+        <target state="needs-translation">Max participants per order</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.booking_begin">
+        <source>Booking begin</source>
+        <target state="needs-translation">Booking begin</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.booking_end">
+        <source>Booking end (optional)</source>
+        <target state="needs-translation">Booking end (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.orders">
+        <source>Orders</source>
+        <target state="needs-translation">Orders</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order">
+        <source>Reservation</source>
+        <target state="needs-translation">Reservation</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.activated">
+        <source>Activated</source>
+        <target state="needs-translation">Activated</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.activation_code">
+        <source>Activation code</source>
+        <target state="needs-translation">Activation code</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.email">
+        <source>E-Mail</source>
+        <target state="needs-translation">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.phone">
+        <source>Phone</source>
+        <target state="needs-translation">Phone</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.address">
+        <source>Address</source>
+        <target state="needs-translation">Address</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.zip">
+        <source>Zip</source>
+        <target state="needs-translation">Zip</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.city">
+        <source>City</source>
+        <target state="needs-translation">City</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.reservations">
+        <source>Reservation codes</source>
+        <target state="needs-translation">Reservation codes</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.first_name">
+        <source>First name</source>
+        <target state="needs-translation">First name</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.last_name">
+        <source>Last name</source>
+        <target state="needs-translation">Last name</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.booked_period">
+        <source>Select a period</source>
+        <target state="needs-translation">Select a period</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation">
+        <source>Reservation code</source>
+        <target state="needs-translation">Reservation code</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.code">
+        <source>Code</source>
+        <target state="needs-translation">Code</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.used">
+        <source>Used</source>
+        <target state="needs-translation">Used</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.customer_order">
+        <source>Reservation</source>
+        <target state="needs-translation">Reservation</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.first_name">
+        <source>First name</source>
+        <target state="needs-translation">First name</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.last_name">
+        <source>Last name</source>
+        <target state="needs-translation">Last name</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email">
+        <source>E-Mail</source>
+        <target state="needs-translation">E-Mail</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.subject">
+        <source>Subject</source>
+        <target state="needs-translation">Subject</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.body">
+        <source>Body</source>
+        <target state="needs-translation">Body</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.periods">
+        <source>Send mail to visitors of selected periods</source>
+        <target state="needs-translation">Send mail to visitors of selected periods</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.locked">
+        <source>Mails are currently being sent</source>
+        <target state="needs-translation">Mails are currently being sent</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type">
+        <source>Receiver type</source>
+        <target state="needs-translation">Receiver type</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
+        <source>Send mail to visitors of selected periods</source>
+        <target state="needs-translation">Send mail to visitors of selected periods</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
+        <source>Write down E-Mail addresses manually</source>
+        <target state="needs-translation">Write down E-Mail addresses manually</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.custom_receivers">
+        <source>Receivers (comma separated list of mail addresses)</source>
+        <target state="needs-translation">Receivers (comma separated list of mail addresses)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.from_name">
+        <source>From name (optional)</source>
+        <target state="needs-translation">From name (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.from_email">
+        <source>From email (optional)</source>
+        <target state="needs-translation">From email (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.reply_to_name">
+        <source>Reply to name (optional)</source>
+        <target state="needs-translation">Reply to name (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.reply_to_email">
+        <source>Reply to email (optional)</source>
+        <target state="needs-translation">Reply to email (optional)</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
