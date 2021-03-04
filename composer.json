@@ -42,6 +42,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
+			"extension-key": "reserve",
 			"app-dir": ".build",
 			"web-dir": ".build/public"
 		}
