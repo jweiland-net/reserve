@@ -262,7 +262,7 @@ class Order extends AbstractEntity
     /**
      * @return ObjectStorage|Participant[]
      */
-    public function getParticipants(): ObjectStorage
+    public function getParticipants(): iterable
     {
         return $this->participants;
     }
