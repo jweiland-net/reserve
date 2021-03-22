@@ -46,7 +46,7 @@ class AskForMailAfterPeriodUpdate
         $this->dataHandler = $dataHandler;
         if (!Environment::isCli()) {
             $this->checkForUpdatedRecords();
-            if (!empty($this->updatedRecords)) {
+            if (!empty($this->updatedRecords) && $this->checkIfUpdatedRecordsAffectsOrders()) {
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }
@@ -82,6 +82,18 @@ class AskForMailAfterPeriodUpdate
             }
         }
         $this->updatedRecords = $updatedRecords;
+    }
+
+    protected function checkIfUpdatedRecordsAffectsOrders(): bool
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_reserve_domain_model_order');
+        return (bool)$queryBuilder
+            ->count('uid')
+            ->from('tx_reserve_domain_model_order')
+            ->where($queryBuilder->expr()->in('booked_period', implode(',', $this->updatedRecords)))
+            ->execute()
+            ->fetchColumn(0);
     }
 
     protected function addJavaScriptAndSettingsToPageRenderer()
