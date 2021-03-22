@@ -94,7 +94,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::INFO
             );
-            return $this->redirect('list');
+            return $this->forward('list');
         }
         /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
@@ -111,7 +111,7 @@ class CheckoutController extends ActionController
     {
         if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
-            return $this->redirect('list');
+            return $this->forward('list');
         }
         if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
@@ -140,7 +140,7 @@ class CheckoutController extends ActionController
                     '',
                     AbstractMessage::INFO
                 );
-                return $this->redirect('list');
+                return $this->forward('list');
             }
             $this->checkoutService->confirm($order);
             $this->view->assign('order', $order);
@@ -198,7 +198,7 @@ class CheckoutController extends ActionController
             }
             if ($redirect) {
                 CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
-                return $this->redirect('list');
+                return $this->forward('list');
             }
         } else {
             $this->addFlashMessage(
@@ -206,7 +206,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::ERROR
             );
-            return $this->redirect('list');
+            return $this->forward('list');
         }
     }
 }
