@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
+use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -74,6 +75,9 @@ class CancellationService implements SingletonInterface
             $this->persistenceManager->persistAll();
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
         }
+        OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
+            $order->getBookedPeriod()->getFacility()->getUid()
+        );
     }
 
     /**

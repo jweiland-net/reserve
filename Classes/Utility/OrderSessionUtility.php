@@ -41,6 +41,17 @@ class OrderSessionUtility extends AbstractUtility
         static::getTypoScriptFrontendController()->fe_user->setKey('ses', self::SESSION_KEY, $orders);
     }
 
+    public static function unblockNewOrdersForFacilityInCurrentSession(int $facilityUid)
+    {
+        // [<facility_uid> => <timestamp_of_confirmation>]
+        $orders = [];
+        if (static::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY)) {
+            $orders = static::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY);
+        }
+        unset($orders[$facilityUid]);
+        static::getTypoScriptFrontendController()->fe_user->setKey('ses', self::SESSION_KEY, $orders);
+    }
+
     public static function isUserAllowedToOrder(int $facilityUid): bool
     {
         $allowed = true;
