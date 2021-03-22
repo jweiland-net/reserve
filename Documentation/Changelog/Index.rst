@@ -2,9 +2,31 @@
 
 .. _changelog:
 
-==========
-Change log
-==========
+=========
+Changelog
+=========
+
+Version 1.1.0
+-------------
+
+List of changes ::
+
+   2021-03-22 Merge branch 'master' of github.com:jweiland-net/reserve (Commit ce140aa by Pascal Rinker)
+   2021-03-22 [TASK] Add flash message if order could not be canceled (Commit 1b26235 by Pascal Rinker)
+   2021-03-22 Merge pull request #77 from DanielSiepmann/feature/8417-reset-countdown-after-cancel (Commit eec2529 by Pascal Rinker)
+   2021-03-22 [TASK] Check if period update affects orders before rendering the modal (Commit 7675c37 by Pascal Rinker)
+   2021-03-22 [TASK] Update github workflow (Commit 58c210d by Pascal Rinker)
+   2021-03-22 [BUGFIX] Flash message is beeing cached in Checkout::listAction (Commit b53b7bc by Pascal Rinker)
+   2021-03-22 [FEATURE] Add setting to decide which form fields are marked as required (Commit a7e65a4 by Pascal Rinker)
+   2021-03-10 Reset session after cancel was successful (Commit 0587968 by Daniel Siepmann)
+   2021-03-09 [TASK] Fix scanner exception (Commit 51538a1 by Pascal Rinker)
+   2021-03-04 Add extension key to composer.json #73 (Commit 0954547 by Stefan Frömken)
+   2021-02-26 Update locallang.xlf (Commit 6f15f3b by og-fox)
+   2021-02-26 Use correct spaces in de.locallang.xlf (Commit abe1fc2 by Stefan Frömken)
+   2021-02-26 Add space to make translation available in CrowdIn (Commit ff75ddf by Stefan Frömken)
+   2021-02-26 [BUGFIX] Fix max amount of further participants if further participants is a number field (Commit 38e3357 by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.0.0
 -------------
