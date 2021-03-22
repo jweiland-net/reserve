@@ -195,6 +195,15 @@ class CheckoutController extends ActionController
                     '',
                     AbstractMessage::WARNING
                 );
+            } else {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate(
+                        'flashMessage.notCancelable',
+                        'reserve'
+                    ),
+                    '',
+                    AbstractMessage::WARNING
+                );
             }
             if ($redirect) {
                 CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());

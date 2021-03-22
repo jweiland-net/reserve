@@ -229,6 +229,9 @@
             <trans-unit id="flashMessage.noLongerCancelable">
                 <source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
             </trans-unit>
+            <trans-unit id="flashMessage.notCancelable">
+                <source>The reservation could not be canceled.</source>
+            </trans-unit>
             <trans-unit id="modal.periodAskForMail.title">
                 <source>You updated at least one period</source>
             </trans-unit>
