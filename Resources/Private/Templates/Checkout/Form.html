@@ -16,45 +16,45 @@
 			<label for="lastName">
 				<f:translate key="form.order.lastName"/>
 			</label>
-			<f:form.textfield id="lastName" property="lastName" required="required"/>
+			<f:form.textfield id="lastName" property="lastName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'lastName', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
 		<label for="firstName">
 			<f:translate key="form.order.firstName"/>
 		</label>
-		<f:form.textfield id="firstName" property="firstName" required="required"/>
+		<f:form.textfield id="firstName" property="firstName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'firstName', then: 'true', else: 'false')}"/>
 
 		<label for="email">
 			<f:translate key="form.order.email"/>
 		</label>
-		<f:form.textfield id="email" type="email" property="email" required="required"/>
+		<f:form.textfield id="email" type="email" property="email" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'email', then: 'true', else: 'false')}"/>
 
 		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="phone">
 			<label for="phone">
 				<f:translate key="form.order.phone"/>
 			</label>
-			<f:form.textfield id="phone" type="phone" property="phone"/>
+			<f:form.textfield id="phone" type="phone" property="phone" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'phone', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
 		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="address">
 			<label for="address">
 				<f:translate key="form.order.address"/>
 			</label>
-			<f:form.textfield id="address" type="input" property="address"/>
+			<f:form.textfield id="address" type="input" property="address" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'address', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
 		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="zip">
 			<label for="zip">
 				<f:translate key="form.order.zip"/>
 			</label>
-			<f:form.textfield id="zip" type="input" property="zip"/>
+			<f:form.textfield id="zip" type="input" property="zip" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'zip', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
 		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="city">
 			<label for="city">
 				<f:translate key="form.order.city"/>
 			</label>
-			<f:form.textfield id="city" type="input" property="city"/>
+			<f:form.textfield id="city" type="input" property="city" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'city', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
 		<f:if condition="{settings.showFieldsForFurtherParticipants}">
@@ -65,13 +65,13 @@
 						<label for="lastName{participantPosition}">
 							<f:translate key="form.order.participants.lastName" arguments="{0: participantPosition}"/>
 						</label>
-						<f:form.textfield id="lastName{participantPosition}" property="participants.{participantPosition}.lastName"/>
+						<f:form.textfield id="lastName{participantPosition}" property="participants.{participantPosition}.lastName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'lastName', then: 'true', else: 'false')}"/>
 					</jw:ifStringInCommaSeparatedList>
 
 					<label for="firstName{participantPosition}">
 						<f:translate key="form.order.participants.firstName" arguments="{0: participantPosition}"/>
 					</label>
-					<f:form.textfield id="firstName{participantPosition}" property="participants.{participantPosition}.firstName"/>
+					<f:form.textfield id="firstName{participantPosition}" property="participants.{participantPosition}.firstName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'firstName', then: 'true', else: 'false')}"/>
 				</f:for>
 			</f:then>
 			<f:else>
