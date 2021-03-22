@@ -229,6 +229,9 @@
             <trans-unit id="flashMessage.noLongerCancelable">
                 <target>Die Reservierung konnte bis zum %s storniert werden. Sie kann nun nicht mehr storniert werden!</target>
             </trans-unit>
+            <trans-unit id="flashMessage.notCancelable">
+                <target>Die Reservierung konnte nicht storniert werden.</target>
+            </trans-unit>
             <trans-unit id="modal.periodAskForMail.title">
                 <target>Mindestens ein Zeitblock wurde geupdated</target>
             </trans-unit>
