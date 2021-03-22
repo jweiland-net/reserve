@@ -1,15 +1,17 @@
 plugin.tx_reserve {
   view {
-    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template root
+    # cat=plugin.tx_reserve/file; type=string; label=Path to template root
     templateRootPath  = EXT:reserve/Resources/Private/Templates/
-    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template partials
+    # cat=plugin.tx_reserve/file; type=string; label=Path to template partials
     partialRootPath = EXT:reserve/Resources/Private/Partials/
-    # cat=plugin.tx_tx_reserve/file; type=string; label=Path to template layouts
+    # cat=plugin.tx_reserve/file; type=string; label=Path to template layouts
     layoutRootPath = EXT:reserve/Resources/Private/Layouts/
   }
 
   settings {
     # cat=plugin.tx_reserve; type=boolean; label=Include jQuery
     includeJQueryLibrary = 1
+    # cat=plugin.tx_reserve; type=string; label=Comma separated list of required form fields
+    requiredFormFields = lastName,firstName,email,phone,address,zip,city
   }
 }

@@ -23,4 +23,8 @@ plugin.tx_reserve {
       1 = {$plugin.tx_reserve.view.layoutRootPath}
     }
   }
+
+  settings {
+    requiredFormFields = {$plugin.tx_reserve.settings.requiredFormFields}
+  }
 }
