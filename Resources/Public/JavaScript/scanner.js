@@ -77,7 +77,7 @@ $(() => {
 
     function createModal(title, message, classes = '', $additionalElement = null)
     {
-        let $modal = $('<div class="modal">');
+        let $modal = $('<div class="reserve modal">');
 
         let $title = $('<h3>').text(title);
         let $message = $('<p>').text(message);
