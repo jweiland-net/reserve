@@ -1,194 +1,202 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
-    <file t3:id="1589355594067" source-language="en" target-language="de" datatype="plaintext">
-        <header/>
-        <body>
-            <trans-unit id="tx_reserve_domain_model_facility">
-                <target>Einrichtung</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.name">
-                <target>Name</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.short_name">
-                <target>Kurzname für das QR Code Label</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.periods">
-                <target>Zeitblöcke</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
-                <target>E-Mail Einstellungen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
-                <target>Bestätigungsmail Betreff</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
-                <target>Bestätigungsmail Vorlage</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
-                <target>Reservierungsmail Betreff (nach Bestätigung)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
-                <target>Reservierungsmail Vorlage</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.from_name">
-                <target>Absender Name (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.from_email">
-                <target>Absender E-Mail Adresse (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
-                <target>Antwortadresse Name (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
-                <target>Antwortadresse E-Mail (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
-                <target>QR Code Einstellungen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
-                <target>QR Code Größe (in px)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
-                <target>QR Code Label Schriftgröße (in px)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
-                <target>Logo in den QR Code einfügen (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
-                <target>Logo Breite (in px)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
-                <target>Beispiel QR Code erstellen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
-                <target>Beispiel rendern</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
-                <target>Nur gespeicherte Änderungen werden verarbeitet!</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.cancelable">
-                <target>Reservierungen sind stornierbar</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
-                <target>Reservierung sind stornierbar bis x Minuten vor Beginn</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period">
-                <target>Zeitblock</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.date">
-                <target>Datum</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.begin">
-                <target>Startzeit</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.end">
-                <target>Endzeit</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.max_participants">
-                <target>Maximale Teilnehmer</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
-                <target>Maximale Teilnehmer pro Bestellung</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.booking_begin">
-                <target>Reservierbar ab</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.booking_end">
-                <target>Reservierbar bis (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_period.orders">
-                <target>Bestellungen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order">
-                <target>Reservierung</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.activated">
-                <target>Aktiviert</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.activation_code">
-                <target>Aktivierungscode</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.email">
-                <target>E-Mail</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.phone">
-                <target>Telefon</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.address">
-                <target>Adresse</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.zip">
-                <target>PLZ</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.city">
-                <target>Stadt</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.reservations">
-                <target>Reservierungscodes</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.first_name">
-                <target>Vorname</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.last_name">
-                <target>Nachname</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_order.booked_period">
-                <target>Bitte Zeitblock wählen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_reservation">
-                <target>Reservierungscode</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_reservation.code">
-                <target>Code</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_reservation.used">
-                <target>Eingelöst</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_reservation.first_name">
-              <target>Vorname</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_reservation.last_name">
-              <target>Nachname</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email">
-                <target>E-Mail</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.subject">
-                <target>Betreff</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.body">
-                <target>Nachricht</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.periods">
-                <target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.locked">
-                <target>E-Mails werden aktuell verschickt</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.receiver_type">
-                <target>Empfängertyp</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
-                <target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
-                <target>E-Mail Adressen händisch eintragen</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.custom_receivers">
-                <target>Empfänger (kommaseparierte Liste von E-Mail Adressen)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.from_name">
-                <target>Absender Name (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.from_email">
-                <target>Absender E-Mail Adresse (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.reply_to_name">
-                <target>Antwortadresse Name (optional)</target>
-            </trans-unit>
-            <trans-unit id="tx_reserve_domain_model_email.reply_to_email">
-                <target>Antwortadresse E-Mail (optional)</target>
-            </trans-unit>
-        </body>
-    </file>
+	<file t3:id="1589355594067" source-language="en" target-language="de" datatype="plaintext">
+		<header/>
+		<body>
+			<trans-unit id="tx_reserve_domain_model_facility">
+				<target>Einrichtung</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.name">
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.short_name">
+				<target>Kurzname für das QR Code Label</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.periods">
+				<target>Zeitblöcke</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
+				<target>E-Mail Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
+				<target>Bestätigungsmail Betreff</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
+				<target>Bestätigungsmail Vorlage</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
+				<target>Reservierungsmail Betreff (nach Bestätigung)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
+				<target>Reservierungsmail Vorlage</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_name">
+				<target>Absender Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.from_email">
+				<target>Absender E-Mail Adresse (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
+				<target>Antwortadresse Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
+				<target>Antwortadresse E-Mail (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
+				<target>QR Code Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
+				<target>QR Code Größe (in px)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
+				<target>QR Code Label Schriftgröße (in px)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
+				<target>Logo in den QR Code einfügen (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
+				<target>Logo Breite (in px)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
+				<target>Beispiel QR Code erstellen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
+				<target>Beispiel rendern</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
+				<target>Nur gespeicherte Änderungen werden verarbeitet!</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable">
+				<target>Reservierungen sind stornierbar</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
+				<target>Reservierung sind stornierbar bis x Minuten vor Beginn</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period">
+				<target>Zeitblock</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.date">
+				<target>Datum</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.begin">
+				<target>Startzeit</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.end">
+				<target>Endzeit</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.max_participants">
+				<target>Maximale Teilnehmer</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
+				<target>Maximale Teilnehmer pro Bestellung</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.booking_begin">
+				<target>Reservierbar ab</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.booking_end">
+				<target>Reservierbar bis (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_period.orders">
+				<target>Bestellungen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order">
+				<target>Reservierung</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.activated">
+				<target>Aktiviert</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.activation_code">
+				<target>Aktivierungscode</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.phone">
+				<target>Telefon</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.address">
+				<target>Adresse</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.zip">
+				<target>PLZ</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.city">
+				<target>Stadt</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.reservations">
+				<target>Reservierungscodes</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.first_name">
+				<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.last_name">
+				<target>Nachname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.booked_period">
+				<target>Bitte Zeitblock wählen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation">
+				<target>Reservierungscode</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.code">
+				<target>Code</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.used">
+				<target>Eingelöst</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.first_name">
+			<target>Vorname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_reservation.last_name">
+			<target>Nachname</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.subject">
+				<target>Betreff</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.body">
+				<target>Nachricht</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.periods">
+				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.locked">
+				<target>E-Mails werden aktuell verschickt</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type">
+				<target>Empfängertyp</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
+				<target>Sende Mail an Gäste der ausgewählten Zeitblöcke</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
+				<target>E-Mail Adressen händisch eintragen</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.custom_receivers">
+				<target>Empfänger (kommaseparierte Liste von E-Mail Adressen)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_name">
+				<target>Absender Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.from_email">
+				<target>Absender E-Mail Adresse (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_name">
+				<target>Antwortadresse Name (optional)</target>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_email.reply_to_email">
+				<target>Antwortadresse E-Mail (optional)</target>
+			</trans-unit>
+
+			<trans-unit id="tx_events2_domain_model_event.registration_required">
+				<target>Anmeldung erforderlich</target>
+			</trans-unit>
+
+			<trans-unit id="tx_events2_domain_model_location.facility">
+				<target>Einrichtung</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
