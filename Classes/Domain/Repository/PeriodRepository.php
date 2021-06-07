@@ -82,18 +82,4 @@ class PeriodRepository extends Repository
         );
         return $query->execute();
     }
-
-    public function findByFacilityUdddids(array $uids): QueryResultInterface
-    {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_period');
-        $queryBuilder
-            ->select('*')
-            ->from('tx_reserve_domain_model_period', 'p')
-            ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f')
-            ->where($queryBuilder->expr()->in('f.uid', $queryBuilder->createNamedParameter($uids)));
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
-        $query->statement($queryBuilder);
-        return $query->execute();
-    }
 }
