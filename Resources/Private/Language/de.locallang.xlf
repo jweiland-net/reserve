@@ -1,277 +1,277 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.0" xmlns:t3="http://typo3.org/schemas/xliff">
-    <file t3:id="1589362740560" source-language="en" target-language="de" datatype="plaintext">
-        <header/>
-        <body>
-            <trans-unit id="plugin.reservation.title">
-                <target>Zeitblöcke anzeigen und reservieren</target>
-            </trans-unit>
-            <trans-unit id="plugin.management.title">
-                <target>Verwalte Reservierungen und scanne Reservierungscodes</target>
-            </trans-unit>
-            <trans-unit id="form.order.submit">
-                <target>Bestellen</target>
-            </trans-unit>
-            <trans-unit id="form.order.email">
-                <target>E-Mail</target>
-            </trans-unit>
-            <trans-unit id="form.order.phone">
-                <target>Telefon</target>
-            </trans-unit>
-            <trans-unit id="form.order.address">
-                <target>Adresse</target>
-            </trans-unit>
-            <trans-unit id="form.order.zip">
-                <target>PLZ</target>
-            </trans-unit>
-            <trans-unit id="form.order.city">
-                <target>Stadt</target>
-            </trans-unit>
-            <trans-unit id="form.order.furtherParticipants">
-                <target>Weitere Personen</target>
-            </trans-unit>
-            <trans-unit id="order.furtherParticipant">
-              <target>Weitere Person</target>
-            </trans-unit>
-          <trans-unit id="form.order.participants.firstName">
-                <target>Vorname von Begleitung %d</target>
-            </trans-unit>
-            <trans-unit id="form.order.participants.lastName">
-                <target>Nachname von Begleitung %d</target>
-            </trans-unit>
-            <trans-unit id="form.order.period">
-                <target>Gewählter Zeitblock</target>
-            </trans-unit>
-            <trans-unit id="form.order.amountOfPeople">
-                <target>Anzahl Personen (max. %d)</target>
-            </trans-unit>
-            <trans-unit id="form.order.header">
-                <target>Reserviere ein Ticket für %s</target>
-            </trans-unit>
-            <trans-unit id="form.order.description">
-                <target>Diese Reservierung ist gültig für den %s zwischen %s - %s</target>
-            </trans-unit>
-            <trans-unit id="form.order.firstName">
-                <target>Vorname</target>
-            </trans-unit>
-            <trans-unit id="form.order.lastName">
-                <target>Nachname</target>
-            </trans-unit>
+		<file t3:id="1589362740560" source-language="en" target-language="de" datatype="plaintext">
+				<header/>
+				<body>
+						<trans-unit id="plugin.reservation.title">
+								<target>Zeitblöcke anzeigen und reservieren</target>
+						</trans-unit>
+						<trans-unit id="plugin.management.title">
+								<target>Verwalte Reservierungen und scanne Reservierungscodes</target>
+						</trans-unit>
+						<trans-unit id="form.order.submit">
+								<target>Bestellen</target>
+						</trans-unit>
+						<trans-unit id="form.order.email">
+								<target>E-Mail</target>
+						</trans-unit>
+						<trans-unit id="form.order.phone">
+								<target>Telefon</target>
+						</trans-unit>
+						<trans-unit id="form.order.address">
+								<target>Adresse</target>
+						</trans-unit>
+						<trans-unit id="form.order.zip">
+								<target>PLZ</target>
+						</trans-unit>
+						<trans-unit id="form.order.city">
+								<target>Stadt</target>
+						</trans-unit>
+						<trans-unit id="form.order.furtherParticipants">
+								<target>Weitere Personen</target>
+						</trans-unit>
+						<trans-unit id="order.furtherParticipant">
+							<target>Weitere Person</target>
+						</trans-unit>
+					<trans-unit id="form.order.participants.firstName">
+								<target>Vorname von Begleitung %d</target>
+						</trans-unit>
+						<trans-unit id="form.order.participants.lastName">
+								<target>Nachname von Begleitung %d</target>
+						</trans-unit>
+						<trans-unit id="form.order.period">
+								<target>Gewählter Zeitblock</target>
+						</trans-unit>
+						<trans-unit id="form.order.amountOfPeople">
+								<target>Anzahl Personen (max. %d)</target>
+						</trans-unit>
+						<trans-unit id="form.order.header">
+								<target>Reserviere ein Ticket für %s</target>
+						</trans-unit>
+						<trans-unit id="form.order.description">
+								<target>Diese Reservierung ist gültig für den %s zwischen %s - %s</target>
+						</trans-unit>
+						<trans-unit id="form.order.firstName">
+								<target>Vorname</target>
+						</trans-unit>
+						<trans-unit id="form.order.lastName">
+								<target>Nachname</target>
+						</trans-unit>
 
-            <trans-unit id="scan.status.orderNotActive">
-                <target>Bestellung wurde nicht aktiviert.</target>
-            </trans-unit>
-            <trans-unit id="scan.status.codeAlreadyScanned">
-                <target>Code wurde bereits eingelöst.</target>
-            </trans-unit>
-            <trans-unit id="scan.status.reservationActivated">
-                <target>Reservierung erfolgreich eingelöst.</target>
-            </trans-unit>
-            <trans-unit id="scan.status.error.0">
-                <target>Erfolgreich</target>
-            </trans-unit>
-            <trans-unit id="scan.status.error.1">
-                <target>Fehler</target>
-            </trans-unit>
+						<trans-unit id="scan.status.orderNotActive">
+								<target>Bestellung wurde nicht aktiviert.</target>
+						</trans-unit>
+						<trans-unit id="scan.status.codeAlreadyScanned">
+								<target>Code wurde bereits eingelöst.</target>
+						</trans-unit>
+						<trans-unit id="scan.status.reservationActivated">
+								<target>Reservierung erfolgreich eingelöst.</target>
+						</trans-unit>
+						<trans-unit id="scan.status.error.0">
+								<target>Erfolgreich</target>
+						</trans-unit>
+						<trans-unit id="scan.status.error.1">
+								<target>Fehler</target>
+						</trans-unit>
 
-            <trans-unit id="list.noFacility">
-                <target>Diese Einrichtung ist aktuell nicht aktiv!</target>
-            </trans-unit>
-            <trans-unit id="list.choose_this_period">
-                <target>Diesen Termin wählen</target>
-            </trans-unit>
-            <trans-unit id="list.alerts.isBookingAllowed">
-                <target>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</target>
-            </trans-unit>
-            <trans-unit id="list.alerts.wrongAmountOfReservations">
-                <target>Für die ausgewählte Anzahl an Personen kann keine Reservierung angelegt werden!</target>
-            </trans-unit>
-            <trans-unit id="list.date">
-                <target>Datum</target>
-            </trans-unit>
-            <trans-unit id="list.begin">
-                <target>Beginn</target>
-            </trans-unit>
-            <trans-unit id="list.end">
-                <target>Ende</target>
-            </trans-unit>
-            <trans-unit id="list.free_slots">
-                <target>Freie Plätze</target>
-            </trans-unit>
-            <trans-unit id="list.participants">
-                <target>Teilnehmer</target>
-            </trans-unit>
-            <trans-unit id="list.action">
-                <target>Aktion</target>
-            </trans-unit>
-            <trans-unit id="list.choose_this_period">
-                <target>Diesen Termin wählen</target>
-            </trans-unit>
-            <trans-unit id="list.bookable_from">
-                <target>Buchbar ab %s</target>
-            </trans-unit>
-            <trans-unit id="list.no_more_tickets">
-                <target>Keine Buchung mehr möglich!</target>
-            </trans-unit>
-            <trans-unit id="list.code">
-                <target>Code</target>
-            </trans-unit>
+						<trans-unit id="list.choose_this_period">
+								<target>Diesen Termin wählen</target>
+						</trans-unit>
+						<trans-unit id="list.alerts.isBookingAllowed">
+								<target>Du hast vor kurzer Zeit mindestens ein Ticket für diese Einrichtung reserviert. Bitte warte noch einen Moment, bis du weitere Tickets reservieren kannst.</target>
+						</trans-unit>
+						<trans-unit id="list.alerts.wrongAmountOfReservations">
+								<target>Für die ausgewählte Anzahl an Personen kann keine Reservierung angelegt werden!</target>
+						</trans-unit>
+					<trans-unit id="list.facility">
+						<target>Einrichtung</target>
+					</trans-unit>
+						<trans-unit id="list.date">
+								<target>Datum</target>
+						</trans-unit>
+						<trans-unit id="list.begin">
+								<target>Beginn</target>
+						</trans-unit>
+						<trans-unit id="list.end">
+								<target>Ende</target>
+						</trans-unit>
+						<trans-unit id="list.free_slots">
+								<target>Freie Plätze</target>
+						</trans-unit>
+						<trans-unit id="list.participants">
+								<target>Teilnehmer</target>
+						</trans-unit>
+						<trans-unit id="list.action">
+								<target>Aktion</target>
+						</trans-unit>
+						<trans-unit id="list.choose_this_period">
+								<target>Diesen Termin wählen</target>
+						</trans-unit>
+						<trans-unit id="list.bookable_from">
+								<target>Buchbar ab %s</target>
+						</trans-unit>
+						<trans-unit id="list.no_more_tickets">
+								<target>Keine Buchung mehr möglich!</target>
+						</trans-unit>
+						<trans-unit id="list.code">
+								<target>Code</target>
+						</trans-unit>
 
-            <trans-unit id="scanner_unavailable">
-                <target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
-            </trans-unit>
-            <trans-unit id="of">
-                <target>von</target>
-            </trans-unit>
+						<trans-unit id="scanner_unavailable">
+								<target>Kamera nicht erreichbar (bitte stelle sicher, dass der Zugriff auf die Kamera erlaubt ist)</target>
+						</trans-unit>
+						<trans-unit id="of">
+								<target>von</target>
+						</trans-unit>
 
-            <trans-unit id="mail.salutation">
-                <target>Guten Tag %s %s,</target>
-            </trans-unit>
-            <trans-unit id="mail.cancellation.subject">
-                <target>Stornierung der Reservierung</target>
-            </trans-unit>
-            <trans-unit id="mail.cancellation.inactive">
-                <target>die Reservierung für %s  wurde storniert, da sie nicht innerhalb von %d Minuten aktiviert wurde.</target>
-            </trans-unit>
-            <trans-unit id="mail.cancellation.customer">
-                <target>die Reservierung für %s wurde soeben storniert.</target>
-            </trans-unit>
+						<trans-unit id="mail.salutation">
+								<target>Guten Tag %s %s,</target>
+						</trans-unit>
+						<trans-unit id="mail.cancellation.subject">
+								<target>Stornierung der Reservierung</target>
+						</trans-unit>
+						<trans-unit id="mail.cancellation.inactive">
+								<target>die Reservierung für %s  wurde storniert, da sie nicht innerhalb von %d Minuten aktiviert wurde.</target>
+						</trans-unit>
+						<trans-unit id="mail.cancellation.customer">
+								<target>die Reservierung für %s wurde soeben storniert.</target>
+						</trans-unit>
 
-            <trans-unit id="mail.confirmation.confirm_link_text">
-                <target>Reservierung bestätigen</target>
-            </trans-unit>
-            <trans-unit id="mail.confirmation.cancel_link_text">
-                <target>Reservierung stornieren</target>
-            </trans-unit>
+						<trans-unit id="mail.confirmation.confirm_link_text">
+								<target>Reservierung bestätigen</target>
+						</trans-unit>
+						<trans-unit id="mail.confirmation.cancel_link_text">
+								<target>Reservierung stornieren</target>
+						</trans-unit>
 
-            <trans-unit id="mail.confirmation.cancel_notice">
-                <target>Wurde die Reservierung irrtümlich ausgelöst?</target>
-            </trans-unit>
+						<trans-unit id="mail.confirmation.cancel_notice">
+								<target>Wurde die Reservierung irrtümlich ausgelöst?</target>
+						</trans-unit>
 
-            <trans-unit id="mail.facility">
-                <target>Einrichtung</target>
-            </trans-unit>
-            <trans-unit id="mail.period">
-                <target>Zeitblock</target>
-            </trans-unit>
+						<trans-unit id="mail.facility">
+								<target>Einrichtung</target>
+						</trans-unit>
+						<trans-unit id="mail.period">
+								<target>Zeitblock</target>
+						</trans-unit>
 
-            <trans-unit id="mail.reservation.print_notice">
-                <target>Bitte speichere die/den unten angezeigte(n) Code(s) oder zeige die E-Mail mit den Codes am Handy vor Ort vor.</target>
-            </trans-unit>
-            <trans-unit id="mail.reservation.cancelable_until">
-                <target>Falls die Reservierung doch nicht mehr benötigt wird, kann sie bis zum %s storniert werden.</target>
-            </trans-unit>
-            <trans-unit id="reservation.no_printer_notice">
-                <target>Sollte weder ein Drucker, noch ein Smartphone zur Verfügung stehen, so können diese Codes manuell aufgeschrieben und vor Ort vorgezeigt werden:</target>
-            </trans-unit>
+						<trans-unit id="mail.reservation.print_notice">
+								<target>Bitte speichere die/den unten angezeigte(n) Code(s) oder zeige die E-Mail mit den Codes am Handy vor Ort vor.</target>
+						</trans-unit>
+						<trans-unit id="mail.reservation.cancelable_until">
+								<target>Falls die Reservierung doch nicht mehr benötigt wird, kann sie bis zum %s storniert werden.</target>
+						</trans-unit>
+						<trans-unit id="reservation.no_printer_notice">
+								<target>Sollte weder ein Drucker, noch ein Smartphone zur Verfügung stehen, so können diese Codes manuell aufgeschrieben und vor Ort vorgezeigt werden:</target>
+						</trans-unit>
 
-            <trans-unit id="list">
-                <target>Liste</target>
-            </trans-unit>
-            <trans-unit id="date_format">
-                <target>%a %d.%m.%Y</target>
-            </trans-unit>
-            <trans-unit id="date_format_full">
-                <target>%a %d.%m.%Y %H:%I</target>
-            </trans-unit>
-            <trans-unit id="redeem">
-                <target>Einlösen</target>
-            </trans-unit>
+						<trans-unit id="list">
+								<target>Liste</target>
+						</trans-unit>
+						<trans-unit id="date_format">
+								<target>%a %d.%m.%Y</target>
+						</trans-unit>
+						<trans-unit id="date_format_full">
+								<target>%a %d.%m.%Y %H:%I</target>
+						</trans-unit>
+						<trans-unit id="redeem">
+								<target>Einlösen</target>
+						</trans-unit>
 
-            <trans-unit id="reservation.created">
-                <target>Vielen Dank für Ihre Reservierung. Wir haben Ihnen eine E-Mail mit Bestätigungslink an Ihr Postfach gesendet.</target>
-            </trans-unit>
-            <trans-unit id="reservation.confirmed">
-                <target>Sie haben Ihre Reservierung für %s erfolgreich bestätigt.</target>
-            </trans-unit>
-            <trans-unit id="reservation.mail_with_code_sent">
-                <target>Wir haben Ihnen eine E-Mail mit Ihrem Reservierungscodes gesendet.</target>
-            </trans-unit>
-            <trans-unit id="reservation.print_or_show_code">
-                <target>Bitte drucken Sie sich den Code von dieser Seite oder der E-Mail aus. Alternativ können Sie die E-Mail mit dem Code am Eingang vorzeigen.</target>
-            </trans-unit>
+						<trans-unit id="reservation.created">
+								<target>Vielen Dank für Ihre Reservierung. Wir haben Ihnen eine E-Mail mit Bestätigungslink an Ihr Postfach gesendet.</target>
+						</trans-unit>
+						<trans-unit id="reservation.confirmed">
+								<target>Sie haben Ihre Reservierung für %s erfolgreich bestätigt.</target>
+						</trans-unit>
+						<trans-unit id="reservation.mail_with_code_sent">
+								<target>Wir haben Ihnen eine E-Mail mit Ihrem Reservierungscodes gesendet.</target>
+						</trans-unit>
+						<trans-unit id="reservation.print_or_show_code">
+								<target>Bitte drucken Sie sich den Code von dieser Seite oder der E-Mail aus. Alternativ können Sie die E-Mail mit dem Code am Eingang vorzeigen.</target>
+						</trans-unit>
 
-            <trans-unit id="loading_video">
-                <target>Video wird geladen..</target>
-            </trans-unit>
-            <trans-unit id="code_not_found">
-                <target>Code wurde nicht gefunden!</target>
-            </trans-unit>
-            <trans-unit id="reservations">
-                <target>Reservierungen</target>
-            </trans-unit>
-            <trans-unit id="close">
-                <target>Schließen</target>
-            </trans-unit>
-            <trans-unit id="day_list">
-                <target>Tagesliste</target>
-            </trans-unit>
-            <trans-unit id="scanEntireOrder">
-                <target>Aktiviere die gesamte Bestellung mit allen Reservierungen</target>
-            </trans-unit>
-            <trans-unit id="redeemed">
-                <target>Eingelöst</target>
-            </trans-unit>
+						<trans-unit id="loading_video">
+								<target>Video wird geladen..</target>
+						</trans-unit>
+						<trans-unit id="code_not_found">
+								<target>Code wurde nicht gefunden!</target>
+						</trans-unit>
+						<trans-unit id="reservations">
+								<target>Reservierungen</target>
+						</trans-unit>
+						<trans-unit id="close">
+								<target>Schließen</target>
+						</trans-unit>
+						<trans-unit id="day_list">
+								<target>Tagesliste</target>
+						</trans-unit>
+						<trans-unit id="scanEntireOrder">
+								<target>Aktiviere die gesamte Bestellung mit allen Reservierungen</target>
+						</trans-unit>
+						<trans-unit id="redeemed">
+								<target>Eingelöst</target>
+						</trans-unit>
 
-            <trans-unit id="cancel.warning">
-                <target>Möchten Sie die Reservierung für %s wirklich stornieren?</target>
-            </trans-unit>
-            <trans-unit id="cancel.button">
-                <target>Reservierung stornieren</target>
-            </trans-unit>
-            <trans-unit id="cancel.cancelled">
-                <target>Die Reservierung wurde erfolgreich storniert.</target>
-            </trans-unit>
+						<trans-unit id="cancel.warning">
+								<target>Möchten Sie die Reservierung für %s wirklich stornieren?</target>
+						</trans-unit>
+						<trans-unit id="cancel.button">
+								<target>Reservierung stornieren</target>
+						</trans-unit>
+						<trans-unit id="cancel.cancelled">
+								<target>Die Reservierung wurde erfolgreich storniert.</target>
+						</trans-unit>
 
-            <trans-unit id="flashMessage.clearedCacheForFacility">
-                <target>Der Cache für die %s Listenansicht(en) im Frontend wurde erfolgreich geleert.</target>
-            </trans-unit>
-            <trans-unit id="flashMessage.noLongerCancelable">
-                <target>Die Reservierung konnte bis zum %s storniert werden. Sie kann nun nicht mehr storniert werden!</target>
-            </trans-unit>
-            <trans-unit id="flashMessage.notCancelable">
-                <target>Die Reservierung konnte nicht storniert werden.</target>
-            </trans-unit>
-            <trans-unit id="modal.periodAskForMail.title">
-                <target>Mindestens ein Zeitblock wurde geupdated</target>
-            </trans-unit>
-            <trans-unit id="modal.periodAskForMail.message">
-                <target>Die Zeit von mindestens einem Zeitblock wurde verändert. Möchten Sie eine E-Mail verfassen, um die betroffenen Besucher zu informieren?</target>
-            </trans-unit>
-            <trans-unit id="modal.button.writeMail">
-                <target>E-Mail verfassen</target>
-            </trans-unit>
-            <trans-unit id="modal.periodAskForMailAfterDeletion.title">
-                <target>Mindestens ein Zeitblock wurde entfernt</target>
-            </trans-unit>
-            <trans-unit id="modal.periodAskForMailAfterDeletion.message">
-                <target>Möchten Sie die Kunden über die Streichung der reservierten Tickets informieren?</target>
-            </trans-unit>
+						<trans-unit id="flashMessage.clearedCacheForFacility">
+								<target>Der Cache für die %s Listenansicht(en) im Frontend wurde erfolgreich geleert.</target>
+						</trans-unit>
+						<trans-unit id="flashMessage.noLongerCancelable">
+								<target>Die Reservierung konnte bis zum %s storniert werden. Sie kann nun nicht mehr storniert werden!</target>
+						</trans-unit>
+						<trans-unit id="flashMessage.notCancelable">
+								<target>Die Reservierung konnte nicht storniert werden.</target>
+						</trans-unit>
+						<trans-unit id="modal.periodAskForMail.title">
+								<target>Mindestens ein Zeitblock wurde geupdated</target>
+						</trans-unit>
+						<trans-unit id="modal.periodAskForMail.message">
+								<target>Die Zeit von mindestens einem Zeitblock wurde verändert. Möchten Sie eine E-Mail verfassen, um die betroffenen Besucher zu informieren?</target>
+						</trans-unit>
+						<trans-unit id="modal.button.writeMail">
+								<target>E-Mail verfassen</target>
+						</trans-unit>
+						<trans-unit id="modal.periodAskForMailAfterDeletion.title">
+								<target>Mindestens ein Zeitblock wurde entfernt</target>
+						</trans-unit>
+						<trans-unit id="modal.periodAskForMailAfterDeletion.message">
+								<target>Möchten Sie die Kunden über die Streichung der reservierten Tickets informieren?</target>
+						</trans-unit>
 
-            <trans-unit id="email.body.afterPeriodUpdate">
-                <target><![CDATA[<p>Lieber Besucher,</p>
+						<trans-unit id="email.body.afterPeriodUpdate">
+								<target><![CDATA[<p>Lieber Besucher,</p>
 <p>wir haben ein paar Änderungen an den Zeiten ihrer gebuchten Tickets vorgenommen.</p>
 
 <p>Aktualisierte Reservierungszeit:</p>
 <p>###RESERVATION###</p>]]></target>
-            </trans-unit>
-            <trans-unit id="email.body.afterPeriodDeletion">
-                <target><![CDATA[<p>Lieber Besucher,</p>
+						</trans-unit>
+						<trans-unit id="email.body.afterPeriodDeletion">
+								<target><![CDATA[<p>Lieber Besucher,</p>
 <p>es tut uns sehr leid, aber Ihr gebuchtes Ticket wurde leider gestrichen!</p>
 ]]></target>
-            </trans-unit>
+						</trans-unit>
 
-            <trans-unit id="orderValidator.isNotBookable">
-                <target>Der ausgewählte Zeitblock kann nicht gebucht werden!</target>
-            </trans-unit>
+						<trans-unit id="orderValidator.isNotBookable">
+								<target>Der ausgewählte Zeitblock kann nicht gebucht werden!</target>
+						</trans-unit>
 
-            <trans-unit id="datatables.languageFile">
-                <target>EXT:reserve/Resources/Public/JavaScript/datatables/de.json</target>
-            </trans-unit>
+						<trans-unit id="datatables.languageFile">
+								<target>EXT:reserve/Resources/Public/JavaScript/datatables/de.json</target>
+						</trans-unit>
 
-            <trans-unit id="period.openEnd">
-                <target>Offenes Ende</target>
-            </trans-unit>
-        </body>
-    </file>
+						<trans-unit id="period.openEnd">
+								<target>Offenes Ende</target>
+						</trans-unit>
+				</body>
+		</file>
 </xliff>

@@ -9,6 +9,11 @@
 			<trans-unit id="reservation.facility">
 				<target>Einrichtung</target>
 			</trans-unit>
+			<trans-unit id="reservation.facility.description">
+				<target>Es können eine oder mehrere Einrichtungen ausgewählt werden.
+					Der Name der Einrichtung wird in jeder Zeile ausgegeben, sobald mehr als eine Einrichtung ausgewählt wurde.
+				</target>
+			</trans-unit>
 			<trans-unit id="reservation.orderPid">
 				<target>Speicherort für Reservierungen</target>
 			</trans-unit>

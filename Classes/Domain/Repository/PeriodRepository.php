@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -24,14 +26,14 @@ class PeriodRepository extends Repository
     ];
 
     /**
-     * @param int $uid
+     * @param array $uid
      * @return QueryResultInterface
      */
-    public function findByFacility(int $uid): QueryResultInterface
+    public function findByFacilityUids(array $uids): QueryResultInterface
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->equals('facility', $uid)
+            $query->in('facility', $uids)
         );
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
@@ -54,12 +56,12 @@ class PeriodRepository extends Repository
         return $query->execute();
     }
 
-    public function findUpcomingAndRunningByFacility(int $uid): QueryResultInterface
+    public function findUpcomingAndRunningByFacilityUids(array $uids): QueryResultInterface
     {
         $todayMidnight = new \DateTime('today midnight');
         $currentTime = new \DateTime('now');
         $currentTime->setDate(1970, 1, 1);
-        $query = $this->findByFacility($uid)->getQuery();
+        $query = $this->findByFacilityUids($uids)->getQuery();
         $query->matching(
             $query->logicalAnd(
                 $query->getConstraint(),
@@ -78,6 +80,20 @@ class PeriodRepository extends Repository
                 'begin' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
             ]
         );
+        return $query->execute();
+    }
+
+    public function findByFacilityUdddids(array $uids): QueryResultInterface
+    {
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_period');
+        $queryBuilder
+            ->select('*')
+            ->from('tx_reserve_domain_model_period', 'p')
+            ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f')
+            ->where($queryBuilder->expr()->in('f.uid', $queryBuilder->createNamedParameter($uids)));
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->statement($queryBuilder);
         return $query->execute();
     }
 }

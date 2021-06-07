@@ -75,10 +75,14 @@ class CheckoutController extends ActionController
     {
         $this->view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
-                + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]]]
+                + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]], 'order' => [[1, 'asc']]]
         ]);
-        $this->view->assign('facility', $this->facilityRepository->findByUid((int)$this->settings['facility']));
-        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacility((int)$this->settings['facility']));
+        $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
+        $this->view->assign('facilities', $facilities);
+        // add first facility for compatibility reason
+        // @todo Deprecated: 'facility' will be removed from view in 2.0.0
+        $this->view->assign('facility', $facilities->getFirst());
+        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
 
