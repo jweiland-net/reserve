@@ -25,4 +25,18 @@ class FacilityRepository extends Repository
         $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
     }
+
+    /**
+     * @param int[] $uids
+     * @return QueryResultInterface
+     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     */
+    public function findByUids(array $uids): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query
+            ->getQuerySettings()
+            ->setRespectStoragePage(false);
+        return $query->matching($query->in('uid', $uids))->execute();
+    }
 }

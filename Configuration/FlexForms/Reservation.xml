@@ -11,13 +11,14 @@
 					<settings.facility>
 						<TCEforms>
 							<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility</label>
+							<description>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility.description</description>
 							<config>
 								<type>group</type>
 								<internal_type>db</internal_type>
 								<allowed>tx_reserve_domain_model_facility</allowed>
-								<maxitems>1</maxitems>
+								<maxitems>99</maxitems>
 								<minitems>1</minitems>
-								<size>1</size>
+								<size>10</size>
 								<default>0</default>
 							</config>
 						</TCEforms>

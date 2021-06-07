@@ -9,6 +9,9 @@
 			<trans-unit id="reservation.facility">
 				<source>Facility</source>
 			</trans-unit>
+			<trans-unit id="reservation.facility.description">
+				<source>You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</source>
+			</trans-unit>
 			<trans-unit id="reservation.orderPid">
 				<source>Storage folder for reservations</source>
 			</trans-unit>
