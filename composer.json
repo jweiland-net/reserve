@@ -25,7 +25,11 @@
 	"require": {
 		"typo3/cms-core": "^9.5 || ^10.4"
 	},
+	"suggest": {
+		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
+	},
 	"require-dev": {
+		"roave/security-advisories": "dev-latest",
 		"friendsofphp/php-cs-fixer": "^2.14",
 		"nimut/testing-framework": "^5.1"
 	},
