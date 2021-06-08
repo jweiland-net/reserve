@@ -51,7 +51,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         // set date to past date for this tests!
         GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_period')
-            ->update('tx_reserve_domain_model_period', ['date' => (new \DateTime('yesterday midnight'))->getTimestamp() ], ['uid' => 1]);
+            ->update('tx_reserve_domain_model_period', ['date' => (new \DateTime('yesterday midnight'))->getTimestamp()], ['uid' => 1]);
     }
 
     /**

@@ -31,7 +31,7 @@ class ReserveServiceTest extends FunctionalTestCase
      */
     protected $testDateMidnight;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->reserveService = GeneralUtility::makeInstance(ObjectManager::class)->get(ReserveService::class);

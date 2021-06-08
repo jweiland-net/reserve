@@ -11,7 +11,7 @@ This extension uses fluid templates so you are able to override them like in mos
 Override template using TypoScript
 ----------------------------------
 
-Do you have an site package? Put the templates into your site package extension. Otherwise you can put them into fileadmin if you really want.
+Do you have a site package? Put the templates into your site package extension. Otherwise you can put them into fileadmin if you really want.
 
 .. code-block:: typoscript
 
