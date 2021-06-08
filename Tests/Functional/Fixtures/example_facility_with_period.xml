@@ -28,4 +28,28 @@
 		<booking_begin>1596106800</booking_begin>
 		<date>2051218800</date>
 	</tx_reserve_domain_model_period>
+
+	<tx_reserve_domain_model_period>
+		<uid>2</uid>
+		<pid>1</pid>
+		<facility>1</facility>
+		<begin>70200</begin>
+		<end>78300</end>
+		<max_participants>50</max_participants>
+		<max_participants_per_order>3</max_participants_per_order>
+		<booking_begin>1623142380</booking_begin>
+		<date>2051478000</date>
+	</tx_reserve_domain_model_period>
+
+	<tx_reserve_domain_model_period>
+		<uid>3</uid>
+		<pid>1</pid>
+		<facility>1</facility>
+		<begin>60300</begin>
+		<end>72000</end>
+		<max_participants>50</max_participants>
+		<max_participants_per_order>3</max_participants_per_order>
+		<booking_begin>1623142380</booking_begin>
+		<date>2051391600</date>
+	</tx_reserve_domain_model_period>
 </dataset>
