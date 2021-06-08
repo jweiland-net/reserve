@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Service\ReserveService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -25,6 +26,11 @@ class ReserveServiceTest extends FunctionalTestCase
      */
     protected $reserveService;
 
+    /**
+     * @var \DateTime
+     */
+    protected $testDateMidnight;
+
     protected function setUp()
     {
         parent::setUp();
@@ -32,6 +38,16 @@ class ReserveServiceTest extends FunctionalTestCase
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
         $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');
+
+        $this->testDateMidnight = new \DateTime('+2 days midnight');
+
+        GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_reserve_domain_model_period')
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['date' => $this->testDateMidnight->getTimestamp()],
+                ['deleted' => 0]
+            );
     }
 
     /**
@@ -39,11 +55,20 @@ class ReserveServiceTest extends FunctionalTestCase
      */
     public function getRemainingParticipantsReturnsIntInCaseOfMatch(): void
     {
-        $dateTime = new \DateTime();
-        $dateTime->setTimestamp(2051269200);
+        $dateAndBegin = clone $this->testDateMidnight;
+        $dateAndBegin->setTime(14, 00);
+
+        GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_reserve_domain_model_period')
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['begin' => (new \DateTime('1970/01/01 14:00'))->getTimestamp()],
+                ['uid' => 1]
+            );
+
         self::assertSame(
             47,
-            $this->reserveService->getRemainingParticipants(1, $dateTime),
+            $this->reserveService->getRemainingParticipants(1, $dateAndBegin),
             'Remaining participants are returned as integer.'
         );
     }
