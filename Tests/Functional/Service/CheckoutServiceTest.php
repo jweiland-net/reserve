@@ -20,6 +20,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\MailService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -53,6 +54,14 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->checkoutService = GeneralUtility::makeInstance(ObjectManager::class)->get(CheckoutService::class);
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
+
+        GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_reserve_domain_model_period')
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['date' => (new \DateTime('+2 days midnight'))->getTimestamp()],
+                ['uid' => 1]
+            );
     }
 
     /**

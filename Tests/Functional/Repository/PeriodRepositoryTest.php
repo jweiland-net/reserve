@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Tests\Repository;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
@@ -26,6 +27,11 @@ class PeriodRepositoryTest extends FunctionalTestCase
      */
     protected $periodRepository;
 
+    /**
+     * @var \DateTime
+     */
+    protected $testDateMidnight;
+
     protected function setUp()
     {
         parent::setUp();
@@ -33,6 +39,16 @@ class PeriodRepositoryTest extends FunctionalTestCase
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
         $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');
+
+        $this->testDateMidnight = new \DateTime('+2 days midnight');
+
+        GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_reserve_domain_model_period')
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['date' => $this->testDateMidnight->getTimestamp()],
+                ['deleted' => 0]
+            );
     }
 
     /**
@@ -40,11 +56,20 @@ class PeriodRepositoryTest extends FunctionalTestCase
      */
     public function findByDateAndBeginReturnsPeriodsForGivenDateTime(): void
     {
-        $dateTime = new \DateTime();
-        $dateTime->setTimestamp(2051269200);
+        $dateAndBegin = clone $this->testDateMidnight;
+        $dateAndBegin->setTime(14, 00);
+
+        GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_reserve_domain_model_period')
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['begin' => (new \DateTime('1970/01/01 14:00'))->getTimestamp()],
+                ['uid' => 1]
+            );
+
         self::assertSame(
             1,
-            $this->periodRepository->findByDateAndBegin($dateTime, 1)->getFirst()->getUid(),
+            $this->periodRepository->findByDateAndBegin($dateAndBegin, 1)->getFirst()->getUid(),
             'findByDateTime() returns matching period with uid 1'
         );
     }
