@@ -20,6 +20,9 @@ use JWeiland\Reserve\Domain\Repository\PeriodRepository;
  */
 class ReserveService
 {
+    /**
+     * @var PeriodRepository
+     */
     protected $periodRepository;
 
     public function __construct(PeriodRepository $periodRepository)

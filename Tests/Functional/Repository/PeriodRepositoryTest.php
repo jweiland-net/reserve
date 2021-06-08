@@ -32,7 +32,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
      */
     protected $testDateMidnight;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);

@@ -41,7 +41,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     protected $checkoutService;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $GLOBALS['TYPO3_REQUEST'] = new ServerRequest('https://example.tld');
