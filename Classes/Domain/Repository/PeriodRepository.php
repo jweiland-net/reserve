@@ -11,8 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -25,6 +24,13 @@ class PeriodRepository extends Repository
         'end' => QueryInterface::ORDER_ASCENDING
     ];
 
+    public function initializeObject()
+    {
+        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $querySettings->setRespectStoragePage(false);
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
     /**
      * @param array $uid
      * @return QueryResultInterface
@@ -35,7 +41,6 @@ class PeriodRepository extends Repository
         $query = $query->matching(
             $query->in('facility', $uids)
         );
-        $query->getQuerySettings()->setRespectStoragePage(false);
         return $query->execute();
     }
 
@@ -52,7 +57,23 @@ class PeriodRepository extends Repository
                 $query->equals('facility', $facilityUid)
             )
         );
-        $query->getQuerySettings()->setRespectStoragePage(false);
+        return $query->execute();
+    }
+
+    public function findByDateAndBegin(\DateTime $dateTime, int $facilityUid): QueryResultInterface
+    {
+        $date = clone $dateTime;
+        $date->setTime(0, 0);
+        $begin = clone $dateTime;
+        $begin->setDate(1970, 1, 1);
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('facility', $facilityUid),
+                $query->equals('date', $date->getTimestamp()),
+                $query->equals('begin', $begin->getTimestamp())
+            )
+        );
         return $query->execute();
     }
 
@@ -80,20 +101,6 @@ class PeriodRepository extends Repository
                 'begin' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
             ]
         );
-        return $query->execute();
-    }
-
-    public function findByFacilityUdddids(array $uids): QueryResultInterface
-    {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_period');
-        $queryBuilder
-            ->select('*')
-            ->from('tx_reserve_domain_model_period', 'p')
-            ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f')
-            ->where($queryBuilder->expr()->in('f.uid', $queryBuilder->createNamedParameter($uids)));
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
-        $query->statement($queryBuilder);
         return $query->execute();
     }
 }
