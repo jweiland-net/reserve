@@ -12,13 +12,14 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
+use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Official public API class for ext:reserve
  *
  * @api
  */
-class ReserveService
+class ReserveService implements SingletonInterface
 {
     /**
      * @var PeriodRepository

@@ -62,7 +62,7 @@ class ReserveServiceTest extends FunctionalTestCase
             ->getConnectionForTable('tx_reserve_domain_model_period')
             ->update(
                 'tx_reserve_domain_model_period',
-                ['begin' => (new \DateTime('1970/01/01 14:00'))->getTimestamp()],
+                ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
                 ['uid' => 1]
             );
 

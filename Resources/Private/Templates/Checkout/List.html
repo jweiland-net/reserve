@@ -1,8 +1,9 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="Main">
 	<f:variable name="countFacilities">{facilities -> f:count()}</f:variable>
 	<div id="reserve-conf" data-conf="{jsConf -> f:format.json()}"></div>
+
 	<h2><f:for each="{facilities}" as="facility" iteration="iterator">{facility.name}{f:if(condition: '!{iterator.isLast}', then: ', ')}</f:for></h2>
 
 	<table id="datatable" class="table table-responsive tx-reserve-periods">
@@ -54,5 +55,23 @@
 		</f:for>
 		</tbody>
 	</table>
+
+<jw:periodRegistration facilityUid="3" dateAndBegin="2051548200">
+	<f:if condition="{periods}">
+		<f:then>
+			<f:comment><!--Most time there is just one period!--></f:comment>
+			<f:for each="{periods}" as="period">
+				<p>Remaining participants: {period.remainingParticipants}</p>
+				<f:if condition="{period.remainingParticipants} > 0">
+					<f:link.action pageUid="45" extensionName="reserve" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
+					<f:link.action pageUid="19" extensionName="reserve" controller="Checkout" action="list">Show all periods</f:link.action>
+				</f:if>
+			</f:for>
+		</f:then>
+		<f:else>
+			Could not find any period for given time.
+		</f:else>
+	</f:if>
+</jw:periodRegistration>
 </f:section>
 </html>
