@@ -24,7 +24,10 @@ All you need to do is using the ViewHelper in your own Fluid template. Lets try 
 
 .. code-block:: html
 
-   {namespace jw=JWeiland\Reserve\ViewHelpers}
+   <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+   >
    <jw:periodRegistration facilityUid="3" dateAndBegin="2051548200">
    <f:if condition="{periods}">
       <f:then>
@@ -42,7 +45,7 @@ All you need to do is using the ViewHelper in your own Fluid template. Lets try 
       </f:else>
    </f:if>
    </jw:periodRegistration>
-
+   </html>
 
 You can completely customize the output of this ViewHelper. The Variable ``{periods}`` will be added and contains all matching periods (``\JWeiland\Reserve\Domain\Model\Period[]``).
 It's an array so either use a foreach or ``{periods.0}`` if you have just one period.
@@ -50,7 +53,7 @@ It's an array so either use a foreach or ``{periods.0}`` if you have just one pe
 Extended example
 =================
 
-Can I render some more information? Of course you can! You can use thewhole ``\JWeiland\Reserve\Domain\Model\Period`` model with all it's relations.
+Can I render some more information? Of course you can! You can use the whole ``\JWeiland\Reserve\Domain\Model\Period`` model with all its relations.
 Here is a an extended example that uses some more functionality of the Period model:
 
 .. figure:: ../../Images/PeriodRegistrationViewHelperExtreme.png
@@ -60,7 +63,10 @@ Here is a an extended example that uses some more functionality of the Period mo
 
 .. code-block:: html
 
-   {namespace jw=JWeiland\Reserve\ViewHelpers}
+   <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers"
+      data-namespace-typo3-fluid="true"
+   >
    <jw:periodRegistration facilityUid="3" dateAndBegin="2051548200">
       <f:if condition="{periods}">
          <f:then>
@@ -94,4 +100,5 @@ Here is a an extended example that uses some more functionality of the Period mo
          </f:else>
       </f:if>
    </jw:periodRegistration>
+   </html>
 
