@@ -30,7 +30,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *       <f:comment><!--Most time there is just one period!--></f:comment>
  *       <f:for each="{periods}" as="period">
  *         <p>Remaining participants: {period.remainingParticipants}</p>
- *         <f:if condition="{period.remainingParticipants} > 0">
+ *         <f:if condition="{period.isBookable}">
  *           <f:link.action pageUid="45" extensionName="reserve" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
  *           <f:link.action pageUid="19" extensionName="reserve" controller="Checkout" action="list">Show all periods</f:link.action>
  *         </f:if>
