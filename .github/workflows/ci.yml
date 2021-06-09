@@ -1,7 +1,7 @@
 # Adapted from https://github.com/TYPO3GmbH/blog/blob/master/.github/workflows/ci.yml
 name: CI
 
-on: [push,pull_request]
+on: [pull_request]
 
 jobs:
   build:
@@ -54,7 +54,6 @@ jobs:
       - name: Install dependencies with typo3/cms-core:${{ matrix.typo3 }}
         run: |
           composer require typo3/cms-core:${{ matrix.typo3 }} --no-progress
-          composer require typo3/cms-extensionmanager:${{ matrix.typo3 }} --no-progress
           git checkout composer.json
       - name: php-cs-fixer
         run: composer ci:php:fixer
@@ -63,10 +62,7 @@ jobs:
         run: composer ci:php:lint
 
       - name: Unit Tests
-        run: |
-          sudo timedatectl set-timezone Europe/Berlin
-          sudo systemctl start mysql.service
-          composer ci:tests:unit
+        run: composer ci:tests:unit
 
       - name: Functional Tests
         env:
@@ -76,6 +72,4 @@ jobs:
           typo3DatabaseHost: 127.0.0.1
           typo3DatabasePort: ${{ job.services.mysql.ports['3306'] }}
         run: |
-          sudo timedatectl set-timezone Europe/Berlin
-          sudo systemctl start mysql.service
           composer ci:tests:functional
