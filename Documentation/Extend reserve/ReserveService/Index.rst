@@ -1,6 +1,6 @@
 .. include:: ../Includes.txt
 
-.. reserve-service:
+.. _reserve-service:
 
 ===============
 Reserve service
