@@ -51,6 +51,12 @@ class PeriodRepositoryTest extends FunctionalTestCase
             );
     }
 
+    protected function tearDown(): void
+    {
+        unset($this->periodRepository);
+        unset($this->testDateMidnight);
+    }
+
     /**
      * @test
      */
