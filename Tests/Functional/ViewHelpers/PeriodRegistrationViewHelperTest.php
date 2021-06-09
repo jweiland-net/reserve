@@ -70,6 +70,13 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         $this->setTestTemplate(1, $this->testDateAndBegin);
     }
 
+    protected function tearDown(): void
+    {
+        unset($this->standaloneView);
+        unset($this->testDateMidnight);
+        unset($this->testDateAndBegin);
+    }
+
     protected function setTestTemplate(int $facilityUid, \DateTime $dateAndBegin): void
     {
         $this->standaloneView->setTemplateSource(
@@ -125,7 +132,25 @@ TEMPLATE
         self::assertContains(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
-            'ViewHelper renders remainfo that no period was found.'
+            'ViewHelper renders info that no period was found.'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function viewHelperSetsPeriodsToCustomVariableName(): void
+    {
+        $this->standaloneView->setTemplateSource(
+            <<<TEMPLATE
+{namespace jw=JWeiland\Reserve\ViewHelpers}
+<jw:periodRegistration as="timeslots" facilityUid="1" dateAndBegin="{$this->testDateAndBegin->getTimestamp()}"><f:count subject="{timeslots}" /></jw:periodRegistration>
+TEMPLATE
+        );
+        self::assertSame(
+            "\n1",
+            $this->standaloneView->render(),
+            'ViewHelper sets periods to custom variable name'
         );
     }
 }

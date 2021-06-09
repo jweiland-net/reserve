@@ -64,6 +64,11 @@ class CheckoutServiceTest extends FunctionalTestCase
             );
     }
 
+    protected function tearDown(): void
+    {
+        unset($this->checkoutService);
+    }
+
     /**
      * @test
      */

@@ -50,6 +50,12 @@ class ReserveServiceTest extends FunctionalTestCase
             );
     }
 
+    protected function tearDown(): void
+    {
+        unset($this->reserveService);
+        unset($this->testDateMidnight);
+    }
+
     /**
      * @test
      */
