@@ -22,7 +22,12 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
     protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+
+    const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 
     /**
      * @var StandaloneView
@@ -42,8 +47,6 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->standaloneView = GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
 
@@ -67,7 +70,11 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
                 ['uid' => 1]
             );
 
-        $this->setTestTemplate(1, $this->testDateAndBegin);
+        $this->standaloneView = GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+        $this->standaloneView
+            ->assign('facilityUid', 1)
+            ->assign('dateAndBegin', $this->testDateAndBegin->getTimestamp())
+            ->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/remainingParticipants_periodRegistrationViewHelper.html');
     }
 
     protected function tearDown(): void
@@ -77,34 +84,16 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         unset($this->testDateAndBegin);
     }
 
-    protected function setTestTemplate(int $facilityUid, \DateTime $dateAndBegin): void
-    {
-        $this->standaloneView->setTemplateSource(
-            <<<TEMPLATE
-{namespace jw=JWeiland\Reserve\ViewHelpers}
-<jw:periodRegistration facilityUid="${facilityUid}" dateAndBegin="{$dateAndBegin->getTimestamp()}">
-	<f:if condition="{periods}">
-		<f:then>
-			<f:for each="{periods}" as="period">
-				<p>Remaining participants: {period.remainingParticipants}</p>
-			</f:for>
-		</f:then>
-		<f:else>
-			Could not find any period for given time.
-		</f:else>
-	</f:if>
-</jw:periodRegistration>
-TEMPLATE
-        );
-    }
-
     /**
      * @test
      */
     public function viewHelperUsesReserveServiceToFindPeriod(): void
     {
         $reserveServiceProphecy = $this->prophesize(ReserveService::class);
-        $reserveServiceProphecy->findPeriodsByDateAndBegin(Argument::exact(1), Argument::exact($this->testDateAndBegin))->willReturn([])->shouldBeCalledTimes(1);
+        $reserveServiceProphecy->findPeriodsByDateAndBegin(
+            Argument::exact(1),
+            Argument::exact($this->testDateAndBegin)
+        )->willReturn([])->shouldBeCalledTimes(1);
 
         GeneralUtility::setSingletonInstance(ReserveService::class, $reserveServiceProphecy->reveal());
         $this->standaloneView->render();
@@ -128,7 +117,7 @@ TEMPLATE
      */
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
-        $this->setTestTemplate(1, new \DateTime('123456'));
+        $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
         self::assertContains(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
@@ -141,14 +130,9 @@ TEMPLATE
      */
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
-        $this->standaloneView->setTemplateSource(
-            <<<TEMPLATE
-{namespace jw=JWeiland\Reserve\ViewHelpers}
-<jw:periodRegistration as="timeslots" facilityUid="1" dateAndBegin="{$this->testDateAndBegin->getTimestamp()}"><f:count subject="{timeslots}" /></jw:periodRegistration>
-TEMPLATE
-        );
-        self::assertSame(
-            "\n1",
+        $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');
+        self::assertContains(
+            'Test',
             $this->standaloneView->render(),
             'ViewHelper sets periods to custom variable name'
         );
