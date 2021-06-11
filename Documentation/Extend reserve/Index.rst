@@ -16,5 +16,6 @@ functionality can change in upcoming versions. We try to keep compatibility but 
 .. toctree::
    :maxdepth: 2
 
+  PeriodRegistrationViewHelper/Index
   ReserveService/Index
   UpdateTemplates/Index
