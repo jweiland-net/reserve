@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -24,8 +26,9 @@ class PeriodRepository extends Repository
         'end' => QueryInterface::ORDER_ASCENDING
     ];
 
-    public function initializeObject()
+    public function __construct(ObjectManagerInterface $objectManager)
     {
+        parent::__construct($objectManager);
         $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
@@ -64,8 +67,8 @@ class PeriodRepository extends Repository
     {
         $date = clone $dateTime;
         $date->setTime(0, 0);
-        $begin = clone $dateTime;
-        $begin->setDate(1970, 1, 1);
+        // $begin must be UTC because TCA saves that timestamp in UTC but others in configured timezone
+        $begin = new \DateTime(sprintf('1970-01-01T%d:%d:%dZ', ...GeneralUtility::intExplode(':', $dateTime->format('H:i:s'))));
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
@@ -80,7 +83,7 @@ class PeriodRepository extends Repository
     public function findUpcomingAndRunningByFacilityUids(array $uids): QueryResultInterface
     {
         $todayMidnight = new \DateTime('today midnight');
-        $currentTime = new \DateTime('now');
+        $currentTime = new \DateTime('now', new \DateTimeZone('UTC'));
         $currentTime->setDate(1970, 1, 1);
         $query = $this->findByFacilityUids($uids)->getQuery();
         $query->matching(
