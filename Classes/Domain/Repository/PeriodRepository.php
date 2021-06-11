@@ -68,8 +68,7 @@ class PeriodRepository extends Repository
         $date = clone $dateTime;
         $date->setTime(0, 0);
         // $begin must be UTC because TCA saves that timestamp in UTC but others in configured timezone
-        $begin = new \DateTime('@0');
-        $begin->setTime(...GeneralUtility::intExplode(':', $dateTime->format('H:i:s')));
+        $begin = new \DateTime('1970-01-01T%d:%d:%dZ', GeneralUtility::intExplode(':', $dateTime->format('H:i:s')));
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
