@@ -159,6 +159,8 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_html',
             'config' => [
                 'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
                 'enableRichtext' => true,
                 'default' => <<<DEFAULT_CONFIRMATION
 <p>Dear visitor,</p>
@@ -168,6 +170,7 @@ return [
 DEFAULT_CONFIRMATION
                 ,
                 'eval' => 'trim,required',
+                'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
@@ -185,6 +188,8 @@ DEFAULT_CONFIRMATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_html',
             'config' => [
                 'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
                 'enableRichtext' => true,
                 'default' => <<<DEFAULT_RESERVATION
 <p>Dear visitor,</p>
@@ -194,6 +199,7 @@ DEFAULT_CONFIRMATION
 DEFAULT_RESERVATION
                 ,
                 'eval' => 'trim,required',
+                'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
