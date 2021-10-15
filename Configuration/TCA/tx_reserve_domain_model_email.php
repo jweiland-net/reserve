@@ -95,8 +95,11 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.body',
             'config' => [
                 'type' => 'text',
-                'enableRichtext' => true,
+                'cols' => 40,
+                'rows' => 15,
+                'softref' => 'typolink_tag,images,email[subst],url',
                 'eval' => 'trim,required',
+                'enableRichtext' => true,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true
                 ]
