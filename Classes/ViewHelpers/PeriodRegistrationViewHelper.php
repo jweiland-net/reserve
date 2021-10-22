@@ -19,7 +19,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
- * This ViewHelpers allows you to embed a information monitor with registration link for a period of a facility.
+ * This ViewHelpers allows you to embed an information monitor with registration link for a period of a facility.
  *
  * Take a look into the documentation for more information.
  *
@@ -31,8 +31,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  *       <f:for each="{periods}" as="period">
  *         <p>Remaining participants: {period.remainingParticipants}</p>
  *         <f:if condition="{period.isBookable}">
- *           <f:link.action pageUid="45" extensionName="reserve" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
- *           <f:link.action pageUid="19" extensionName="reserve" controller="Checkout" action="list">Show all periods</f:link.action>
+ *           <f:link.action pageUid="45" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
+ *           <f:link.action pageUid="19" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="list">Show all periods</f:link.action>
  *         </f:if>
  *       </f:for>
  *     </f:then>
@@ -73,7 +73,9 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
 
         $renderingContext->getVariableProvider()->add(
             $arguments['as'],
-            GeneralUtility::makeInstance(ObjectManager::class)->get(ReserveService::class)->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
+            GeneralUtility::makeInstance(ObjectManager::class)
+                ->get(ReserveService::class)
+                ->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
         );
         $result = $renderChildrenClosure();
         $renderingContext->getVariableProvider()->remove($arguments['as']);
