@@ -26,7 +26,7 @@ class PageRenderer
      * @param array $params
      * @param \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer
      */
-    public function processTxReserveModalUserSetting(array $params, \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer)
+    public function processTxReserveModalUserSetting(array $params, \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer): void
     {
         if (
             TYPO3_MODE === 'BE'

@@ -25,7 +25,7 @@ class CheckboxToggleElementResolver implements NodeResolverInterface
         $this->data = $data;
     }
 
-    public function resolve()
+    public function resolve(): string
     {
         $parameterArray = $this->data['parameterArray'];
         if (class_exists(\TYPO3\CMS\Backend\Form\Element\CheckboxToggleElement::class)) {
