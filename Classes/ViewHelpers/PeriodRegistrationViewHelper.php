@@ -73,7 +73,9 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
 
         $renderingContext->getVariableProvider()->add(
             $arguments['as'],
-            GeneralUtility::makeInstance(ObjectManager::class)->get(ReserveService::class)->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
+            GeneralUtility::makeInstance(ObjectManager::class)
+                ->get(ReserveService::class)
+                ->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
         );
         $result = $renderChildrenClosure();
         $renderingContext->getVariableProvider()->remove($arguments['as']);
