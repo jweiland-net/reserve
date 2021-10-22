@@ -1,5 +1,6 @@
 <?php
 
+
 declare(strict_types=1);
 
 /*
@@ -43,7 +44,7 @@ class ManagementController extends ActionController
         $this->reservationRepository = $reservationRepository;
     }
 
-    protected function initializeView(ViewInterface $view)
+    protected function initializeView(ViewInterface $view): void
     {
         $view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration(),
@@ -61,7 +62,7 @@ class ManagementController extends ActionController
         ]);
     }
 
-    public function overviewAction()
+    public function overviewAction(): void
     {
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids([(int)$this->settings['facility']]));
     }
@@ -69,7 +70,7 @@ class ManagementController extends ActionController
     /**
      * @param \JWeiland\Reserve\Domain\Model\Period $period
      */
-    public function scannerAction(Period $period)
+    public function scannerAction(Period $period): void
     {
         $this->view->assign('period', $period);
     }
@@ -77,7 +78,7 @@ class ManagementController extends ActionController
     /**
      * @param \JWeiland\Reserve\Domain\Model\Period $period
      */
-    public function periodAction(Period $period)
+    public function periodAction(Period $period): void
     {
         $this->view->assign('period', $period);
     }
@@ -85,7 +86,7 @@ class ManagementController extends ActionController
     /**
      * @param \JWeiland\Reserve\Domain\Model\Period $period
      */
-    public function periodsOnSameDayAction(Period $period)
+    public function periodsOnSameDayAction(Period $period): void
     {
         $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate(), (int)$this->settings['facility']));
     }

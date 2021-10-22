@@ -25,7 +25,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class RemovePastPeriodsCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Remove past periods and all related records like orders, reservations, codes.');
         $this->setHelp(
@@ -40,7 +40,7 @@ HELP
         $this->addOption('ended-since', 'e', InputOption::VALUE_OPTIONAL, 'Time since the period ended in seconds', 0);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
         $periods = $orderRepository->findWherePeriodEndedRaw((int)$input->getOption('ended-since'), ['p.uid'], 5);

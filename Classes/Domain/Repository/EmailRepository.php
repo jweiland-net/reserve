@@ -30,7 +30,7 @@ class EmailRepository extends Repository
     /**
      * @return Email|null
      */
-    public function findOneUnlocked()
+    public function findOneUnlocked(): ?Email
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -42,7 +42,7 @@ class EmailRepository extends Repository
      * @param int $uid
      * @param Email|null $email optional to set "locked" property in ExtBase domain model
      */
-    public function lockEmail(int $uid, Email $email = null)
+    public function lockEmail(int $uid, Email $email = null): void
     {
         /** @var Connection $connection */
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_reserve_domain_model_email');

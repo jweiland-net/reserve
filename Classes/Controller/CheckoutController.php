@@ -71,7 +71,7 @@ class CheckoutController extends ActionController
         $this->checkoutService = $checkoutService;
     }
 
-    public function listAction()
+    public function listAction(): void
     {
         $this->view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
@@ -90,7 +90,7 @@ class CheckoutController extends ActionController
      * @param \JWeiland\Reserve\Domain\Model\Period $period
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function formAction(Period $period)
+    public function formAction(Period $period): void
     {
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
             $this->addFlashMessage(
@@ -111,7 +111,7 @@ class CheckoutController extends ActionController
      * @param int $furtherParticipants
      * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
      */
-    public function createAction(Order $order, int $furtherParticipants = 0)
+    public function createAction(Order $order, int $furtherParticipants = 0): void
     {
         if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
@@ -134,7 +134,7 @@ class CheckoutController extends ActionController
      * @param string $activationCode
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function confirmAction(string $email, string $activationCode)
+    public function confirmAction(string $email, string $activationCode): void
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
@@ -162,7 +162,7 @@ class CheckoutController extends ActionController
      * @param string $activationCode
      * @param bool $confirm
      */
-    public function cancelAction(string $email, string $activationCode, bool $confirm = false)
+    public function cancelAction(string $email, string $activationCode, bool $confirm = false): void
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {

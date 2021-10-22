@@ -35,7 +35,7 @@ class QrCodePreviewController
         $GLOBALS['LANG']->init($GLOBALS['BE_USER']->uc['lang']);
     }
 
-    public function ajaxAction(ServerRequestInterface $request)
+    public function ajaxAction(ServerRequestInterface $request): JsonResponse
     {
         $facilityUid = (int)($request->getQueryParams()['facility'] ?? 0);
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);

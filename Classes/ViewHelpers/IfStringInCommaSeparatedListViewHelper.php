@@ -21,7 +21,7 @@ class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
     /**
      * Initialize arguments
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('haystack', 'string', 'The comma separated list to search in', true);
@@ -32,7 +32,7 @@ class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
      * @param array|null $arguments
      * @return bool
      */
-    protected static function evaluateCondition($arguments = null)
+    protected static function evaluateCondition($arguments = null): bool
     {
         return in_array($arguments['needle'], explode(',', (string)$arguments['haystack']), true);
     }

@@ -98,7 +98,7 @@ class Order extends AbstractEntity
     /**
      * @param Period $bookedPeriod
      */
-    public function setBookedPeriod(Period $bookedPeriod)
+    public function setBookedPeriod(Period $bookedPeriod): void
     {
         $this->bookedPeriod = $bookedPeriod;
     }
@@ -114,7 +114,7 @@ class Order extends AbstractEntity
     /**
      * @param string $activationCode
      */
-    public function setActivationCode(string $activationCode)
+    public function setActivationCode(string $activationCode): void
     {
         $this->activationCode = $activationCode;
     }
@@ -130,7 +130,7 @@ class Order extends AbstractEntity
     /**
      * @param bool $activated
      */
-    public function setActivated(bool $activated)
+    public function setActivated(bool $activated): void
     {
         $this->activated = $activated;
     }
@@ -146,7 +146,7 @@ class Order extends AbstractEntity
     /**
      * @param string $firstName
      */
-    public function setFirstName(string $firstName)
+    public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -162,7 +162,7 @@ class Order extends AbstractEntity
     /**
      * @param string $lastName
      */
-    public function setLastName(string $lastName)
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -178,7 +178,7 @@ class Order extends AbstractEntity
     /**
      * @param string $email
      */
-    public function setEmail(string $email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
@@ -186,7 +186,7 @@ class Order extends AbstractEntity
     /**
      * @param string $phone
      */
-    public function setPhone(string $phone)
+    public function setPhone(string $phone): void
     {
         $this->phone = $phone;
     }
@@ -202,7 +202,7 @@ class Order extends AbstractEntity
     /**
      * @param string $address
      */
-    public function setAddress(string $address)
+    public function setAddress(string $address): void
     {
         $this->address = $address;
     }
@@ -218,7 +218,7 @@ class Order extends AbstractEntity
     /**
      * @param string $zip
      */
-    public function setZip(string $zip)
+    public function setZip(string $zip): void
     {
         $this->zip = $zip;
     }
@@ -234,7 +234,7 @@ class Order extends AbstractEntity
     /**
      * @param string $city
      */
-    public function setCity(string $city)
+    public function setCity(string $city): void
     {
         $this->city = $city;
     }
@@ -250,7 +250,7 @@ class Order extends AbstractEntity
     /**
      * @param ObjectStorage|Participant[] $participants
      */
-    public function setParticipants(ObjectStorage $participants)
+    public function setParticipants(ObjectStorage $participants): void
     {
         foreach ($participants as $participant) {
             if ($participant->getFirstName() || $participant->getLastName()) {
@@ -278,7 +278,7 @@ class Order extends AbstractEntity
     /**
      * @param ObjectStorage $reservations
      */
-    public function setReservations(ObjectStorage $reservations)
+    public function setReservations(ObjectStorage $reservations): void
     {
         $this->reservations = $reservations;
     }
@@ -299,7 +299,7 @@ class Order extends AbstractEntity
     /**
      * @return \DateTime|null DateTime or null if facility does not allow to cancel reservations
      */
-    public function getCancelableUntil()
+    public function getCancelableUntil(): ?\DateTime
     {
         $cancelableUntil = null;
         if ($this->getBookedPeriod()->getFacility()->isCancelable()) {

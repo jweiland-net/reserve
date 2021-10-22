@@ -97,7 +97,7 @@ class Email extends AbstractEntity
     /**
      * @param string $subject
      */
-    public function setSubject(string $subject)
+    public function setSubject(string $subject): void
     {
         $this->subject = $subject;
     }
@@ -113,7 +113,7 @@ class Email extends AbstractEntity
     /**
      * @param string $body
      */
-    public function setBody(string $body)
+    public function setBody(string $body): void
     {
         $this->body = $body;
     }
@@ -129,7 +129,7 @@ class Email extends AbstractEntity
     /**
      * @param int $receiverType use RECEIVER_TYPE constants!
      */
-    public function setReceiverType(int $receiverType)
+    public function setReceiverType(int $receiverType): void
     {
         $this->receiverType = $receiverType;
     }
@@ -145,7 +145,7 @@ class Email extends AbstractEntity
     /**
      * @param string $fromName
      */
-    public function setFromName(string $fromName)
+    public function setFromName(string $fromName): void
     {
         $this->fromName = $fromName;
     }
@@ -161,7 +161,7 @@ class Email extends AbstractEntity
     /**
      * @param string $fromEmail
      */
-    public function setFromEmail(string $fromEmail)
+    public function setFromEmail(string $fromEmail): void
     {
         $this->fromEmail = $fromEmail;
     }
@@ -177,7 +177,7 @@ class Email extends AbstractEntity
     /**
      * @param string $replyToName
      */
-    public function setReplyToName(string $replyToName)
+    public function setReplyToName(string $replyToName): void
     {
         $this->replyToName = $replyToName;
     }
@@ -193,7 +193,7 @@ class Email extends AbstractEntity
     /**
      * @param string $replyToEmail
      */
-    public function setReplyToEmail(string $replyToEmail)
+    public function setReplyToEmail(string $replyToEmail): void
     {
         $this->replyToEmail = $replyToEmail;
     }
@@ -209,7 +209,7 @@ class Email extends AbstractEntity
     /**
      * @param string $customReceivers
      */
-    public function setCustomReceivers(string $customReceivers)
+    public function setCustomReceivers(string $customReceivers): void
     {
         $this->customReceivers = $customReceivers;
     }
@@ -225,7 +225,7 @@ class Email extends AbstractEntity
     /**
      * @param ObjectStorage $periods
      */
-    public function setPeriods(ObjectStorage $periods)
+    public function setPeriods(ObjectStorage $periods): void
     {
         $this->periods = $periods;
     }
@@ -241,7 +241,7 @@ class Email extends AbstractEntity
     /**
      * @param bool $locked
      */
-    public function setLocked(bool $locked)
+    public function setLocked(bool $locked): void
     {
         $this->locked = $locked;
     }
@@ -262,7 +262,7 @@ class Email extends AbstractEntity
      * @param array $commandData
      * @internal
      */
-    public function setCommandData(array $commandData)
+    public function setCommandData(array $commandData): void
     {
         $this->commandData = serialize($commandData);
         $this->commandDataUnserialized = [];
@@ -285,7 +285,7 @@ class Email extends AbstractEntity
         return $receivers;
     }
 
-    protected function getReceiversTypePeriods(array &$orders = null)
+    protected function getReceiversTypePeriods(array &$orders = null): array
     {
         $orders = [];
         $emails = [];

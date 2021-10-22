@@ -126,7 +126,7 @@ class CheckoutService
         return $success;
     }
 
-    public function sendReservationMail(Order $order)
+    public function sendReservationMail(Order $order): bool
     {
         return GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
             $order,

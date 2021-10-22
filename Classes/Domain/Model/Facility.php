@@ -124,7 +124,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $name
      */
-    public function setName(string $name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
@@ -140,7 +140,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $shortName
      */
-    public function setShortName(string $shortName)
+    public function setShortName(string $shortName): void
     {
         $this->shortName = $shortName;
     }
@@ -156,7 +156,7 @@ class Facility extends AbstractEntity
     /**
      * @param ObjectStorage $periods
      */
-    public function setPeriods(ObjectStorage $periods)
+    public function setPeriods(ObjectStorage $periods): void
     {
         $this->periods = $periods;
     }
@@ -172,7 +172,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $fromName
      */
-    public function setFromName(string $fromName)
+    public function setFromName(string $fromName): void
     {
         $this->fromName = $fromName;
     }
@@ -188,7 +188,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $fromEmail
      */
-    public function setFromEmail(string $fromEmail)
+    public function setFromEmail(string $fromEmail): void
     {
         $this->fromEmail = $fromEmail;
     }
@@ -204,7 +204,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $replyToName
      */
-    public function setReplyToName(string $replyToName)
+    public function setReplyToName(string $replyToName): void
     {
         $this->replyToName = $replyToName;
     }
@@ -220,7 +220,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $replyToEmail
      */
-    public function setReplyToEmail(string $replyToEmail)
+    public function setReplyToEmail(string $replyToEmail): void
     {
         $this->replyToEmail = $replyToEmail;
     }
@@ -236,7 +236,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $confirmationMailSubject
      */
-    public function setConfirmationMailSubject(string $confirmationMailSubject)
+    public function setConfirmationMailSubject(string $confirmationMailSubject): void
     {
         $this->confirmationMailSubject = $confirmationMailSubject;
     }
@@ -252,7 +252,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $confirmationMailHtml
      */
-    public function setConfirmationMailHtml(string $confirmationMailHtml)
+    public function setConfirmationMailHtml(string $confirmationMailHtml): void
     {
         $this->confirmationMailHtml = $confirmationMailHtml;
     }
@@ -268,7 +268,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $reservationMailSubject
      */
-    public function setReservationMailSubject(string $reservationMailSubject)
+    public function setReservationMailSubject(string $reservationMailSubject): void
     {
         $this->reservationMailSubject = $reservationMailSubject;
     }
@@ -284,7 +284,7 @@ class Facility extends AbstractEntity
     /**
      * @param string $reservationMailHtml
      */
-    public function setReservationMailHtml(string $reservationMailHtml)
+    public function setReservationMailHtml(string $reservationMailHtml): void
     {
         $this->reservationMailHtml = $reservationMailHtml;
     }
@@ -300,7 +300,7 @@ class Facility extends AbstractEntity
     /**
      * @param int $qrCodeSize
      */
-    public function setQrCodeSize(int $qrCodeSize)
+    public function setQrCodeSize(int $qrCodeSize): void
     {
         $this->qrCodeSize = $qrCodeSize;
     }
@@ -316,7 +316,7 @@ class Facility extends AbstractEntity
     /**
      * @param int $qrCodeLabelSize
      */
-    public function setQrCodeLabelSize(int $qrCodeLabelSize)
+    public function setQrCodeLabelSize(int $qrCodeLabelSize): void
     {
         $this->qrCodeLabelSize = $qrCodeLabelSize;
     }
@@ -332,7 +332,7 @@ class Facility extends AbstractEntity
     /**
      * @param ObjectStorage $qrCodeLogo
      */
-    public function setQrCodeLogo(ObjectStorage $qrCodeLogo)
+    public function setQrCodeLogo(ObjectStorage $qrCodeLogo): void
     {
         $this->qrCodeLogo = $qrCodeLogo;
     }
@@ -348,7 +348,7 @@ class Facility extends AbstractEntity
     /**
      * @param int $qrCodeLogoWidth
      */
-    public function setQrCodeLogoWidth(int $qrCodeLogoWidth)
+    public function setQrCodeLogoWidth(int $qrCodeLogoWidth): void
     {
         $this->qrCodeLogoWidth = $qrCodeLogoWidth;
     }
@@ -373,7 +373,7 @@ class Facility extends AbstractEntity
     /**
      * @param bool $cancelable
      */
-    public function setCancelable(bool $cancelable)
+    public function setCancelable(bool $cancelable): void
     {
         $this->cancelable = $cancelable;
     }
@@ -389,7 +389,7 @@ class Facility extends AbstractEntity
     /**
      * @param int $cancelableUntilMinutes
      */
-    public function setCancelableUntilMinutes(int $cancelableUntilMinutes)
+    public function setCancelableUntilMinutes(int $cancelableUntilMinutes): void
     {
         $this->cancelableUntilMinutes = $cancelableUntilMinutes;
     }

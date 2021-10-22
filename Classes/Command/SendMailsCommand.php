@@ -68,7 +68,7 @@ class SendMailsCommand extends Command
         $this->persistenceManager = $objectManager->get(PersistenceManager::class);
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Send mails using all tx_reserve_domain_model_mail records.');
         $this->setHelp('Send mails using all tx_reserve_domain_model_mail records.');
@@ -175,21 +175,21 @@ class SendMailsCommand extends Command
         return (string)array_shift($this->receivers);
     }
 
-    protected function addCurrentReceiverToProcessedReceivers()
+    protected function addCurrentReceiverToProcessedReceivers(): void
     {
         $commandData = $this->email->getCommandData();
         $commandData['processedReceiversByKey'][] = $this->currentReceiverKey;
         $this->email->setCommandData($commandData);
     }
 
-    protected function unlockAndUpdateProcessedEmail()
+    protected function unlockAndUpdateProcessedEmail(): void
     {
         $this->email->setLocked(false);
         $this->persistenceManager->add($this->email);
         $this->persistenceManager->persistAll();
     }
 
-    protected function removeProcessedEmail()
+    protected function removeProcessedEmail(): void
     {
         $this->persistenceManager->remove($this->email);
         $this->persistenceManager->persistAll();
