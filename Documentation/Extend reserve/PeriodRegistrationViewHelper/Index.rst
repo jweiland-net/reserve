@@ -35,8 +35,8 @@ All you need to do is using the ViewHelper in your own Fluid template. Lets try 
          <f:for each="{periods}" as="period">
             <p>Remaining participants: {period.remainingParticipants}</p>
             <f:if condition="{period.isBookable}">
-               <f:link.action pageUid="45" extensionName="reserve" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
-               <f:link.action pageUid="19" extensionName="reserve" controller="Checkout" action="list">Show all periods</f:link.action>
+               <f:link.action pageUid="45" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
+               <f:link.action pageUid="19" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="list">Show all periods</f:link.action>
             </f:if>
          </f:for>
       </f:then>
@@ -90,8 +90,8 @@ Here is a an extended example that uses some more functionality of the Period mo
                <p>Remaining participants: {period.remainingParticipants}</p>
                <p>Already <strong>{period.countActiveReservations}</strong> reservations!</p>
                <f:if condition="{period.isBookable}">
-                  <f:link.action pageUid="45" extensionName="reserve" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
-                  <f:link.action pageUid="19" extensionName="reserve" controller="Checkout" action="list">Show all periods</f:link.action>
+                  <f:link.action pageUid="45" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="form" arguments="{period: period}">Get a ticket!</f:link.action><br />
+                  <f:link.action pageUid="19" extensionName="reserve" pluginName="Reservation" controller="Checkout" action="list">Show all periods</f:link.action>
                </f:if>
             </f:for>
          </f:then>
