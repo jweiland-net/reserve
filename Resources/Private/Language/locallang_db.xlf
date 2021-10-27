@@ -194,7 +194,7 @@
 			</trans-unit>
 
 			<trans-unit id="tx_events2_domain_model_event.registration_required">
-				<target>Registration required</target>
+				<source>Registration required</source>
 			</trans-unit>
 
 			<trans-unit id="tx_events2_domain_model_location.facility">
