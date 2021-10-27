@@ -6,6 +6,14 @@
 Changelog
 =========
 
+Version 1.1.1
+-------------
+
+List of changes ::
+
+   2021-10-27 Use source instead of target in translation file (Commit 2f80f5d by Stefan Froemken)
+
+
 Version 1.1.0
 -------------
 
