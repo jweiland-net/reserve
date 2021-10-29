@@ -30,7 +30,7 @@ class OrderSessionUtility extends AbstractUtility
      */
     protected static $extConf;
 
-    public static function blockNewOrdersForFacilityInCurrentSession(int $facilityUid)
+    public static function blockNewOrdersForFacilityInCurrentSession(int $facilityUid): void
     {
         // [<facility_uid> => <timestamp_of_confirmation>]
         $orders = [];
@@ -41,7 +41,7 @@ class OrderSessionUtility extends AbstractUtility
         static::getTypoScriptFrontendController()->fe_user->setKey('ses', self::SESSION_KEY, $orders);
     }
 
-    public static function unblockNewOrdersForFacilityInCurrentSession(int $facilityUid)
+    public static function unblockNewOrdersForFacilityInCurrentSession(int $facilityUid): void
     {
         // [<facility_uid> => <timestamp_of_confirmation>]
         $orders = [];

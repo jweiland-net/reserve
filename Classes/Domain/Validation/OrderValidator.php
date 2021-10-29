@@ -28,12 +28,12 @@ class OrderValidator extends AbstractValidator
      */
     protected $dispatcher;
 
-    public function injectDispatcher(Dispatcher $dispatcher)
+    public function injectDispatcher(Dispatcher $dispatcher): void
     {
         $this->dispatcher = $dispatcher;
     }
 
-    protected function isValid($order)
+    protected function isValid($order): void
     {
         if (!$order instanceof Order) {
             $this->addError('The given object is not an order!', 1590479923299);
@@ -49,7 +49,7 @@ class OrderValidator extends AbstractValidator
         $this->attachForeignResults($order);
     }
 
-    protected function attachForeignResults(Order $order)
+    protected function attachForeignResults(Order $order): void
     {
         $results = new ObjectStorage();
         $this->dispatcher->dispatch(__CLASS__, 'validateOrder', [

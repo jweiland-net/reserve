@@ -23,7 +23,7 @@ class OrderRepository extends Repository
 {
     const TABLE = 'tx_reserve_domain_model_order';
 
-    public function findByEmailAndActivationCode(string $email, string $activationCode)
+    public function findByEmailAndActivationCode(string $email, string $activationCode): ?Order
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);

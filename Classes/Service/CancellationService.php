@@ -55,7 +55,7 @@ class CancellationService implements SingletonInterface
      * @param bool $sendMailToCustomer set false to cancel the order without sending a mail to the customer
      * @param bool $persist set false to persist the order by yourself using $cancellationService->getPersistenceManager()->persistAll()
      */
-    public function cancel(Order $order, string $reason = self::REASON_CUSTOMER, $vars = [], bool $sendMailToCustomer = true, bool $persist = true)
+    public function cancel(Order $order, string $reason = self::REASON_CUSTOMER, array $vars = [], bool $sendMailToCustomer = true, bool $persist = true): void
     {
         $this->persistenceManager->remove($order);
         if ($sendMailToCustomer) {

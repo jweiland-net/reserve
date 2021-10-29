@@ -87,7 +87,7 @@ class Period extends AbstractEntity
     /**
      * @param Facility $facility
      */
-    public function setFacility(Facility $facility)
+    public function setFacility(Facility $facility): void
     {
         $this->facility = $facility;
     }
@@ -103,7 +103,7 @@ class Period extends AbstractEntity
     /**
      * @param \DateTime $bookingBegin
      */
-    public function setBookingBegin(\DateTime $bookingBegin)
+    public function setBookingBegin(\DateTime $bookingBegin): void
     {
         $this->bookingBegin = $bookingBegin;
     }
@@ -111,7 +111,7 @@ class Period extends AbstractEntity
     /**
      * @return \DateTime|null null if no booking end was set!
      */
-    public function getBookingEnd()
+    public function getBookingEnd(): ?\DateTime
     {
         return $this->bookingEnd;
     }
@@ -119,7 +119,7 @@ class Period extends AbstractEntity
     /**
      * @param \DateTime $bookingEnd
      */
-    public function setBookingEnd(\DateTime $bookingEnd)
+    public function setBookingEnd(\DateTime $bookingEnd): void
     {
         $this->bookingEnd = $bookingEnd;
     }
@@ -138,7 +138,7 @@ class Period extends AbstractEntity
     /**
      * @param \DateTime $date
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date): void
     {
         $this->date = $date;
     }
@@ -157,7 +157,7 @@ class Period extends AbstractEntity
     /**
      * @param \DateTime $begin
      */
-    public function setBegin(\DateTime $begin)
+    public function setBegin(\DateTime $begin): void
     {
         $this->begin = $begin;
     }
@@ -176,7 +176,7 @@ class Period extends AbstractEntity
     /**
      * @param \DateTime $end
      */
-    public function setEnd(\DateTime $end)
+    public function setEnd(\DateTime $end): void
     {
         $this->end = $end;
     }
@@ -192,7 +192,7 @@ class Period extends AbstractEntity
     /**
      * @param int $maxParticipants
      */
-    public function setMaxParticipants(int $maxParticipants)
+    public function setMaxParticipants(int $maxParticipants): void
     {
         $this->maxParticipants = $maxParticipants;
     }
@@ -230,7 +230,7 @@ class Period extends AbstractEntity
     /**
      * @param int $maxParticipantsPerOrder
      */
-    public function setMaxParticipantsPerOrder(int $maxParticipantsPerOrder)
+    public function setMaxParticipantsPerOrder(int $maxParticipantsPerOrder): void
     {
         $this->maxParticipantsPerOrder = $maxParticipantsPerOrder;
     }
@@ -246,7 +246,7 @@ class Period extends AbstractEntity
     /**
      * @param ObjectStorage $orders
      */
-    public function setOrders(ObjectStorage $orders)
+    public function setOrders(ObjectStorage $orders): void
     {
         $this->orders = $orders;
     }

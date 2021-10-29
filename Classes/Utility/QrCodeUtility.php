@@ -56,7 +56,7 @@ class QrCodeUtility
         return $qrCode;
     }
 
-    protected static function applyQrCodeSettingsFromFacility(QrCode $qrCode, Facility $facility)
+    protected static function applyQrCodeSettingsFromFacility(QrCode $qrCode, Facility $facility): void
     {
         $qrCode
             ->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH)

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\ViewHelpers;
 
+use Endroid\QrCode\QrCode;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\QrCodeUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -27,7 +28,7 @@ class QrCodeViewHelper extends AbstractViewHelper
 
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('reservation', Reservation::class, 'Reservation instance', true);
     }
@@ -36,7 +37,7 @@ class QrCodeViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): QrCode {
         return QrCodeUtility::generateQrCode($arguments['reservation'])->writeDataUri();
     }
 }

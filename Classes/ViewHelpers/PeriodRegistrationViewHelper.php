@@ -56,7 +56,7 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('facilityUid', 'int', 'The uid of the facility', true);
         $this->registerArgument('dateAndBegin', 'int', 'Timestamp of period "date" and "begin".', true);
@@ -67,7 +67,7 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): string {
         $dateAndBegin = new \DateTime();
         $dateAndBegin->setTimestamp($arguments['dateAndBegin']);
 

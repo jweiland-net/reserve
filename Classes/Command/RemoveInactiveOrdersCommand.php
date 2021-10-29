@@ -27,7 +27,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class RemoveInactiveOrdersCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Remove inactive orders after a given time.');
         $this->setHelp('Remove inactive orders (orders with active = 0) after a given time.');

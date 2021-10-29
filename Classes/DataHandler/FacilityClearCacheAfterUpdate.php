@@ -125,7 +125,7 @@ class FacilityClearCacheAfterUpdate
         return $ids;
     }
 
-    protected function clearPageCacheAndAddFacilityName(int $uid, string $name)
+    protected function clearPageCacheAndAddFacilityName(int $uid, string $name): void
     {
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($uid);
         $facilityNames[] = $name;

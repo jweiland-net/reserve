@@ -57,7 +57,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
      */
     protected $replyToEmail = '';
 
-    public function processDataHandlerCmdDeleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, DataHandler $dataHandler)
+    public function processDataHandlerCmdDeleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, DataHandler $dataHandler): void
     {
         if ($table !== self::TABLE || Environment::isCli()) {
             return;
@@ -65,7 +65,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         $this->addVisitorEmailsOfPeriod($id);
     }
 
-    public function addVisitorEmailsOfPeriod(int $periodUid)
+    public function addVisitorEmailsOfPeriod(int $periodUid): void
     {
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
@@ -91,7 +91,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         }
     }
 
-    public function processDataHandlerCmdResultAfterFinish(DataHandler $dataHandler)
+    public function processDataHandlerCmdResultAfterFinish(DataHandler $dataHandler): void
     {
         if (!empty($this->visitorEmails) && !Environment::isCli()) {
             foreach (array_keys($this->visitorEmails) as $periodUid) {
@@ -106,7 +106,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         }
     }
 
-    protected function addJavaScriptAndSettingsToPageRenderer()
+    protected function addJavaScriptAndSettingsToPageRenderer(): void
     {
         $params = [
             'edit' => ['tx_reserve_domain_model_email' => [$this->pid => 'new']],

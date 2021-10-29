@@ -21,12 +21,12 @@ class CacheUtility extends AbstractUtility
 {
     const FACILITY_CACHE_IDENTIFIER = 'tx_reserve_facility_';
 
-    public static function addFacilityToCurrentPageCacheTags(int $facilityUid)
+    public static function addFacilityToCurrentPageCacheTags(int $facilityUid): void
     {
         static::getTypoScriptFrontendController()->addCacheTags([static::FACILITY_CACHE_IDENTIFIER . $facilityUid]);
     }
 
-    public static function clearPageCachesForPagesWithCurrentFacility(int $facilityUid)
+    public static function clearPageCachesForPagesWithCurrentFacility(int $facilityUid): void
     {
         GeneralUtility::makeInstance(CacheManager::class)->flushCachesByTag(static::FACILITY_CACHE_IDENTIFIER . $facilityUid);
     }
