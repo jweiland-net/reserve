@@ -37,7 +37,7 @@ class Participant
     /**
      * @param string $firstName
      */
-    public function setFirstName(string $firstName)
+    public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -53,7 +53,7 @@ class Participant
     /**
      * @param string $lastName
      */
-    public function setLastName(string $lastName)
+    public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }

@@ -18,18 +18,18 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DataHandler
 {
-    public function processDatamap_afterAllOperations(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler)
+    public function processDatamap_afterAllOperations(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler): void
     {
         GeneralUtility::makeInstance(AskForMailAfterPeriodUpdate::class)->processDataHandlerResultAfterAllOperations($dataHandler);
         GeneralUtility::makeInstance(FacilityClearCacheAfterUpdate::class)->processDataHandlerResultAfterAllOperations($dataHandler);
     }
 
-    public function processCmdmap_deleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler)
+    public function processCmdmap_deleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler): void
     {
         GeneralUtility::makeInstance(AskForMailAfterPeriodDeletion::class)->processDataHandlerCmdDeleteAction($table, $id, $recordToDelete, $recordWasDeleted, $dataHandler);
     }
 
-    public function processCmdmap_afterFinish(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler)
+    public function processCmdmap_afterFinish(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler): void
     {
         GeneralUtility::makeInstance(AskForMailAfterPeriodDeletion::class)->processDataHandlerCmdResultAfterFinish($dataHandler);
     }

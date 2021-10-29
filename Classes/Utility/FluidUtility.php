@@ -27,7 +27,7 @@ class FluidUtility
      */
     protected static $configurationManager;
 
-    public static function configureStandaloneViewForMailing(StandaloneView $standaloneView)
+    public static function configureStandaloneViewForMailing(StandaloneView $standaloneView): void
     {
         $extbaseFrameworkConfiguration = static::getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,

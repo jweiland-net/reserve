@@ -53,7 +53,7 @@ class AskForMailAfterPeriodUpdate
         return true;
     }
 
-    protected function checkForUpdatedRecords()
+    protected function checkForUpdatedRecords(): void
     {
         if (!array_key_exists(self::TABLE, $this->dataHandler->datamap)) {
             return;
@@ -96,7 +96,7 @@ class AskForMailAfterPeriodUpdate
             ->fetchColumn(0);
     }
 
-    protected function addJavaScriptAndSettingsToPageRenderer()
+    protected function addJavaScriptAndSettingsToPageRenderer(): void
     {
         // get pid of first period and create email record on same pid
         /** @var \TYPO3\CMS\Core\Database\Connection $connection */

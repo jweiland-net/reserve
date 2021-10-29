@@ -71,7 +71,7 @@ class CheckoutController extends ActionController
         $this->checkoutService = $checkoutService;
     }
 
-    public function listAction()
+    public function listAction(): void
     {
         $this->view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
