@@ -90,7 +90,7 @@ class CheckoutController extends ActionController
      * @param \JWeiland\Reserve\Domain\Model\Period $period
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function formAction(Period $period): void
+    public function formAction(Period $period)
     {
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
             $this->addFlashMessage(
@@ -111,7 +111,7 @@ class CheckoutController extends ActionController
      * @param int $furtherParticipants
      * @TYPO3\CMS\Extbase\Annotation\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
      */
-    public function createAction(Order $order, int $furtherParticipants = 0): void
+    public function createAction(Order $order, int $furtherParticipants = 0)
     {
         if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
@@ -134,7 +134,7 @@ class CheckoutController extends ActionController
      * @param string $activationCode
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function confirmAction(string $email, string $activationCode): void
+    public function confirmAction(string $email, string $activationCode)
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
@@ -162,7 +162,7 @@ class CheckoutController extends ActionController
      * @param string $activationCode
      * @param bool $confirm
      */
-    public function cancelAction(string $email, string $activationCode, bool $confirm = false): void
+    public function cancelAction(string $email, string $activationCode, bool $confirm = false)
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
