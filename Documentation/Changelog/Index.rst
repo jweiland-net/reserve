@@ -6,6 +6,50 @@
 Changelog
 =========
 
+Version 1.2.0
+-------------
+
+The list of changes includes changes before 1.1.1 because it was no TER release.
+
+List of changes ::
+
+   2021-11-12 [TASK] Prepare for release 1.2.0 (Commit d3bc6d0 by Pascal Rinker)
+   2021-10-29 Merge pull request #95 from jweiland-net/addMissingStrictTypes (Commit bfc371c by Pascal Rinker)
+   2021-10-29 [TASK] Fix CheckoutController return type of actions with redirect (Commit ce8f636 by Pascal Rinker)
+   2021-10-27  Update dependencies to secure TYPO3 versions (Commit 9f3538c by Stefan Froemken)
+   2021-10-27 Add ChangLog and update version to 1.1.1 (Commit 0e3fddc by Stefan Froemken)
+   2021-10-27 Use source insteadof source in translation file (Commit 63ed80f by Stefan Froemken)
+   2021-10-22 Merge pull request #97 from jweiland-net/multipleFixes (Commit 0935cef by Pascal Rinker)
+   2021-10-22 Merge pull request #96 from jweiland-net/modifyExtEmConf (Commit cf0c758 by Pascal Rinker)
+   2021-10-22 [TASK] cs fixer (Commit 895d8a6 by Pascal Rinker)
+   2021-10-22 [TASK] Add missing pluginName to PeriodRegistrationViewHelper examples (Commit 1ba2792 by Pascal Rinker)
+   2021-10-22 [TASK] Shorten nearly endless row in VH (Commit 6f9af29 by Pascal Rinker)
+   2021-10-22 [TASK] Remove unnecessary items from ext_emconf (Commit b207517 by Pascal Rinker)
+   2021-10-22 [TASK] Add missing strict types (Commit 17890c5 by Pascal Rinker)
+   2021-10-15 Add softRefParser to RTE fields (Commit 990937d by Stefan Frömken)
+   2021-10-15 Add softRefParser to body field (Commit 6a19138 by Stefan Frömken)
+   2021-06-11 Merge pull request #83 from jweiland-net/featureDynamicButton (Commit 3e64d37 by Pascal Rinker)
+   2021-06-11 [TASK] Add sprintf (Commit 9b6b950 by Pascal Rinker)
+   2021-06-11 [TASK] Update findByDateAndBegin and make DateTime more readable (Commit 05167ea by Pascal Rinker)
+   2021-06-10 [TASK] Move test fluid templates into Fixtures directory (Commit a612f4e by Pascal Rinker)
+   2021-06-09 [DOCS] Update docs (Commit a134f64 by Pascal Rinker)
+   2021-06-09 [TASK] Add "as" option to PeriodRegistrationViewHelper, update tests (Commit d22e364 by Pascal Rinker)
+   2021-06-09 [DOCS] Add documentation for the new PeriodRegistrationViewHelper (Commit 8e0f9f8 by Pascal Rinker)
+   2021-06-09 [FEATURE] Add ViewHelper that can display remaining participants of a period (Commit abd3592 by Pascal Rinker)
+   2021-06-09 Merge pull request #82 from jweiland-net/featureApi (Commit f81cc83 by Pascal Rinker)
+   2021-06-08 [TASK] Some fixes (Commit 1591a06 by Pascal Rinker)
+   2021-06-08 [TASK] Fix tests (Commit c9a4625 by Pascal Rinker)
+   2021-06-08 [TASK] Use dynamic dates in functional tests (Commit 8c3ca98 by Pascal Rinker)
+   2021-06-08 [TASK] Update ci (Commit 1ab6d89 by Pascal Rinker)
+   2021-06-08 [FEATURE] Add ReserveService as part of a public API (Commit f473d31 by Pascal Rinker)
+   2021-06-07 [TASK] Remove unused method (Commit 8c3a297 by Pascal Rinker)
+   2021-06-07 Merge branch 'master' of github.com:jweiland-net/reserve (Commit 293ac7a by Pascal Rinker)
+   2021-06-07 [FEATURE] Support multiple facilities in one list view (Commit 7898add by Pascal Rinker)
+   2021-06-07 Add new fields to register for an EXT:events2 location (Commit 4269885 by Stefan Froemken)
+   2021-03-26 [TASK] Add reserve class to scanner modal (Commit c1d8007 by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.1.1
 -------------
 
