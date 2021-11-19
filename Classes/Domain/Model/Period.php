@@ -40,11 +40,19 @@ class Period extends AbstractEntity
     protected $date;
 
     /**
-     * @var \DateTime
+     * 00:00 is still a valid value, but will be stored in DB with "0".
+     * DataHandler will return NULL on empty values.
+     * So we have to add NULL as possible return value here.
+     *
+     * @var \DateTime|null
      */
     protected $begin;
 
     /**
+     * 00:00 is still a valid value, but will be stored in DB with "0".
+     * DataHandler will return NULL on empty values.
+     * So we have to add NULL as possible return value here.
+     *
      * @var \DateTime|null
      */
     protected $end;
@@ -144,13 +152,14 @@ class Period extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getBegin(): \DateTime
+    public function getBegin(): ?\DateTime
     {
-        if ($this->begin->getTimezone() !== 'UTC') {
+        if ($this->begin instanceof \DateTime && $this->begin->getTimezone()->getName() !== 'UTC') {
             $this->begin->setTimezone(new \DateTimeZone('UTC'));
         }
+
         return $this->begin;
     }
 
@@ -167,9 +176,10 @@ class Period extends AbstractEntity
      */
     public function getEnd(): ?\DateTime
     {
-        if ($this->end && $this->end->getTimezone() !== 'UTC') {
+        if ($this->end instanceof \DateTime && $this->end->getTimezone()->getName() !== 'UTC') {
             $this->end->setTimezone(new \DateTimeZone('UTC'));
         }
+
         return $this->end;
     }
 

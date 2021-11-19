@@ -6,6 +6,13 @@
 Changelog
 =========
 
+Version 1.2.1
+-------------
+
+List of changes ::
+
+   2021-11-19 [BUGFIX] Allow NULL as return value for getBegin (Commit by Stefan Froemken)
+
 Version 1.2.0
 -------------
 
