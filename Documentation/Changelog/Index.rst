@@ -6,6 +6,13 @@
 Changelog
 =========
 
+Version 1.2.2
+-------------
+
+List of changes ::
+
+   2021-11-23 [BUGFIX] Change return type of staticRender back to string in QrCodeViewHelper (Commit by Stefan Froemken)
+
 Version 1.2.1
 -------------
 
