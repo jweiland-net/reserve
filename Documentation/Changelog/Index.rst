@@ -6,6 +6,15 @@
 Changelog
 =========
 
+Version 1.2.3
+-------------
+
+List of changes ::
+
+   2021-11-30 [TASK] Remove required field check for further participants (Commit 1df8d5a by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.2.2
 -------------
 
