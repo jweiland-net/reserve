@@ -65,13 +65,13 @@
 						<label for="lastName{participantPosition}">
 							<f:translate key="form.order.participants.lastName" arguments="{0: participantPosition}"/>
 						</label>
-						<f:form.textfield id="lastName{participantPosition}" property="participants.{participantPosition}.lastName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'lastName', then: 'true', else: 'false')}"/>
+						<f:form.textfield id="lastName{participantPosition}" property="participants.{participantPosition}.lastName"/>
 					</jw:ifStringInCommaSeparatedList>
 
 					<label for="firstName{participantPosition}">
 						<f:translate key="form.order.participants.firstName" arguments="{0: participantPosition}"/>
 					</label>
-					<f:form.textfield id="firstName{participantPosition}" property="participants.{participantPosition}.firstName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'firstName', then: 'true', else: 'false')}"/>
+					<f:form.textfield id="firstName{participantPosition}" property="participants.{participantPosition}.firstName"/>
 				</f:for>
 			</f:then>
 			<f:else>
