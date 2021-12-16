@@ -84,33 +84,21 @@ class Period extends AbstractEntity
         $this->orders = new ObjectStorage();
     }
 
-    /**
-     * @return Facility
-     */
     public function getFacility(): Facility
     {
         return $this->facility;
     }
 
-    /**
-     * @param Facility $facility
-     */
     public function setFacility(Facility $facility): void
     {
         $this->facility = $facility;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getBookingBegin(): \DateTime
     {
         return $this->bookingBegin;
     }
 
-    /**
-     * @param \DateTime $bookingBegin
-     */
     public function setBookingBegin(\DateTime $bookingBegin): void
     {
         $this->bookingBegin = $bookingBegin;
@@ -124,36 +112,25 @@ class Period extends AbstractEntity
         return $this->bookingEnd;
     }
 
-    /**
-     * @param \DateTime $bookingEnd
-     */
     public function setBookingEnd(\DateTime $bookingEnd): void
     {
         $this->bookingEnd = $bookingEnd;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getDate(): \DateTime
     {
         if ($this->date->timezone_type !== 3) {
             $this->date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         }
+
         return $this->date;
     }
 
-    /**
-     * @param \DateTime $date
-     */
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getBegin(): ?\DateTime
     {
         if ($this->begin instanceof \DateTime && $this->begin->getTimezone()->getName() !== 'UTC') {
@@ -163,17 +140,11 @@ class Period extends AbstractEntity
         return $this->begin;
     }
 
-    /**
-     * @param \DateTime $begin
-     */
     public function setBegin(\DateTime $begin): void
     {
         $this->begin = $begin;
     }
 
-    /**
-     * @return \DateTime|null
-     */
     public function getEnd(): ?\DateTime
     {
         if ($this->end instanceof \DateTime && $this->end->getTimezone()->getName() !== 'UTC') {
@@ -183,25 +154,16 @@ class Period extends AbstractEntity
         return $this->end;
     }
 
-    /**
-     * @param \DateTime $end
-     */
     public function setEnd(\DateTime $end): void
     {
         $this->end = $end;
     }
 
-    /**
-     * @return int
-     */
     public function getMaxParticipants(): int
     {
         return $this->maxParticipants;
     }
 
-    /**
-     * @param int $maxParticipants
-     */
     public function setMaxParticipants(int $maxParticipants): void
     {
         $this->maxParticipants = $maxParticipants;
@@ -212,9 +174,6 @@ class Period extends AbstractEntity
         return $this->maxParticipants - $this->countReservations();
     }
 
-    /**
-     * @return int
-     */
     public function getMaxParticipantsPerOrder(): int
     {
         $remaining = $this->getRemainingParticipants();
@@ -237,9 +196,6 @@ class Period extends AbstractEntity
         return range(1, $available);
     }
 
-    /**
-     * @param int $maxParticipantsPerOrder
-     */
     public function setMaxParticipantsPerOrder(int $maxParticipantsPerOrder): void
     {
         $this->maxParticipantsPerOrder = $maxParticipantsPerOrder;
@@ -254,11 +210,21 @@ class Period extends AbstractEntity
     }
 
     /**
-     * @param ObjectStorage $orders
+     * @param ObjectStorage|Order[] $orders
      */
     public function setOrders(ObjectStorage $orders): void
     {
         $this->orders = $orders;
+    }
+
+    public function addOrder(Order $order): void
+    {
+        $this->orders->attach($order);
+    }
+
+    public function removeOrder(Order $order): void
+    {
+        $this->orders->detach($order);
     }
 
     public function isBookable(): bool
@@ -268,10 +234,12 @@ class Period extends AbstractEntity
             // bookings have not started yet
             $bookable = false;
         }
+
         if ($this->isBookingTimeOver()) {
             // booking time is over
             $bookable = false;
         }
+
         return $bookable;
     }
 
@@ -316,7 +284,7 @@ class Period extends AbstractEntity
     {
         $reservations = [];
 
-        foreach ($this->orders as $order) {
+        foreach ($this->getOrders() as $order) {
             if (!$activeOnly || $order->isActivated()) {
                 foreach ($order->getReservations() as $reservation) {
                     $reservations[] = $reservation;
@@ -336,16 +304,24 @@ class Period extends AbstractEntity
             $queryBuilder
                 ->count('r.uid')
                 ->from('tx_reserve_domain_model_order', 'o')
-                ->leftJoin('o', 'tx_reserve_domain_model_reservation', 'r', 'r.customer_order = o.uid')
+                ->leftJoin(
+                    'o',
+                    'tx_reserve_domain_model_reservation',
+                    'r',
+                    'r.customer_order = o.uid'
+                )
                 ->where($queryBuilder->expr()->eq(
                     'o.booked_period',
                     $queryBuilder->createNamedParameter($this->getUid())
                 ));
+
             if ($activeOnly) {
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
             }
+
             $this->cache[$cacheIdentifier] = (int)$queryBuilder->execute()->fetchColumn(0);
         }
+
         return $this->cache[$cacheIdentifier];
     }
 

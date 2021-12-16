@@ -16,29 +16,72 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @testdox An participant
- * @covers JWeiland\Reserve\Domain\Model\Participant
+ * @covers \JWeiland\Reserve\Domain\Model\Participant
  */
 class ParticipantTest extends UnitTestCase
 {
     /**
-     * @test
+     * @var Participant
      */
-    public function canReceiveAFirstName()
-    {
-        $subject = new Participant();
-        $subject->setFirstName('First Name');
+    protected $subject;
 
-        self::assertSame('First Name', $subject->getFirstName());
+    protected function setUp(): void
+    {
+        $this->subject = new Participant();
+    }
+
+    protected function tearDown(): void
+    {
+        unset($this->subject);
+
+        parent::tearDown();
     }
 
     /**
      * @test
      */
-    public function canReceiveALastName()
+    public function getFirstNameInitiallyReturnsEmptyString(): void
     {
-        $subject = new Participant();
-        $subject->setLastName('Last Name');
+        self::assertSame(
+            '',
+            $this->subject->getFirstName()
+        );
+    }
 
-        self::assertSame('Last Name', $subject->getLastName());
+    /**
+     * @test
+     */
+    public function setFirstNameSetsFirstName(): void
+    {
+        $this->subject->setFirstName('foo bar');
+
+        self::assertSame(
+            'foo bar',
+            $this->subject->getFirstName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getLastNameInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->subject->getLastName()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setLastNameSetsLastName(): void
+    {
+        $this->subject->setLastName('foo bar');
+
+        self::assertSame(
+            'foo bar',
+            $this->subject->getLastName()
+        );
     }
 }
