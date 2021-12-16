@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Domain\Model;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -166,18 +167,26 @@ class Period extends AbstractEntity
 
     public function setMaxParticipants(int $maxParticipants): void
     {
-        $this->maxParticipants = $maxParticipants;
+        $this->maxParticipants = MathUtility::forceIntegerInRange(
+            $maxParticipants,
+            0
+        );
     }
 
     public function getRemainingParticipants(): int
     {
-        return $this->maxParticipants - $this->countReservations();
+        return MathUtility::forceIntegerInRange(
+            $this->maxParticipants - $this->countReservations(),
+            0
+        );
     }
 
     public function getMaxParticipantsPerOrder(): int
     {
         $remaining = $this->getRemainingParticipants();
-        return $this->maxParticipantsPerOrder > $remaining ? $remaining : $this->maxParticipantsPerOrder;
+        return $this->maxParticipantsPerOrder > $remaining
+            ? $remaining
+            : $this->maxParticipantsPerOrder;
     }
 
     /**
@@ -198,7 +207,10 @@ class Period extends AbstractEntity
 
     public function setMaxParticipantsPerOrder(int $maxParticipantsPerOrder): void
     {
-        $this->maxParticipantsPerOrder = $maxParticipantsPerOrder;
+        $this->maxParticipantsPerOrder = MathUtility::forceIntegerInRange(
+            $maxParticipantsPerOrder,
+            0
+        );
     }
 
     /**
