@@ -66,6 +66,14 @@
 									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.city</numIndex>
 									<numIndex index="1">city</numIndex>
 								</numIndex>
+								<numIndex index="5" type="array">
+									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.organization</numIndex>
+									<numIndex index="1">organization</numIndex>
+								</numIndex>
+								<numIndex index="6" type="array">
+									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.remarks</numIndex>
+									<numIndex index="1">remarks</numIndex>
+								</numIndex>
 							</items>
 						</config>
 					</settings.mainFields>

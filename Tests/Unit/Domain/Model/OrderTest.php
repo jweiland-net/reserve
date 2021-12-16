@@ -293,6 +293,90 @@ class OrderTest extends UnitTestCase
     /**
      * @test
      */
+    public function getOrganizationInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->subject->getOrganization()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setOrganizationSetsOrganization(): void
+    {
+        $this->subject->setOrganization('foo bar');
+
+        self::assertSame(
+            'foo bar',
+            $this->subject->getOrganization()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function getRemarksInitiallyReturnsEmptyString(): void
+    {
+        self::assertSame(
+            '',
+            $this->subject->getRemarks()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setRemarksSetsRemarks(): void
+    {
+        $this->subject->setRemarks('foo bar');
+
+        self::assertSame(
+            'foo bar',
+            $this->subject->getRemarks()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setRemarksWithIntegerResultsInString()
+    {
+        $this->subject->setRemarks(123);
+        self::assertSame('123', $this->subject->getRemarks());
+    }
+
+    /**
+     * @test
+     */
+    public function setRemarksWithBooleanResultsInString()
+    {
+        $this->subject->setRemarks(true);
+        self::assertSame('1', $this->subject->getRemarks());
+    }
+
+    /**
+     * @test
+     */
+    public function setOrganizationWithIntegerResultsInString()
+    {
+        $this->subject->setOrganization(123);
+        self::assertSame('123', $this->subject->getOrganization());
+    }
+
+    /**
+     * @test
+     */
+    public function setOrganizationWithBooleanResultsInString()
+    {
+        $this->subject->setOrganization(true);
+        self::assertSame('1', $this->subject->getOrganization());
+    }
+
+    /**
+     * @test
+     */
     public function getParticipantsInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
