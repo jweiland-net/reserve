@@ -192,6 +192,19 @@ class PeriodTest extends UnitTestCase
     /**
      * @test
      */
+    public function setMaxParticipantsWithNegativeValueSetsMaxParticipantsToZero(): void
+    {
+        $this->subject->setMaxParticipants(-12);
+
+        self::assertSame(
+            0,
+            $this->subject->getMaxParticipants()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function getOrdersInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
