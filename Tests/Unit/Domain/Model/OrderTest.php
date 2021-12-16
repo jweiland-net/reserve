@@ -380,7 +380,6 @@ class OrderTest extends UnitTestCase
      */
     public function addParticipantWithoutNameKeepsParticipantsUntouched(): void
     {
-
         $validParticipant = new Participant();
         $validParticipant->setLastName('Weiland');
 
@@ -620,7 +619,8 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    public function canBeBookedDataProvider(): array{
+    public function canBeBookedDataProvider(): array
+    {
         return [
             'More participants than currently registered' => [5, true],
             'Amount of participants equals amount of current reservations' => [2, false],
