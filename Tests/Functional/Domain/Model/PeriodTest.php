@@ -47,6 +47,62 @@ class PeriodTest extends FunctionalTestCase
         parent::tearDown();
     }
 
+    public function remainingParticipantsDataProvider(): array
+    {
+        return [
+            'high amount of max participants' => [50, 47],
+            'max participants a little bit higher than amount of reservations' => [5, 2],
+            'max participants equals amount of reservations' => [3, 0],
+            'max participants less than amount of reservations' => [1, 0],
+            'negative max participants' => [-12, 0],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider remainingParticipantsDataProvider
+     */
+    public function getRemainingParticipants(int $maxParticipants, int $expectedResult): void
+    {
+        $this->importDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.xml');
+
+        $this->subject->setMaxParticipants($maxParticipants);
+
+        self::assertSame(
+            $expectedResult,
+            $this->subject->getRemainingParticipants()
+        );
+    }
+
+    public function maxParticipantsPerOrderDataProvider(): array
+    {
+        return [
+            'max participants per order equals max participants' => [50, 47],
+            'max participants per order equals amount of remaining reservations' => [47, 47],
+            'max participants per order less than amount of reservations' => [1, 1],
+            'negative max participants per order' => [-15, 0],
+        ];
+    }
+
+    /**
+     * @test
+     *
+     * @dataProvider maxParticipantsPerOrderDataProvider
+     */
+    public function getMaxParticipantsPerOrder(int $maxParticipantsForOrder, int $expectedResult): void
+    {
+        $this->importDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.xml');
+
+        $this->subject->setMaxParticipants(50);
+        $this->subject->setMaxParticipantsPerOrder($maxParticipantsForOrder);
+
+        self::assertSame(
+            $expectedResult,
+            $this->subject->getMaxParticipantsPerOrder()
+        );
+    }
+
     /**
      * @test
      */
