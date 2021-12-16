@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
+use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
@@ -100,6 +101,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     public function checkoutPersistsMultipleReservationsIntoDatabase()
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        /** @var Period $period */
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
@@ -120,7 +122,8 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $this->checkoutService->checkout($order);
 
-        $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(ReservationRepository::class);
+        $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)
+            ->get(ReservationRepository::class);
         $reservations = $reservationRepository->findByCustomerOrder(1);
 
         self::assertCount(

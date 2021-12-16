@@ -623,7 +623,7 @@ class OrderTest extends UnitTestCase
     {
         return [
             'More participants than currently registered' => [5, true],
-            'Amount of participants equals amount of current reservations' => [2, false],
+            'Amount of participants equals amount of current reservations' => [2, true],
             'Amount of participants is less than currently registered' => [0, false],
         ];
     }
@@ -664,32 +664,7 @@ class OrderTest extends UnitTestCase
     /**
      * @test
      */
-    public function canNotBeBookedIfMaxParticipantsAreExceeded(): void
-    {
-        $period = $this->prophesize(Period::class);
-        $period->getMaxParticipantsPerOrder()->willReturn(2);
-        $participants = $this->prophesize(ObjectStorage::class);
-        $participants->count()->willReturn(3);
-
-        $subject = new Order();
-        $subject->setBookedPeriod($period->reveal());
-        $this->forceProperty($subject, 'participants', $participants->reveal());
-
-        self::assertFalse($subject->canBeBooked());
-    }
-
-    private function forceProperty($subject, string $name, $value)
-    {
-        $objectReflection = new \ReflectionObject($subject);
-        $property = $objectReflection->getProperty($name);
-        $property->setAccessible(true);
-        $property->setValue($subject, $value);
-    }
-
-    /**
-     * @test
-     */
-    public function shouldBlockFurtherOrdersForFacilityInitiallyReturnsTrue()
+    public function shouldBlockFurtherOrdersForFacilityInitiallyReturnsTrue(): void
     {
         self::assertTrue(
             $this->subject->shouldBlockFurtherOrdersForFacility()

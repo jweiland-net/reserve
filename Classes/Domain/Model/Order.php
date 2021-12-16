@@ -273,11 +273,15 @@ class Order extends AbstractEntity
         return $cancelableUntil;
     }
 
+    /**
+     * Returns true, if order with current number of participants can be booked.
+     * Hint: This method does not check, if a further participant can be added!
+     */
     public function canBeBooked(): bool
     {
         $numberOfParticipants = $this->getParticipants()->count();
 
-        return $numberOfParticipants < $this->getBookedPeriod()->getMaxParticipantsPerOrder();
+        return $numberOfParticipants <= $this->getBookedPeriod()->getMaxParticipantsPerOrder();
     }
 
     public function shouldBlockFurtherOrdersForFacility(): bool
