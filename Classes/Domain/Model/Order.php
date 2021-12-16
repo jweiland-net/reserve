@@ -70,6 +70,16 @@ class Order extends AbstractEntity
     protected $city = '';
 
     /**
+     * @var string
+     */
+    protected $organization = '';
+
+    /**
+     * @var string
+     */
+    protected $remarks = '';
+
+    /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Participant>
      */
@@ -185,6 +195,26 @@ class Order extends AbstractEntity
     public function setCity(string $city): void
     {
         $this->city = $city;
+    }
+
+    public function getOrganization(): string
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(string $organization): void
+    {
+        $this->organization = $organization;
+    }
+
+    public function getRemarks(): string
+    {
+        return $this->remarks;
+    }
+
+    public function setRemarks(string $remarks): void
+    {
+        $this->remarks = $remarks;
     }
 
     /**

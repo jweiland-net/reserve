@@ -161,6 +161,25 @@ return [
                 'size' => 50,
             ],
         ],
+        'organization' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.organization',
+            'config' => [
+                'type' => 'input',
+                'size' => 100,
+                'default' => '',
+                'eval' => 'trim'
+            ],
+        ],
+        'remarks' => [
+            'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.remarks',
+            'config' => [
+                'type' => 'text',
+                'cols' => 50,
+                'rows' => 3,
+                'default' => '',
+                'eval' => 'trim'
+            ],
+        ],
         'reservations' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.reservations',
             'config' => [
@@ -180,7 +199,7 @@ return [
     ],
     'types' => [
         0 => [
-            'showitem' => 'booked_period,--palette--;;name,--palette--;;contact,--palette--;;address,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
+            'showitem' => 'booked_period,--palette--;;name,--palette--;;contact,--palette--;;address,organization,remarks,activated,activation_code,reservations,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
         ]
     ],
     'palettes' => [

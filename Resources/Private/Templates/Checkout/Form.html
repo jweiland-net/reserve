@@ -57,6 +57,20 @@
 			<f:form.textfield id="city" type="input" property="city" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'city', then: 'true', else: 'false')}"/>
 		</jw:ifStringInCommaSeparatedList>
 
+		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="organization">
+			<label for="organization">
+				<f:translate key="form.order.organization"/>
+			</label>
+			<f:form.textfield id="organization" type="input" property="organization" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'organization', then: 'true', else: 'false')}"/>
+		</jw:ifStringInCommaSeparatedList>
+
+		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="remarks">
+			<label for="remarks">
+				<f:translate key="form.order.remarks"/>
+			</label>
+			<f:form.textarea id="remarks" property="remarks" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'remarks', then: 'true', else: 'false')}"/>
+		</jw:ifStringInCommaSeparatedList>
+
 		<f:if condition="{settings.showFieldsForFurtherParticipants}">
 			<f:then>
 				<p><f:translate key="form.order.furtherParticipants"/>:</p>

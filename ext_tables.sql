@@ -50,6 +50,8 @@ CREATE TABLE tx_reserve_domain_model_order (
 	address tinytext,
 	zip varchar(10) DEFAULT '' NOT NULL,
 	city tinytext,
+	organization tinytext,
+	remarks tinytext,
 	reservations int(11) DEFAULT '0' NOT NULL,
 );
 
