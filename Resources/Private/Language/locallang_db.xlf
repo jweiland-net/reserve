@@ -123,6 +123,12 @@
 			<trans-unit id="tx_reserve_domain_model_order.city">
 				<source>City</source>
 			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.organization">
+				<source>Organization</source>
+			</trans-unit>
+			<trans-unit id="tx_reserve_domain_model_order.remarks">
+				<source>Remarks</source>
+			</trans-unit>
 			<trans-unit id="tx_reserve_domain_model_order.reservations">
 				<source>Reservation codes</source>
 			</trans-unit>
