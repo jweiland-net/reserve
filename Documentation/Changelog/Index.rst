@@ -6,6 +6,16 @@
 Changelog
 =========
 
+Version 1.2.4
+-------------
+
+List of changes ::
+
+   2021-12-16 Add tests with negative values (Commit d8d8667 by Stefan Froemken)
+   2021-12-16 Add much more tests. Fix canBeBooked (Commit 2266665 by Stefan Froemken)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.2.3
 -------------
 
