@@ -47,24 +47,4 @@ call_user_func(static function() {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \JWeiland\Reserve\Hooks\DataHandler::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = \JWeiland\Reserve\Hooks\DataHandler::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess'][] = \JWeiland\Reserve\Hooks\PageRenderer::class . '->processTxReserveModalUserSetting';
-
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeResolver'][1593430553393] = [
-        'nodeName' => 'reserveCheckboxToggle',
-        'priority' => 50,
-        'class' => \JWeiland\Reserve\Form\Resolver\CheckboxToggleElementResolver::class,
-    ];
-
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('events2')) {
-        // Replace with EventListeners while removing TYPO3 9 compatibility
-        $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-        // SqlExpectedSchemaService is a non existing class, so please keep the double backslashes
-        $signalSlotDispatcher->connect(
-            'TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService',
-            'tablesDefinitionIsBeingBuilt',
-            \JWeiland\Reserve\Tca\CreateForeignTableColumns::class,
-            'addEvents2DatabaseColumnsToTablesDefinition'
-        );
-    }
 });

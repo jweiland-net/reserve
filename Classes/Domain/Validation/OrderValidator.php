@@ -52,6 +52,7 @@ class OrderValidator extends AbstractValidator
     protected function attachForeignResults(Order $order): void
     {
         $results = new ObjectStorage();
+        // TODO: Add event thats replaces the deprecated signal slot
         $this->dispatcher->dispatch(__CLASS__, 'validateOrder', [
             'order' => $order,
             'errorResults' => $results,

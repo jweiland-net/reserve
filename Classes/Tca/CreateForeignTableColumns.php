@@ -11,16 +11,14 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Tca;
 
+use TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent;
+
 class CreateForeignTableColumns
 {
-    public function addEvents2DatabaseColumnsToTablesDefinition(array $sqlString): array
+    public function addEvents2DatabaseColumnsToTablesDefinition(AlterTableDefinitionStatementsEvent $event): void
     {
-        $sqlString[] = $this->getTableDefinitionForFacilityInEvents2Location();
-        $sqlString[] = $this->getTableDefinitionForRegistrationRequiredInEvent();
-
-        return [
-            0 => $sqlString
-        ];
+        $event->addSqlData($this->getTableDefinitionForFacilityInEvents2Location());
+        $event->addSqlData($this->getTableDefinitionForRegistrationRequiredInEvent());
     }
 
     /**
