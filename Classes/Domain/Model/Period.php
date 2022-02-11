@@ -120,7 +120,7 @@ class Period extends AbstractEntity
 
     public function getDate(): \DateTime
     {
-        if ($this->date->timezone_type !== 3) {
+        if (property_exists($this->date, 'timezone_type') && $this->date->timezone_type !== 3) {
             $this->date->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         }
 
