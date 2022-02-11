@@ -137,19 +137,10 @@ class CheckoutService
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
                 ['pageUid' => $GLOBALS['TSFE']->id, 'order' => $order]
             ),
-            function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage, bool $isSymfonyEmail) {
+            function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    if ($isSymfonyEmail) {
-                        $mailMessage->attach($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType());
-                    } else {
-                        $cid = $mailMessage->embed(\Swift_Image::newInstance($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType()));
-                        $bodyHtml = str_replace('cid:' . $reservation->getCode(), $cid, $bodyHtml);
-                    }
-                }
-                if (!$isSymfonyEmail) {
-                    // apply modified cid's
-                    $mailMessage->setBody($bodyHtml, 'text/html');
+                    $mailMessage->attach($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType());
                 }
             }
         );

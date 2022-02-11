@@ -79,9 +79,6 @@ class CheckoutController extends ActionController
         ]);
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
-        // add first facility for compatibility reason
-        // @todo Deprecated: 'facility' will be removed from view in 2.0.0
-        $this->view->assign('facility', $facilities->getFirst());
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }

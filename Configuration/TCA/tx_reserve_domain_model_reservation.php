@@ -34,7 +34,7 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'reserveCheckboxToggle',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     [
                         0 => '',
@@ -123,7 +123,7 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.used',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'reserveCheckboxToggle',
+                'renderType' => 'checkboxToggle',
             ],
         ],
     ],

@@ -58,21 +58,11 @@ class MailService implements SingletonInterface
         if ($replyTo) {
             $mail->setReplyTo([$replyTo => $replyToName]);
         }
-
-        if (method_exists($mail, 'addPart')) {
-            $isSymfonyEmail = false;
-            // TYPO3 < 10 (Swift_Message)
-            $mail->setBody($bodyHtml, 'text/html');
-        } else {
-            $isSymfonyEmail = true;
-            // TYPO3 >= 10 (Symfony Mail)
-            $mail->html($bodyHtml);
-        }
+        $mail->html($bodyHtml);
 
         // closure hook to add your own stuff to the $mail
-        // use $isSymfonyEmail to check if current TYPO3 is running >= v10 with the new symfony email!
         if ($postProcess) {
-            $postProcess($postProcessData, $subject, $bodyHtml, $mail, $isSymfonyEmail);
+            $postProcess($postProcessData, $subject, $bodyHtml, $mail);
         }
 
         return (bool)$mail->send();

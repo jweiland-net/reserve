@@ -23,7 +23,7 @@
 		"source": "https://github.com/jweiland-net/reserve"
 	},
 	"require": {
-		"typo3/cms-core": "^9.5.25 || ^10.4.19"
+		"typo3/cms-core": "^10.4.19 || ^11.5"
 	},
 	"suggest": {
 		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
