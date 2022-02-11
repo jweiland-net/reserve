@@ -5,24 +5,24 @@ if (!defined('TYPO3_MODE')) {
 
 call_user_func(static function() {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'JWeiland.Reserve',
+        'Reserve',
         'Reservation',
         [
-            'Checkout' => 'list,form,create,confirm,cancel'
+            \JWeiland\Reserve\Controller\CheckoutController::class => 'list,form,create,confirm,cancel'
         ],
         [
-            'Checkout' => 'form,create,confirm,cancel'
+            \JWeiland\Reserve\Controller\CheckoutController::class => 'form,create,confirm,cancel'
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'JWeiland.Reserve',
+        'Reserve',
         'Management',
         [
-            'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
+            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ],
         [
-            'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
+            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ]
     );
 
