@@ -31,7 +31,7 @@
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
 		"friendsofphp/php-cs-fixer": "^2.14",
-		"nimut/testing-framework": "^5.1"
+		"nimut/testing-framework": "^6.0"
 	},
 	"replace": {
 		"typo3-ter/reserve": "self.version"
