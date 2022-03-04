@@ -16,6 +16,7 @@ use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Validation\Error;
@@ -26,6 +27,8 @@ use TYPO3\CMS\Extbase\Validation\Error;
  */
 class OrderValidatorTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @test
      */
