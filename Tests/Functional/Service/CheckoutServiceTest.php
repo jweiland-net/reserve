@@ -21,6 +21,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\MailService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\Uri;
@@ -35,6 +36,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class CheckoutServiceTest extends FunctionalTestCase
 {
+    use ProphecyTrait;
+
     protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
 
     /**
