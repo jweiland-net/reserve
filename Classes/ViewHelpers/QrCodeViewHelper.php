@@ -38,6 +38,6 @@ class QrCodeViewHelper extends AbstractViewHelper
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
     ): string {
-        return QrCodeUtility::generateQrCode($arguments['reservation'])->writeDataUri();
+        return QrCodeUtility::generateQrCode($arguments['reservation'])->getDataUri();
     }
 }

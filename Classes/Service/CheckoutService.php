@@ -140,7 +140,7 @@ class CheckoutService
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->writeString(), $reservation->getCode(), $qrCode->getContentType());
+                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
                 }
             }
         );

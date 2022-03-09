@@ -3,6 +3,10 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+if (!defined('TYPO3_COMPOSER_MODE') || !TYPO3_COMPOSER_MODE) {
+    require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('reserve') . '/Resources/Private/Php/vendor/autoload.php';
+}
+
 call_user_func(static function() {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Reserve',
