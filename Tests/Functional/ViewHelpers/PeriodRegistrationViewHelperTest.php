@@ -82,9 +82,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->standaloneView);
-        unset($this->testDateMidnight);
-        unset($this->testDateAndBegin);
+        unset($this->standaloneView, $this->testDateMidnight, $this->testDateAndBegin);
     }
 
     /**
