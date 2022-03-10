@@ -3,13 +3,14 @@
 	<pages>
 		<uid>1</uid>
 		<pid>0</pid>
+		<is_siteroot>1</is_siteroot>
 		<title>reserve</title>
 	</pages>
 
 	<tx_reserve_domain_model_facility>
 		<uid>1</uid>
 		<pid>1</pid>
-		<periods>1</periods>
+		<periods>3</periods>
 		<name>Test</name>
 		<confirmation_mail_subject>Test confirmation</confirmation_mail_subject>
 		<confirmation_mail_html>Test ###ORDER_DETAILS###</confirmation_mail_html>

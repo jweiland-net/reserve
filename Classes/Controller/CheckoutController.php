@@ -89,6 +89,9 @@ class CheckoutController extends ActionController
      */
     public function formAction(Period $period)
     {
+        if (!$period->isBookable()) {
+            $this->redirect('list');
+        }
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
@@ -110,7 +113,11 @@ class CheckoutController extends ActionController
      */
     public function createAction(Order $order, int $furtherParticipants = 0)
     {
-        if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
+        if (
+            !$order->_isNew()
+            || $order->getBookedPeriod()->isBookable()
+            || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
+        ) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
             return $this->forward('list');
         }
