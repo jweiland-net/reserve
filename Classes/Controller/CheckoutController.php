@@ -79,9 +79,6 @@ class CheckoutController extends ActionController
         ]);
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
-        // add first facility for compatibility reason
-        // @todo Deprecated: 'facility' will be removed from view in 2.0.0
-        $this->view->assign('facility', $facilities->getFirst());
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
@@ -92,6 +89,9 @@ class CheckoutController extends ActionController
      */
     public function formAction(Period $period)
     {
+        if (!$period->isBookable()) {
+            $this->redirect('list');
+        }
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
@@ -113,7 +113,11 @@ class CheckoutController extends ActionController
      */
     public function createAction(Order $order, int $furtherParticipants = 0)
     {
-        if (!$order->_isNew() || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())) {
+        if (
+            !$order->_isNew()
+            || $order->getBookedPeriod()->isBookable()
+            || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
+        ) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
             return $this->forward('list');
         }

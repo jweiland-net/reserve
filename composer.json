@@ -23,7 +23,8 @@
 		"source": "https://github.com/jweiland-net/reserve"
 	},
 	"require": {
-		"typo3/cms-core": "^9.5.25 || ^10.4.19"
+		"typo3/cms-core": "^10.4.19 || ^11.5",
+		"endroid/qr-code": "^4.3.5"
 	},
 	"suggest": {
 		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
@@ -31,7 +32,8 @@
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
 		"friendsofphp/php-cs-fixer": "^2.14",
-		"nimut/testing-framework": "^5.1"
+		"nimut/testing-framework": "^6.0",
+		"phpspec/prophecy-phpunit": "^2.0"
 	},
 	"replace": {
 		"typo3-ter/reserve": "self.version"
@@ -42,7 +44,11 @@
 		}
 	},
 	"config": {
-		"vendor-dir": ".build/vendor"
+		"vendor-dir": ".build/vendor",
+		"allow-plugins": {
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		}
 	},
 	"extra": {
 		"typo3/cms": {

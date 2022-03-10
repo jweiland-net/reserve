@@ -21,12 +21,13 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\MailService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
+use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Http\ServerRequest;
-use TYPO3\CMS\Core\Http\Uri;
-use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Site\Entity\Site;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -35,6 +36,8 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class CheckoutServiceTest extends FunctionalTestCase
 {
+    use ProphecyTrait;
+
     protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
 
     /**
@@ -45,12 +48,17 @@ class CheckoutServiceTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $GLOBALS['TYPO3_REQUEST'] = new ServerRequest('https://example.tld');
-        $GLOBALS['TSFE'] = new TypoScriptFrontendController(null, new Site('test', 1, []), new SiteLanguage(1, 'en_US', new Uri('https://example.tld'), []));
+        $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
+        $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
+        $GLOBALS['TSFE']->_set('sys_page', new PageRepository((new Context())));
         $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
+        if (method_exists($GLOBALS['TSFE']->fe_user, 'initializeUserSessionManager')) {
+            $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
+        }
         $GLOBALS['TSFE']->id = 1;
-        $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
-        $GLOBALS['LANG']->init('default');
+
+        Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
+        Bootstrap::initializeLanguageObject();
 
         $this->checkoutService = GeneralUtility::makeInstance(ObjectManager::class)->get(CheckoutService::class);
 

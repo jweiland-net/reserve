@@ -58,7 +58,7 @@ class QrCodePreviewController
                 $period->setFacility($facility);
                 $order->setBookedPeriod($period);
                 $reservation->setCustomerOrder($order);
-                $data['qrCode'] = QrCodeUtility::generateQrCode($reservation)->writeDataUri();
+                $data['qrCode'] = QrCodeUtility::generateQrCode($reservation)->getDataUri();
             } else {
                 $data['hasErrors'] = true;
                 $data['message'] = 'Could not find facility!';

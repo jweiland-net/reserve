@@ -3,26 +3,30 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
+if (!\TYPO3\CMS\Core\Core\Environment::isComposerMode()) {
+    require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('reserve') . '/Resources/Private/Php/vendor/autoload.php';
+}
+
 call_user_func(static function() {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'JWeiland.Reserve',
+        'Reserve',
         'Reservation',
         [
-            'Checkout' => 'list,form,create,confirm,cancel'
+            \JWeiland\Reserve\Controller\CheckoutController::class => 'list,form,create,confirm,cancel'
         ],
         [
-            'Checkout' => 'form,create,confirm,cancel'
+            \JWeiland\Reserve\Controller\CheckoutController::class => 'form,create,confirm,cancel'
         ]
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'JWeiland.Reserve',
+        'Reserve',
         'Management',
         [
-            'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
+            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ],
         [
-            'Management' => 'overview,period,periodsOnSameDay,scanner,scan'
+            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ]
     );
 
@@ -47,24 +51,4 @@ call_user_func(static function() {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \JWeiland\Reserve\Hooks\DataHandler::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = \JWeiland\Reserve\Hooks\DataHandler::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess'][] = \JWeiland\Reserve\Hooks\PageRenderer::class . '->processTxReserveModalUserSetting';
-
-    $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeResolver'][1593430553393] = [
-        'nodeName' => 'reserveCheckboxToggle',
-        'priority' => 50,
-        'class' => \JWeiland\Reserve\Form\Resolver\CheckboxToggleElementResolver::class,
-    ];
-
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('events2')) {
-        // Replace with EventListeners while removing TYPO3 9 compatibility
-        $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class
-        );
-        // SqlExpectedSchemaService is a non existing class, so please keep the double backslashes
-        $signalSlotDispatcher->connect(
-            'TYPO3\\CMS\\Install\\Service\\SqlExpectedSchemaService',
-            'tablesDefinitionIsBeingBuilt',
-            \JWeiland\Reserve\Tca\CreateForeignTableColumns::class,
-            'addEvents2DatabaseColumnsToTablesDefinition'
-        );
-    }
 });
