@@ -73,6 +73,12 @@ class CheckoutController extends ActionController
 
     public function listAction(): void
     {
+        // Uncached list action used for redirects with flash messages as they are cached otherwise!
+        // See: https://forge.typo3.org/issues/72703
+        if ($this->controllerContext->getFlashMessageQueue()->count()) {
+            $GLOBALS['TSFE']->no_cache = true;
+        }
+
         $this->view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
                 + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]], 'order' => [[1, 'asc']]]
@@ -98,7 +104,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::INFO
             );
-            return $this->forward('list');
+            $this->redirect('list');
         }
         /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
@@ -113,16 +119,18 @@ class CheckoutController extends ActionController
      */
     public function createAction(Order $order, int $furtherParticipants = 0)
     {
-        if (
-            !$order->_isNew()
-            || $order->getBookedPeriod()->isBookable()
-            || !OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
-        ) {
+        if (!(
+            $order->_isNew()
+            && $order->getBookedPeriod()->isBookable()
+            && OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
+        )) {
             $this->addFlashMessage('You are not allowed to order right now.', '', AbstractMessage::ERROR);
-            return $this->forward('list');
+            $this->redirect('list');
         }
         if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
+            $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
+            $this->redirect('list');
         } else {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
@@ -148,7 +156,7 @@ class CheckoutController extends ActionController
                     '',
                     AbstractMessage::INFO
                 );
-                return $this->forward('list');
+                $this->redirect('list');
             }
             $this->checkoutService->confirm($order);
             $this->view->assign('order', $order);
@@ -215,7 +223,7 @@ class CheckoutController extends ActionController
             }
             if ($redirect) {
                 CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
-                return $this->forward('list');
+                return $this->redirect('list');
             }
         } else {
             $this->addFlashMessage(
@@ -223,7 +231,7 @@ class CheckoutController extends ActionController
                 '',
                 AbstractMessage::ERROR
             );
-            return $this->forward('list');
+            return $this->redirect('list');
         }
     }
 }
