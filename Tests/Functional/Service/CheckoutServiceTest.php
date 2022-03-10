@@ -48,12 +48,13 @@ class CheckoutServiceTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
         $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
         $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
         $GLOBALS['TSFE']->_set('sys_page', new PageRepository((new Context())));
         $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
-        $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
+        if (method_exists($GLOBALS['TSFE']->fe_user, 'initializeUserSessionManager')) {
+            $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
+        }
         $GLOBALS['TSFE']->id = 1;
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
