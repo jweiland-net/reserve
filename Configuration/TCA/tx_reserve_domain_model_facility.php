@@ -32,7 +32,7 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'reserveCheckboxToggle',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     [
                         0 => '',
@@ -298,7 +298,7 @@ DEFAULT_RESERVATION
             'onChange' => 'reload',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'reserveCheckboxToggle',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     [
                         0 => '',

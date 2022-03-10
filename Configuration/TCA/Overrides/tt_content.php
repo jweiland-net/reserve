@@ -3,13 +3,13 @@
 defined('TYPO3_MODE') or die();
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'JWeiland.Reserve',
+    'Reserve',
     'Reservation',
     'LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:plugin.reservation.title'
 );
 
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'JWeiland.Reserve',
+    'Reserve',
     'Management',
     'LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:plugin.management.title'
 );

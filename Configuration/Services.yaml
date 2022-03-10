@@ -6,3 +6,10 @@ services:
 
   JWeiland\Reserve\:
     resource: '../Classes/*'
+
+  JWeiland\Reserve\Tca\CreateForeignTableColumns:
+    tags:
+      - name: event.listener
+        identifier: 'reserve-createforeigntablecolumns'
+        method: 'addEvents2DatabaseColumnsToTablesDefinition'
+        event: TYPO3\CMS\Core\Database\Event\AlterTableDefinitionStatementsEvent

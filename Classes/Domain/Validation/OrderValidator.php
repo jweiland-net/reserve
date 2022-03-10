@@ -15,7 +15,6 @@ use JWeiland\Reserve\Domain\Model\Order;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
@@ -39,9 +38,6 @@ class OrderValidator extends AbstractValidator
             $this->addError('The given object is not an order!', 1590479923299);
             return;
         }
-        if (!$order->getBookedPeriod()->isBookable()) {
-            $this->addError(LocalizationUtility::translate('orderValidator.isNotBookable', 'reserve'), 1589379319);
-        }
         if (!GeneralUtility::validEmail($order->getEmail())) {
             $this->addError('The selected email is not valid!', 1590480086004);
         }
@@ -52,6 +48,7 @@ class OrderValidator extends AbstractValidator
     protected function attachForeignResults(Order $order): void
     {
         $results = new ObjectStorage();
+        // TODO: Add event thats replaces the deprecated signal slot
         $this->dispatcher->dispatch(__CLASS__, 'validateOrder', [
             'order' => $order,
             'errorResults' => $results,

@@ -34,7 +34,7 @@ return [
             'label' => $localLangGeneral . ':LGL.visible',
             'config' => [
                 'type' => 'check',
-                'renderType' => 'reserveCheckboxToggle',
+                'renderType' => 'checkboxToggle',
                 'items' => [
                     [
                         0 => '',

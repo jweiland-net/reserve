@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Tests\Functional\Command;
 use JWeiland\Reserve\Command\RemovePastPeriodsCommand;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -40,9 +41,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             Environment::isUnix() ? 'UNIX' : 'WINDOWS'
         );
 
-        Bootstrap::initializeBackendUser();
-        $GLOBALS['BE_USER']->user['admin'] = 1;
-        $GLOBALS['BE_USER']->user['uid'] = 1;
+        Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
         Bootstrap::initializeLanguageObject();
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');

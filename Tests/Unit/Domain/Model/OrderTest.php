@@ -17,6 +17,7 @@ use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -27,6 +28,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class OrderTest extends UnitTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Order
      */

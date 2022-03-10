@@ -15,6 +15,7 @@ use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\ReserveService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -22,6 +23,8 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var string[]
      */
@@ -79,9 +82,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->standaloneView);
-        unset($this->testDateMidnight);
-        unset($this->testDateAndBegin);
+        unset($this->standaloneView, $this->testDateMidnight, $this->testDateAndBegin);
     }
 
     /**
@@ -105,7 +106,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     public function viewHelperSetsPeriodsAndRendersRemainingParticipants(): void
     {
         $remainingParticipants = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class)->findByUid(1)->getRemainingParticipants();
-        self::assertContains(
+        self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
             $this->standaloneView->render(),
             'ViewHelper renders remaining participants if facility and period date match.'
@@ -118,7 +119,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
         $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
-        self::assertContains(
+        self::assertStringContainsString(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
             'ViewHelper renders info that no period was found.'
@@ -131,7 +132,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
         $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');
-        self::assertContains(
+        self::assertStringContainsString(
             'Test',
             $this->standaloneView->render(),
             'ViewHelper sets periods to custom variable name'
