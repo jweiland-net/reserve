@@ -6,6 +6,36 @@
 Changelog
 =========
 
+Version 2.0.1
+-------------
+
+List of changes ::
+
+   2022-03-11 [BUGFIX] Fix order of periods in list table (Commit 78ed415 by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
+Version 2.0.0
+-------------
+
+List of changes ::
+
+   2022-03-10 [TASK] Fix isBookable() condition, use redirect instead of forward (Commit 952ed9c by Pascal Rinker)
+   2022-03-10 Merge pull request #107 from jweiland-net/typo311 (Commit db041f8 by Pascal Rinker)
+   2022-03-10 [TASK] Fix CheckoutServiceTest (Commit 54df921 by Pascal Rinker)
+   2022-03-10 [TASK] Fix fixture (Commit c508e5e by Pascal Rinker)
+   2022-03-10 [TASK] Remove PHP 7.2 from CI (Commit cf1982d by Pascal Rinker)
+   2022-03-10 [TASK] Check in formAction and createAction if period if bookable (Commit 23e0355 by Pascal Rinker)
+   2022-03-09 [TASK] Use Environent class instead of checking constant (Commit a6f4046 by Pascal Rinker)
+   2022-03-09 [TASK] Add qr-code library to composer.json and fallback without phar, fix tests for v11 (Commit 051f0e1 by Pascal Rinker)
+   2022-03-04 [TASK] Fix tests (Commit e05d5eb by Pascal Rinker)
+   2022-03-04 [TASK] Increase testing framework version (Commit e359301 by Pascal Rinker)
+   2022-03-04 [TASK] Update workflow (Commit 7fda09c by Pascal Rinker)
+   2022-02-11 [TASK] Use new way to register and configure plugin (Commit cb0a3ef by Pascal Rinker)
+   2022-02-11 [TASK] Add TYPO3 v11 compatibility and remove TYPO3 v9 support (Commit 7de6eda by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.2.5
 -------------
 
