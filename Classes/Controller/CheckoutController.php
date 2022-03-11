@@ -79,13 +79,14 @@ class CheckoutController extends ActionController
             $GLOBALS['TSFE']->no_cache = true;
         }
 
-        $this->view->assign('jsConf', [
-            'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
-                + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]], 'order' => [[1, 'asc']]]
-        ]);
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
+        $orderColumnBegin = count($facilities) === 1 ? 0 : 1;
+        $this->view->assign('jsConf', [
+            'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration()
+                + ['searching' => false, 'columnDefs' => [['targets' => 4, 'orderable' => false]], 'order' => [[$orderColumnBegin, 'asc'], [$orderColumnBegin + 1, 'asc']]]
+        ]);
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
     }
 
