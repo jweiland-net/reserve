@@ -27,10 +27,11 @@ class OrderValidator extends AbstractValidator
      */
     protected $dispatcher;
 
-    public function __construct(Dispatcher $dispatcher, array $options = [])
+    public function __construct(array $options = [])
     {
         parent::__construct($options);
-        $this->dispatcher = $dispatcher;
+        // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-92238-ServiceInjectionInExtbaseValidators.html
+        $this->dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
     }
 
     protected function isValid($order): void
