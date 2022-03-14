@@ -23,10 +23,10 @@ call_user_func(static function() {
         'Reserve',
         'Management',
         [
-            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
+            \JWeiland\Reserve\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ],
         [
-            \TYPO3\CMS\Redirects\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
+            \JWeiland\Reserve\Controller\ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan'
         ]
     );
 
