@@ -6,6 +6,15 @@
 Changelog
 =========
 
+Version 2.0.2
+-------------
+
+   2022-03-14 [TASK] Fix injection of dispatcher for v11 (Commit cb556ed by Pascal Rinker)
+   2022-03-14 [TASK] Use di for dispatcher in validator (Commit 63d93ae by Pascal Rinker)
+   2022-03-14 [TASK] Fix ManagementController namespace (Commit 70b543e by Pascal Rinker)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 2.0.1
 -------------
 
