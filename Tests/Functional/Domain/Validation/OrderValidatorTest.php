@@ -14,7 +14,7 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Validation;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Extbase\Error\Result;
@@ -22,12 +22,21 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Validation\Error;
 
 /**
+ * TODO: Rewrite this test to a real functional test!
+ *
  * @testdox The order validator
  * @covers JWeiland\Reserve\Domain\Validator\OrderValidator
  */
-class OrderValidatorTest extends UnitTestCase
+class OrderValidatorTest extends FunctionalTestCase
 {
     use ProphecyTrait;
+
+    /*
+    * @var array
+    */
+    protected $testExtensionsToLoad = [
+        'typo3conf/ext/reserve'
+    ];
 
     /**
      * @test
