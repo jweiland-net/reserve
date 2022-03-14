@@ -27,8 +27,9 @@ class OrderValidator extends AbstractValidator
      */
     protected $dispatcher;
 
-    public function injectDispatcher(Dispatcher $dispatcher): void
+    public function __construct(Dispatcher $dispatcher, array $options = [])
     {
+        parent::__construct($options);
         $this->dispatcher = $dispatcher;
     }
 
