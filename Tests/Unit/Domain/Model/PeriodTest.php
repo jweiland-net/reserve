@@ -478,4 +478,17 @@ class PeriodTest extends UnitTestCase
             $this->subject->getBeginDateAndTime()
         );
     }
+
+    /**
+     * @test
+     */
+    public function getBeginDateAndTimeWithEmptyBeginWillReturnCombinedDateTimeAtMidnight(): void
+    {
+        $this->subject->setDate(new \DateTime('now'));
+
+        self::assertEquals(
+            new \DateTime('now 00:00'),
+            $this->subject->getBeginDateAndTime()
+        );
+    }
 }
