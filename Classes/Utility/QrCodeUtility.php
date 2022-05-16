@@ -30,21 +30,21 @@ class QrCodeUtility
 {
     public static function generateQrCode(Reservation $reservation): QrCode
     {
-        /** @var QrCode $qrCode */
-        $qrCode = GeneralUtility::makeInstance(QrCode::class, $reservation->getCode());
+        $bookedPeriod = $reservation->getCustomerOrder()->getBookedPeriod();
+        $begin = $bookedPeriod->getBegin() instanceof \DateTime ? $bookedPeriod->getBegin()->format('H:i') : '00:00';
 
+        $qrCode = GeneralUtility::makeInstance(QrCode::class, $reservation->getCode());
         $qrCode
             ->setLabel(
                 sprintf(
                     '%s %s %s %s',
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
-                ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
+                    $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
                     strftime(
                         LocalizationUtility::translate('date_format', 'reserve'),
-                        $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
+                        $bookedPeriod->getDate()->getTimestamp()
                     ),
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getEnd() ? (' - ' . $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')) : ''
+                    $begin,
+                    $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
                 ),
                 16,
                 ExtensionManagementUtility::extPath('reserve') . 'Resources/Private/Fonts/noto_sans.otf',
