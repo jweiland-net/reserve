@@ -375,7 +375,9 @@ class Period extends AbstractEntity
     {
         $cacheIdentifier = 'beginDateAndTime';
         if (!array_key_exists($cacheIdentifier, $this->cache)) {
-            $this->cache[$cacheIdentifier] = new \DateTime($this->date->format('m/d/Y') . ' ' . $this->begin->format('H:i'));
+            $date = $this->date->format('m/d/Y');
+            $begin = $this->begin instanceof \DateTime ? $this->begin->format('H:i') : '00:00';
+            $this->cache[$cacheIdentifier] = new \DateTime($date . ' ' . $begin);
         }
         return $this->cache[$cacheIdentifier];
     }
