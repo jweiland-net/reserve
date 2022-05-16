@@ -6,6 +6,15 @@
 Changelog
 =========
 
+Version 1.2.7
+-------------
+
+List of changes ::
+
+   2022-05-16 Check date for DateTime before calling format() (Commit fdde07a by Stefan Froemken)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.2.6
 -------------
 
