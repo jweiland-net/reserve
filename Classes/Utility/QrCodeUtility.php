@@ -30,24 +30,27 @@ class QrCodeUtility
 {
     public static function generateQrCode(Reservation $reservation): ResultInterface
     {
+        $bookedPeriod = $reservation->getCustomerOrder()->getBookedPeriod();
+        $begin = $bookedPeriod->getBegin() instanceof \DateTime ? $bookedPeriod->getBegin()->format('H:i') : '00:00';
+
         $builder = Builder::create()
             ->data($reservation->getCode())
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->labelText(sprintf(
                 '%s %s %s %s',
-                $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getShortName()
-                    ?: $reservation->getCustomerOrder()->getBookedPeriod()->getFacility()->getName(),
+                $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
                 strftime(
                     LocalizationUtility::translate('date_format', 'reserve'),
-                    $reservation->getCustomerOrder()->getBookedPeriod()->getDate()->getTimestamp()
+                    $bookedPeriod->getDate()->getTimestamp()
                 ),
-                $reservation->getCustomerOrder()->getBookedPeriod()->getBegin()->format('H:i'),
-                $reservation->getCustomerOrder()->getBookedPeriod()->getEnd() ? (' - ' . $reservation->getCustomerOrder()->getBookedPeriod()->getEnd()->format('H:i')) : ''
+                $begin,
+                $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
             ))
             ->labelAlignment(new LabelAlignmentCenter());
 
-        static::applyQrCodeSettingsFromFacility($builder, $reservation->getCustomerOrder()->getBookedPeriod()->getFacility());
+        static::applyQrCodeSettingsFromFacility($builder, $bookedPeriod->getFacility());
+
         return $builder->build();
     }
 
