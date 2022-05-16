@@ -6,6 +6,16 @@
 Changelog
 =========
 
+Version 1.2.6
+-------------
+
+List of changes ::
+
+   2022-05-16 Add Test for empty begin in period model (Commit b1ac69b by Stefan Froemken)
+   2022-05-16 Check date for DateTime before calling format() (Commit defaa90 by Stefan Froemken)
+
+This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
+
 Version 1.2.5
 -------------
 
