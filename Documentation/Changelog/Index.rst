@@ -6,6 +6,15 @@
 Changelog
 =========
 
+Version 2.0.3
+-------------
+
+2022-05-16 Check date for DateTime before calling format() (Commit 9243ba3 by Stefan Froemken)
+2022-05-16 Add Test for empty begin in period model (Commit 7a0abe6 by Stefan Froemken)
+2022-05-16 Check date for DateTime before calling format() (Commit 03987e9 by Stefan Froemken)
+2022-05-16 Remove .DS_Store files (Commit 74f97ac by Stefan Froemken)
+2022-03-15 [TASK] Remove strict type from Order::getParticipants (Commit aa773e4 by Pascal Rinker)
+
 Version 2.0.2
 -------------
 
