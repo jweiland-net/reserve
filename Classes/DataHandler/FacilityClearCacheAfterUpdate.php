@@ -47,7 +47,7 @@ class FacilityClearCacheAfterUpdate
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {
                 if (is_int($uid) && !empty($row['name'])) {
                     // only call this method if current facility isn't new, hidden or deleted!
-                    $this->clearPageCacheAndAddFacilityName($uid, $row['name']);
+                    $this->clearPageCacheAndAddFacilityName($uid);
                 }
             }
         } elseif (array_key_exists('tx_reserve_domain_model_order', $dataHandler->datamap)) {
@@ -64,7 +64,7 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_period', $dataHandler->datamap)) {
             /** @var QueryBuilder $queryBuilder */
@@ -79,7 +79,7 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_reservation', $dataHandler->datamap)) {
             /** @var QueryBuilder $queryBuilder */
@@ -96,7 +96,7 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         }
         if (!empty($this->facilityNames)) {
@@ -125,9 +125,8 @@ class FacilityClearCacheAfterUpdate
         return $ids;
     }
 
-    protected function clearPageCacheAndAddFacilityName(int $uid, string $name): void
+    protected function clearPageCacheAndAddFacilityName(int $uid): void
     {
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($uid);
-        $facilityNames[] = $name;
     }
 }
