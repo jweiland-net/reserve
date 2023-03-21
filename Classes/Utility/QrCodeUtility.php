@@ -31,37 +31,45 @@ class QrCodeUtility
     public static function generateQrCode(Reservation $reservation): ResultInterface
     {
         $bookedPeriod = $reservation->getCustomerOrder()->getBookedPeriod();
-        $begin = $bookedPeriod->getBegin() instanceof \DateTime ? $bookedPeriod->getBegin()->format('H:i') : '00:00';
+        $begin = $bookedPeriod->getBegin() instanceof \DateTime
+            ? $bookedPeriod->getBegin()->format('H:i')
+            : '00:00';
 
         $builder = Builder::create()
             ->data($reservation->getCode())
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-            ->labelText(sprintf(
-                '%s %s %s %s',
-                $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
-                strftime(
-                    LocalizationUtility::translate('date_format', 'reserve'),
-                    $bookedPeriod->getDate()->getTimestamp()
-                ),
-                $begin,
-                $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
-            ))
+            ->labelText(
+                sprintf(
+                    '%s %s %s %s',
+                    $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
+                    strftime(
+                        LocalizationUtility::translate('date_format', 'reserve'),
+                        $bookedPeriod->getDate()->getTimestamp()
+                    ),
+                    $begin,
+                    $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
+                )
+            )
             ->labelAlignment(new LabelAlignmentCenter());
 
-        static::applyQrCodeSettingsFromFacility($builder, $bookedPeriod->getFacility());
+        self::applyQrCodeSettingsFromFacility($builder, $bookedPeriod->getFacility());
 
         return $builder->build();
     }
 
     protected static function applyQrCodeSettingsFromFacility(BuilderInterface $builder, Facility $facility): void
     {
-        $builder
-            ->labelFont(new NotoSans($facility->getQrCodeLabelSize()));
+        $builder->labelFont(new NotoSans($facility->getQrCodeLabelSize()));
 
         if ($facility->getQrCodeLogo()->count()) {
+            $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
             $builder
-                ->logoPath(GeneralUtility::getFileAbsFileName(current($facility->getQrCodeLogo()->toArray())->getOriginalResource()->getPublicUrl()))
+                ->logoPath(
+                    GeneralUtility::getFileAbsFileName(
+                        $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
+                    )
+                )
                 ->logoResizeToWidth($facility->getQrCodeLogoWidth());
         }
     }

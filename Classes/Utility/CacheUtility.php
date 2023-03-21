@@ -11,15 +11,18 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Utility;
 
+use JWeiland\Reserve\Utility\Traits\TypoScriptFrontenendTrait;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Utility class for caching methods
  */
-class CacheUtility extends AbstractUtility
+class CacheUtility
 {
-    const FACILITY_CACHE_IDENTIFIER = 'tx_reserve_facility_';
+    use TypoScriptFrontenendTrait;
+
+    private const FACILITY_CACHE_IDENTIFIER = 'tx_reserve_facility_';
 
     public static function addFacilityToCurrentPageCacheTags(int $facilityUid): void
     {
@@ -28,6 +31,11 @@ class CacheUtility extends AbstractUtility
 
     public static function clearPageCachesForPagesWithCurrentFacility(int $facilityUid): void
     {
-        GeneralUtility::makeInstance(CacheManager::class)->flushCachesByTag(static::FACILITY_CACHE_IDENTIFIER . $facilityUid);
+        self::getCacheManager()->flushCachesByTag(static::FACILITY_CACHE_IDENTIFIER . $facilityUid);
+    }
+
+    private static function getCacheManager(): CacheManager
+    {
+        return GeneralUtility::makeInstance(CacheManager::class);
     }
 }
