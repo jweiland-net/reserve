@@ -23,8 +23,6 @@ class CreateForeignTableColumns
 
     /**
      * Add column (selector) to set reserve facility as relation to events2 location
-     *
-     * @return string
      */
     protected function getTableDefinitionForFacilityInEvents2Location(): string
     {
@@ -41,8 +39,6 @@ class CreateForeignTableColumns
 
     /**
      * Add column (checkbox) to event table to define an event as registration required
-     *
-     * @return string
      */
     protected function getTableDefinitionForRegistrationRequiredInEvent(): string
     {
