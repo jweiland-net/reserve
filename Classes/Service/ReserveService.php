@@ -32,9 +32,7 @@ class ReserveService implements SingletonInterface
     }
 
     /**
-     * @param int $facilityUid
      * @param \DateTime $dateTime DateTime that contains the date of field "date" and time of field "begin"
-     * @return array
      */
     public function findPeriodsByDateAndBegin(int $facilityUid, \DateTime $dateTime): array
     {
@@ -42,9 +40,7 @@ class ReserveService implements SingletonInterface
     }
 
     /**
-     * @param int $facilityUid
      * @param \DateTime $dateTimeOfPeriod DateTime that contains the date of field "date" and time of field "begin"
-     * @return int|null
      */
     public function getRemainingParticipants(int $facilityUid, \DateTime $dateTimeOfPeriod): ?int
     {
@@ -53,6 +49,7 @@ class ReserveService implements SingletonInterface
         if ($periods) {
             $remainingParticipants = reset($periods)->getRemainingParticipants();
         }
+
         return $remainingParticipants;
     }
 }
