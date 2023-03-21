@@ -49,7 +49,16 @@ call_user_func(static function () {
             ['source' => 'EXT:reserve/Resources/Public/Icons/' . $identifier . '.svg']
         );
     }
-    unset($icons, $iconRegistry);
+    $iconRegistry->registerIcon(
+        'ext-reserve-wizard-icon',
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:reserve/Resources/Public/Icons/Extension.svg']
+    );
+
+    // Add reserve plugin to new element wizard
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:reserve/Configuration/TSconfig/ContentElementWizard.tsconfig">'
+    );
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][]
         = \JWeiland\Reserve\Hooks\DataHandler::class;
