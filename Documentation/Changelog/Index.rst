@@ -1,13 +1,14 @@
-.. include:: ../Includes.txt
+..  include:: /Includes.rst.txt
 
-.. _changelog:
+
+..  _changelog:
 
 =========
 Changelog
 =========
 
 Version 2.0.3
--------------
+=============
 
 2022-05-16 Check date for DateTime before calling format() (Commit 9243ba3 by Stefan Froemken)
 2022-05-16 Add Test for empty begin in period model (Commit 7a0abe6 by Stefan Froemken)
@@ -16,7 +17,7 @@ Version 2.0.3
 2022-03-15 [TASK] Remove strict type from Order::getParticipants (Commit aa773e4 by Pascal Rinker)
 
 Version 2.0.2
--------------
+=============
 
    2022-03-14 [TASK] Fix injection of dispatcher for v11 (Commit cb556ed by Pascal Rinker)
    2022-03-14 [TASK] Use di for dispatcher in validator (Commit 63d93ae by Pascal Rinker)
@@ -25,16 +26,16 @@ Version 2.0.2
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 2.0.1
--------------
+=============
 
 List of changes ::
 
-   2022-03-11 [BUGFIX] Fix order of periods in list table (Commit 78ed415 by Pascal Rinker)
+    2022-03-11 [BUGFIX] Fix order of periods in list table (Commit 78ed415 by Pascal Rinker)
 
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 2.0.0
--------------
+=============
 
 List of changes ::
 
@@ -55,7 +56,7 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.2.5
--------------
+=============
 
 List of changes ::
 
@@ -64,7 +65,7 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.2.4
--------------
+=============
 
 List of changes ::
 
@@ -74,7 +75,7 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.2.3
--------------
+=============
 
 List of changes ::
 
@@ -83,21 +84,21 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.2.2
--------------
+=============
 
 List of changes ::
 
    2021-11-23 [BUGFIX] Change return type of staticRender back to string in QrCodeViewHelper (Commit by Stefan Froemken)
 
 Version 1.2.1
--------------
+=============
 
 List of changes ::
 
    2021-11-19 [BUGFIX] Allow NULL as return value for getBegin (Commit by Stefan Froemken)
 
 Version 1.2.0
--------------
+=============
 
 The list of changes includes changes before 1.1.1 because it was no TER release.
 
@@ -141,7 +142,7 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.1.1
--------------
+=============
 
 List of changes ::
 
@@ -149,7 +150,7 @@ List of changes ::
 
 
 Version 1.1.0
--------------
+=============
 
 List of changes ::
 
@@ -171,7 +172,7 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 1.0.0
--------------
+=============
 
 List of changes ::
 
@@ -187,11 +188,11 @@ List of changes ::
 This list has been created by using `git log $(git describe --tags --abbrev=0)..HEAD --abbrev-commit --pretty='%ad %s (Commit %h by %an)' --date=short`.
 
 Version 0.0.2
--------------
+=============
 
 Bugfix: Use correct Namespace for QR Controller
 
 Version 0.0.1
--------------
+=============
 
 Initial upload

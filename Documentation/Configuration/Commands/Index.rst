@@ -1,6 +1,7 @@
-.. include:: ../Includes.txt
+..  include:: /Includes.rst.txt
 
-.. _commands:
+
+..  _commands:
 
 =================================
 Automation using symfony commands

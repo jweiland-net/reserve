@@ -1,6 +1,7 @@
-.. include:: ../Includes.txt
+..  include:: /Includes.rst.txt
 
-.. _introduction:
+
+..  _introduction:
 
 ============
 Introduction
@@ -13,33 +14,33 @@ Frontend screenshots
 =====================
 
 Choose a period
-^^^^^^^^^^^^^^^^
+---------------
 
-.. figure:: ../Images/FacilityPeriods.png
-   :class: with-shadow
-   :alt: Period list
-   :width: 500px
+..  figure:: ../Images/FacilityPeriods.png
+    :class: with-shadow
+    :alt: Period list
+    :width: 500px
 
 Enter your personal information for your reservation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------------
 
-.. figure:: ../Images/TicketReservationForm.png
-   :class: with-shadow
-   :alt: Reservation form
-   :width: 500px
+..  figure:: ../Images/TicketReservationForm.png
+    :class: with-shadow
+    :alt: Reservation form
+    :width: 500px
 
 Confirm the reservation using the link in the confirmation mail
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------------------------------
 
-.. figure:: ../Images/ConfirmationMail.png
-   :class: with-shadow
-   :alt: Confirmation mail
-   :width: 300px
+..  figure:: ../Images/ConfirmationMail.png
+    :class: with-shadow
+    :alt: Confirmation mail
+    :width: 300px
 
 Print out the QR Code or use your smartphone and show the mail at the events entrance to scan the code
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------------------------------------------------------------------
 
-.. figure:: ../Images/ReservationConfirmed.png
-   :class: with-shadow
-   :alt: Reservation confirmed screen
-   :width: 500px
+..  figure:: ../Images/ReservationConfirmed.png
+    :class: with-shadow
+    :alt: Reservation confirmed screen
+    :width: 500px

@@ -1,66 +1,59 @@
-.. every .rst file should include Includes.txt
-.. use correct path!
+..  include:: /Includes.rst.txt
 
-.. include:: Includes.txt
-
-.. Every manual should have a start label for cross-referencing to
-.. start page. Do not remove this!
 
 .. _start:
 
-=============================================================
-reserve
-=============================================================
+=======
+Reserve
+=======
+
+:Extension key:
+    reserve
+
+:Package name:
+    jweiland/reserve
 
 :Version:
-   |release|
+    |release|
 
 :Language:
-   en
+    en
 
-:Authors:
-   Pascal Rinker
-
-:Email:
-   projects@jweiland.net
+:Author:
+    Stefan Froemken
 
 :License:
-   This extension documentation is published under the
-   `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons)
-   license
+    This document is published under the
+    `Creative Commons BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`__
+    license.
 
-The extension reserve allows you to reserve tickets for one or more persons using a period table and a form.
-Each reservation has it's own QR Code that can be scanned at the event.
+:Rendered:
+    |today|
 
-**TYPO3**
+----
 
-The content of this document is related to TYPO3 CMS,
-a GNU/GPL CMS/Framework available from `typo3.org <https://typo3.org/>`_ .
+The extension reserve allows you to reserve tickets for one or more persons
+using a period table and a form. Each reservation has it's own QR Code that can
+be scanned at the event.
 
-**Community Documentation**
+----
 
-This documentation is community documentation for the TYPO3 extension reserve.
+**Table of Contents:**
 
-It is maintained as part of this third party extension.
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
 
-If you find an error or something is missing, please:
-`Report a Problem <https://github.com/jweiland-net/reserve/issues/new>`__
+    Introduction/Index
+    Installation/Index
+    Configuration/Index
+    Extend reserve/Index
+    Changelog/Index
 
-**Extension Manual**
+..  Meta Menu
 
-This documentation is for the TYPO3 extension reserve.
+..  toctree::
+    :hidden:
 
-**For Contributors**
-
-You are welcome to help improve this guide.
-Just click on "Edit me on GitHub" on the top right to submit your change request.
-
-.. toctree::
-   :maxdepth: 3
-
-   Introduction/Index
-   Installation/Index
-   Configuration/Index
-   Extend reserve/Index
-   Changelog/Index
-   Sitemap
+    Sitemap
+    genindex
