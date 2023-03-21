@@ -81,7 +81,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkoutPersistsNewOrderIntoDatabase()
+    public function checkoutPersistsNewOrderIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
@@ -106,7 +106,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkoutPersistsMultipleReservationsIntoDatabase()
+    public function checkoutPersistsMultipleReservationsIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         /** @var Period $period */
@@ -144,7 +144,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkoutDoesNotPersistBecauseTooMuchParticipants()
+    public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
@@ -178,7 +178,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function sendConfirmationMailSendsMailWithActivationLinks()
+    public function sendConfirmationMailSendsMailWithActivationLinks(): void
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 
@@ -208,7 +208,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function confirmActivatesOrderAndSendsReservationMail()
+    public function confirmActivatesOrderAndSendsReservationMail(): void
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 

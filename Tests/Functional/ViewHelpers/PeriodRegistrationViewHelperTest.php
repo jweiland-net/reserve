@@ -30,7 +30,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
      */
     protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
 
-    const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
+    private const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 
     /**
      * @var StandaloneView
@@ -82,7 +82,13 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->standaloneView, $this->testDateMidnight, $this->testDateAndBegin);
+        unset(
+            $this->standaloneView,
+            $this->testDateMidnight,
+            $this->testDateAndBegin
+        );
+
+        parent::tearDown();
     }
 
     /**
