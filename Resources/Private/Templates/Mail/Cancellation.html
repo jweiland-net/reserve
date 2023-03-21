@@ -1,4 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:comment><!--
 The rendered content of this template will be used as cancellation mail for multiple reasons. Please make sure
 to check the reason using if conditions or a switch case!
@@ -6,16 +9,25 @@ to check the reason using if conditions or a switch case!
 Variables:
 order: Current order
 reason: The reason why the cancellation mail will be sent. Possible Values:
-				inactive = The order has not been activated in a given period of time {expirationTime}
-				customer = The customer cancelled the order using the link in the confirmation mail
+        inactive = The order has not been activated in a given period of time {expirationTime}
+        customer = The customer cancelled the order using the link in the confirmation mail
 expirationTime: Will only be set if reason equals "inactive" and contains the expiration time in seconds.
 --></f:comment>
-<p><f:translate extensionName="reserve" key="mail.salutation" arguments="{0: order.first_name, 1: order.last_name}" /></p>
+
+<p>
+    <f:translate extensionName="reserve"
+                 key="mail.salutation"
+                 arguments="{0: order.first_name, 1: order.last_name}"/>
+</p>
 <p></p>
 <f:if condition="{reason} === 'inactive'">
-	<f:translate extensionName="reserve" key="mail.cancellation.inactive" arguments="{0: order.bookedPeriod.facility.name, 1: '{expirationTime / 60}'}" />
+    <f:translate extensionName="reserve"
+                 key="mail.cancellation.inactive"
+                 arguments="{0: order.bookedPeriod.facility.name, 1: '{expirationTime / 60}'}"/>
 </f:if>
 <f:if condition="{reason} === 'customer'">
-	<f:translate extensionName="reserve" key="mail.cancellation.customer" arguments="{0: order.bookedPeriod.facility.name}" />
+    <f:translate extensionName="reserve"
+                 key="mail.cancellation.customer"
+                 arguments="{0: order.bookedPeriod.facility.name}"/>
 </f:if>
 </html>

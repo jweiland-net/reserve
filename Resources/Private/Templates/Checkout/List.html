@@ -1,77 +1,107 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Default" />
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
 <f:section name="Main">
-	<f:variable name="countFacilities">{facilities -> f:count()}</f:variable>
-	<div id="reserve-conf" data-conf="{jsConf -> f:format.json()}"></div>
+    <f:variable name="countFacilities">{facilities -> f:count()}</f:variable>
+    <div id="reserve-conf" data-conf="{jsConf -> f:format.json()}"></div>
 
-	<h2><f:for each="{facilities}" as="facility" iteration="iterator">{facility.name}{f:if(condition: '!{iterator.isLast}', then: ', ')}</f:for></h2>
+    <h2>
+        <f:for each="{facilities}"
+               as="facility"
+               iteration="iterator">
+            {facility.name}{f:if(condition: '!{iterator.isLast}', then: ', ')}
+        </f:for>
+    </h2>
 
-	<table id="datatable" class="table table-responsive tx-reserve-periods">
-		<thead>
-		<tr>
-			<f:if condition="{countFacilities} > 1"><th><f:translate key="list.facility" /></th></f:if>
-			<th><f:translate key="list.date" /></th>
-			<th><f:translate key="list.begin" /></th>
-			<th><f:translate key="list.end" /></th>
-			<th><f:translate key="list.free_slots" /></th>
-			<th><f:translate key="list.action" /></th>
-		</tr>
-		</thead>
-		<tbody>
-		<f:for each="{periods}" as="period">
-			<tr>
-				<f:if condition="{countFacilities} > 1"><td>{period.facility.name}</td></f:if>
-				<td data-order="{period.date.timestamp}"><f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date></td>
-				<td>
-					<f:if condition="{period.begin}">
-						<f:then>
-							<f:format.date format="H:i">{period.begin}</f:format.date>
-						</f:then>
-						<f:else>
-							00:00
-						</f:else>
-					</f:if>
-				</td>
-				<td>
-					<f:if condition="{period.end}">
-						<f:then>
-							<f:format.date format="H:i">{period.end}</f:format.date>
-						</f:then>
-						<f:else>
-							<f:translate key="period.openEnd" />
-						</f:else>
-					</f:if>
-				</td>
-				<td>{period.remainingParticipants}</td>
-				<td>
-					<f:if condition="{period.isBookable}">
-						<f:then>
-							<f:if condition="{period.remainingParticipants} > 0">
-								<f:then>
-									<f:link.action action="form" arguments="{period: period}">
-										<f:translate key="list.choose_this_period" />
-									</f:link.action>
-								</f:then>
-								<f:else>
-									<f:translate key="list.no_more_tickets" />
-								</f:else>
-							</f:if>
-						</f:then>
-						<f:else>
-							<f:if condition="{period.isBookingBeginReached} === false">
-								<f:then>
-									<f:translate key="list.bookable_from" arguments="{0: '{f:format.date(date: period.bookingBegin, format: \'d.m.Y H:i\' )}'}" />
-								</f:then>
-								<f:else>
-									<f:translate key="list.no_more_tickets" />
-								</f:else>
-							</f:if>
-						</f:else>
-					</f:if>
-				</td>
-			</tr>
-		</f:for>
-		</tbody>
-	</table>
+    <table id="datatable" class="table table-responsive tx-reserve-periods">
+        <thead>
+        <tr>
+            <f:if condition="{countFacilities} > 1">
+                <th>
+                    <f:translate key="list.facility"/>
+                </th>
+            </f:if>
+            <th>
+                <f:translate key="list.date"/>
+            </th>
+            <th>
+                <f:translate key="list.begin"/>
+            </th>
+            <th>
+                <f:translate key="list.end"/>
+            </th>
+            <th>
+                <f:translate key="list.free_slots"/>
+            </th>
+            <th>
+                <f:translate key="list.action"/>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <f:for each="{periods}" as="period">
+            <tr>
+                <f:if condition="{countFacilities} > 1">
+                    <td>{period.facility.name}</td>
+                </f:if>
+                <td data-order="{period.date.timestamp}">
+                    <f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date>
+                </td>
+                <td>
+                    <f:if condition="{period.begin}">
+                        <f:then>
+                            <f:format.date format="H:i">{period.begin}</f:format.date>
+                        </f:then>
+                        <f:else>
+                            00:00
+                        </f:else>
+                    </f:if>
+                </td>
+                <td>
+                    <f:if condition="{period.end}">
+                        <f:then>
+                            <f:format.date format="H:i">{period.end}</f:format.date>
+                        </f:then>
+                        <f:else>
+                            <f:translate key="period.openEnd"/>
+                        </f:else>
+                    </f:if>
+                </td>
+                <td>{period.remainingParticipants}</td>
+                <td>
+                    <f:if condition="{period.isBookable}">
+                        <f:then>
+                            <f:if condition="{period.remainingParticipants} > 0">
+                                <f:then>
+                                    <f:link.action action="form" arguments="{period: period}">
+                                        <f:translate key="list.choose_this_period"/>
+                                    </f:link.action>
+                                </f:then>
+                                <f:else>
+                                    <f:translate key="list.no_more_tickets"/>
+                                </f:else>
+                            </f:if>
+                        </f:then>
+                        <f:else>
+                            <f:if condition="{period.isBookingBeginReached} === false">
+                                <f:then>
+                                    <f:translate key="list.bookable_from"
+                                                 arguments="{0: '{f:format.date(date: period.bookingBegin, format: \'d.m.Y H:i\' )}'}"/>
+                                </f:then>
+                                <f:else>
+                                    <f:translate key="list.no_more_tickets"/>
+                                </f:else>
+                            </f:if>
+                        </f:else>
+                    </f:if>
+                </td>
+            </tr>
+        </f:for>
+        </tbody>
+    </table>
 </f:section>
 </html>

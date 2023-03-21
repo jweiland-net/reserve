@@ -1,104 +1,142 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-			xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:layout name="Default"/>
+
 <f:section name="Main">
-	<f:form action="create" name="order" object="{order}">
-		<h2>
-			<f:translate key="form.order.header" arguments="{0: order.bookedPeriod.facility.name}"/>
-		</h2>
-		<p>
-			<f:translate key="form.order.description" arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:if(condition: order.bookedPeriod.end, then: \'{f:format.date(date: order.bookedPeriod.end, format: \\\'H:i\\\')}\', else: \'{f:translate(key: \\\'period.openEnd\\\')}\')}'}"/>
-		</p>
+    <f:form action="create" name="order" object="{order}">
+        <h2>
+            <f:translate key="form.order.header" arguments="{0: order.bookedPeriod.facility.name}"/>
+        </h2>
+        <p>
+            <f:translate key="form.order.description"
+                         arguments="{0: '{f:format.date(date: order.bookedPeriod.date, format: \'{f:translate(key: \\\'date_format\\\')}\')}', 1: '{f:format.date(date: order.bookedPeriod.begin, format: \'H:i\')}', 2: '{f:if(condition: order.bookedPeriod.end, then: \'{f:format.date(date: order.bookedPeriod.end, format: \\\'H:i\\\')}\', else: \'{f:translate(key: \\\'period.openEnd\\\')}\')}'}"/>
+        </p>
 
-		<f:form.hidden property="bookedPeriod"/>
+        <f:form.hidden property="bookedPeriod"/>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="lastName">
-			<label for="lastName">
-				<f:translate key="form.order.lastName"/>
-			</label>
-			<f:form.textfield id="lastName" property="lastName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'lastName', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="lastName">
+            <label for="lastName">
+                <f:translate key="form.order.lastName"/>
+            </label>
+            <f:form.textfield id="lastName"
+                              property="lastName"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'lastName', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<label for="firstName">
-			<f:translate key="form.order.firstName"/>
-		</label>
-		<f:form.textfield id="firstName" property="firstName" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'firstName', then: 'true', else: 'false')}"/>
+        <label for="firstName">
+            <f:translate key="form.order.firstName"/>
+        </label>
+        <f:form.textfield id="firstName"
+                          property="firstName"
+                          required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'firstName', then: 'true', else: 'false')}"/>
 
-		<label for="email">
-			<f:translate key="form.order.email"/>
-		</label>
-		<f:form.textfield id="email" type="email" property="email" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'email', then: 'true', else: 'false')}"/>
+        <label for="email">
+            <f:translate key="form.order.email"/>
+        </label>
+        <f:form.textfield id="email"
+                          type="email"
+                          property="email"
+                          required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'email', then: 'true', else: 'false')}"/>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="phone">
-			<label for="phone">
-				<f:translate key="form.order.phone"/>
-			</label>
-			<f:form.textfield id="phone" type="phone" property="phone" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'phone', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="phone">
+            <label for="phone">
+                <f:translate key="form.order.phone"/>
+            </label>
+            <f:form.textfield id="phone"
+                              type="phone"
+                              property="phone"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'phone', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="address">
-			<label for="address">
-				<f:translate key="form.order.address"/>
-			</label>
-			<f:form.textfield id="address" type="input" property="address" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'address', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="address">
+            <label for="address">
+                <f:translate key="form.order.address"/>
+            </label>
+            <f:form.textfield id="address"
+                              type="input"
+                              property="address"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'address', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="zip">
-			<label for="zip">
-				<f:translate key="form.order.zip"/>
-			</label>
-			<f:form.textfield id="zip" type="input" property="zip" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'zip', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="zip">
+            <label for="zip">
+                <f:translate key="form.order.zip"/>
+            </label>
+            <f:form.textfield id="zip"
+                              type="input"
+                              property="zip"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'zip', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="city">
-			<label for="city">
-				<f:translate key="form.order.city"/>
-			</label>
-			<f:form.textfield id="city" type="input" property="city" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'city', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="city">
+            <label for="city">
+                <f:translate key="form.order.city"/>
+            </label>
+            <f:form.textfield id="city"
+                              type="input"
+                              property="city"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'city', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="organization">
-			<label for="organization">
-				<f:translate key="form.order.organization"/>
-			</label>
-			<f:form.textfield id="organization" type="input" property="organization" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'organization', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="organization">
+            <label for="organization">
+                <f:translate key="form.order.organization"/>
+            </label>
+            <f:form.textfield id="organization"
+                              type="input"
+                              property="organization"
+                              required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'organization', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="remarks">
-			<label for="remarks">
-				<f:translate key="form.order.remarks"/>
-			</label>
-			<f:form.textarea id="remarks" property="remarks" required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'remarks', then: 'true', else: 'false')}"/>
-		</jw:ifStringInCommaSeparatedList>
+        <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="remarks">
+            <label for="remarks">
+                <f:translate key="form.order.remarks"/>
+            </label>
+            <f:form.textarea id="remarks"
+                             property="remarks"
+                             required="{jw:ifStringInCommaSeparatedList(haystack: settings.requiredFormFields, needle: 'remarks', then: 'true', else: 'false')}"/>
+        </jw:ifStringInCommaSeparatedList>
 
-		<f:if condition="{settings.showFieldsForFurtherParticipants}">
-			<f:then>
-				<p><f:translate key="form.order.furtherParticipants"/>:</p>
-				<f:for each="{order.bookedPeriod.maxFurtherParticipantsPerOrderIterable}" as="participantPosition">
-					<jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="lastName">
-						<label for="lastName{participantPosition}">
-							<f:translate key="form.order.participants.lastName" arguments="{0: participantPosition}"/>
-						</label>
-						<f:form.textfield id="lastName{participantPosition}" property="participants.{participantPosition}.lastName"/>
-					</jw:ifStringInCommaSeparatedList>
+        <f:if condition="{settings.showFieldsForFurtherParticipants}">
+            <f:then>
+                <p>
+                    <f:translate key="form.order.furtherParticipants"/>
+                    :
+                </p>
+                <f:for each="{order.bookedPeriod.maxFurtherParticipantsPerOrderIterable}" as="participantPosition">
+                    <jw:ifStringInCommaSeparatedList haystack="{settings.mainFields}" needle="lastName">
+                        <label for="lastName{participantPosition}">
+                            <f:translate key="form.order.participants.lastName" arguments="{0: participantPosition}"/>
+                        </label>
+                        <f:form.textfield id="lastName{participantPosition}"
+                                          property="participants.{participantPosition}.lastName"/>
+                    </jw:ifStringInCommaSeparatedList>
 
-					<label for="firstName{participantPosition}">
-						<f:translate key="form.order.participants.firstName" arguments="{0: participantPosition}"/>
-					</label>
-					<f:form.textfield id="firstName{participantPosition}" property="participants.{participantPosition}.firstName"/>
-				</f:for>
-			</f:then>
-			<f:else>
-				<label for="furtherParticipants">
-					<f:translate key="form.order.furtherParticipants"/>
-				</label>
-				<f:form.textfield id="furtherParticipants" name="furtherParticipants" type="number" additionalAttributes="{min: 0, max: '{order.bookedPeriod.maxParticipantsPerOrder - 1}', required: 'required'}" value="0"/>
-			</f:else>
-		</f:if>
+                    <label for="firstName{participantPosition}">
+                        <f:translate key="form.order.participants.firstName" arguments="{0: participantPosition}"/>
+                    </label>
+                    <f:form.textfield id="firstName{participantPosition}"
+                                      property="participants.{participantPosition}.firstName"/>
+                </f:for>
+            </f:then>
+            <f:else>
+                <label for="furtherParticipants">
+                    <f:translate key="form.order.furtherParticipants"/>
+                </label>
+                <f:form.textfield id="furtherParticipants"
+                                  name="furtherParticipants"
+                                  type="number"
+                                  additionalAttributes="{min: 0, max: '{order.bookedPeriod.maxParticipantsPerOrder - 1}', required: 'required'}"
+                                  value="0"/>
+            </f:else>
+        </f:if>
 
-		<div>
-			<f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}"/>
-		</div>
-	</f:form>
+        <div>
+            <f:form.submit class="powermail_submit" value="{f:translate(key: 'form.order.submit')}"/>
+        </div>
+    </f:form>
 </f:section>
 </html>

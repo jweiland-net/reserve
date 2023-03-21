@@ -1,36 +1,74 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Management" />
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Management"/>
+
 <f:section name="Main">
-	<table id="datatable" class="table table-responsive">
-		<thead>
-			<tr>
-				<th><f:translate key="list.date" /></th>
-				<th><f:translate key="list.begin" /></th>
-				<th><f:translate key="list.end" /></th>
-				<th><f:translate key="list.participants" /></th>
-				<th><f:translate key="list.action" /></th>
-			</tr>
-		</thead>
-		<tbody>
-			<f:for each="{periods}" as="period">
-				<tr>
-					<td data-sort="{period.date.timestamp}"><f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date></td>
-					<td><f:format.date format="H:i">{period.begin}</f:format.date></td>
-					<td><f:if condition="{period.end}"><f:then><f:format.date format="H:i">{period.end}</f:format.date></f:then><f:else><f:translate key="period.openEnd" /></f:else></f:if></td>
-					<td>{period.countActiveReservations} <f:translate key="of" /> {period.maxParticipants}</td>
-					<f:if condition="{period.countActiveReservations}">
-						<f:then>
-							<td>
-								<f:link.action action="scanner" arguments="{period: period}">Scanner</f:link.action>&nbsp;<f:link.action action="period" arguments="{period: period}"><f:translate key="list" /></f:link.action>&nbsp;<f:link.action action="periodsOnSameDay" arguments="{period: period}"><f:translate key="day_list" /></f:link.action>
-							</td>
-						</f:then>
-						<f:else>
-							<td>-</td>
-						</f:else>
-					</f:if>
-				</tr>
-			</f:for>
-		</tbody>
-	</table>
+    <table id="datatable" class="table table-responsive">
+        <thead>
+        <tr>
+            <th>
+                <f:translate key="list.date"/>
+            </th>
+            <th>
+                <f:translate key="list.begin"/>
+            </th>
+            <th>
+                <f:translate key="list.end"/>
+            </th>
+            <th>
+                <f:translate key="list.participants"/>
+            </th>
+            <th>
+                <f:translate key="list.action"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <f:for each="{periods}" as="period">
+            <tr>
+                <td data-sort="{period.date.timestamp}">
+                    <f:format.date format="{f:translate(key: 'date_format')}">{period.date}</f:format.date>
+                </td>
+                <td>
+                    <f:format.date format="H:i">{period.begin}</f:format.date>
+                </td>
+                <td>
+                    <f:if condition="{period.end}">
+                        <f:then>
+                            <f:format.date format="H:i">{period.end}</f:format.date>
+                        </f:then>
+                        <f:else>
+                            <f:translate key="period.openEnd"/>
+                        </f:else>
+                    </f:if>
+                </td>
+                <td>{period.countActiveReservations}
+                    <f:translate key="of"/>
+                    {period.maxParticipants}
+                </td>
+                <f:if condition="{period.countActiveReservations}">
+                    <f:then>
+                        <td>
+                            <f:link.action action="scanner" arguments="{period: period}">
+                                Scanner
+                            </f:link.action>
+                            <f:link.action action="period" arguments="{period: period}">
+                                <f:translate key="list"/>
+                            </f:link.action>
+                            <f:link.action action="periodsOnSameDay" arguments="{period: period}">
+                                <f:translate key="day_list"/>
+                            </f:link.action>
+                        </td>
+                    </f:then>
+                    <f:else>
+                        <td>-</td>
+                    </f:else>
+                </f:if>
+            </tr>
+        </f:for>
+        </tbody>
+    </table>
 </f:section>
 </html>
