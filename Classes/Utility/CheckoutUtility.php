@@ -22,13 +22,16 @@ class CheckoutUtility
 {
     public static function generateActivationCodeForOrder(): string
     {
-        /** @var Random $random */
-        $random = GeneralUtility::makeInstance(Random::class);
-        return $random->generateRandomHexString(16);
+        return self::getRandom()->generateRandomHexString(16);
     }
 
     public static function generateCodeForReservation(): string
     {
         return GeneralUtility::stdAuthCode(StringUtility::getUniqueId(), '', 9);
+    }
+
+    private static function getRandom(): Random
+    {
+        return GeneralUtility::makeInstance(Random::class);
     }
 }
