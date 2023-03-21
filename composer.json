@@ -25,7 +25,6 @@
 		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
 	},
 	"require-dev": {
-		"roave/security-advisories": "dev-latest",
 		"friendsofphp/php-cs-fixer": "^3.14",
 		"nimut/testing-framework": "^6.0",
 		"phpspec/prophecy-phpunit": "^2.0"
