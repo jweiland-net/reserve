@@ -33,13 +33,13 @@ class ManagementController extends ActionController
      */
     private $reservationRepository;
 
-    /**
-     * @param \JWeiland\Reserve\Domain\Repository\PeriodRepository $periodRepository
-     * @param \JWeiland\Reserve\Domain\Repository\ReservationRepository $reservationRepository
-     */
-    public function __construct(PeriodRepository $periodRepository, ReservationRepository $reservationRepository)
+    public function injectPeriodRepository(PeriodRepository $periodRepository): void
     {
         $this->periodRepository = $periodRepository;
+    }
+
+    public function injectReservationRepository(ReservationRepository $reservationRepository): void
+    {
         $this->reservationRepository = $reservationRepository;
     }
 
@@ -52,52 +52,49 @@ class ManagementController extends ActionController
                 'status' => [
                     'code_not_found' => [
                         'title' => LocalizationUtility::translate('scan.status.error.1', 'reserve'),
-                        'message' => LocalizationUtility::translate('code_not_found', 'reserve')
-                    ]
+                        'message' => LocalizationUtility::translate('code_not_found', 'reserve'),
+                    ],
                 ],
                 'close' => LocalizationUtility::translate('close', 'reserve'),
-                'reservations' => LocalizationUtility::translate('reservations', 'reserve')
-            ]
+                'reservations' => LocalizationUtility::translate('reservations', 'reserve'),
+            ],
         ]);
     }
 
     public function overviewAction(): void
     {
-        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids([(int)$this->settings['facility']]));
+        $this->view->assign(
+            'periods',
+            $this->periodRepository->findUpcomingAndRunningByFacilityUids(
+                [(int)$this->settings['facility']]
+            )
+        );
     }
 
-    /**
-     * @param \JWeiland\Reserve\Domain\Model\Period $period
-     */
     public function scannerAction(Period $period): void
     {
         $this->view->assign('period', $period);
     }
 
-    /**
-     * @param \JWeiland\Reserve\Domain\Model\Period $period
-     */
     public function periodAction(Period $period): void
     {
         $this->view->assign('period', $period);
     }
 
-    /**
-     * @param \JWeiland\Reserve\Domain\Model\Period $period
-     */
     public function periodsOnSameDayAction(Period $period): void
     {
-        $this->view->assign('periods', $this->periodRepository->findByDate($period->getDate(), (int)$this->settings['facility']));
+        $this->view->assign(
+            'periods',
+            $this->periodRepository->findByDate(
+                $period->getDate(),
+                (int)$this->settings['facility']
+            )
+        );
     }
 
-    /**
-     * @param \JWeiland\Reserve\Domain\Model\Reservation $reservation
-     * @param bool $entireOrder
-     * @return mixed
-     */
-    public function scanAction(Reservation $reservation, bool $entireOrder = false)
+    public function scanAction(Reservation $reservation, bool $entireOrder = false): string
     {
-        $view = $this->objectManager->get(JsonView::class);
+        $view = GeneralUtility::makeInstance(JsonView::class);
 
         $view->setControllerContext($this->controllerContext);
         $view->setVariablesToRender(['status']);
@@ -122,9 +119,7 @@ class ManagementController extends ActionController
 
         if ($entireOrder) {
             foreach ($reservations as $otherReservations) {
-                if ($entireOrder) {
-                    $otherReservations->setUsed(true);
-                }
+                $otherReservations->setUsed(true);
                 $codes[] = $otherReservations->getCode();
             }
         }
@@ -139,7 +134,7 @@ class ManagementController extends ActionController
                     'error' => $error,
 
                 ],
-                'codes' => $codes
+                'codes' => $codes,
             ]
         );
 
