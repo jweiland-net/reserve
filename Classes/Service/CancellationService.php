@@ -29,8 +29,8 @@ class CancellationService implements SingletonInterface
     /**
      * Reasons for cancellation
      */
-    const REASON_CUSTOMER = 'customer';
-    const REASON_INACTIVE = 'inactive';
+    private const REASON_CUSTOMER = 'customer';
+    public const REASON_INACTIVE = 'inactive';
 
     /**
      * @var PersistenceManager
@@ -49,39 +49,51 @@ class CancellationService implements SingletonInterface
     }
 
     /**
-     * @param Order $order
      * @param string $reason use CancellationService::REASON_ constants or add your own reason
      * @param array $vars additional variables that will be assigned to the fluid template
      * @param bool $sendMailToCustomer set false to cancel the order without sending a mail to the customer
      * @param bool $persist set false to persist the order by yourself using $cancellationService->getPersistenceManager()->persistAll()
      */
-    public function cancel(Order $order, string $reason = self::REASON_CUSTOMER, array $vars = [], bool $sendMailToCustomer = true, bool $persist = true): void
-    {
+    public function cancel(
+        Order $order,
+        string $reason = self::REASON_CUSTOMER,
+        array $vars = [],
+        bool $sendMailToCustomer = true,
+        bool $persist = true
+    ): void {
         $this->persistenceManager->remove($order);
         if ($sendMailToCustomer) {
-            /** @var StandaloneView $standaloneView */
-            $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-            FluidUtility::configureStandaloneViewForMailing($standaloneView);
-            $standaloneView->assignMultiple(['order' => $order, 'reason' => $reason]);
-            $standaloneView->assignMultiple($vars);
-            $standaloneView->setTemplate('Cancellation');
+            $view = $this->getStandaloneView();
+            FluidUtility::configureStandaloneViewForMailing($view);
+            $view->assignMultiple(['order' => $order, 'reason' => $reason]);
+            $view->assignMultiple($vars);
+            $view->setTemplate('Cancellation');
             GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
                 $order,
                 LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                $standaloneView->render()
+                $view->render()
             );
         }
+
         if ($persist) {
             $this->persistenceManager->persistAll();
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
         }
+
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
             $order->getBookedPeriod()->getFacility()->getUid()
         );
     }
 
+    public function getStandaloneView(): StandaloneView
+    {
+        return GeneralUtility::makeInstance(StandaloneView::class);
+    }
+
     /**
-     * @return PersistenceManager
+     * ToDo: SF: This should not be public.
+     * Currently used from RemoveInactiveOrdersCommand
+     * Should be set to private or migrated to Command
      */
     public function getPersistenceManager(): PersistenceManager
     {
