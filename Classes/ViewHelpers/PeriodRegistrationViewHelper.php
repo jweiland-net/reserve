@@ -13,7 +13,6 @@ namespace JWeiland\Reserve\ViewHelpers;
 
 use JWeiland\Reserve\Service\ReserveService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -47,20 +46,31 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
     use CompileWithRenderStatic;
 
     /**
-     * @var ReserveService
-     */
-    protected static $reserveService;
-
-    /**
      * @var bool
      */
     protected $escapeOutput = false;
 
     public function initializeArguments(): void
     {
-        $this->registerArgument('facilityUid', 'int', 'The uid of the facility', true);
-        $this->registerArgument('dateAndBegin', 'int', 'Timestamp of period "date" and "begin".', true);
-        $this->registerArgument('as', 'string', 'Variable name that contains an array with Period objects', false, 'periods');
+        $this->registerArgument(
+            'facilityUid',
+            'int',
+            'The uid of the facility',
+            true
+        );
+        $this->registerArgument(
+            'dateAndBegin',
+            'int',
+            'Timestamp of period "date" and "begin".',
+            true
+        );
+        $this->registerArgument(
+            'as',
+            'string',
+            'Variable name that contains an array with Period objects',
+            false,
+            'periods'
+        );
     }
 
     public static function renderStatic(
@@ -73,13 +83,16 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
 
         $renderingContext->getVariableProvider()->add(
             $arguments['as'],
-            GeneralUtility::makeInstance(ObjectManager::class)
-                ->get(ReserveService::class)
-                ->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
+            self::getReserveService()->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
         );
         $result = $renderChildrenClosure();
         $renderingContext->getVariableProvider()->remove($arguments['as']);
 
         return $result;
+    }
+
+    private static function getReserveService(): ReserveService
+    {
+        return GeneralUtility::makeInstance(ReserveService::class);
     }
 }

@@ -11,25 +11,23 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class FacilityRepository extends Repository
 {
-    /**
-     * @return QueryResultInterface
-     */
     public function findAll(): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
+
         return $query->execute();
     }
 
     /**
      * @param int[] $uids
-     * @return QueryResultInterface
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException
+     * @throws InvalidQueryException
      */
     public function findByUids(array $uids): QueryResultInterface
     {
@@ -37,6 +35,7 @@ class FacilityRepository extends Repository
         $query
             ->getQuerySettings()
             ->setRespectStoragePage(false);
+
         return $query->matching($query->in('uid', $uids))->execute();
     }
 }

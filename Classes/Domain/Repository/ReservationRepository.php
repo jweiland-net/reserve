@@ -16,13 +16,11 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class ReservationRepository extends Repository
 {
-    /**
-     * @return QueryResultInterface
-     */
     public function findAll(): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
+
         return $query->execute();
     }
 }

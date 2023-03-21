@@ -1,8 +1,14 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
 
 <input style="transform: scale(2);" type="checkbox" id="entireOrder" name="entireOrder">
 <label for="entireOrder">{f:translate(key: 'scanEntireOrder')}</label>
-<div id="loadingMessage">🎥 <f:translate key="scanner_unavailable" /></div>
+<div id="loadingMessage">🎥
+    <f:translate key="scanner_unavailable"/>
+</div>
+
 <canvas id="canvas" hidden></canvas>
-<f:render partial="Reservations" arguments="{datatable: 1, reservations: reservations, showAdditionalInformation: 1}" />
+
+<f:render partial="Reservations" arguments="{datatable: 1, reservations: reservations, showAdditionalInformation: 1}"/>
 </html>

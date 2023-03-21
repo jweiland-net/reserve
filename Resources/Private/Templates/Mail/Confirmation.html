@@ -1,4 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:comment><!--
 The rendered content of this template will be used as ###ORDER_DETAILS### marker inside the order confirmation mail.
 
@@ -6,11 +9,22 @@ Variables:
 order: Current order
 pageUid: Page uid which contains the reserve checkout plugin
 --></f:comment>
-<f:render partial="Mail/ReservationDetails" arguments="{order: order}" />
 
-<f:link.action absolute="true" pageUid="{pageUid}" pluginName="Reservation" extensionName="reserve" controller="Checkout" action="confirm" arguments="{email: order.email, activationCode: order.activationCode}"><f:translate extensionName="reserve" key="mail.confirmation.confirm_link_text" /></f:link.action>
+<f:render partial="Mail/ReservationDetails" arguments="{order: order}"/>
 
-<p><f:translate extensionName="reserve" key="mail.confirmation.cancel_notice" /></p>
+<f:link.action absolute="true"
+               pageUid="{pageUid}"
+               pluginName="Reservation"
+               extensionName="reserve"
+               controller="Checkout"
+               action="confirm"
+               arguments="{email: order.email, activationCode: order.activationCode}">
+    <f:translate extensionName="reserve" key="mail.confirmation.confirm_link_text"/>
+</f:link.action>
+
+<p>
+    <f:translate extensionName="reserve" key="mail.confirmation.cancel_notice"/>
+</p>
+
 <f:render partial="Mail/CancelReservationLink" arguments="{pageUid: pageUid, order: order}"/>
-
 </html>

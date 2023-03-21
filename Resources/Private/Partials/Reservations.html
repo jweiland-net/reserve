@@ -1,37 +1,60 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<table data-config="{f:format.json(value: '')}" class="table table-responsive tx-reserve-management" id="{f:if(condition: '{datatable}', then: 'datatable')}">
-	<thead>
-		<tr>
-			<th><f:translate key="form.order.lastName" /></th>
-			<th><f:translate key="form.order.firstName" /></th>
-			<th><f:translate key="list.code" /></th>
-			<th><f:translate key="form.order.email" /></th>
-			<f:if condition="{showAdditionalInformation}">
-				<th><f:translate key="list.action" /></th>
-			</f:if>
-		</tr>
-	</thead>
-	<tbody>
-		<f:for each="{reservations}" as="reservation">
-			<f:if condition="{reservation.customerOrder.activated}">
-				<tr data-code="{reservation.code}">
-					<td>{reservation.customerOrder.lastName}</td>
-					<td>{reservation.customerOrder.firstName}</td>
-					<td>
-						{reservation.code}
-					</td>
-					<td>
-						{reservation.customerOrder.email}
-					</td>
-					<f:if condition="{showAdditionalInformation}">
-						<td>
-							<f:link.action data="{action: 'scan'}" action="scan" arguments="{reservation: reservation}" pageType="1589460150"><f:translate key="redeem" /></f:link.action>
-							<f:link.action data="{scan: 'all'}" action="scan" arguments="{reservation: reservation, entireOrder: 1}" pageType="1589460150" style="display:none">all</f:link.action>
-						</td>
-					</f:if>
-				</tr>
-			</f:if>
-		</f:for>
-	</tbody>
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<table data-config="{f:format.json(value: '')}"
+       class="table table-responsive tx-reserve-management"
+       id="{f:if(condition: '{datatable}', then: 'datatable')}">
+    <thead>
+    <tr>
+        <th>
+            <f:translate key="form.order.lastName"/>
+        </th>
+        <th>
+            <f:translate key="form.order.firstName"/>
+        </th>
+        <th>
+            <f:translate key="list.code"/>
+        </th>
+        <th>
+            <f:translate key="form.order.email"/>
+        </th>
+        <f:if condition="{showAdditionalInformation}">
+            <th>
+                <f:translate key="list.action"/>
+            </th>
+        </f:if>
+    </tr>
+    </thead>
+
+    <tbody>
+    <f:for each="{reservations}" as="reservation">
+        <f:if condition="{reservation.customerOrder.activated}">
+            <tr data-code="{reservation.code}">
+                <td>{reservation.customerOrder.lastName}</td>
+                <td>{reservation.customerOrder.firstName}</td>
+                <td>{reservation.code}</td>
+                <td>{reservation.customerOrder.email}</td>
+                <f:if condition="{showAdditionalInformation}">
+                    <td>
+                        <f:link.action data="{action: 'scan'}"
+                                       action="scan"
+                                       arguments="{reservation: reservation}"
+                                       pageType="1589460150">
+                            <f:translate key="redeem"/>
+                        </f:link.action>
+                        <f:link.action data="{scan: 'all'}"
+                                       action="scan"
+                                       arguments="{reservation: reservation, entireOrder: 1}"
+                                       pageType="1589460150"
+                                       style="display:none">
+                            all
+                        </f:link.action>
+                    </td>
+                </f:if>
+            </tr>
+        </f:if>
+    </f:for>
+    </tbody>
 </table>
 </html>

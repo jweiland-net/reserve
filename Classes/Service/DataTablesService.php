@@ -24,12 +24,19 @@ class DataTablesService
      */
     public function getConfiguration(): array
     {
+        $url = LocalizationUtility::translate('datatables.languageFile', 'reserve');
+        if (empty($url)) {
+            $url = PathUtility::getAbsoluteWebPath(
+                GeneralUtility::getFileAbsFileName(
+                    LocalizationUtility::translate('datatables.languageFile', 'reserve')
+                )
+            );
+        }
+
         return [
             'language' => [
-                'url' => LocalizationUtility::translate('datatables.languageFile', 'reserve')
-                    ? PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName(LocalizationUtility::translate('datatables.languageFile', 'reserve')))
-                    : ''
-            ]
+                'url' => (string)$url,
+            ],
         ];
     }
 }

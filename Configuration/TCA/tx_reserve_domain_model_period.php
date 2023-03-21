@@ -2,7 +2,7 @@
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
-    $localLangGeneral = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
+    $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
 return [
@@ -21,12 +21,34 @@ return [
         'languageField' => 'sys_language_uid',
         'translationSource' => 'l18n_source',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'searchFields' => 'name',
         'typeicon_classes' => [
-            'default' => 'tx_reserve_domain_model_period'
-        ]
+            'default' => 'tx_reserve_domain_model_period',
+        ],
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'facility,--palette--;;date,--palette--;;max_participants,--palette--;;booking_restrictions,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
+        ],
+    ],
+    'palettes' => [
+        'date' => [
+            'showitem' => 'date,begin,end',
+        ],
+        'max_participants' => [
+            'showitem' => 'max_participants,max_participants_per_order',
+        ],
+        'booking_restrictions' => [
+            'showitem' => 'booking_begin,booking_end',
+        ],
+        'hidden' => [
+            'showitem' => 'hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden',
+        ],
+        'language' => [
+            'showitem' => 'sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent',
+        ],
     ],
     'columns' => [
         'hidden' => [
@@ -39,10 +61,10 @@ return [
                     [
                         0 => '',
                         1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'sys_language_uid' => [
             'exclude' => true,
@@ -55,11 +77,11 @@ return [
                     [
                         $localLangGeneral . ':LGL.allLanguages',
                         -1,
-                        'flags-multiple'
+                        'flags-multiple',
                     ],
                 ],
                 'default' => 0,
-            ]
+            ],
         ],
         'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -70,18 +92,18 @@ return [
                 'items' => [
                     [
                         '',
-                        0
-                    ]
+                        0,
+                    ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_period',
                 'foreign_table_where' => 'AND tx_reserve_domain_model_period.pid=###CURRENT_PID### AND tx_reserve_domain_model_period.sys_language_uid IN (-1,0)',
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'l18n_source' => [
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         'facility' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility',
@@ -93,7 +115,7 @@ return [
                 'minitems' => 1,
                 'size' => 1,
                 'default' => 0,
-            ]
+            ],
         ],
         'booking_begin' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_begin',
@@ -147,7 +169,7 @@ return [
                 'size' => 30,
                 'eval' => 'num,required',
                 'range' => [
-                    'lower' => 1
+                    'lower' => 1,
                 ],
             ],
         ],
@@ -158,7 +180,7 @@ return [
                 'size' => 30,
                 'eval' => 'num,required',
                 'range' => [
-                    'lower' => 1
+                    'lower' => 1,
                 ],
             ],
         ],
@@ -174,31 +196,9 @@ return [
                     'expandSingle' => true,
                 ],
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
     ],
-    'types' => [
-        '1' => [
-            'showitem' => 'facility,--palette--;;date,--palette--;;max_participants,--palette--;;booking_restrictions,orders,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
-        ],
-    ],
-    'palettes' => [
-        'date' => [
-            'showitem' => 'date,begin,end'
-        ],
-        'max_participants' => [
-            'showitem' => 'max_participants,max_participants_per_order'
-        ],
-        'booking_restrictions' => [
-            'showitem' => 'booking_begin,booking_end'
-        ],
-        'hidden' => [
-            'showitem' => 'hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden',
-        ],
-        'language' => [
-            'showitem' => 'sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent',
-        ],
-    ]
 ];

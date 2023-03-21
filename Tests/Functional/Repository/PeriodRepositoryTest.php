@@ -53,8 +53,12 @@ class PeriodRepositoryTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->periodRepository);
-        unset($this->testDateMidnight);
+        unset(
+            $this->periodRepository,
+            $this->testDateMidnight
+        );
+
+        parent::tearDown();
     }
 
     /**
@@ -113,7 +117,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         self::assertSame(
             [1, 3, 2],
             array_map(
-                function (Period $period) {
+                static function (Period $period) {
                     return $period->getUid();
                 },
                 $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->toArray()

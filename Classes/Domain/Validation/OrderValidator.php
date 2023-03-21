@@ -22,41 +22,39 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
  */
 class OrderValidator extends AbstractValidator
 {
-    /**
-     * @var Dispatcher
-     */
-    protected $dispatcher;
-
-    public function __construct(array $options = [])
+    protected function isValid($value): void
     {
-        parent::__construct($options);
-        // https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-92238-ServiceInjectionInExtbaseValidators.html
-        $this->dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
-    }
-
-    protected function isValid($order): void
-    {
-        if (!$order instanceof Order) {
-            $this->addError('The given object is not an order!', 1590479923299);
+        if (!$value instanceof Order) {
+            $this->addError('The given object is not an order!', 1679403006);
             return;
         }
-        if (!GeneralUtility::validEmail($order->getEmail())) {
-            $this->addError('The selected email is not valid!', 1590480086004);
+
+        if (!GeneralUtility::validEmail($value->getEmail())) {
+            $this->addError('The selected email is not valid!', 1679403017);
         }
 
-        $this->attachForeignResults($order);
+        $this->attachForeignResults($value);
     }
 
     protected function attachForeignResults(Order $order): void
     {
         $results = new ObjectStorage();
-        // TODO: Add event thats replaces the deprecated signal slot
-        $this->dispatcher->dispatch(__CLASS__, 'validateOrder', [
+        $this->getDispatcher()->dispatch(__CLASS__, 'validateOrder', [
             'order' => $order,
             'errorResults' => $results,
         ]);
+
         foreach ($results as $result) {
             $this->result->merge($result);
         }
+    }
+
+    /**
+     * ToDo: Switch to Symfony Event
+     * SignalSlot will be removed with TYPO3 12.0
+     */
+    protected function getDispatcher(): Dispatcher
+    {
+        return GeneralUtility::makeInstance(Dispatcher::class);
     }
 }

@@ -2,7 +2,7 @@
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
-    $localLangGeneral = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
+    $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
 return [
@@ -21,12 +21,29 @@ return [
         'languageField' => 'sys_language_uid',
         'translationSource' => 'l18n_source',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'searchFields' => 'code',
         'typeicon_classes' => [
-            'default' => 'tx_reserve_domain_model_reservation'
-        ]
+            'default' => 'tx_reserve_domain_model_reservation',
+        ],
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'customer_order,first_name,last_name,code,used,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
+        ],
+    ],
+    'palettes' => [
+        'hidden' => [
+            'showitem' => '
+                hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden
+            ',
+        ],
+        'language' => [
+            'showitem' => '
+                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
+            ',
+        ],
     ],
     'columns' => [
         'hidden' => [
@@ -39,10 +56,10 @@ return [
                     [
                         0 => '',
                         1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'sys_language_uid' => [
             'exclude' => true,
@@ -55,11 +72,11 @@ return [
                     [
                         $localLangGeneral . ':LGL.allLanguages',
                         -1,
-                        'flags-multiple'
+                        'flags-multiple',
                     ],
                 ],
                 'default' => 0,
-            ]
+            ],
         ],
         'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -70,18 +87,18 @@ return [
                 'items' => [
                     [
                         '',
-                        0
-                    ]
+                        0,
+                    ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_reservation',
                 'foreign_table_where' => 'AND tx_reserve_domain_model_reservation.pid=###CURRENT_PID### AND tx_reserve_domain_model_reservation.sys_language_uid IN (-1,0)',
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'l18n_source' => [
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         'customer_order' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.customer_order',
@@ -93,7 +110,7 @@ return [
                 'minitems' => 1,
                 'size' => 1,
                 'default' => 0,
-            ]
+            ],
         ],
         'first_name' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_reservation.first_name',
@@ -127,21 +144,4 @@ return [
             ],
         ],
     ],
-    'types' => [
-        '1' => [
-            'showitem' => 'customer_order,first_name,last_name,code,used,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
-        ],
-    ],
-    'palettes' => [
-        'hidden' => [
-            'showitem' => '
-                hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden
-            ',
-        ],
-        'language' => [
-            'showitem' => '
-                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
-            ',
-        ],
-    ]
 ];

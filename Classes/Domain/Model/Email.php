@@ -16,8 +16,8 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Email extends AbstractEntity
 {
-    const RECEIVER_TYPE_PERIODS = 0;
-    const RECEIVER_TYPE_MANUAL = 1;
+    public const RECEIVER_TYPE_PERIODS = 0;
+    public const RECEIVER_TYPE_MANUAL = 1;
 
     /**
      * @var string
@@ -60,7 +60,7 @@ class Email extends AbstractEntity
     protected $customReceivers = '';
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Period>
+     * @var ObjectStorage<Period>
      */
     protected $periods;
 
@@ -87,40 +87,33 @@ class Email extends AbstractEntity
     }
 
     /**
-     * @return string
+     * Called again with initialize object, as fetching an entity from the DB does not use the constructor
      */
+    public function initializeObject(): void
+    {
+        $this->periods = $this->periods ?? new ObjectStorage();
+    }
+
     public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @param string $subject
-     */
     public function setSubject(string $subject): void
     {
         $this->subject = $subject;
     }
 
-    /**
-     * @return string
-     */
     public function getBody(): string
     {
         return $this->body;
     }
 
-    /**
-     * @param string $body
-     */
     public function setBody(string $body): void
     {
         $this->body = $body;
     }
 
-    /**
-     * @return int
-     */
     public function getReceiverType(): int
     {
         return $this->receiverType;
@@ -134,81 +127,51 @@ class Email extends AbstractEntity
         $this->receiverType = $receiverType;
     }
 
-    /**
-     * @return string
-     */
     public function getFromName(): string
     {
         return $this->fromName;
     }
 
-    /**
-     * @param string $fromName
-     */
     public function setFromName(string $fromName): void
     {
         $this->fromName = $fromName;
     }
 
-    /**
-     * @return string
-     */
     public function getFromEmail(): string
     {
         return $this->fromEmail;
     }
 
-    /**
-     * @param string $fromEmail
-     */
     public function setFromEmail(string $fromEmail): void
     {
         $this->fromEmail = $fromEmail;
     }
 
-    /**
-     * @return string
-     */
     public function getReplyToName(): string
     {
         return $this->replyToName;
     }
 
-    /**
-     * @param string $replyToName
-     */
     public function setReplyToName(string $replyToName): void
     {
         $this->replyToName = $replyToName;
     }
 
-    /**
-     * @return string
-     */
     public function getReplyToEmail(): string
     {
         return $this->replyToEmail;
     }
 
-    /**
-     * @param string $replyToEmail
-     */
     public function setReplyToEmail(string $replyToEmail): void
     {
         $this->replyToEmail = $replyToEmail;
     }
 
-    /**
-     * @return string
-     */
     public function getCustomReceivers(): string
     {
         return $this->customReceivers;
     }
 
-    /**
-     * @param string $customReceivers
-     */
     public function setCustomReceivers(string $customReceivers): void
     {
         $this->customReceivers = $customReceivers;
@@ -222,32 +185,22 @@ class Email extends AbstractEntity
         return $this->periods;
     }
 
-    /**
-     * @param ObjectStorage $periods
-     */
     public function setPeriods(ObjectStorage $periods): void
     {
         $this->periods = $periods;
     }
 
-    /**
-     * @return bool
-     */
     public function isLocked(): bool
     {
         return $this->locked;
     }
 
-    /**
-     * @param bool $locked
-     */
     public function setLocked(bool $locked): void
     {
         $this->locked = $locked;
     }
 
     /**
-     * @return array
      * @internal
      */
     public function getCommandData(): array
@@ -255,11 +208,11 @@ class Email extends AbstractEntity
         if (!$this->commandDataUnserialized) {
             $this->commandDataUnserialized = (array)unserialize($this->commandData, ['allowed_classes' => false]);
         }
+
         return $this->commandDataUnserialized;
     }
 
     /**
-     * @param array $commandData
      * @internal
      */
     public function setCommandData(array $commandData): void
@@ -273,7 +226,6 @@ class Email extends AbstractEntity
      * with all receiver types!
      *
      * @param array|null $orders reference if you need the associated orders if type is RECEIVER_TYPE_PERIODS
-     * @return array
      */
     public function getReceivers(array &$orders = null): array
     {
@@ -282,6 +234,7 @@ class Email extends AbstractEntity
         } else {
             $receivers = explode(',', $this->getCustomReceivers());
         }
+
         return $receivers;
     }
 
@@ -295,10 +248,12 @@ class Email extends AbstractEntity
                     // already processed
                     continue;
                 }
+
                 $emails[$order->getUid()] = $order->getEmail();
                 $orders[$order->getUid()] = $order;
             }
         }
+
         return $emails;
     }
 }

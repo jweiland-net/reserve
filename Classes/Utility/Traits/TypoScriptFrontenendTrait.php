@@ -9,14 +9,14 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Utility;
+namespace JWeiland\Reserve\Utility\Traits;
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * Abstract utility class to be used by other Utility classes of ext:reserve
+ * Trait to add TypoScriptFrontendController into your classes
  */
-abstract class AbstractUtility
+trait TypoScriptFrontenendTrait
 {
     protected static function getTypoScriptFrontendController(): TypoScriptFrontendController
     {

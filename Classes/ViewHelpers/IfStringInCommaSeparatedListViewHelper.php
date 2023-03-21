@@ -18,19 +18,26 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
  */
 class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
 {
-    /**
-     * Initialize arguments
-     */
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerArgument('haystack', 'string', 'The comma separated list to search in', true);
-        $this->registerArgument('needle', 'string', 'The string that you are looking for', true);
+
+        $this->registerArgument(
+            'haystack',
+            'string',
+            'The comma separated list to search in',
+            true
+        );
+        $this->registerArgument(
+            'needle',
+            'string',
+            'The string that you are looking for',
+            true
+        );
     }
 
     /**
      * @param array|null $arguments
-     * @return bool
      */
     protected static function evaluateCondition($arguments = null): bool
     {
