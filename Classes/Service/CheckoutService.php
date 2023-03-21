@@ -37,10 +37,19 @@ class CheckoutService
      */
     protected $configurationManager;
 
-    public function __construct(PersistenceManager $persistenceManager, ConfigurationManager $configurationManager)
-    {
+    /**
+     * @var MailService
+     */
+    protected $mailService;
+
+    public function __construct(
+        PersistenceManager $persistenceManager,
+        ConfigurationManager $configurationManager,
+        MailService $mailService
+    ) {
         $this->persistenceManager = $persistenceManager;
         $this->configurationManager = $configurationManager;
+        $this->mailService = $mailService;
     }
 
     /**
@@ -48,8 +57,6 @@ class CheckoutService
      * Set activation code for $order and all new reservations inside the current $order.
      * Use $order after $checkout to proceed
      *
-     * @param Order $order
-     * @param int $pid
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
@@ -59,84 +66,98 @@ class CheckoutService
         if ($order->canBeBooked() === false) {
             return false;
         }
+
         $order->setPid($pid);
         $order->setActivationCode(CheckoutUtility::generateActivationCodeForOrder());
+
         foreach ($order->getParticipants() as $participant) {
-            /** @var Reservation $reservation */
-            $reservation = GeneralUtility::makeInstance(Reservation::class);
+            $reservation = $this->getEmptyReservation();
             $reservation->setPid($pid);
             $reservation->setCustomerOrder($order);
             $reservation->setLastName($participant->getLastName());
             $reservation->setFirstName($participant->getFirstName());
             $reservation->setCode(CheckoutUtility::generateCodeForReservation());
+
             $order->getReservations()->attach($reservation);
+
             $this->persistenceManager->add($reservation);
+
         }
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
+
         if ($order->shouldBlockFurtherOrdersForFacility()) {
-            OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession($order->getBookedPeriod()->getFacility()->getUid());
+            OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession(
+                $order->getBookedPeriod()->getFacility()->getUid()
+            );
         }
+
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
+
         return true;
     }
 
-    /**
-     * @param Order $order
-     * @param int $furtherParticipants
-     */
     protected function addFurtherParticipantsToOrder(Order $order, int $furtherParticipants): void
     {
-        // the reservation owner
-        $furtherParticipant = GeneralUtility::makeInstance(Participant::class);
+        // The reservation owner
+        $furtherParticipant = $this->getEmptyParticipant();
         $furtherParticipant->setLastName($order->getLastName());
         $furtherParticipant->setFirstName($order->getFirstName());
+
         $order->getParticipants()->attach($furtherParticipant);
 
         // Add further participants if flexform setting "showFieldsForFurtherParticipants" is false (off) and
         // a number field was used for further participants
         for ($i = 0; $i < $furtherParticipants; $i++) {
-            $furtherParticipant = GeneralUtility::makeInstance(Participant::class);
-            $furtherParticipant->setFirstName(LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1));
+            $furtherParticipant = $this->getEmptyParticipant();
+            $furtherParticipant->setFirstName(
+                LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1)
+            );
+
             $order->getParticipants()->attach($furtherParticipant);
         }
     }
 
     public function sendConfirmationMail(Order $order): bool
     {
-        return GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
+        return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
             FluidUtility::replaceMarkerByRenderedTemplate(
                 '###ORDER_DETAILS###',
                 'Confirmation',
                 $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml(),
-                ['pageUid' => $GLOBALS['TSFE']->id, 'order' => $order]
+                [
+                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'order' => $order,
+                ]
             )
         );
     }
 
-    public function confirm(Order $order): bool
+    public function confirm(Order $order): void
     {
-        $success = true;
         $order->setActivated(true);
         $this->sendReservationMail($order);
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
-        return $success;
     }
 
     public function sendReservationMail(Order $order): bool
     {
-        return GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
+        return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
             FluidUtility::replaceMarkerByRenderedTemplate(
                 '###RESERVATION###',
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
-                ['pageUid' => $GLOBALS['TSFE']->id, 'order' => $order]
+                [
+                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'order' => $order,
+                ]
             ),
+
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
@@ -144,5 +165,15 @@ class CheckoutService
                 }
             }
         );
+    }
+
+    private function getEmptyParticipant(): Participant
+    {
+        return GeneralUtility::makeInstance(Participant::class);
+    }
+
+    private function getEmptyReservation(): Reservation
+    {
+        return GeneralUtility::makeInstance(Reservation::class);
     }
 }
