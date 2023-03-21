@@ -2,7 +2,7 @@
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
-    $localLangGeneral = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
+    $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
 return [

@@ -2,7 +2,7 @@
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
-    $localLangGeneral = 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf';
+    $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
 return [
@@ -290,12 +290,12 @@ DEFAULT_RESERVATION
                         'types' => [
                             '0' => [
                                 'showitem' => '
-                                --palette--;LLL:EXT:lang/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                                 --palette--;;filePalette',
                             ],
                             \TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE => [
                                 'showitem' => '
-                                --palette--;LLL:EXT:lang/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                                 --palette--;;filePalette',
                             ],
                         ],
