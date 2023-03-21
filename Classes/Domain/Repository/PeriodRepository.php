@@ -48,10 +48,10 @@ class PeriodRepository extends Repository
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('date', $date->getTimestamp()),
-                $query->equals('facility', $facilityUid)
-            )
+                $query->equals('facility', $facilityUid),
+            ])
         );
 
         return $query->execute();
@@ -66,11 +66,11 @@ class PeriodRepository extends Repository
         $begin = new \DateTime(sprintf('1970-01-01T%d:%d:%dZ', ...GeneralUtility::intExplode(':', $dateTime->format('H:i:s'))));
         $query = $this->createQuery();
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('facility', $facilityUid),
                 $query->equals('date', $date->getTimestamp()),
-                $query->equals('begin', $begin->getTimestamp())
-            )
+                $query->equals('begin', $begin->getTimestamp()),
+            ])
         );
 
         return $query->execute();
@@ -84,7 +84,7 @@ class PeriodRepository extends Repository
 
         $query = $this->findByFacilityUids($uids)->getQuery();
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->getConstraint(),
                 $query->logicalOr(
                     $query->greaterThanOrEqual('date', (new \DateTime('tomorrow'))->getTimestamp()),
@@ -92,8 +92,8 @@ class PeriodRepository extends Repository
                         $query->equals('date', $todayMidnight->getTimestamp()),
                         $query->greaterThanOrEqual('end', $currentTime->getTimestamp())
                     )
-                )
-            )
+                ),
+            ])
         );
 
         $query->setOrderings(
