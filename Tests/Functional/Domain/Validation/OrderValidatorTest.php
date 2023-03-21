@@ -17,6 +17,7 @@ use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
@@ -61,7 +62,8 @@ class OrderValidatorTest extends FunctionalTestCase
             $errors = $slotArguments['errorResults'];
             $errors->attach($result);
         });
-        $this->inject($subject, 'dispatcher', $dispatcher->reveal());
+
+        GeneralUtility::addInstance(Dispatcher::class, $dispatcher->reveal());
 
         $period = $this->prophesize(Period::class);
         $period->isBookable()->willReturn(true);
@@ -84,7 +86,7 @@ class OrderValidatorTest extends FunctionalTestCase
         $subject = new OrderValidator();
 
         $dispatcher = $this->prophesize(Dispatcher::class);
-        $this->inject($subject, 'dispatcher', $dispatcher->reveal());
+        GeneralUtility::addInstance(Dispatcher::class, $dispatcher->reveal());
 
         $subject->validate(null);
 
