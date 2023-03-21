@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,7 +26,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class AskForMailAfterPeriodDeletion implements SingletonInterface
 {
-    const TABLE = 'tx_reserve_domain_model_period';
+    private const TABLE = 'tx_reserve_domain_model_period';
 
     /**
      * @var array
@@ -57,18 +58,23 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
      */
     protected $replyToEmail = '';
 
-    public function processDataHandlerCmdDeleteAction(string $table, int $id, array $recordToDelete, bool $recordWasDeleted, DataHandler $dataHandler): void
-    {
+    public function processDataHandlerCmdDeleteAction(
+        string $table,
+        int $id,
+        array $recordToDelete,
+        bool $recordWasDeleted,
+        DataHandler $dataHandler
+    ): void {
         if ($table !== self::TABLE || Environment::isCli()) {
             return;
         }
+
         $this->addVisitorEmailsOfPeriod($id);
     }
 
     public function addVisitorEmailsOfPeriod(int $periodUid): void
     {
-        /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
+        $queryBuilder = $this->getQueryBuilderForTable(self::TABLE);
         $rows = $queryBuilder
             ->select('o.email', 'o.pid', 'f.from_name', 'f.from_email', 'f.reply_to_name', 'f.reply_to_email')
             ->from(self::TABLE, 'p')
@@ -77,10 +83,12 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
             ->where($queryBuilder->expr()->eq('p.uid', $queryBuilder->createNamedParameter($periodUid)))
             ->execute()
             ->fetchAll();
+
         $this->visitorEmails[$periodUid] = [];
         foreach ($rows as $row) {
             $this->visitorEmails[$periodUid][] = $row['email'];
         }
+
         if (!empty($rows)) {
             $this->pid = $rows[0]['pid'];
             // this won't work if one deletes multiple periods of multiple facilities using the multi-selection mode
@@ -100,6 +108,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                     unset($this->visitorEmails[$periodUid]);
                 }
             }
+
             if (!empty($this->visitorEmails)) {
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
@@ -120,19 +129,21 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                     'reply_to_name' => $this->replyToName,
                     'reply_to_email' => $this->replyToEmail,
                     'custom_receivers' => implode(',', array_map(function ($a) {return implode(',', $a);}, $this->visitorEmails)),
-                ]
+                ],
             ],
             'noView' => true,
 
         ];
+
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
         // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
         // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
         $this->getBackendUserAuthentication()->setAndSaveSessionData(
             PageRenderer::MODAL_SESSION_KEY,
             [
                 'jsInlineCode' => [
-                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
+                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);',
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [
@@ -144,13 +155,28 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                             'modal.periodAskForMailAfterDeletion.message',
                             'reserve'
                         ),
-                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
-                    ]
+                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params),
+                    ],
                 ],
-                'inlineLanguageLabel' => ['reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail', 'reserve')
-                ]
+                'inlineLanguageLabel' => [
+                    'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail', 'reserve'),
+                ],
             ]
         );
+    }
+
+    protected function getQueryBuilderForTable(string $table): QueryBuilder
+    {
+        $queryBuilder = $this->getConnectionPool()->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+
+        return $queryBuilder;
+    }
+
+    protected function getConnectionPool(): ConnectionPool
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     protected function getBackendUserAuthentication(): BackendUserAuthentication
