@@ -1,6 +1,7 @@
-.. include:: ../Includes.txt
+..  include:: /Includes.rst.txt
 
-.. _extend-reserve:
+
+..  _extend-reserve:
 
 ==============
 Extend reserve
@@ -13,9 +14,9 @@ If you want even more, then you can use the other Service classes, Repositories 
 functionality can change in upcoming versions. We try to keep compatibility but sometimes breaking changes are required.
 
 
-.. toctree::
-   :maxdepth: 2
+..  toctree::
+    :maxdepth: 2
 
-  PeriodRegistrationViewHelper/Index
-  ReserveService/Index
-  UpdateTemplates/Index
+    PeriodRegistrationViewHelper/Index
+    ReserveService/Index
+    UpdateTemplates/Index

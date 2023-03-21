@@ -384,7 +384,7 @@ class PeriodTest extends UnitTestCase
         $expectedReservations = [
             new Reservation(),
             new Reservation(),
-            new Reservation()
+            new Reservation(),
         ];
 
         $order1 = new Order();
@@ -427,7 +427,7 @@ class PeriodTest extends UnitTestCase
         self::assertSame(
             [
                 $reservation2,
-                $reservation3
+                $reservation3,
             ],
             $this->subject->getReservations(true)
         );
@@ -459,7 +459,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             [
-                $reservation3
+                $reservation3,
             ],
             $this->subject->getUsedReservations()
         );

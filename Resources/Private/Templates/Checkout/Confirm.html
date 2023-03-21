@@ -1,21 +1,34 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Default" />
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:jw="http://typo3.org/ns/JWeiland/Reserve/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default"/>
+
 <f:section name="Main">
-	<p><f:translate key="reservation.confirmed" arguments="{0: '{order.bookedPeriod.facility.name}'}" /></p>
-	<p><f:translate key="reservation.mail_with_code_sent" /></p>
-	<p><f:translate key="reservation.print_or_show_code" /></p>
+    <p>
+        <f:translate key="reservation.confirmed" arguments="{0: '{order.bookedPeriod.facility.name}'}"/>
+    </p>
+    <p>
+        <f:translate key="reservation.mail_with_code_sent"/>
+    </p>
+    <p>
+        <f:translate key="reservation.print_or_show_code"/>
+    </p>
 
-	<f:for each="{order.reservations}" as="reservation">
-		<img src="{jw:qrCode(reservation: reservation)}" alt="{reservation.code}" title="QR Code" style="padding: 40px;"/>
-	</f:for>
+    <f:for each="{order.reservations}" as="reservation">
+        <img src="{jw:qrCode(reservation: reservation)}" alt="{reservation.code}" title="QR Code"
+             style="padding: 40px;"/>
+    </f:for>
 
-	<p></p>
-	<p><f:translate key="reservation.no_printer_notice" /></p>
-	<ul>
-		<f:for each="{order.reservations}" as="reservation">
-			<li>{reservation.code}</li>
-		</f:for>
-	</ul>
-
+    <p></p>
+    <p>
+        <f:translate key="reservation.no_printer_notice"/>
+    </p>
+    <ul>
+        <f:for each="{order.reservations}" as="reservation">
+            <li>{reservation.code}</li>
+        </f:for>
+    </ul>
 </f:section>
 </html>

@@ -1,17 +1,18 @@
-.. include:: ../Includes.txt
+..  include:: /Includes.rst.txt
 
-.. _configuration:
+
+..  _configuration:
 
 =============
 Configuration
 =============
 
-.. toctree::
-   :maxdepth: 2
+..  toctree::
+    :maxdepth: 2
 
-  Commands/Index
-  EMail/Index
-  ExtConf/Index
-  Frontend/Index
-  QrCode/Index
-  RouteEnhancers/Index
+    Commands/Index
+    EMail/Index
+    ExtConf/Index
+    Frontend/Index
+    QrCode/Index
+    RouteEnhancers/Index

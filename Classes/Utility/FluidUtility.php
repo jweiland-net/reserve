@@ -29,11 +29,12 @@ class FluidUtility
 
     public static function configureStandaloneViewForMailing(StandaloneView $standaloneView): void
     {
-        $extbaseFrameworkConfiguration = static::getConfigurationManager()->getConfiguration(
+        $extbaseFrameworkConfiguration = self::getConfigurationManager()->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'reserve',
             'Reservation'
         );
+
         // Mail templates can be overridden using the standard Extbase way plugin.tx_reserve.templateRootPaths ...
         // $extbaseFrameworkConfiguration is filled only if the default TypoScript setup is included, oterhwise
         // $extbaseFrameworkConfiguration['view']['templateRootPaths'] would be null and throw an exception so let's
@@ -53,21 +54,11 @@ class FluidUtility
         $standaloneView->getRenderingContext()->setControllerName('Mail');
     }
 
-    public static function getConfigurationManager(): ConfigurationManagerInterface
-    {
-        if (static::$configurationManager === null) {
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-            static::$configurationManager = $objectManager->get(ConfigurationManager::class);
-        }
-        return static::$configurationManager;
-    }
-
     /**
      * @param string $marker content to replace e.g. ###MY_MARKER###
      * @param string $template fluid template name lowercase!
      * @param string $content string which may contain $marker
      * @param array $vars additional vars for the fluid template
-     * @return string
      */
     public static function replaceMarkerByRenderedTemplate(
         string $marker,
@@ -75,11 +66,27 @@ class FluidUtility
         string $content,
         array $vars = []
     ): string {
-        /** @var StandaloneView $standaloneView */
-        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        static::configureStandaloneViewForMailing($standaloneView);
-        $standaloneView->assignMultiple($vars);
-        $standaloneView->setTemplate($template);
-        return str_replace($marker, $standaloneView->render(), $content);
+        $view = self::getStandaloneView();
+        static::configureStandaloneViewForMailing($view);
+        $view->assignMultiple($vars);
+        $view->setTemplate($template);
+
+        return str_replace($marker, $view->render(), $content);
+    }
+
+    private static function getStandaloneView(): StandaloneView
+    {
+        return GeneralUtility::makeInstance(StandaloneView::class);
+    }
+
+    private static function getConfigurationManager(): ConfigurationManagerInterface
+    {
+        if (static::$configurationManager === null) {
+            // ToDo: Replace while removing TYPO3 10 compatibility
+            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+            static::$configurationManager = $objectManager->get(ConfigurationManager::class);
+        }
+
+        return static::$configurationManager;
     }
 }

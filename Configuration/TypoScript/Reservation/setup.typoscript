@@ -3,4 +3,3 @@ page {
     reservationList = EXT:reserve/Resources/Public/JavaScript/reservationList.js
   }
 }
-

@@ -19,7 +19,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Reservation extends AbstractEntity
 {
     /**
-     * @var \JWeiland\Reserve\Domain\Model\Order
+     * @var Order
      */
     protected $customerOrder;
 
@@ -43,81 +43,51 @@ class Reservation extends AbstractEntity
      */
     protected $used = false;
 
-    /**
-     * @return Order
-     */
     public function getCustomerOrder(): Order
     {
         return $this->customerOrder;
     }
 
-    /**
-     * @param Order $customerOrder
-     */
     public function setCustomerOrder(Order $customerOrder): void
     {
         $this->customerOrder = $customerOrder;
     }
 
-    /**
-     * @return string
-     */
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    /**
-     * @param string $firstName
-     */
     public function setFirstName(string $firstName): void
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     */
     public function setLastName(string $lastName): void
     {
         $this->lastName = $lastName;
     }
 
-    /**
-     * @return string
-     */
     public function getCode(): string
     {
         return $this->code;
     }
 
-    /**
-     * @param string $code
-     */
     public function setCode(string $code): void
     {
         $this->code = $code;
     }
 
-    /**
-     * @return bool
-     */
     public function isUsed(): bool
     {
         return $this->used;
     }
 
-    /**
-     * @param bool $used
-     */
     public function setUsed(bool $used): void
     {
         $this->used = $used;
@@ -130,14 +100,8 @@ class Reservation extends AbstractEntity
         $currentDateTime = time();
         $currentTime = $currentDateTime - $currentDate;
 
-        if (
-            $period->getDate()->getTimestamp() === $currentDate
+        return $period->getDate()->getTimestamp() === $currentDate
             && $period->getBegin()->getTimestamp() <= $currentTime
-            && ($period->getEnd() === null || $period->getEnd()->getTimestamp() > $currentTime)
-        ) {
-            return true;
-        }
-
-        return false;
+            && ($period->getEnd() === null || $period->getEnd()->getTimestamp() > $currentTime);
     }
 }

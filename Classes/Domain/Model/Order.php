@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -20,7 +21,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Order extends AbstractEntity
 {
     /**
-     * @var \JWeiland\Reserve\Domain\Model\Period
+     * @var Period
      */
     protected $bookedPeriod;
 
@@ -80,21 +81,32 @@ class Order extends AbstractEntity
     protected $remarks = '';
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Participant>
+     * @var ObjectStorage<Participant>
+     *
+     * @Extbase\ORM\Transient
      */
-    protected $participants = [];
+    protected $participants;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Reservation>
+     * @var ObjectStorage<Reservation>
+     *
+     * @Extbase\ORM\Cascade("remove")
      */
     protected $reservations;
 
     public function __construct()
     {
-        $this->reservations = new ObjectStorage();
         $this->participants = new ObjectStorage();
+        $this->reservations = new ObjectStorage();
+    }
+
+    /**
+     * Called again with initialize object, as fetching an entity from the DB does not use the constructor
+     */
+    public function initializeObject(): void
+    {
+        $this->participants = $this->participants ?? new ObjectStorage();
+        $this->reservations = $this->reservations ?? new ObjectStorage();
     }
 
     public function getBookedPeriod(): Period
@@ -220,7 +232,7 @@ class Order extends AbstractEntity
     /**
      * @return ObjectStorage|Participant[]
      */
-    public function getParticipants()
+    public function getParticipants(): ObjectStorage
     {
         return $this->participants;
     }
@@ -257,9 +269,6 @@ class Order extends AbstractEntity
         return $this->reservations;
     }
 
-    /**
-     * @param ObjectStorage|Reservation[] $reservations
-     */
     public function setReservations(ObjectStorage $reservations): void
     {
         $this->reservations = $reservations;

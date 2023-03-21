@@ -17,7 +17,9 @@ use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Result;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Validation\Error;
 
@@ -25,7 +27,7 @@ use TYPO3\CMS\Extbase\Validation\Error;
  * TODO: Rewrite this test to a real functional test!
  *
  * @testdox The order validator
- * @covers JWeiland\Reserve\Domain\Validator\OrderValidator
+ * @covers \JWeiland\Reserve\Domain\Validation\OrderValidator
  */
 class OrderValidatorTest extends FunctionalTestCase
 {
@@ -35,13 +37,13 @@ class OrderValidatorTest extends FunctionalTestCase
     * @var array
     */
     protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve'
+        'typo3conf/ext/reserve',
     ];
 
     /**
      * @test
      */
-    public function addsResultsFromSignalSlot()
+    public function addsResultsFromSignalSlot(): void
     {
         $subject = new OrderValidator();
 
@@ -60,7 +62,8 @@ class OrderValidatorTest extends FunctionalTestCase
             $errors = $slotArguments['errorResults'];
             $errors->attach($result);
         });
-        $this->inject($subject, 'dispatcher', $dispatcher->reveal());
+
+        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
 
         $period = $this->prophesize(Period::class);
         $period->isBookable()->willReturn(true);
@@ -78,12 +81,12 @@ class OrderValidatorTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function doesNotDispatchIfInstanceIsNotAnOrder()
+    public function doesNotDispatchIfInstanceIsNotAnOrder(): void
     {
         $subject = new OrderValidator();
 
         $dispatcher = $this->prophesize(Dispatcher::class);
-        $this->inject($subject, 'dispatcher', $dispatcher->reveal());
+        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
 
         $subject->validate(null);
 

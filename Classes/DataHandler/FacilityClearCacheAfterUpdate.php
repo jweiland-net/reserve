@@ -15,9 +15,10 @@ use Doctrine\DBAL\Connection;
 use JWeiland\Reserve\Utility\CacheUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -47,12 +48,11 @@ class FacilityClearCacheAfterUpdate
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {
                 if (is_int($uid) && !empty($row['name'])) {
                     // only call this method if current facility isn't new, hidden or deleted!
-                    $this->clearPageCacheAndAddFacilityName($uid, $row['name']);
+                    $this->clearPageCacheAndAddFacilityName($uid);
                 }
             }
         } elseif (array_key_exists('tx_reserve_domain_model_order', $dataHandler->datamap)) {
-            /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_order', 'o')
@@ -64,11 +64,10 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_period', $dataHandler->datamap)) {
-            /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_period', 'p')
@@ -79,11 +78,10 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_reservation', $dataHandler->datamap)) {
-            /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_reservation', 'r')
@@ -96,22 +94,22 @@ class FacilityClearCacheAfterUpdate
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->execute()->fetchAll() as $row) {
-                $this->clearPageCacheAndAddFacilityName((int)$row['uid'], $row['name']);
+                $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         }
         if (!empty($this->facilityNames)) {
-            /** @var FlashMessageQueue $flashMessageQueue */
-            $flashMessageQueue = GeneralUtility::makeInstance(FlashMessageService::class)->getMessageQueueByIdentifier();
-            /** @var FlashMessage $flashMessage */
+            $flashMessageQueue = $this->getFlashMessageService()->getMessageQueueByIdentifier();
             $flashMessage = GeneralUtility::makeInstance(
                 FlashMessage::class,
                 LocalizationUtility::translate('flashMessage.clearedCacheForFacility', 'reserve', [implode(', ', $this->facilityNames)]),
                 '',
-                FlashMessage::INFO
+                AbstractMessage::INFO
             );
             $flashMessageQueue->addMessage($flashMessage);
+
             return true;
         }
+
         return false;
     }
 
@@ -125,9 +123,27 @@ class FacilityClearCacheAfterUpdate
         return $ids;
     }
 
-    protected function clearPageCacheAndAddFacilityName(int $uid, string $name): void
+    protected function clearPageCacheAndAddFacilityName(int $uid): void
     {
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($uid);
-        $facilityNames[] = $name;
+    }
+
+    private function getQueryBuilderForTable(string $table): QueryBuilder
+    {
+        $queryBuilder = $this->getConnectionPool()->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+
+        return $queryBuilder;
+    }
+
+    private function getConnectionPool(): ConnectionPool
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class);
+    }
+
+    private function getFlashMessageService(): FlashMessageService
+    {
+        return GeneralUtility::makeInstance(FlashMessageService::class);
     }
 }

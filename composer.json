@@ -4,15 +4,10 @@
 	"description": "",
 	"license": "GPL-2.0-or-later",
 	"keywords": ["typo3", "TYPO3 CMS", "jw", "reserve"],
-	"homepage": "http://www.jweiland.net",
+	"homepage": "https://www.jweiland.net",
 	"authors": [
 		{
-			"name": "Markus Kugler",
-			"email": "projects@jweiland.net",
-			"role": "Developer"
-		},
-		{
-			"name": "Pascal Rinker",
+			"name": "Stefan Frömken",
 			"email": "projects@jweiland.net",
 			"role": "Developer"
 		}
@@ -23,15 +18,14 @@
 		"source": "https://github.com/jweiland-net/reserve"
 	},
 	"require": {
-		"typo3/cms-core": "^10.4.19 || ^11.5",
+		"typo3/cms-core": "^10.4.36 || ^11.5.23",
 		"endroid/qr-code": "^4.3.5"
 	},
 	"suggest": {
 		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
 	},
 	"require-dev": {
-		"roave/security-advisories": "dev-latest",
-		"friendsofphp/php-cs-fixer": "^2.14",
+		"friendsofphp/php-cs-fixer": "^3.14",
 		"nimut/testing-framework": "^6.0",
 		"phpspec/prophecy-phpunit": "^2.0"
 	},
@@ -58,9 +52,9 @@
 		}
 	},
 	"scripts": {
-		"php:fix": ".build/vendor/bin/php-cs-fixer --config=Build/.php_cs.php fix Classes Tests",
+		"php:fix": ".build/vendor/bin/php-cs-fixer --config=Build/php-cs-fixer/config.php fix Classes Tests",
 		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-		"ci:php:fixer": ".build/vendor/bin/php-cs-fixer --config=Build/.php_cs.php fix --dry-run -v --show-progress=dots --diff-format=udiff Classes Tests",
+		"ci:php:fixer": ".build/vendor/bin/php-cs-fixer --config=Build/php-cs-fixer/config.php fix --dry-run -v --show-progress=dots --diff Classes Tests",
 		"ci:tests:unit": ".build/vendor/bin/phpunit -c .build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit",
 		"ci:tests:functional": "find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo \"Running functional test suite {}\"; .build/vendor/bin/phpunit -c .build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}';",
 		"link-extension": [

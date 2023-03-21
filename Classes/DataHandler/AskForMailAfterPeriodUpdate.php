@@ -15,7 +15,10 @@ use JWeiland\Reserve\Hooks\PageRenderer;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -26,7 +29,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class AskForMailAfterPeriodUpdate
 {
-    const TABLE = 'tx_reserve_domain_model_period';
+    private const TABLE = 'tx_reserve_domain_model_period';
 
     /**
      * @var DataHandler
@@ -43,6 +46,7 @@ class AskForMailAfterPeriodUpdate
         if (!array_key_exists(self::TABLE, $dataHandler->datamap)) {
             return false;
         }
+
         $this->dataHandler = $dataHandler;
         if (!Environment::isCli()) {
             $this->checkForUpdatedRecords();
@@ -58,6 +62,7 @@ class AskForMailAfterPeriodUpdate
         if (!array_key_exists(self::TABLE, $this->dataHandler->datamap)) {
             return;
         }
+
         // This looks very dangerous but it's safe because we just use this to read
         // the historyRecords after all operations. In TYPO3 v10 $dataHandler->getHistoryRecords()
         // has been added, so replace this reflection when this extension requires TYPO3 >= v10
@@ -71,6 +76,7 @@ class AskForMailAfterPeriodUpdate
             if (strpos($recordId, self::TABLE) === false) {
                 continue;
             }
+
             foreach ($checkFields as $checkField) {
                 if (
                     array_key_exists($checkField, $historyRecord['oldRecord'])
@@ -86,23 +92,27 @@ class AskForMailAfterPeriodUpdate
 
     protected function checkIfUpdatedRecordsAffectsOrders(): bool
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getQueryBuilderForTable('tx_reserve_domain_model_order');
+        $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
+
         return (bool)$queryBuilder
             ->count('uid')
             ->from('tx_reserve_domain_model_order')
             ->where($queryBuilder->expr()->in('booked_period', implode(',', $this->updatedRecords)))
             ->execute()
-            ->fetchColumn(0);
+            ->fetchColumn();
     }
 
     protected function addJavaScriptAndSettingsToPageRenderer(): void
     {
-        // get pid of first period and create email record on same pid
-        /** @var \TYPO3\CMS\Core\Database\Connection $connection */
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
-            ->getConnectionForTable(self::TABLE);
-        $row = $connection->select(['pid'], self::TABLE, ['uid' => current($this->updatedRecords)])->fetch();
+        // Get PID of first period and create email record on same pid
+        $connection = $this->getConnectionForTable(self::TABLE);
+        $row = $connection->select(
+            ['pid'],
+            self::TABLE,
+            [
+                'uid' => current($this->updatedRecords),
+            ]
+        )->fetch();
 
         $params = [
             'edit' => ['tx_reserve_domain_model_email' => [$row['pid'] => 'new']],
@@ -110,12 +120,13 @@ class AskForMailAfterPeriodUpdate
             'defVals' => [
                 'tx_reserve_domain_model_email' => [
                     'body' => LocalizationUtility::translate('email.body.afterPeriodUpdate', 'reserve'),
-                    'periods' => implode(',', $this->updatedRecords)
-                ]
+                    'periods' => implode(',', $this->updatedRecords),
+                ],
             ],
             'noView' => true,
 
         ];
+
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
         // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
@@ -123,23 +134,42 @@ class AskForMailAfterPeriodUpdate
             PageRenderer::MODAL_SESSION_KEY,
             [
                 'jsInlineCode' => [
-                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
+                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);',
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [
                         'title' => LocalizationUtility::translate('modal.periodAskForMail.title', 'reserve'),
                         'message' => LocalizationUtility::translate('modal.periodAskForMail.message', 'reserve'),
-                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params)
-                    ]
+                        'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params),
+                    ],
                 ],
                 'inlineLanguageLabel' => [
                     'reserve.modal.button.writeMail' => LocalizationUtility::translate(
                         'modal.button.writeMail',
                         'reserve'
-                    )
-                ]
+                    ),
+                ],
             ]
         );
+    }
+
+    protected function getConnectionForTable(string $table): Connection
+    {
+        return $this->getConnectionPool()->getConnectionForTable($table);
+    }
+
+    protected function getQueryBuilderForTable(string $table): QueryBuilder
+    {
+        $queryBuilder = $this->getConnectionPool()->getQueryBuilderForTable($table);
+        $queryBuilder->getRestrictions()->removeAll();
+        $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+
+        return $queryBuilder;
+    }
+
+    protected function getConnectionPool(): ConnectionPool
+    {
+        return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
     protected function getBackendUserAuthentication(): BackendUserAuthentication

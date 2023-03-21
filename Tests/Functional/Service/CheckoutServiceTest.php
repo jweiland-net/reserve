@@ -22,6 +22,7 @@ use JWeiland\Reserve\Service\MailService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -29,8 +30,10 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -43,7 +46,12 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @var CheckoutService
      */
-    protected $checkoutService;
+    protected $subject;
+
+    /**
+     * @var MailService|ObjectProphecy
+     */
+    protected $mailServiceProphecy;
 
     protected function setUp(): void
     {
@@ -60,7 +68,14 @@ class CheckoutServiceTest extends FunctionalTestCase
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
         Bootstrap::initializeLanguageObject();
 
-        $this->checkoutService = GeneralUtility::makeInstance(ObjectManager::class)->get(CheckoutService::class);
+        // ToDo: Replace ObjectManager after removing TYPO3 10 compatibility
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->mailServiceProphecy = $this->prophesize(MailService::class);
+        $this->subject = new CheckoutService(
+            $objectManager->get(PersistenceManagerInterface::class),
+            $objectManager->get(ConfigurationManagerInterface::class),
+            $this->mailServiceProphecy->reveal()
+        );
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
 
@@ -75,13 +90,13 @@ class CheckoutServiceTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->checkoutService);
+        unset($this->subject);
     }
 
     /**
      * @test
      */
-    public function checkoutPersistsNewOrderIntoDatabase()
+    public function checkoutPersistsNewOrderIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
@@ -98,7 +113,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setBookedPeriod($period);
         $order->setParticipants($participants);
 
-        $this->checkoutService->checkout($order);
+        $this->subject->checkout($order);
 
         self::assertEquals(1, $order->getUid(), 'Order UID changes to 1 after checkout');
     }
@@ -106,7 +121,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkoutPersistsMultipleReservationsIntoDatabase()
+    public function checkoutPersistsMultipleReservationsIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         /** @var Period $period */
@@ -128,7 +143,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setBookedPeriod($period);
         $order->setParticipants($participants);
 
-        $this->checkoutService->checkout($order);
+        $this->subject->checkout($order);
 
         $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)
             ->get(ReservationRepository::class);
@@ -144,7 +159,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function checkoutDoesNotPersistBecauseTooMuchParticipants()
+    public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
         $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
@@ -170,7 +185,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setParticipants($participants);
 
         self::assertFalse(
-            $this->checkoutService->checkout($order),
+            $this->subject->checkout($order),
             'Checkout returns false and does not persist order because too much participants are requested.'
         );
     }
@@ -178,17 +193,17 @@ class CheckoutServiceTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function sendConfirmationMailSendsMailWithActivationLinks()
+    public function sendConfirmationMailSendsMailWithActivationLinks(): void
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 
         $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
-        $mailService = $this->prophesize(MailService::class);
-
-        $mailService->sendMailToCustomer(Argument::cetera())->willReturn(false);
-        $mailService
+        $this->mailServiceProphecy
+            ->sendMailToCustomer(Argument::cetera())
+            ->willReturn(false);
+        $this->mailServiceProphecy
             ->sendMailToCustomer(
                 $order,
                 'Test confirmation',
@@ -198,26 +213,23 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->shouldBeCalled()
             ->willReturn(true);
 
-        GeneralUtility::setSingletonInstance(MailService::class, $mailService->reveal());
-
-        $this->checkoutService->sendConfirmationMail($order);
-
-        GeneralUtility::removeSingletonInstance(MailService::class, $mailService->reveal());
+        $this->subject->sendConfirmationMail($order);
     }
 
     /**
      * @test
      */
-    public function confirmActivatesOrderAndSendsReservationMail()
+    public function confirmActivatesOrderAndSendsReservationMail(): void
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 
         $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
-        $mailService = $this->prophesize(MailService::class);
-        $mailService->sendMailToCustomer(Argument::cetera())->willReturn(false);
-        $mailService
+        $this->mailServiceProphecy
+            ->sendMailToCustomer(Argument::cetera())
+            ->willReturn(false);
+        $this->mailServiceProphecy
             ->sendMailToCustomer(
                 $order,
                 'Test reservation',
@@ -227,12 +239,8 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->shouldBeCalled()
             ->willReturn(true);
 
-        GeneralUtility::setSingletonInstance(MailService::class, $mailService->reveal());
-
-        $this->checkoutService->confirm($order);
+        $this->subject->confirm($order);
 
         self::assertTrue($order->isActivated(), 'Order is activated after CheckoutService::confirm');
-
-        GeneralUtility::removeSingletonInstance(MailService::class, $mailService->reveal());
     }
 }

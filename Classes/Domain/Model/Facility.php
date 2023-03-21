@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Model;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -27,8 +29,9 @@ class Facility extends AbstractEntity
     protected $shortName = '';
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Period>
+     * @var ObjectStorage<Period>
+     *
+     * @Extbase\ORM\Lazy
      */
     protected $periods;
 
@@ -87,8 +90,9 @@ class Facility extends AbstractEntity
     protected $qrCodeLabelSize = 0;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @var ObjectStorage<FileReference>
+     *
+     * @Extbase\ORM\Lazy
      */
     protected $qrCodeLogo;
 
@@ -114,255 +118,176 @@ class Facility extends AbstractEntity
     }
 
     /**
-     * @return string
+     * Called again with initialize object, as fetching an entity from the DB does not use the constructor
      */
+    public function initializeObject(): void
+    {
+        $this->periods = $this->periods ?? new ObjectStorage();
+        $this->qrCodeLogo = $this->qrCodeLogo ?? new ObjectStorage();
+    }
+
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
     public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return string
-     */
     public function getShortName(): string
     {
         return $this->shortName;
     }
 
-    /**
-     * @param string $shortName
-     */
     public function setShortName(string $shortName): void
     {
         $this->shortName = $shortName;
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage|Period[]
      */
     public function getPeriods(): ObjectStorage
     {
         return $this->periods;
     }
 
-    /**
-     * @param ObjectStorage $periods
-     */
     public function setPeriods(ObjectStorage $periods): void
     {
         $this->periods = $periods;
     }
 
-    /**
-     * @return string
-     */
     public function getFromName(): string
     {
         return $this->fromName;
     }
 
-    /**
-     * @param string $fromName
-     */
     public function setFromName(string $fromName): void
     {
         $this->fromName = $fromName;
     }
 
-    /**
-     * @return string
-     */
     public function getFromEmail(): string
     {
         return $this->fromEmail;
     }
 
-    /**
-     * @param string $fromEmail
-     */
     public function setFromEmail(string $fromEmail): void
     {
         $this->fromEmail = $fromEmail;
     }
 
-    /**
-     * @return string
-     */
     public function getReplyToName(): string
     {
         return $this->replyToName;
     }
 
-    /**
-     * @param string $replyToName
-     */
     public function setReplyToName(string $replyToName): void
     {
         $this->replyToName = $replyToName;
     }
 
-    /**
-     * @return string
-     */
     public function getReplyToEmail(): string
     {
         return $this->replyToEmail;
     }
 
-    /**
-     * @param string $replyToEmail
-     */
     public function setReplyToEmail(string $replyToEmail): void
     {
         $this->replyToEmail = $replyToEmail;
     }
 
-    /**
-     * @return string
-     */
     public function getConfirmationMailSubject(): string
     {
         return $this->confirmationMailSubject;
     }
 
-    /**
-     * @param string $confirmationMailSubject
-     */
     public function setConfirmationMailSubject(string $confirmationMailSubject): void
     {
         $this->confirmationMailSubject = $confirmationMailSubject;
     }
 
-    /**
-     * @return string
-     */
     public function getConfirmationMailHtml(): string
     {
         return $this->confirmationMailHtml;
     }
 
-    /**
-     * @param string $confirmationMailHtml
-     */
     public function setConfirmationMailHtml(string $confirmationMailHtml): void
     {
         $this->confirmationMailHtml = $confirmationMailHtml;
     }
 
-    /**
-     * @return string
-     */
     public function getReservationMailSubject(): string
     {
         return $this->reservationMailSubject;
     }
 
-    /**
-     * @param string $reservationMailSubject
-     */
     public function setReservationMailSubject(string $reservationMailSubject): void
     {
         $this->reservationMailSubject = $reservationMailSubject;
     }
 
-    /**
-     * @return string
-     */
     public function getReservationMailHtml(): string
     {
         return $this->reservationMailHtml;
     }
 
-    /**
-     * @param string $reservationMailHtml
-     */
     public function setReservationMailHtml(string $reservationMailHtml): void
     {
         $this->reservationMailHtml = $reservationMailHtml;
     }
 
-    /**
-     * @return int
-     */
     public function getQrCodeSize(): int
     {
         return $this->qrCodeSize;
     }
 
-    /**
-     * @param int $qrCodeSize
-     */
     public function setQrCodeSize(int $qrCodeSize): void
     {
         $this->qrCodeSize = $qrCodeSize;
     }
 
-    /**
-     * @return int
-     */
     public function getQrCodeLabelSize(): int
     {
         return $this->qrCodeLabelSize;
     }
 
-    /**
-     * @param int $qrCodeLabelSize
-     */
     public function setQrCodeLabelSize(int $qrCodeLabelSize): void
     {
         $this->qrCodeLabelSize = $qrCodeLabelSize;
     }
 
     /**
-     * @return ObjectStorage
+     * @return ObjectStorage|FileReference[]
      */
     public function getQrCodeLogo(): ObjectStorage
     {
         return $this->qrCodeLogo;
     }
 
-    /**
-     * @param ObjectStorage $qrCodeLogo
-     */
     public function setQrCodeLogo(ObjectStorage $qrCodeLogo): void
     {
         $this->qrCodeLogo = $qrCodeLogo;
     }
 
-    /**
-     * @return int
-     */
     public function getQrCodeLogoWidth(): int
     {
         return $this->qrCodeLogoWidth;
     }
 
-    /**
-     * @param int $qrCodeLogoWidth
-     */
     public function setQrCodeLogoWidth(int $qrCodeLogoWidth): void
     {
         $this->qrCodeLogoWidth = $qrCodeLogoWidth;
     }
 
-    /**
-     * @return bool
-     */
     public function isCancelable(): bool
     {
         return $this->cancelable;
     }
 
     /**
-     * @return bool
      * @internal fluid getter! In PHP code use isCancelable() instead!
      */
     public function getIsCancelable(): bool
@@ -370,25 +295,16 @@ class Facility extends AbstractEntity
         return $this->isCancelable();
     }
 
-    /**
-     * @param bool $cancelable
-     */
     public function setCancelable(bool $cancelable): void
     {
         $this->cancelable = $cancelable;
     }
 
-    /**
-     * @return int
-     */
     public function getCancelableUntilMinutes(): int
     {
         return $this->cancelableUntilMinutes;
     }
 
-    /**
-     * @param int $cancelableUntilMinutes
-     */
     public function setCancelableUntilMinutes(int $cancelableUntilMinutes): void
     {
         $this->cancelableUntilMinutes = $cancelableUntilMinutes;

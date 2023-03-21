@@ -11,9 +11,10 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Configuration;
 
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Extension configuration for EXT:reserve
@@ -22,32 +23,29 @@ class ExtConf implements SingletonInterface
 {
     private $blockMultipleOrdersInSeconds = 3600;
 
-    public function __construct()
+    public function __construct(ExtensionConfiguration $extensionConfiguration)
     {
-        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('reserve');
-        if (is_array($extConf) && count($extConf)) {
-            // call setter method foreach configuration entry
-            foreach ($extConf as $key => $value) {
-                $methodName = 'set' . ucfirst($key);
-                if (method_exists($this, $methodName)) {
-                    $this->$methodName($value);
+        try {
+            $extConf = $extensionConfiguration->get('reserve');
+            if (is_array($extConf)) {
+                // call setter method foreach configuration entry
+                foreach ($extConf as $key => $value) {
+                    $methodName = 'set' . ucfirst($key);
+                    if (method_exists($this, $methodName)) {
+                        $this->$methodName($value);
+                    }
                 }
             }
+        } catch (ExtensionConfigurationExtensionNotConfiguredException | ExtensionConfigurationPathDoesNotExistException $e) {
         }
     }
 
-    /**
-     * @return int
-     */
     public function getBlockMultipleOrdersInSeconds(): int
     {
         return $this->blockMultipleOrdersInSeconds;
     }
 
-    /**
-     * @param mixed $blockMultipleOrdersInSeconds
-     */
-    public function setBlockMultipleOrdersInSeconds($blockMultipleOrdersInSeconds): void
+    public function setBlockMultipleOrdersInSeconds(string $blockMultipleOrdersInSeconds): void
     {
         $this->blockMultipleOrdersInSeconds = (int)$blockMultipleOrdersInSeconds;
     }

@@ -1,9 +1,13 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:comment><!--
 The rendered content of this template will be used as ###RESERVATION### marker inside the updated reservation mail.
 
 Variables:
 order: Current order
 --></f:comment>
-<f:render partial="Mail/ReservationDetails" arguments="{order: order}" />
+
+<f:render partial="Mail/ReservationDetails" arguments="{order: order}"/>
 </html>
