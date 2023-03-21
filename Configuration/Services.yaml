@@ -7,6 +7,10 @@ services:
   JWeiland\Reserve\:
     resource: '../Classes/*'
 
+  # Called by makeInstance in OrderSessionUtility
+  JWeiland\Reserve\Configuration\ExtConf:
+    public: true
+
   JWeiland\Reserve\Tca\CreateForeignTableColumns:
     tags:
       - name: event.listener
