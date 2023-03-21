@@ -11,6 +11,18 @@ services:
   JWeiland\Reserve\Configuration\ExtConf:
     public: true
 
+  # Called by makeInstance in our own DataHandler
+  JWeiland\Reserve\DataHandler\AskForMailAfterPeriodDeletion:
+    public: true
+
+  # Called by makeInstance in our own DataHandler
+  JWeiland\Reserve\DataHandler\AskForMailAfterPeriodUpdate:
+    public: true
+
+  # Called by makeInstance in our own DataHandler
+  JWeiland\Reserve\DataHandler\FacilityClearCacheAfterUpdate:
+    public: true
+
   JWeiland\Reserve\Tca\CreateForeignTableColumns:
     tags:
       - name: event.listener
