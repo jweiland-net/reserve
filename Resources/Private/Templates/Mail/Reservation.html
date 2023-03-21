@@ -1,4 +1,7 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html lang="en"
+      xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <f:comment><!--
 The rendered content of this template will be used as ###RESERVATION### marker inside the reservation mail.
 
@@ -6,27 +9,34 @@ Variables:
 order: Current order
 pageUid: Page uid which contains the reserve checkout plugin
 --></f:comment>
-<p><f:translate extensionName="reserve" key="mail.reservation.print_notice" /></p>
 
-<f:render partial="Mail/ReservationDetails" arguments="{order: order}" />
+<p>
+    <f:translate extensionName="reserve" key="mail.reservation.print_notice"/>
+</p>
+
+<f:render partial="Mail/ReservationDetails" arguments="{order: order}"/>
 
 <f:for each="{order.reservations}" as="reservation">
-	<img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>
+    <img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>
 </f:for>
 
-<p><f:translate extensionName="reserve" key="reservation.no_printer_notice" /></p>
+<p>
+    <f:translate extensionName="reserve" key="reservation.no_printer_notice"/>
+</p>
 <ul>
-	<f:for each="{order.reservations}" as="reservation">
-		<li>{reservation.code}</li>
-	</f:for>
+    <f:for each="{order.reservations}" as="reservation">
+        <li>{reservation.code}</li>
+    </f:for>
 </ul>
 
 <f:if condition="{order.bookedPeriod.facility.isCancelable}">
-	<p><f:translate
-		extensionName="reserve"
-		key="mail.reservation.cancelable_until"
-		arguments="{0: '{f:format.date(date: \'{order.cancelableUntil}\', format: \'{f:translate(extensionName: \\\'reserve\\\', key: \\\'date_format_full\\\')}\')}'}"
-	/></p>
-	<f:render partial="Mail/CancelReservationLink" arguments="{pageUid: pageUid, order: order}" />
+    <p>
+        <f:translate
+            extensionName="reserve"
+            key="mail.reservation.cancelable_until"
+            arguments="{0: '{f:format.date(date: \'{order.cancelableUntil}\', format: \'{f:translate(extensionName: \\\'reserve\\\', key: \\\'date_format_full\\\')}\')}'}"
+        />
+    </p>
+    <f:render partial="Mail/CancelReservationLink" arguments="{pageUid: pageUid, order: order}"/>
 </f:if>
 </html>
