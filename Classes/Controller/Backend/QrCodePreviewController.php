@@ -38,26 +38,27 @@ class QrCodePreviewController
     public function ajaxAction(ServerRequestInterface $request): JsonResponse
     {
         $facilityUid = (int)($request->getQueryParams()['facility'] ?? 0);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $data = ['hasErrors' => false, 'message' => '', 'qrCode' => ''];
         if ($facilityUid) {
-            $facility = $objectManager->get(FacilityRepository::class)->findByUid($facilityUid);
+            $facility = $this->getFacilityRepository()->findByUid($facilityUid);
             if ($facility instanceof Facility) {
-                /** @var Reservation $reservation */
-                $reservation = GeneralUtility::makeInstance(Reservation::class);
+                $reservation = $this->getEmptyReservation();
                 $reservation->setCode('an-example-' . time());
-                /** @var Order $order */
-                $order = GeneralUtility::makeInstance(Order::class);
+
+                $order = $this->getEmptyOrder();
                 $order->getReservations()->attach($reservation);
-                /** @var Period $period */
-                $period = GeneralUtility::makeInstance(Period::class);
+
+                $period = $this->getEmptyPeriod();
                 $period->setBegin(new \DateTime('today 10 am'));
                 $period->setEnd(new \DateTime('today 2 pm'));
                 $period->setDate(new \DateTime('today midnight'));
                 $period->setBookingBegin(new \DateTime('yesterday 10 am'));
                 $period->setFacility($facility);
+
                 $order->setBookedPeriod($period);
+
                 $reservation->setCustomerOrder($order);
+
                 $data['qrCode'] = QrCodeUtility::generateQrCode($reservation)->getDataUri();
             } else {
                 $data['hasErrors'] = true;
@@ -69,5 +70,26 @@ class QrCodePreviewController
         }
 
         return new JsonResponse($data);
+    }
+
+    private function getEmptyReservation(): Reservation
+    {
+        return GeneralUtility::makeInstance(Reservation::class);
+    }
+
+    private function getEmptyOrder(): Order
+    {
+        return GeneralUtility::makeInstance(Order::class);
+    }
+
+    private function getEmptyPeriod(): Period
+    {
+        return GeneralUtility::makeInstance(Period::class);
+    }
+
+    private function getFacilityRepository(): FacilityRepository
+    {
+        // ToDo: Remove ObjectManager while removing TYPO3 10 compatibility
+        return GeneralUtility::makeInstance(ObjectManager::class)->get(FacilityRepository::class);
     }
 }
