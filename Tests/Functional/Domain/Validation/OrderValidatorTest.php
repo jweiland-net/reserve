@@ -63,7 +63,7 @@ class OrderValidatorTest extends FunctionalTestCase
             $errors->attach($result);
         });
 
-        GeneralUtility::addInstance(Dispatcher::class, $dispatcher->reveal());
+        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
 
         $period = $this->prophesize(Period::class);
         $period->isBookable()->willReturn(true);
@@ -86,7 +86,7 @@ class OrderValidatorTest extends FunctionalTestCase
         $subject = new OrderValidator();
 
         $dispatcher = $this->prophesize(Dispatcher::class);
-        GeneralUtility::addInstance(Dispatcher::class, $dispatcher->reveal());
+        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
 
         $subject->validate(null);
 
