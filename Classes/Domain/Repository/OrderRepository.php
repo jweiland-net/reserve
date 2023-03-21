@@ -30,10 +30,10 @@ class OrderRepository extends Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('email', $email),
-                $query->equals('activationCode', $activationCode)
-            )
+                $query->equals('activationCode', $activationCode),
+            ])
         );
 
         return $query->execute()->getFirst();
@@ -50,10 +50,10 @@ class OrderRepository extends Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
-            $query->logicalAnd(
+            $query->logicalAnd([
                 $query->equals('activated', 0),
-                $query->lessThan('crdate', $olderThan->getTimestamp())
-            )
+                $query->lessThan('crdate', $olderThan->getTimestamp()),
+            ])
         );
 
         return $query->execute();
