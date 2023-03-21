@@ -29,7 +29,7 @@ class PeriodTest extends FunctionalTestCase
      * @var array
      */
     protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve'
+        'typo3conf/ext/reserve',
     ];
 
     protected function setUp(): void
@@ -125,7 +125,7 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             2,
-            $this->subject->countReservations(false)
+            $this->subject->countReservations()
         );
     }
 }

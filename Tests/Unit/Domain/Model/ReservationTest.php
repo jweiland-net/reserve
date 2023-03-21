@@ -17,7 +17,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 /**
  * @testdox An reservation
- * @covers JWeiland\Reserve\Domain\Model\Reservation
+ * @covers \JWeiland\Reserve\Domain\Model\Reservation
  */
 class ReservationTest extends UnitTestCase
 {

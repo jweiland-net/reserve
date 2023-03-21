@@ -81,8 +81,8 @@ class CheckoutService
             $order->getReservations()->attach($reservation);
 
             $this->persistenceManager->add($reservation);
-
         }
+
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
 
@@ -157,7 +157,6 @@ class CheckoutService
                     'order' => $order,
                 ]
             ),
-
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
