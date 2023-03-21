@@ -3,6 +3,19 @@
 	<file t3:id="1589355594067" source-language="en" datatype="plaintext">
 		<header/>
 		<body>
+			<trans-unit id="plugin.reserve_reservation.title">
+				<source>Reserve: Reservation</source>
+			</trans-unit>
+			<trans-unit id="plugin.reserve_reservation.description">
+				<source>Display and reserve periods</source>
+			</trans-unit>
+			<trans-unit id="plugin.reserve_management.title">
+				<source>Reserve: Management</source>
+			</trans-unit>
+			<trans-unit id="plugin.reserve_management.description">
+				<source>Manage reservations and scan reservation codes</source>
+			</trans-unit>
+
 			<trans-unit id="tx_reserve_domain_model_facility">
 				<source>Facility</source>
 			</trans-unit>

@@ -10,6 +10,21 @@ Changelog
 Version 2.1.0
 =============
 
+2023-03-21 Add better structure to DataTablesService (Commit 821e7de by Stefan Froemken)
+2023-03-21 Remove spaces from scanner link list (Commit c4071ff by Stefan Froemken)
+2023-03-21 Add entry for newContentElementWizard (Commit 4774955 by Stefan Froemken)
+2023-03-21 Merge pull request #118 from jweiland-net/applyNewPhpCsFixerConfiguration (Commit e851e41 by Stefan Frömken)
+2023-03-21 Split two GitHub actions by enter (Commit 7513aba by Stefan Froemken)
+2023-03-21 Repair tests (Commit 98e8777 by Stefan Froemken)
+2023-03-21 Inject Dispatcher as SingletonInterface (Commit ff1aa85 by Stefan Froemken)
+2023-03-21 Repair tests (Commit a0bbba0 by Stefan Froemken)
+2023-03-21 Apply php-cs-fixer format to Test files (Commit f7705e4 by Stefan Froemken)
+2023-03-21 Do not modernize strpos in php-cs-fixer because of PHP 7 support (Commit 8943eb3 by Stefan Froemken)
+2023-03-21 Remove tests against PHP 7.3 (Commit 3509bcb by Stefan Froemken)
+2023-03-21 Add missing caret to TYPO3 version in composer.json (Commit c1faddf by Stefan Froemken)
+2023-03-21 Update version to 2.1.0 (Commit 6807fcc by Stefan Froemken)
+2023-03-21 Update installation documentation (Commit 63d9795 by Stefan Froemken)
+2023-03-21 Update ChangeLog (Commit 958eee6 by Stefan Froemken)
 2023-03-21 Get translations from core instead of EXT:lang (Commit 9c3706d by Stefan Froemken)
 2023-03-21 Move QueryBuilder instanciation into own methods (Commit 0da8dee by Stefan Froemken)
 2023-03-21 Use logicalAnd with array (Commit 37efb12 by Stefan Froemken)

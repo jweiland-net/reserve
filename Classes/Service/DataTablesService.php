@@ -20,23 +20,18 @@ class DataTablesService
     /**
      * Get configuration for DataTables config array. Assign it to the frontend.
      *
-     * @return array|string[][]
+     * @return array|string[]
      */
     public function getConfiguration(): array
     {
-        $url = LocalizationUtility::translate('datatables.languageFile', 'reserve');
-        if (empty($url)) {
-            $url = PathUtility::getAbsoluteWebPath(
-                GeneralUtility::getFileAbsFileName(
-                    LocalizationUtility::translate('datatables.languageFile', 'reserve')
-                )
-            );
+        $configuration = [];
+
+        if ($url = LocalizationUtility::translate('datatables.languageFile', 'reserve')) {
+            $configuration['language'] = [
+                'url' => PathUtility::getAbsoluteWebPath(GeneralUtility::getFileAbsFileName($url)),
+            ];
         }
 
-        return [
-            'language' => [
-                'url' => (string)$url,
-            ],
-        ];
+        return $configuration;
     }
 }

@@ -1,0 +1,26 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+  elements {
+    reserve_reservation {
+      iconIdentifier = ext-reserve-wizard-icon
+      title = LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_reservation.title
+      description = LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_reservation.description
+      tt_content_defValues {
+        CType = list
+        list_type = reserve_reservation
+      }
+    }
+    reserve_management {
+      iconIdentifier = ext-reserve-wizard-icon
+      title = LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_management.title
+      description = LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_management.description
+      tt_content_defValues {
+        CType = list
+        list_type = reserve_management
+      }
+    }
+  }
+}
+
+# Add CType Preview
+mod.web_layout.tt_content.preview.list.reserve_reservation = EXT:reserve/Resources/Private/Templates/PluginPreview/Reservation.html
+mod.web_layout.tt_content.preview.list.reserve_management = EXT:reserve/Resources/Private/Templates/PluginPreview/Management.html
