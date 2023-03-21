@@ -41,7 +41,7 @@ class QrCodePreviewController
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $data = ['hasErrors' => false, 'message' => '', 'qrCode' => ''];
         if ($facilityUid) {
-            $facility = $objectManager->get(FacilityRepository::class)->findByUid((int)$facilityUid);
+            $facility = $objectManager->get(FacilityRepository::class)->findByUid($facilityUid);
             if ($facility instanceof Facility) {
                 /** @var Reservation $reservation */
                 $reservation = GeneralUtility::makeInstance(Reservation::class);
@@ -67,6 +67,7 @@ class QrCodePreviewController
             $data['hasErrors'] = true;
             $data['message'] = 'You have to provide the facility uid with param \'facility\'!';
         }
+
         return new JsonResponse($data);
     }
 }
