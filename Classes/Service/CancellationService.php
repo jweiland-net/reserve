@@ -37,15 +37,9 @@ class CancellationService implements SingletonInterface
      */
     protected $persistenceManager;
 
-    /**
-     * @var StandaloneView
-     */
-    protected $standaloneView;
-
-    public function __construct(PersistenceManager $persistenceManager, StandaloneView $standaloneView)
+    public function __construct(PersistenceManager $persistenceManager)
     {
         $this->persistenceManager = $persistenceManager;
-        $this->standaloneView = $standaloneView;
     }
 
     /**
