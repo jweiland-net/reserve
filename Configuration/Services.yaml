@@ -6,6 +6,7 @@ services:
 
   JWeiland\Reserve\:
     resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
 
   # Called by makeInstance in OrderSessionUtility
   JWeiland\Reserve\Configuration\ExtConf:
@@ -21,6 +22,10 @@ services:
 
   # Called by makeInstance in our own DataHandler
   JWeiland\Reserve\DataHandler\FacilityClearCacheAfterUpdate:
+    public: true
+
+  # Called by makeInstance in our PeriodRegistrationViewHelper
+  JWeiland\Reserve\Service\ReserveService:
     public: true
 
   JWeiland\Reserve\Tca\CreateForeignTableColumns:

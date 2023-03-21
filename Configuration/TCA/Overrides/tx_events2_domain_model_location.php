@@ -3,7 +3,7 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-call_user_func(static function() {
+call_user_func(static function () {
     if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('events2')) {
         $ll = 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:';
 
@@ -21,15 +21,16 @@ call_user_func(static function() {
                     ],
                     'minitems' => 0,
                     'maxitems' => 1,
-                    'default' => 0
-                ]
-            ]
+                    'default' => 0,
+                ],
+            ],
         ];
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
             'tx_events2_domain_model_location',
             $locationColumns
         );
+
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
             'tx_events2_domain_model_location',
             'facility',
