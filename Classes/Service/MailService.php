@@ -21,8 +21,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailService implements SingletonInterface
 {
-    public function sendMailToCustomer(Order $order, string $subject, string $bodyHtml, \Closure $postProcess = null): bool
-    {
+    public function sendMailToCustomer(
+        Order $order,
+        string $subject,
+        string $bodyHtml,
+        \Closure $postProcess = null
+    ): bool {
         return $this->sendMail(
             $subject,
             $bodyHtml,
@@ -47,17 +51,19 @@ class MailService implements SingletonInterface
         \Closure $postProcess = null,
         array $postProcessData = []
     ): bool {
-        /** @var MailMessage $mail */
         $mail = GeneralUtility::makeInstance(MailMessage::class);
         $mail
             ->setSubject($subject)
             ->setTo([$to]);
+
         if ($from) {
             $mail->setFrom([$from => $fromName]);
         }
+
         if ($replyTo) {
             $mail->setReplyTo([$replyTo => $replyToName]);
         }
+
         $mail->html($bodyHtml);
 
         // closure hook to add your own stuff to the $mail
@@ -65,6 +71,6 @@ class MailService implements SingletonInterface
             $postProcess($postProcessData, $subject, $bodyHtml, $mail);
         }
 
-        return (bool)$mail->send();
+        return $mail->send();
     }
 }
