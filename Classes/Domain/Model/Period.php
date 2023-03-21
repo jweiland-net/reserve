@@ -15,13 +15,14 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Period extends AbstractEntity
 {
     /**
-     * @var \JWeiland\Reserve\Domain\Model\Facility
+     * @var Facility
      */
     protected $facility;
 
@@ -69,20 +70,30 @@ class Period extends AbstractEntity
     protected $maxParticipantsPerOrder = 0;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\JWeiland\Reserve\Domain\Model\Order>
+     * @var ObjectStorage<Order>
+     *
+     * @Extbase\ORM\Lazy
      */
     protected $orders;
 
     /**
-     * @internal cache property for query results
      * @var array
+     *
+     * @internal cache property for query results
      */
     protected $cache = [];
 
     public function __construct()
     {
         $this->orders = new ObjectStorage();
+    }
+
+    /**
+     * Called again with initialize object, as fetching an entity from the DB does not use the constructor
+     */
+    public function initializeObject(): void
+    {
+        $this->orders = $this->orders ?? new ObjectStorage();
     }
 
     public function getFacility(): Facility
@@ -183,16 +194,11 @@ class Period extends AbstractEntity
 
     public function getMaxParticipantsPerOrder(): int
     {
-        $remaining = $this->getRemainingParticipants();
-        return $this->maxParticipantsPerOrder > $remaining
-            ? $remaining
-            : $this->maxParticipantsPerOrder;
+        return min($this->maxParticipantsPerOrder, $this->getRemainingParticipants());
     }
 
     /**
      * Allows to iterate over the number of allowed further participants.
-     *
-     * @return array
      */
     public function getMaxFurtherParticipantsPerOrderIterable(): array
     {
@@ -221,9 +227,6 @@ class Period extends AbstractEntity
         return $this->orders;
     }
 
-    /**
-     * @param ObjectStorage|Order[] $orders
-     */
     public function setOrders(ObjectStorage $orders): void
     {
         $this->orders = $orders;
@@ -267,7 +270,6 @@ class Period extends AbstractEntity
 
     /**
      * @internal fluid only!
-     * @return bool
      */
     public function getIsBookingBeginReached(): bool
     {
@@ -276,7 +278,6 @@ class Period extends AbstractEntity
 
     /**
      * @internal fluid only!
-     * @return bool
      */
     public function getIsBookingTimeOver(): bool
     {
@@ -285,7 +286,6 @@ class Period extends AbstractEntity
 
     /**
      * @internal fluid only! Use isBookable() instead!
-     * @return bool
      */
     public function getIsBookable(): bool
     {
@@ -309,10 +309,12 @@ class Period extends AbstractEntity
 
     public function countReservations(bool $activeOnly = false): int
     {
+        // ToDo: SF: DB queries in models?! Should be reworked in future
         $cacheIdentifier = 'countReservations' . ($activeOnly ? 'ActiveOnly' : '');
         if (!array_key_exists($cacheIdentifier, $this->cache)) {
             /** @var QueryBuilder $queryBuilder */
-            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_reserve_domain_model_reservation');
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable('tx_reserve_domain_model_reservation');
             $queryBuilder
                 ->count('r.uid')
                 ->from('tx_reserve_domain_model_order', 'o')
@@ -331,7 +333,7 @@ class Period extends AbstractEntity
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
             }
 
-            $this->cache[$cacheIdentifier] = (int)$queryBuilder->execute()->fetchColumn(0);
+            $this->cache[$cacheIdentifier] = (int)$queryBuilder->execute()->fetchColumn();
         }
 
         return $this->cache[$cacheIdentifier];
@@ -379,6 +381,7 @@ class Period extends AbstractEntity
             $begin = $this->begin instanceof \DateTime ? $this->begin->format('H:i') : '00:00';
             $this->cache[$cacheIdentifier] = new \DateTime($date . ' ' . $begin);
         }
+
         return $this->cache[$cacheIdentifier];
     }
 }
