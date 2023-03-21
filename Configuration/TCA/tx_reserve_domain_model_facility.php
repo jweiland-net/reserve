@@ -19,12 +19,39 @@ return [
         'languageField' => 'sys_language_uid',
         'translationSource' => 'l18n_source',
         'enablecolumns' => [
-            'disabled' => 'hidden'
+            'disabled' => 'hidden',
         ],
         'searchFields' => 'name,short_name',
         'typeicon_classes' => [
-            'default' => 'tx_reserve_domain_model_facility'
-        ]
+            'default' => 'tx_reserve_domain_model_facility',
+        ],
+    ],
+    'types' => [
+        '1' => [
+            'showitem' => 'name,short_name,cancelable,cancelable_until_minutes,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
+            --palette--;;mail_from,--palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
+            --div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.qr_code,qr_code_example,qr_code_size,qr_code_label_size,qr_code_logo,qr_code_logo_width,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
+        ],
+    ],
+    'palettes' => [
+        'mail_from' => [
+            'showitem' => 'from_name,from_email',
+        ],
+        'reply_to' => [
+            'showitem' => 'reply_to_name,reply_to_email',
+        ],
+        'hidden' => [
+            'showitem' => '
+                hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden
+            ',
+        ],
+        'language' => [
+            'showitem' => '
+                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
+            ',
+        ],
     ],
     'columns' => [
         'hidden' => [
@@ -37,10 +64,10 @@ return [
                     [
                         0 => '',
                         1 => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
-            ]
+            ],
         ],
         'sys_language_uid' => [
             'exclude' => true,
@@ -53,11 +80,11 @@ return [
                     [
                         $localLangGeneral . ':LGL.allLanguages',
                         -1,
-                        'flags-multiple'
+                        'flags-multiple',
                     ],
                 ],
                 'default' => 0,
-            ]
+            ],
         ],
         'l18n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
@@ -68,18 +95,18 @@ return [
                 'items' => [
                     [
                         '',
-                        0
-                    ]
+                        0,
+                    ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_facility',
                 'foreign_table_where' => 'AND tx_reserve_domain_model_facility.pid=###CURRENT_PID### AND tx_reserve_domain_model_facility.sys_language_uid IN (-1,0)',
-                'default' => 0
-            ]
+                'default' => 0,
+            ],
         ],
         'l18n_source' => [
             'config' => [
-                'type' => 'passthrough'
-            ]
+                'type' => 'passthrough',
+            ],
         ],
         'name' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.name',
@@ -87,7 +114,7 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 255,
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
             ],
         ],
         'short_name' => [
@@ -96,7 +123,7 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 8,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'periods' => [
@@ -111,8 +138,8 @@ return [
                     'expandSingle' => true,
                 ],
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
         'from_name' => [
@@ -152,8 +179,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim,required',
-                'default' => 'Please confirm your reservation'
-            ]
+                'default' => 'Please confirm your reservation',
+            ],
         ],
         'confirmation_mail_html' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_html',
@@ -172,17 +199,17 @@ DEFAULT_CONFIRMATION
                 'eval' => 'trim,required',
                 'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
-            ]
+                    'allowLanguageSynchronization' => true,
+                ],
+            ],
         ],
         'reservation_mail_subject' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_subject',
             'config' => [
                 'type' => 'input',
                 'eval' => 'trim,required',
-                'default' => 'Details of your reservation'
-            ]
+                'default' => 'Details of your reservation',
+            ],
         ],
         'reservation_mail_html' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_html',
@@ -201,16 +228,16 @@ DEFAULT_RESERVATION
                 'eval' => 'trim,required',
                 'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
-            ]
+                    'allowLanguageSynchronization' => true,
+                ],
+            ],
         ],
         'qr_code_example' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_preview',
             'config' => [
                 'type' => 'none',
-                'renderType' => 'reserveQrCodePreview'
-            ]
+                'renderType' => 'reserveQrCodePreview',
+            ],
         ],
         'qr_code_size' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_size',
@@ -226,7 +253,7 @@ DEFAULT_RESERVATION
                     'step' => 10,
                     'width' => 200,
                 ],
-            ]
+            ],
         ],
         'qr_code_label_size' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_label_size',
@@ -242,7 +269,7 @@ DEFAULT_RESERVATION
                     'step' => 10,
                     'width' => 200,
                 ],
-            ]
+            ],
         ],
         'qr_code_logo' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo',
@@ -264,18 +291,18 @@ DEFAULT_RESERVATION
                             '0' => [
                                 'showitem' => '
                                 --palette--;LLL:EXT:lang/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
+                                --palette--;;filePalette',
                             ],
-                            \TYPO3\CMS\Core\Resource\File::FILETYPE_IMAGE => [
+                            \TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE => [
                                 'showitem' => '
                                 --palette--;LLL:EXT:lang/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette'
+                                --palette--;;filePalette',
                             ],
                         ],
                     ],
                 ],
-                'png,jpg,jpeg,gif,bmp'
-            )
+                'png,jpg,jpeg,gif,bmp',
+            ),
         ],
         'qr_code_logo_width' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo_width',
@@ -291,7 +318,7 @@ DEFAULT_RESERVATION
                     'step' => 10,
                     'width' => 200,
                 ],
-            ]
+            ],
         ],
         'cancelable' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.cancelable',
@@ -303,10 +330,10 @@ DEFAULT_RESERVATION
                     [
                         0 => '',
                         1 => '',
-                    ]
+                    ],
                 ],
-                'default' => true
-            ]
+                'default' => true,
+            ],
         ],
         'cancelable_until_minutes' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.cancelable_until_minutes',
@@ -319,31 +346,4 @@ DEFAULT_RESERVATION
             ],
         ],
     ],
-    'types' => [
-        '1' => [
-            'showitem' => 'name,short_name,cancelable,cancelable_until_minutes,periods,--div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.mail_settings,
-            --palette--;;mail_from,--palette--;;reply_to,confirmation_mail_subject,confirmation_mail_html,reservation_mail_subject,reservation_mail_html,
-            --div--;LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.div.qr_code,qr_code_example,qr_code_size,qr_code_label_size,qr_code_logo,qr_code_logo_width,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language'
-        ],
-    ],
-    'palettes' => [
-        'mail_from' => [
-            'showitem' => 'from_name,from_email'
-        ],
-        'reply_to' => [
-            'showitem' => 'reply_to_name,reply_to_email'
-        ],
-        'hidden' => [
-            'showitem' => '
-                hidden;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:field.default.hidden
-            ',
-        ],
-        'language' => [
-            'showitem' => '
-                sys_language_uid;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:sys_language_uid_formlabel,l18n_parent
-            ',
-        ],
-    ]
 ];
