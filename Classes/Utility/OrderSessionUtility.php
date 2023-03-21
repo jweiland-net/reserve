@@ -59,8 +59,13 @@ class OrderSessionUtility extends AbstractUtility
             ($orders = static::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY))
             && array_key_exists($facilityUid, $orders)
         ) {
-            $allowed = (time() - $orders[$facilityUid]) > GeneralUtility::makeInstance(ExtConf::class)->getBlockMultipleOrdersInSeconds();
+            $allowed = (time() - $orders[$facilityUid]) > self::getExtConf()->getBlockMultipleOrdersInSeconds();
         }
         return $allowed;
+    }
+
+    private static function getExtConf(): ExtConf
+    {
+        return GeneralUtility::makeInstance(ExtConf::class);
     }
 }
