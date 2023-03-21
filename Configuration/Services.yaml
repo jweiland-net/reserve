@@ -28,6 +28,24 @@ services:
   JWeiland\Reserve\Service\ReserveService:
     public: true
 
+  JWeiland\Reserve\Command\RemoveInactiveOrdersCommand:
+    tags:
+    - name: 'console.command'
+      command: 'reserve:remove_inactive_orders'
+      schedulable: false
+
+  JWeiland\Reserve\Command\RemovePastPeriodsCommand:
+    tags:
+    - name: 'console.command'
+      command: 'reserve:remove_past_periods'
+      schedulable: false
+
+  JWeiland\Reserve\Command\SendMailsCommand:
+    tags:
+    - name: 'console.command'
+      command: 'reserve:send_mails'
+      schedulable: false
+
   JWeiland\Reserve\Tca\CreateForeignTableColumns:
     tags:
       - name: event.listener
