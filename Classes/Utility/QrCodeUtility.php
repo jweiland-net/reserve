@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 // include QR code library
-@include 'phar://' . ExtensionManagementUtility::extPath('reserve') . 'Libraries/Dependencies.phar/vendor/autoload.php';
+@include ExtensionManagementUtility::extPath('reserve') . 'Resources/Private/PHP/autoload.php';
 
 /**
  * Utility to generate QrCodes for a reservation.
