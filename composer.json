@@ -4,7 +4,7 @@
 	"description": "",
 	"license": "GPL-2.0-or-later",
 	"keywords": ["typo3", "TYPO3 CMS", "jw", "reserve"],
-	"homepage": "https://www.jweiland.net",
+	"homepage": "https://jweiland.net",
 	"authors": [
 		{
 			"name": "Stefan Frömken",
@@ -21,13 +21,13 @@
 		"typo3/cms-core": "^10.4.36 || ^11.5.23",
 		"endroid/qr-code": "^4.3.5"
 	},
-	"suggest": {
-		"jweiland/events2": "reserve comes with an API to extend EXT:events2 to register for an event location"
-	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.14",
 		"nimut/testing-framework": "^6.0",
 		"phpspec/prophecy-phpunit": "^2.0"
+	},
+	"suggest": {
+		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
 	},
 	"replace": {
 		"typo3-ter/reserve": "self.version"
