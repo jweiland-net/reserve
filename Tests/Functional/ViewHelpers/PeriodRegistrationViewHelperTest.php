@@ -13,45 +13,30 @@ namespace JWeiland\Reserve\Tests\Functional\ViewHelpers;
 
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\ReserveService;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
-
-    /**
-     * @var string[]
-     */
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
     private const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 
-    /**
-     * @var StandaloneView
-     */
-    protected $standaloneView;
+    protected StandaloneView $standaloneView;
 
-    /**
-     * @var \DateTime
-     */
-    protected $testDateMidnight;
+    protected \DateTime $testDateMidnight;
 
-    /**
-     * @var \DateTime
-     */
-    protected $testDateAndBegin;
+    protected \DateTime $testDateAndBegin;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
 
         $this->testDateMidnight = new \DateTime('+2 days midnight');
         $this->testDateAndBegin = clone $this->testDateMidnight;
@@ -73,7 +58,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
                 ['uid' => 1]
             );
 
-        $this->standaloneView = GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+        $this->standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $this->standaloneView
             ->assign('facilityUid', 1)
             ->assign('dateAndBegin', $this->testDateAndBegin->getTimestamp())
@@ -96,13 +81,18 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
      */
     public function viewHelperUsesReserveServiceToFindPeriod(): void
     {
-        $reserveServiceProphecy = $this->prophesize(ReserveService::class);
-        $reserveServiceProphecy->findPeriodsByDateAndBegin(
-            Argument::exact(1),
-            Argument::exact($this->testDateAndBegin)
-        )->willReturn([])->shouldBeCalledTimes(1);
+        $reserveServiceMock = $this->createMock(ReserveService::class);
+        $reserveServiceMock
+            ->expects(self::exactly(1))
+            ->method('findPeriodsByDateAndBegin')
+            ->with(
+                self::equalTo(1),
+                self::equalTo($this->testDateAndBegin)
+            )
+            ->willReturn([]);
 
-        GeneralUtility::setSingletonInstance(ReserveService::class, $reserveServiceProphecy->reveal());
+        GeneralUtility::setSingletonInstance(ReserveService::class, $reserveServiceMock);
+
         $this->standaloneView->render();
     }
 
@@ -111,7 +101,10 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
      */
     public function viewHelperSetsPeriodsAndRendersRemainingParticipants(): void
     {
-        $remainingParticipants = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class)->findByUid(1)->getRemainingParticipants();
+        $remainingParticipants = GeneralUtility::makeInstance(PeriodRepository::class)
+            ->findByUid(1)
+            ->getRemainingParticipants();
+
         self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
             $this->standaloneView->render(),
@@ -125,6 +118,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
         $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
+
         self::assertStringContainsString(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
@@ -138,6 +132,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
         $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');
+
         self::assertStringContainsString(
             'Test',
             $this->standaloneView->render(),

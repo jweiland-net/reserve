@@ -13,7 +13,6 @@ namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
-use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -32,13 +31,13 @@ class CancellationService implements SingletonInterface
     private const REASON_CUSTOMER = 'customer';
     public const REASON_INACTIVE = 'inactive';
 
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected FluidService $fluidService;
 
-    public function __construct(PersistenceManager $persistenceManager)
+    protected PersistenceManager $persistenceManager;
+
+    public function __construct(FluidService $fluidService, PersistenceManager $persistenceManager)
     {
+        $this->fluidService = $fluidService;
         $this->persistenceManager = $persistenceManager;
     }
 
@@ -58,15 +57,20 @@ class CancellationService implements SingletonInterface
         $this->persistenceManager->remove($order);
         if ($sendMailToCustomer) {
             $view = $this->getStandaloneView();
-            FluidUtility::configureStandaloneViewForMailing($view);
+
+            $this->fluidService->configureStandaloneViewForMailing($view);
+
             $view->assignMultiple(['order' => $order, 'reason' => $reason]);
             $view->assignMultiple($vars);
             $view->setTemplate('Cancellation');
-            GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
-                $order,
-                LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                $view->render()
-            );
+
+            $this
+                ->getMailService()
+                ->sendMailToCustomer(
+                    $order,
+                    LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
+                    $view->render()
+                );
         }
 
         if ($persist) {
@@ -92,5 +96,10 @@ class CancellationService implements SingletonInterface
     public function getPersistenceManager(): PersistenceManager
     {
         return $this->persistenceManager;
+    }
+
+    protected function getMailService(): MailService
+    {
+        return GeneralUtility::makeInstance(MailService::class);
     }
 }

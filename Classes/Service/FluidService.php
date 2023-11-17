@@ -9,27 +9,27 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Utility;
+namespace JWeiland\Reserve\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Utility methods to configure the StandaloneView
  */
-class FluidUtility
+class FluidService
 {
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected static $configurationManager;
+    protected ConfigurationManagerInterface $configurationManager;
 
-    public static function configureStandaloneViewForMailing(StandaloneView $standaloneView): void
+    public function __construct(ConfigurationManagerInterface $configurationManager)
     {
-        $extbaseFrameworkConfiguration = self::getConfigurationManager()->getConfiguration(
+        $this->configurationManager = $configurationManager;
+    }
+
+    public function configureStandaloneViewForMailing(StandaloneView $standaloneView): void
+    {
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'reserve',
             'Reservation'
@@ -40,17 +40,15 @@ class FluidUtility
         // $extbaseFrameworkConfiguration['view']['templateRootPaths'] would be null and throw an exception so let's
         // set some default values!
         $standaloneView->setTemplateRootPaths(
-            $extbaseFrameworkConfiguration['view']['templateRootPaths']
-            ?? ['EXT:reserve/Resources/Private/Templates/']
+            $extbaseFrameworkConfiguration['view']['templateRootPaths'] ?? ['EXT:reserve/Resources/Private/Templates/']
         );
         $standaloneView->setLayoutRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths']
-            ?? ['EXT:reserve/Resources/Private/Layouts/']
+            $extbaseFrameworkConfiguration['view']['layoutRootPaths'] ?? ['EXT:reserve/Resources/Private/Layouts/']
         );
         $standaloneView->setPartialRootPaths(
-            $extbaseFrameworkConfiguration['view']['partialRootPaths']
-            ?? ['EXT:reserve/Resources/Private/Partials/']
+            $extbaseFrameworkConfiguration['view']['partialRootPaths'] ?? ['EXT:reserve/Resources/Private/Partials/']
         );
+
         $standaloneView->getRenderingContext()->setControllerName('Mail');
     }
 
@@ -60,7 +58,7 @@ class FluidUtility
      * @param string $content string which may contain $marker
      * @param array $vars additional vars for the fluid template
      */
-    public static function replaceMarkerByRenderedTemplate(
+    public function replaceMarkerByRenderedTemplate(
         string $marker,
         string $template,
         string $content,
@@ -74,19 +72,8 @@ class FluidUtility
         return str_replace($marker, $view->render(), $content);
     }
 
-    private static function getStandaloneView(): StandaloneView
+    private function getStandaloneView(): StandaloneView
     {
         return GeneralUtility::makeInstance(StandaloneView::class);
-    }
-
-    private static function getConfigurationManager(): ConfigurationManagerInterface
-    {
-        if (static::$configurationManager === null) {
-            // ToDo: Replace while removing TYPO3 10 compatibility
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-            static::$configurationManager = $objectManager->get(ConfigurationManager::class);
-        }
-
-        return static::$configurationManager;
     }
 }

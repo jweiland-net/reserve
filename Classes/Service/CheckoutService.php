@@ -16,7 +16,6 @@ use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
-use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use JWeiland\Reserve\Utility\QrCodeUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -27,29 +26,24 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CheckoutService
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected ConfigurationManager $configurationManager;
 
-    /**
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
+    protected FluidService $fluidService;
 
-    /**
-     * @var MailService
-     */
-    protected $mailService;
+    protected MailService $mailService;
+
+    protected PersistenceManager $persistenceManager;
 
     public function __construct(
-        PersistenceManager $persistenceManager,
         ConfigurationManager $configurationManager,
-        MailService $mailService
+        FluidService $fluidService,
+        MailService $mailService,
+        PersistenceManager $persistenceManager
     ) {
-        $this->persistenceManager = $persistenceManager;
         $this->configurationManager = $configurationManager;
+        $this->fluidService = $fluidService;
         $this->mailService = $mailService;
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -123,7 +117,7 @@ class CheckoutService
         return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
-            FluidUtility::replaceMarkerByRenderedTemplate(
+            $this->fluidService->replaceMarkerByRenderedTemplate(
                 '###ORDER_DETAILS###',
                 'Confirmation',
                 $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml(),
@@ -148,7 +142,7 @@ class CheckoutService
         return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
-            FluidUtility::replaceMarkerByRenderedTemplate(
+            $this->fluidService->replaceMarkerByRenderedTemplate(
                 '###RESERVATION###',
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),

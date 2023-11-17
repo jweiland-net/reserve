@@ -21,67 +21,43 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Period extends AbstractEntity
 {
-    /**
-     * @var Facility
-     */
-    protected $facility;
+    protected Facility $facility;
 
-    /**
-     * @var \DateTime
-     */
-    protected $bookingBegin;
+    protected ?\DateTime $bookingBegin = null;
 
-    /**
-     * @var \DateTime
-     */
-    protected $bookingEnd;
+    protected ?\DateTime $bookingEnd = null;
 
-    /**
-     * @var \DateTime
-     */
-    protected $date;
+    protected ?\DateTime $date = null;
 
     /**
      * 00:00 is still a valid value, but will be stored in DB with "0".
      * DataHandler will return NULL on empty values.
      * So we have to add NULL as possible return value here.
-     *
-     * @var \DateTime|null
      */
-    protected $begin;
+    protected ?\DateTime $begin = null;
 
     /**
      * 00:00 is still a valid value, but will be stored in DB with "0".
      * DataHandler will return NULL on empty values.
      * So we have to add NULL as possible return value here.
-     *
-     * @var \DateTime|null
      */
-    protected $end;
+    protected ?\DateTime $end;
 
-    /**
-     * @var int
-     */
-    protected $maxParticipants = 0;
+    protected int $maxParticipants = 0;
 
-    /**
-     * @var int
-     */
-    protected $maxParticipantsPerOrder = 0;
+    protected int $maxParticipantsPerOrder = 0;
 
     /**
      * @var ObjectStorage<Order>
      *
      * @Extbase\ORM\Lazy
      */
-    protected $orders;
+    protected ObjectStorage $orders;
 
     /**
-     * @var array
-     *
-     * @internal cache property for query results
+     * @internal Cache property for query results
      */
-    protected $cache = [];
+    protected array $cache = [];
 
     public function __construct()
     {
@@ -333,7 +309,7 @@ class Period extends AbstractEntity
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
             }
 
-            $this->cache[$cacheIdentifier] = (int)$queryBuilder->execute()->fetchColumn();
+            $this->cache[$cacheIdentifier] = (int)$queryBuilder->executeQuery()->fetchOne();
         }
 
         return $this->cache[$cacheIdentifier];

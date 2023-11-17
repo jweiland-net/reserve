@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -7,7 +7,7 @@ if (!\TYPO3\CMS\Core\Core\Environment::isComposerMode()) {
     require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('reserve') . '/Resources/Private/Php/vendor/autoload.php';
 }
 
-call_user_func(static function () {
+call_user_func(static function (): void {
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Reserve',
         'Reservation',
@@ -61,9 +61,9 @@ call_user_func(static function () {
     );
 
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][]
-        = \JWeiland\Reserve\Hooks\DataHandler::class;
+        = \JWeiland\Reserve\Hook\DataHandlerHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][]
-        = \JWeiland\Reserve\Hooks\DataHandler::class;
+        = \JWeiland\Reserve\Hook\DataHandlerHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_pagerenderer.php']['render-preProcess'][]
-        = \JWeiland\Reserve\Hooks\PageRenderer::class . '->processTxReserveModalUserSetting';
+        = \JWeiland\Reserve\Hook\PageRendererHook::class . '->processTxReserveModalUserSetting';
 });

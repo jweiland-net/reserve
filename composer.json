@@ -3,7 +3,7 @@
 	"type": "typo3-cms-extension",
 	"description": "",
 	"license": "GPL-2.0-or-later",
-	"keywords": ["typo3", "TYPO3 CMS", "jw", "reserve"],
+	"keywords": ["typo3", "TYPO3 CMS", "reserve"],
 	"homepage": "https://jweiland.net",
 	"authors": [
 		{
@@ -18,13 +18,15 @@
 		"source": "https://github.com/jweiland-net/reserve"
 	},
 	"require": {
-		"typo3/cms-core": "^10.4.36 || ^11.5.23",
+		"ext-json": "*",
+		"typo3/cms-core": "^11.5.33 || ^12.4.8",
 		"endroid/qr-code": "^4.3.5"
 	},
 	"require-dev": {
 		"friendsofphp/php-cs-fixer": "^3.14",
-		"nimut/testing-framework": "^6.0",
-		"phpspec/prophecy-phpunit": "^2.0"
+		"phpunit/phpunit": "^9.6",
+		"typo3/coding-standards": "^0.6",
+		"typo3/testing-framework": "^7.0.2"
 	},
 	"suggest": {
 		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
@@ -37,32 +39,24 @@
 			"JWeiland\\Reserve\\": "Classes"
 		}
 	},
-	"config": {
-		"vendor-dir": ".build/vendor",
-		"allow-plugins": {
-			"typo3/class-alias-loader": true,
-			"typo3/cms-composer-installers": true
+	"autoload-dev": {
+		"psr-4": {
+			"JWeiland\\Reserve\\Tests\\": "Tests"
 		}
+	},
+	"config": {
+		"allow-plugins": {
+			"typo3/cms-composer-installers": true,
+			"typo3/class-alias-loader": true
+		},
+		"bin-dir": ".Build/bin",
+		"sort-packages": true,
+		"vendor-dir": ".Build/vendor"
 	},
 	"extra": {
 		"typo3/cms": {
 			"extension-key": "reserve",
-			"app-dir": ".build",
-			"web-dir": ".build/public"
+			"web-dir": ".Build/Web"
 		}
-	},
-	"scripts": {
-		"php:fix": ".build/vendor/bin/php-cs-fixer --config=Build/php-cs-fixer/config.php fix Classes Tests",
-		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-		"ci:php:fixer": ".build/vendor/bin/php-cs-fixer --config=Build/php-cs-fixer/config.php fix --dry-run -v --show-progress=dots --diff Classes Tests",
-		"ci:tests:unit": ".build/vendor/bin/phpunit -c .build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit",
-		"ci:tests:functional": "find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo \"Running functional test suite {}\"; .build/vendor/bin/phpunit -c .build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml {}';",
-		"link-extension": [
-			"@php -r 'is_dir($extFolder=__DIR__.\"/.build/public/typo3conf/ext/\") || mkdir($extFolder, 0777, true);'",
-			"@php -r 'file_exists($extFolder=__DIR__.\"/.build/public/typo3conf/ext/reserve\") || symlink(__DIR__,$extFolder);'"
-		],
-		"post-autoload-dump": [
-			"@link-extension"
-		]
 	}
 }

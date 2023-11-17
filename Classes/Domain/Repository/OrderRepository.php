@@ -30,10 +30,10 @@ class OrderRepository extends Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->equals('email', $email),
                 $query->equals('activationCode', $activationCode),
-            ])
+            )
         );
 
         return $query->execute()->getFirst();
@@ -50,10 +50,10 @@ class OrderRepository extends Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->equals('activated', 0),
                 $query->lessThan('crdate', $olderThan->getTimestamp()),
-            ])
+            )
         );
 
         return $query->execute();
@@ -83,7 +83,8 @@ class OrderRepository extends Repository
             ->setDate(1970, 1, 1);
 
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable(self::TABLE);
         $queryBuilder
             ->select(...$selects)
             ->from(self::TABLE, 'o')
@@ -94,15 +95,15 @@ class OrderRepository extends Repository
                 'o.booked_period = p.uid'
             )
             ->where(
-                $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->and(
+                    $queryBuilder->expr()->or(
                         // not less than equal because this would remove events without respecting the field "end"
                         // days before the calculated day
                         $queryBuilder->expr()->lt(
                             'p.date',
                             $queryBuilder->createNamedParameter($periodDate->getTimestamp())
                         ),
-                        $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->and(
                             // calculated day AND calculated end time
                             $queryBuilder->expr()->eq(
                                 'p.date',
@@ -134,8 +135,8 @@ class OrderRepository extends Repository
     ): array {
         return $this
             ->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**

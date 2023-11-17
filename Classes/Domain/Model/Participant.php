@@ -16,15 +16,9 @@ namespace JWeiland\Reserve\Domain\Model;
  */
 class Participant
 {
-    /**
-     * @var string
-     */
-    protected $firstName = '';
+    protected string $firstName = '';
 
-    /**
-     * @var string
-     */
-    protected $lastName = '';
+    protected string $lastName = '';
 
     public function getFirstName(): string
     {

@@ -18,11 +18,9 @@ use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use JWeiland\Reserve\Service\CheckoutService;
+use JWeiland\Reserve\Service\FluidService;
 use JWeiland\Reserve\Service\MailService;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -31,31 +29,34 @@ use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class CheckoutServiceTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
-
-    /**
-     * @var CheckoutService
-     */
-    protected $subject;
+    protected CheckoutService $subject;
 
     /**
-     * @var MailService|ObjectProphecy
+     * @var FluidService|MockObject
      */
-    protected $mailServiceProphecy;
+    protected $fluidServiceMock;
+
+    /**
+     * @var MailService|MockObject
+     */
+    protected $mailServiceMock;
 
     protected function setUp(): void
     {
         parent::setUp();
+
         $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
         $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
         $GLOBALS['TSFE']->_set('sys_page', new PageRepository((new Context())));
@@ -68,16 +69,17 @@ class CheckoutServiceTest extends FunctionalTestCase
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
         Bootstrap::initializeLanguageObject();
 
-        // ToDo: Replace ObjectManager after removing TYPO3 10 compatibility
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->mailServiceProphecy = $this->prophesize(MailService::class);
+        $this->fluidServiceMock = $this->createMock(FluidService::class);
+        $this->mailServiceMock = $this->createMock(MailService::class);
+
         $this->subject = new CheckoutService(
-            $objectManager->get(PersistenceManagerInterface::class),
-            $objectManager->get(ConfigurationManagerInterface::class),
-            $this->mailServiceProphecy->reveal()
+            GeneralUtility::makeInstance(ConfigurationManagerInterface::class),
+            $this->fluidServiceMock,
+            $this->mailServiceMock,
+            GeneralUtility::makeInstance(PersistenceManagerInterface::class)
         );
 
-        $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
 
         GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_period')
@@ -98,7 +100,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutPersistsNewOrderIntoDatabase(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
@@ -123,7 +125,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutPersistsMultipleReservationsIntoDatabase(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         /** @var Period $period */
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
@@ -145,8 +147,7 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $this->subject->checkout($order);
 
-        $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)
-            ->get(ReservationRepository::class);
+        $reservationRepository = GeneralUtility::makeInstance(ReservationRepository::class);
         $reservations = $reservationRepository->findByCustomerOrder(1);
 
         self::assertCount(
@@ -161,7 +162,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
@@ -195,23 +196,31 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function sendConfirmationMailSendsMailWithActivationLinks(): void
     {
-        $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.csv');
 
-        $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
+        $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
-        $this->mailServiceProphecy
-            ->sendMailToCustomer(Argument::cetera())
-            ->willReturn(false);
-        $this->mailServiceProphecy
-            ->sendMailToCustomer(
-                $order,
-                'Test confirmation',
-                Argument::containingString('Confirm your reservation'),
-                Argument::cetera()
-            )
-            ->shouldBeCalled()
-            ->willReturn(true);
+        $this->fluidServiceMock
+            ->expects(self::atLeastOnce())
+            ->method('replaceMarkerByRenderedTemplate')
+            ->with(
+                self::equalTo('###ORDER_DETAILS###'),
+                self::equalTo('Confirmation'),
+                self::equalTo($order->getBookedPeriod()->getFacility()->getConfirmationMailHtml()),
+                [
+                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'order' => $order,
+                ])
+            ->willReturn('Confirm your reservation');
+
+        $this->mailServiceMock
+            ->expects(self::atLeastOnce())
+            ->method('sendMailToCustomer')
+            ->willReturnCallback(static function (Order $order, string $subject, string $body, ...$others) {
+                return $subject === 'Test confirmation'
+                    && $body === 'Confirm your reservation';
+            });
 
         $this->subject->sendConfirmationMail($order);
     }
@@ -221,23 +230,31 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function confirmActivatesOrderAndSendsReservationMail(): void
     {
-        $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.csv');
 
-        $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
+        $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
-        $this->mailServiceProphecy
-            ->sendMailToCustomer(Argument::cetera())
-            ->willReturn(false);
-        $this->mailServiceProphecy
-            ->sendMailToCustomer(
-                $order,
-                'Test reservation',
-                Argument::containingString('alt="firstCode"'), // reservation code
-                Argument::cetera()
-            )
-            ->shouldBeCalled()
-            ->willReturn(true);
+        $this->fluidServiceMock
+            ->expects(self::atLeastOnce())
+            ->method('replaceMarkerByRenderedTemplate')
+            ->with(
+                self::equalTo('###RESERVATION###'),
+                self::equalTo('Reservation'),
+                self::equalTo($order->getBookedPeriod()->getFacility()->getReservationMailHtml()),
+                [
+                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'order' => $order,
+                ])
+            ->willReturn('alt="firstCode"');
+
+        $this->mailServiceMock
+            ->expects(self::atLeastOnce())
+            ->method('sendMailToCustomer')
+            ->willReturnCallback(static function (Order $order, string $subject, string $body, ...$others) {
+                return $subject === 'Test reservation'
+                    && str_contains($body, 'alt="firstCode"');
+            });
 
         $this->subject->confirm($order);
 

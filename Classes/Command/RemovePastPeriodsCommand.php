@@ -18,7 +18,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Remove past periods and all related records like orders, reservations, codes.
@@ -37,13 +36,24 @@ You have to run the command `cleanup:deletedrecords` or scheduler task `Recycler
 to remove them permanently from the database!
 HELP
         );
-        $this->addOption('ended-since', 'e', InputOption::VALUE_OPTIONAL, 'Time since the period ended in seconds', 0);
+        $this->addOption(
+            'ended-since',
+            'e',
+            InputOption::VALUE_OPTIONAL,
+            'Time since the period ended in seconds',
+            0
+        );
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
-        $periods = $orderRepository->findWherePeriodEndedRaw((int)$input->getOption('ended-since'), ['p.uid'], 5);
+        $periods = $this->getOrderRepository()->findWherePeriodEndedRaw(
+            (int)$input->getOption('ended-since'),
+            [
+                'p.uid',
+            ],
+            5
+        );
 
         $cmd = ['tx_reserve_domain_model_period' => []];
         foreach ($periods as $period) {
@@ -51,7 +61,8 @@ HELP
         }
 
         $GLOBALS['BE_USER']->backendCheckLogin();
-        $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+
+        $dataHandler = $this->getDataHandler();
         $dataHandler->start([], $cmd);
         $dataHandler->process_cmdmap();
 
@@ -62,5 +73,15 @@ HELP
         }
 
         return 0;
+    }
+
+    protected function getDataHandler(): DataHandler
+    {
+        return GeneralUtility::makeInstance(DataHandler::class);
+    }
+
+    protected function getOrderRepository(): OrderRepository
+    {
+        return GeneralUtility::makeInstance(OrderRepository::class);
     }
 }

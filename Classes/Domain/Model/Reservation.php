@@ -18,30 +18,15 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Reservation extends AbstractEntity
 {
-    /**
-     * @var Order
-     */
-    protected $customerOrder;
+    protected Order $customerOrder;
 
-    /**
-     * @var string
-     */
-    protected $firstName = '';
+    protected string $firstName = '';
 
-    /**
-     * @var string
-     */
-    protected $lastName = '';
+    protected string $lastName = '';
 
-    /**
-     * @var string
-     */
-    protected $code = '';
+    protected string $code = '';
 
-    /**
-     * @var bool
-     */
-    protected $used = false;
+    protected bool $used = false;
 
     public function getCustomerOrder(): Order
     {
