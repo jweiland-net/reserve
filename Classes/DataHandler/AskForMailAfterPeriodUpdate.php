@@ -128,8 +128,8 @@ class AskForMailAfterPeriodUpdate
         $this->getBackendUserAuthentication()->setAndSaveSessionData(
             PageRendererHook::MODAL_SESSION_KEY,
             [
-                'jsInlineCode' => [
-                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);',
+                'requireJsModules' => [
+                    'TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => null,
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [
