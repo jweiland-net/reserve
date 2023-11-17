@@ -270,7 +270,6 @@ DEFAULT_RESERVATION
                     'foreign_match_fields' => [
                         'fieldname' => 'qr_code_logo',
                         'tablenames' => 'tx_reserve_domain_model_facility',
-                        'table_local' => 'sys_file',
                     ],
                     'behaviour' => [
                         'allowLanguageSynchronization' => true,
