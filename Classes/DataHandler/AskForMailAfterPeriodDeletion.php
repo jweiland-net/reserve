@@ -57,33 +57,43 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
     public function addVisitorEmailsOfPeriod(int $periodUid): void
     {
         $queryBuilder = $this->getQueryBuilderForTable(self::TABLE);
-        $rows = $queryBuilder
+
+        $queryResult = $queryBuilder
             ->select('o.email', 'o.pid', 'f.from_name', 'f.from_email', 'f.reply_to_name', 'f.reply_to_email')
             ->from(self::TABLE, 'p')
             ->leftJoin('p', 'tx_reserve_domain_model_order', 'o', 'o.booked_period = p.uid')
             ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f', 'f.uid = p.facility')
             ->where($queryBuilder->expr()->eq('p.uid', $queryBuilder->createNamedParameter($periodUid)))
-            ->executeQuery()
-            ->fetchAllAssociative();
+            ->executeQuery();
 
+        $firstPeriodRecord = [];
         $this->visitorEmails[$periodUid] = [];
-        foreach ($rows as $row) {
-            $this->visitorEmails[$periodUid][] = $row['email'];
+
+        while ($periodRecord = $queryResult->fetchAssociative()) {
+            // If no record could be found PID can be NULL, because of the leftJoin constraint
+            if ($periodRecord['pid'] === null) {
+                continue;
+            }
+
+            if ($firstPeriodRecord === []) {
+                $firstPeriodRecord = $periodRecord;
+            }
+
+            $this->visitorEmails[$periodUid][] = $periodRecord['email'];
         }
 
-        if (!empty($rows)) {
-            $this->pid = $rows[0]['pid'];
-            // this won't work if one deletes multiple periods of multiple facilities using the multi-selection mode
-            $this->fromName = $rows[0]['from_name'];
-            $this->fromEmail = $rows[0]['from_email'];
-            $this->replyToName = $rows[0]['reply_to_name'];
-            $this->replyToEmail = $rows[0]['reply_to_email'];
+        if ($firstPeriodRecord !== []) {
+            $this->pid = (int)$firstPeriodRecord['pid'];
+            $this->fromName = $firstPeriodRecord['from_name'];
+            $this->fromEmail = $firstPeriodRecord['from_email'];
+            $this->replyToName = $firstPeriodRecord['reply_to_name'];
+            $this->replyToEmail = $firstPeriodRecord['reply_to_email'];
         }
     }
 
     public function processDataHandlerCmdResultAfterFinish(DataHandler $dataHandler): void
     {
-        if (!empty($this->visitorEmails) && !Environment::isCli()) {
+        if ($this->visitorEmails !== [] && !Environment::isCli()) {
             foreach (array_keys($this->visitorEmails) as $periodUid) {
                 if (!$dataHandler->hasDeletedRecord(self::TABLE, $periodUid)) {
                     // maybe the record was not removed but intended for removal and added to this array
@@ -91,7 +101,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                 }
             }
 
-            if (!empty($this->visitorEmails)) {
+            if ($this->visitorEmails !== []) {
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }
@@ -114,7 +124,6 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                 ],
             ],
             'noView' => true,
-
         ];
 
         $uriBuilder = $this->getUriBuilder();
