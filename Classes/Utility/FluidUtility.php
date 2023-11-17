@@ -14,7 +14,6 @@ namespace JWeiland\Reserve\Utility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -82,9 +81,7 @@ class FluidUtility
     private static function getConfigurationManager(): ConfigurationManagerInterface
     {
         if (static::$configurationManager === null) {
-            // ToDo: Replace while removing TYPO3 10 compatibility
-            $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-            static::$configurationManager = $objectManager->get(ConfigurationManager::class);
+            static::$configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
         }
 
         return static::$configurationManager;

@@ -22,7 +22,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
@@ -63,16 +62,22 @@ class SendMailsCommand extends Command
     public function __construct(string $name = null)
     {
         parent::__construct($name);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->emailRepository = $objectManager->get(EmailRepository::class);
-        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
+        $this->emailRepository = $this->getEmailRepository();
+        $this->persistenceManager = $this->getPersistenceManager();
     }
 
     protected function configure(): void
     {
         $this->setDescription('Send mails using all tx_reserve_domain_model_mail records.');
         $this->setHelp('Send mails using all tx_reserve_domain_model_mail records.');
-        $this->addOption('mailLimit', 'm', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
+
+        $this->addOption(
+            'mailLimit',
+            'm',
+            InputOption::VALUE_OPTIONAL,
+            'How many mails per execution?',
+            100
+        );
         $this->addOption(
             'locale',
             'l',
@@ -87,8 +92,11 @@ class SendMailsCommand extends Command
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $mailLimit = (int)$input->getOption('mailLimit');
+
         $progressBar = new ProgressBar($output);
+
         $output->writeln('Send mails...');
+
         $sentMails = 0;
         while ($sentMails < $mailLimit) {
             if (!$this->sendNextMail()) {
@@ -118,7 +126,7 @@ class SendMailsCommand extends Command
             if ($this->email->getReceiverType() === Email::RECEIVER_TYPE_PERIODS) {
                 // attach the associated order because we know that an order exists
                 $order = $this->orders[$this->currentReceiverKey];
-                GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
+                $this->getMailService()->sendMailToCustomer(
                     $order,
                     $this->email->getSubject(),
                     FluidUtility::replaceMarkerByRenderedTemplate(
@@ -129,7 +137,7 @@ class SendMailsCommand extends Command
                     )
                 );
             } else {
-                GeneralUtility::makeInstance(MailService::class)->sendMail(
+                $this->getMailService()->sendMail(
                     $this->email->getSubject(),
                     $this->email->getBody(),
                     $receiver,
@@ -171,7 +179,9 @@ class SendMailsCommand extends Command
             }
             $this->receivers = $this->email->getReceivers($this->orders);
         }
+
         $this->currentReceiverKey = key($this->receivers);
+
         return (string)array_shift($this->receivers);
     }
 
@@ -193,5 +203,20 @@ class SendMailsCommand extends Command
     {
         $this->persistenceManager->remove($this->email);
         $this->persistenceManager->persistAll();
+    }
+
+    protected function getEmailRepository(): EmailRepository
+    {
+        return GeneralUtility::makeInstance(EmailRepository::class);
+    }
+
+    protected function getPersistenceManager(): PersistenceManager
+    {
+        return GeneralUtility::makeInstance(PersistenceManager::class);
+    }
+
+    protected function getMailService(): MailService
+    {
+        return GeneralUtility::makeInstance(MailService::class);
     }
 }

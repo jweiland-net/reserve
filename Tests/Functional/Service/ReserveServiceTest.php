@@ -15,7 +15,6 @@ use JWeiland\Reserve\Service\ReserveService;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class ReserveServiceTest extends FunctionalTestCase
 {
@@ -34,7 +33,7 @@ class ReserveServiceTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->reserveService = GeneralUtility::makeInstance(ObjectManager::class)->get(ReserveService::class);
+        $this->reserveService = GeneralUtility::makeInstance(ReserveService::class);
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
         $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');

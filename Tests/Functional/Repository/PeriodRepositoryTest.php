@@ -16,11 +16,12 @@ use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 class PeriodRepositoryTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected $testExtensionsToLoad = [
+        'typo3conf/ext/reserve'
+    ];
 
     /**
      * @var PeriodRepository
@@ -35,7 +36,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $this->periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
 
         $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
         $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');

@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -108,8 +107,6 @@ class PeriodRepository extends Repository
 
     protected function getQuerySettings(): QuerySettingsInterface
     {
-        // ToDo: Remove while removing TYPO3 10 compatibility
-        return GeneralUtility::makeInstance(ObjectManager::class)
-            ->get(QuerySettingsInterface::class);
+        return GeneralUtility::makeInstance(QuerySettingsInterface::class);
     }
 }

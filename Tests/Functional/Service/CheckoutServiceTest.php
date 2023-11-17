@@ -31,7 +31,6 @@ use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -68,12 +67,10 @@ class CheckoutServiceTest extends FunctionalTestCase
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
         Bootstrap::initializeLanguageObject();
 
-        // ToDo: Replace ObjectManager after removing TYPO3 10 compatibility
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $this->mailServiceProphecy = $this->prophesize(MailService::class);
         $this->subject = new CheckoutService(
-            $objectManager->get(PersistenceManagerInterface::class),
-            $objectManager->get(ConfigurationManagerInterface::class),
+            GeneralUtility::makeInstance(PersistenceManagerInterface::class),
+            GeneralUtility::makeInstance(ConfigurationManagerInterface::class),
             $this->mailServiceProphecy->reveal()
         );
 
@@ -98,7 +95,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutPersistsNewOrderIntoDatabase(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
@@ -123,7 +120,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutPersistsMultipleReservationsIntoDatabase(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         /** @var Period $period */
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
@@ -145,8 +142,7 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $this->subject->checkout($order);
 
-        $reservationRepository = GeneralUtility::makeInstance(ObjectManager::class)
-            ->get(ReservationRepository::class);
+        $reservationRepository = GeneralUtility::makeInstance(ReservationRepository::class);
         $reservations = $reservationRepository->findByCustomerOrder(1);
 
         self::assertCount(
@@ -161,7 +157,7 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
-        $periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
+        $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         $period = $periodRepository->findByUid(1);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
@@ -197,7 +193,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 
-        $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
+        $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
         $this->mailServiceProphecy
@@ -223,7 +219,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         $this->importDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.xml');
 
-        $orderRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(OrderRepository::class);
+        $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
         $this->mailServiceProphecy

@@ -18,7 +18,6 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 class PeriodRegistrationViewHelperTest extends FunctionalTestCase
@@ -73,7 +72,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
                 ['uid' => 1]
             );
 
-        $this->standaloneView = GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+        $this->standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $this->standaloneView
             ->assign('facilityUid', 1)
             ->assign('dateAndBegin', $this->testDateAndBegin->getTimestamp())
@@ -111,7 +110,10 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
      */
     public function viewHelperSetsPeriodsAndRendersRemainingParticipants(): void
     {
-        $remainingParticipants = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class)->findByUid(1)->getRemainingParticipants();
+        $remainingParticipants = GeneralUtility::makeInstance(PeriodRepository::class)
+            ->findByUid(1)
+            ->getRemainingParticipants();
+
         self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
             $this->standaloneView->render(),
