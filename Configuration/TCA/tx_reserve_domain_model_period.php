@@ -99,7 +99,6 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_reserve_domain_model_facility',
                 'maxitems' => 1,
                 'minitems' => 1,
