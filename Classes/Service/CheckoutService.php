@@ -27,20 +27,11 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CheckoutService
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
-    /**
-     * @var ConfigurationManager
-     */
-    protected $configurationManager;
+    protected ConfigurationManager $configurationManager;
 
-    /**
-     * @var MailService
-     */
-    protected $mailService;
+    protected MailService $mailService;
 
     public function __construct(
         PersistenceManager $persistenceManager,

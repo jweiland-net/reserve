@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\DataHandler;
 
-use Doctrine\DBAL\Connection;
 use JWeiland\Reserve\Utility\CacheUtility;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
@@ -29,20 +29,15 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class FacilityClearCacheAfterUpdate
 {
-    /**
-     * @var DataHandler
-     */
-    protected $dataHandler;
+    protected DataHandler $dataHandler;
 
-    /**
-     * @var array
-     */
-    protected $facilityNames = [];
+    protected array $facilityNames = [];
 
     public function processDataHandlerResultAfterAllOperations(DataHandler $dataHandler): bool
     {
         $this->dataHandler = $dataHandler;
         $this->facilityNames = [];
+
         // maybe split this big condition block into separated methods
         if (array_key_exists('tx_reserve_domain_model_facility', $dataHandler->datamap)) {
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {
@@ -52,7 +47,7 @@ class FacilityClearCacheAfterUpdate
                 }
             }
         } elseif (array_key_exists('tx_reserve_domain_model_order', $dataHandler->datamap)) {
-            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForOrder();
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_order', 'o')
@@ -67,7 +62,7 @@ class FacilityClearCacheAfterUpdate
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_period', $dataHandler->datamap)) {
-            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForOrder();
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_period', 'p')
@@ -81,7 +76,7 @@ class FacilityClearCacheAfterUpdate
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_reservation', $dataHandler->datamap)) {
-            $queryBuilder = $this->getQueryBuilderForTable('tx_reserve_domain_model_order');
+            $queryBuilder = $this->getQueryBuilderForOrder();
             $queryBuilder
                 ->select('f.uid', 'f.name')
                 ->from('tx_reserve_domain_model_reservation', 'r')
@@ -128,9 +123,9 @@ class FacilityClearCacheAfterUpdate
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($uid);
     }
 
-    private function getQueryBuilderForTable(string $table): QueryBuilder
+    private function getQueryBuilderForOrder(): QueryBuilder
     {
-        $queryBuilder = $this->getConnectionPool()->getQueryBuilderForTable($table);
+        $queryBuilder = $this->getConnectionPool()->getQueryBuilderForTable('tx_reserve_domain_model_order');
         $queryBuilder->getRestrictions()->removeAll();
         $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 

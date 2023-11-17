@@ -21,10 +21,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class FluidUtility
 {
-    /**
-     * @var ConfigurationManagerInterface
-     */
-    protected static $configurationManager;
+    protected static ConfigurationManagerInterface $configurationManager;
 
     public static function configureStandaloneViewForMailing(StandaloneView $standaloneView): void
     {

@@ -76,7 +76,8 @@ class RemoveInactiveOrdersCommand extends Command
                 // Anyway make sure to remove the order!
                 $cancellationService->getPersistenceManager()->remove($inactiveOrder);
             }
-            $progressBar->advance(1);
+
+            $progressBar->advance();
         }
 
         $progressBar->finish();

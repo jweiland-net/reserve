@@ -28,35 +28,17 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
 {
     private const TABLE = 'tx_reserve_domain_model_period';
 
-    /**
-     * @var array
-     */
-    protected $visitorEmails = [];
+    protected array $visitorEmails = [];
 
-    /**
-     * @var int
-     */
-    protected $pid = 0;
+    protected int $pid = 0;
 
-    /**
-     * @var string
-     */
-    protected $fromName = '';
+    protected string $fromName = '';
 
-    /**
-     * @var string
-     */
-    protected $fromEmail = '';
+    protected string $fromEmail = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToName = '';
+    protected string $replyToName = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToEmail = '';
+    protected string $replyToEmail = '';
 
     public function processDataHandlerCmdDeleteAction(
         string $table,
@@ -135,7 +117,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
 
         ];
 
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder = $this->getUriBuilder();
 
         // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
         // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
@@ -174,13 +156,18 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         return $queryBuilder;
     }
 
+    protected function getBackendUserAuthentication(): BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
+    }
+
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
-    protected function getBackendUserAuthentication(): BackendUserAuthentication
+    protected function getUriBuilder(): UriBuilder
     {
-        return $GLOBALS['BE_USER'];
+        return GeneralUtility::makeInstance(UriBuilder::class);
     }
 }

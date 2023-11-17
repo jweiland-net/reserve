@@ -32,10 +32,7 @@ class CancellationService implements SingletonInterface
     private const REASON_CUSTOMER = 'customer';
     public const REASON_INACTIVE = 'inactive';
 
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
     public function __construct(PersistenceManager $persistenceManager)
     {

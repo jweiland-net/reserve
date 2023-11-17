@@ -29,35 +29,23 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class SendMailsCommand extends Command
 {
-    /**
-     * @var EmailRepository
-     */
-    protected $emailRepository;
+    protected EmailRepository $emailRepository;
 
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
-    /**
-     * @var Email
-     */
-    protected $email;
+    protected Email $email;
 
     /**
      * @var array|Order[]
      */
-    protected $orders = [];
+    protected array $orders = [];
 
     /**
      * @var array|string[]
      */
-    protected $receivers = [];
+    protected array $receivers = [];
 
-    /**
-     * @var int
-     */
-    protected $currentReceiverKey = 0;
+    protected int $currentReceiverKey = 0;
 
     public function __construct(string $name = null)
     {
