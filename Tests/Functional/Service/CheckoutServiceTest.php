@@ -211,7 +211,8 @@ class CheckoutServiceTest extends FunctionalTestCase
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ])
+                ]
+            )
             ->willReturn('Confirm your reservation');
 
         $this->mailServiceMock
@@ -245,7 +246,8 @@ class CheckoutServiceTest extends FunctionalTestCase
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ])
+                ]
+            )
             ->willReturn('alt="firstCode"');
 
         $this->mailServiceMock

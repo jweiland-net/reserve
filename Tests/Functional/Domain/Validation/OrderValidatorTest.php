@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Domain\Validation;
 
 use JWeiland\Reserve\Domain\Model\Order;
-use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use JWeiland\Reserve\Event\ValidateOrderEvent;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
