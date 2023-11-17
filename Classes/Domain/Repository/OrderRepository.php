@@ -83,7 +83,8 @@ class OrderRepository extends Repository
             ->setDate(1970, 1, 1);
 
         /** @var QueryBuilder $queryBuilder */
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable(self::TABLE);
         $queryBuilder
             ->select(...$selects)
             ->from(self::TABLE, 'o')
@@ -134,8 +135,8 @@ class OrderRepository extends Repository
     ): array {
         return $this
             ->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**

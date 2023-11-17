@@ -63,7 +63,7 @@ class FacilityClearCacheAfterUpdate
                     Connection::PARAM_INT_ARRAY
                 )))
                 ->groupBy('f.uid');
-            foreach ($queryBuilder->execute()->fetchAll() as $row) {
+            foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_period', $dataHandler->datamap)) {
@@ -77,7 +77,7 @@ class FacilityClearCacheAfterUpdate
                     Connection::PARAM_INT_ARRAY
                 )))
                 ->groupBy('f.uid');
-            foreach ($queryBuilder->execute()->fetchAll() as $row) {
+            foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         } elseif (array_key_exists('tx_reserve_domain_model_reservation', $dataHandler->datamap)) {
@@ -93,7 +93,7 @@ class FacilityClearCacheAfterUpdate
                     Connection::PARAM_INT_ARRAY
                 )))
                 ->groupBy('f.uid');
-            foreach ($queryBuilder->execute()->fetchAll() as $row) {
+            foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         }

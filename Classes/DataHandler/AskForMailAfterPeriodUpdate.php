@@ -98,8 +98,8 @@ class AskForMailAfterPeriodUpdate
             ->count('uid')
             ->from('tx_reserve_domain_model_order')
             ->where($queryBuilder->expr()->in('booked_period', implode(',', $this->updatedRecords)))
-            ->execute()
-            ->fetchColumn();
+            ->executeQuery()
+            ->fetchOne();
     }
 
     protected function addJavaScriptAndSettingsToPageRenderer(): void

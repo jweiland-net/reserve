@@ -333,7 +333,7 @@ class Period extends AbstractEntity
                 $queryBuilder->andWhere($queryBuilder->expr()->eq('o.activated', 1));
             }
 
-            $this->cache[$cacheIdentifier] = (int)$queryBuilder->execute()->fetchColumn();
+            $this->cache[$cacheIdentifier] = (int)$queryBuilder->executeQuery()->fetchOne();
         }
 
         return $this->cache[$cacheIdentifier];
