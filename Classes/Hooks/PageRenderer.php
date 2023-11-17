@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Hooks;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Http\ApplicationType;
 
 class PageRenderer
 {
@@ -27,7 +28,7 @@ class PageRenderer
         \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer
     ): void {
         if (
-            TYPO3_MODE === 'BE'
+            ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()
             && $this->getBackendUserAuthentication()->user
             && $configuration = $this->getBackendUserAuthentication()->getSessionData(self::MODAL_SESSION_KEY)
         ) {
