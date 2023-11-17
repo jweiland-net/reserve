@@ -9,14 +9,14 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Hooks;
+namespace JWeiland\Reserve\Hook;
 
 use JWeiland\Reserve\DataHandler\AskForMailAfterPeriodDeletion;
 use JWeiland\Reserve\DataHandler\AskForMailAfterPeriodUpdate;
 use JWeiland\Reserve\DataHandler\FacilityClearCacheAfterUpdate;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class DataHandler
+class DataHandlerHook
 {
     public function processDatamap_afterAllOperations(\TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler): void
     {

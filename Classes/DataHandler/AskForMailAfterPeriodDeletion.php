@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\DataHandler;
 
 use JWeiland\Reserve\Domain\Model\Email;
-use JWeiland\Reserve\Hooks\PageRenderer;
+use JWeiland\Reserve\Hook\PageRendererHook;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Environment;
@@ -129,9 +129,9 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         $uriBuilder = $this->getUriBuilder();
 
         // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
-        // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
+        // Class: JWeiland\Reserve\Hook\PageRenderer->processTxReserveModalUserSetting()
         $this->getBackendUserAuthentication()->setAndSaveSessionData(
-            PageRenderer::MODAL_SESSION_KEY,
+            PageRendererHook::MODAL_SESSION_KEY,
             [
                 'jsInlineCode' => [
                     'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);',

@@ -9,12 +9,12 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Hooks;
+namespace JWeiland\Reserve\Hook;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
-class PageRenderer
+class PageRendererHook
 {
     public const MODAL_SESSION_KEY = 'tx_reserve_modal';
 
