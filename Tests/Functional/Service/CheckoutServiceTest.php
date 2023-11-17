@@ -40,7 +40,9 @@ class CheckoutServiceTest extends FunctionalTestCase
 {
     use ProphecyTrait;
 
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
     /**
      * @var CheckoutService

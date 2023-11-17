@@ -19,8 +19,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class PeriodRepositoryTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve'
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
     ];
 
     /**

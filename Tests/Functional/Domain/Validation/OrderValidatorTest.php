@@ -33,11 +33,8 @@ class OrderValidatorTest extends FunctionalTestCase
 {
     use ProphecyTrait;
 
-    /*
-    * @var array
-    */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve',
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
     ];
 
     /**

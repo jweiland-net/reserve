@@ -24,10 +24,9 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var string[]
-     */
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
     private const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 

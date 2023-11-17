@@ -48,7 +48,11 @@ HELP
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $periods = $this->getOrderRepository()->findWherePeriodEndedRaw(
-            (int)$input->getOption('ended-since'), ['p.uid'], 5
+            (int)$input->getOption('ended-since'),
+            [
+                'p.uid',
+            ],
+            5
         );
 
         $cmd = ['tx_reserve_domain_model_period' => []];

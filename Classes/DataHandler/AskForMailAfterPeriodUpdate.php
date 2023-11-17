@@ -67,7 +67,7 @@ class AskForMailAfterPeriodUpdate
         $checkFields = ['begin', 'end', 'date'];
         $updatedRecords = [];
         foreach ($historyRecordsProperty->getValue($this->dataHandler) as $recordId => $historyRecord) {
-            if (strpos($recordId, self::TABLE) === false) {
+            if (!str_contains($recordId, self::TABLE)) {
                 continue;
             }
 

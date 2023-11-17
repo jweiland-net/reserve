@@ -25,11 +25,8 @@ class PeriodTest extends FunctionalTestCase
      */
     protected $subject;
 
-    /*
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve',
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
     ];
 
     protected function setUp(): void

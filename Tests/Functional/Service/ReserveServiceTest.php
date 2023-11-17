@@ -18,7 +18,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ReserveServiceTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
     /**
      * @var ReserveService

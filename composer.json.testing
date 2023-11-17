@@ -1,0 +1,60 @@
+{
+	"name": "jweiland/reserve",
+	"type": "typo3-cms-extension",
+	"description": "",
+	"license": "GPL-2.0-or-later",
+	"keywords": ["typo3", "TYPO3 CMS", "reserve"],
+	"homepage": "https://jweiland.net",
+	"authors": [
+		{
+			"name": "Stefan Frömken",
+			"email": "projects@jweiland.net",
+			"role": "Developer"
+		}
+	],
+	"support": {
+		"email": "projects@jweiland.net",
+		"issues": "https://github.com/jweiland-net/reserve/issues",
+		"source": "https://github.com/jweiland-net/reserve"
+	},
+	"require": {
+		"ext-json": "*",
+		"endroid/qr-code": "^4.3.5",
+		"typo3/cms-core": "^12.4"
+	},
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "^3.14",
+		"phpunit/phpunit": "^9.6",
+		"typo3/cms-composer-installers": "^5.0",
+		"typo3/cms-impexp": "^12.4",
+		"typo3/cms-workspaces": "^12.4",
+		"typo3/coding-standards": "^0.6",
+		"typo3/testing-framework": "^7.0.2"
+	},
+	"suggest": {
+		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
+	},
+	"replace": {
+		"typo3-ter/reserve": "self.version"
+	},
+	"autoload": {
+		"psr-4": {
+			"JWeiland\\Reserve\\": "Classes"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"typo3/cms-composer-installers": true,
+			"typo3/class-alias-loader": true
+		},
+		"bin-dir": ".Build/bin",
+		"sort-packages": true,
+		"vendor-dir": ".Build/vendor"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "reserve",
+			"web-dir": ".Build/Web"
+		}
+	}
+}

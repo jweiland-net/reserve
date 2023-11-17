@@ -22,7 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class RemovePastPeriodsCommandTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
     protected function setUp(): void
     {
