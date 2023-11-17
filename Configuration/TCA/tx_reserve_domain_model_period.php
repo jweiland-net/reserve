@@ -13,7 +13,6 @@ return [
         'default_sortby' => 'date DESC, end DESC',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'title' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period',
         'delete' => 'deleted',
         'transOrigPointerField' => 'l18n_parent',
