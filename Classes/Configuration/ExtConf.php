@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class ExtConf implements SingletonInterface
 {
-    private $blockMultipleOrdersInSeconds = 3600;
+    private int $blockMultipleOrdersInSeconds = 3600;
 
     public function __construct(ExtensionConfiguration $extensionConfiguration)
     {

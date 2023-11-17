@@ -75,17 +75,7 @@ return [
             'exclude' => true,
             'label' => $localLangGeneral . ':LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        $localLangGeneral . ':LGL.allLanguages',
-                        -1,
-                        'flags-multiple',
-                    ],
-                ],
-                'default' => 0,
+                'type' => 'language',
             ],
         ],
         'l18n_parent' => [
