@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -48,10 +47,10 @@ class PeriodRepository extends Repository
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->equals('date', $date->getTimestamp()),
                 $query->equals('facility', $facilityUid),
-            ])
+            )
         );
 
         return $query->execute();
@@ -66,11 +65,11 @@ class PeriodRepository extends Repository
         $begin = new \DateTime(sprintf('1970-01-01T%d:%d:%dZ', ...GeneralUtility::intExplode(':', $dateTime->format('H:i:s'))));
         $query = $this->createQuery();
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->equals('facility', $facilityUid),
                 $query->equals('date', $date->getTimestamp()),
                 $query->equals('begin', $begin->getTimestamp()),
-            ])
+            )
         );
 
         return $query->execute();
@@ -84,7 +83,7 @@ class PeriodRepository extends Repository
 
         $query = $this->findByFacilityUids($uids)->getQuery();
         $query->matching(
-            $query->logicalAnd([
+            $query->logicalAnd(
                 $query->getConstraint(),
                 $query->logicalOr(
                     $query->greaterThanOrEqual('date', (new \DateTime('tomorrow'))->getTimestamp()),
@@ -92,8 +91,8 @@ class PeriodRepository extends Repository
                         $query->equals('date', $todayMidnight->getTimestamp()),
                         $query->greaterThanOrEqual('end', $currentTime->getTimestamp())
                     )
-                ),
-            ])
+                )
+            )
         );
 
         $query->setOrderings(
@@ -108,8 +107,6 @@ class PeriodRepository extends Repository
 
     protected function getQuerySettings(): QuerySettingsInterface
     {
-        // ToDo: Remove while removing TYPO3 10 compatibility
-        return GeneralUtility::makeInstance(ObjectManager::class)
-            ->get(QuerySettingsInterface::class);
+        return GeneralUtility::makeInstance(QuerySettingsInterface::class);
     }
 }

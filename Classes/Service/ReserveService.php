@@ -21,10 +21,7 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class ReserveService implements SingletonInterface
 {
-    /**
-     * @var PeriodRepository
-     */
-    protected $periodRepository;
+    protected PeriodRepository $periodRepository;
 
     public function __construct(PeriodRepository $periodRepository)
     {

@@ -12,32 +12,28 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Service\ReserveService;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class ReserveServiceTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
-    /**
-     * @var ReserveService
-     */
-    protected $reserveService;
+    protected ReserveService $reserveService;
 
-    /**
-     * @var \DateTime
-     */
-    protected $testDateMidnight;
+    protected \DateTime $testDateMidnight;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->reserveService = GeneralUtility::makeInstance(ObjectManager::class)->get(ReserveService::class);
 
-        $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
-        $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');
+        $this->reserveService = GeneralUtility::makeInstance(ReserveService::class);
+
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.csv');
 
         $this->testDateMidnight = new \DateTime('+2 days midnight');
 
@@ -90,6 +86,7 @@ class ReserveServiceTest extends FunctionalTestCase
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp(123456);
+
         self::assertNull(
             $this->reserveService->getRemainingParticipants(1, $dateTime),
             'Remaining participants are null because period could not be identified.'

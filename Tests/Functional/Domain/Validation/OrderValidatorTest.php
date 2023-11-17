@@ -9,69 +9,57 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Tests\Unit\Domain\Validation;
+namespace JWeiland\Reserve\Tests\Functional\Domain\Validation;
 
 use JWeiland\Reserve\Domain\Model\Order;
-use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
+use JWeiland\Reserve\Event\ValidateOrderEvent;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Validation\Error;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * TODO: Rewrite this test to a real functional test!
- *
- * @testdox The order validator
  * @covers \JWeiland\Reserve\Domain\Validation\OrderValidator
  */
 class OrderValidatorTest extends FunctionalTestCase
 {
-    use ProphecyTrait;
-
-    /*
-    * @var array
-    */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve',
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
     ];
 
     /**
      * @test
      */
-    public function addsResultsFromSignalSlot(): void
+    public function addsResultsFromEvent(): void
     {
         $subject = new OrderValidator();
 
-        $dispatcher = $this->prophesize(Dispatcher::class);
-        $dispatcher->dispatch(
-            OrderValidator::class,
-            'validateOrder',
-            Argument::type('array')
-        )->will(function (array $arguments) {
-            $slotArguments = $arguments[2];
+        $orderMock = $this->createMock(Order::class);
+        $orderMock
+            ->expects(self::atLeastOnce())
+            ->method('getEmail')
+            ->willReturn('valid@example.com');
 
-            $result = new Result();
-            $result->addError(new Error('Example error', 101010));
+        $result = new Result();
+        $result->addError(new Error('Example error', 101010));
 
-            /** @var ObjectStorage $errors */
-            $errors = $slotArguments['errorResults'];
-            $errors->attach($result);
-        });
+        $errorResults = new ObjectStorage();
+        $errorResults->attach($result);
 
-        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
+        $event = new ValidateOrderEvent($orderMock, $errorResults);
 
-        $period = $this->prophesize(Period::class);
-        $period->isBookable()->willReturn(true);
-        $order = $this->prophesize(Order::class);
-        $order->getEmail()->willReturn('valid@example.com');
-        $order->getBookedPeriod()->willReturn($period->reveal());
+        $eventDispatcherMock = $this->createMock(EventDispatcher::class);
+        $eventDispatcherMock
+            ->expects(self::atLeastOnce())
+            ->method('dispatch')
+            ->willReturn($event);
 
-        $result = $subject->validate($order->reveal());
+        GeneralUtility::setSingletonInstance(EventDispatcher::class, $eventDispatcherMock);
+
+        $result = $subject->validate($orderMock);
 
         self::assertTrue($result->hasErrors());
         self::assertCount(1, $result->getErrors());
@@ -85,17 +73,13 @@ class OrderValidatorTest extends FunctionalTestCase
     {
         $subject = new OrderValidator();
 
-        $dispatcher = $this->prophesize(Dispatcher::class);
-        GeneralUtility::setSingletonInstance(Dispatcher::class, $dispatcher->reveal());
+        $eventDispatcherMock = $this->createMock(EventDispatcher::class);
+        $eventDispatcherMock
+            ->expects(self::never())
+            ->method('dispatch');
+
+        GeneralUtility::setSingletonInstance(EventDispatcher::class, $eventDispatcherMock);
 
         $subject->validate(null);
-
-        $dispatcher->dispatch(
-            OrderValidator::class,
-            'validateOrder',
-            Argument::type('array')
-        )->shouldNotBeCalled();
-
-        $dispatcher->checkProphecyMethodsPredictions();
     }
 }

@@ -51,7 +51,7 @@ class MailService implements SingletonInterface
         \Closure $postProcess = null,
         array $postProcessData = []
     ): bool {
-        $mail = GeneralUtility::makeInstance(MailMessage::class);
+        $mail = $this->getMailMessage();
         $mail
             ->setSubject($subject)
             ->setTo([$to]);
@@ -72,5 +72,10 @@ class MailService implements SingletonInterface
         }
 
         return $mail->send();
+    }
+
+    protected function getMailMessage(): MailMessage
+    {
+        return GeneralUtility::makeInstance(MailMessage::class);
     }
 }

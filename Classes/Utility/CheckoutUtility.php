@@ -27,7 +27,7 @@ class CheckoutUtility
 
     public static function generateCodeForReservation(): string
     {
-        return GeneralUtility::stdAuthCode(StringUtility::getUniqueId(), '', 9);
+        return substr(GeneralUtility::hmac(StringUtility::getUniqueId()), 0, 9);
     }
 
     private static function getRandom(): Random

@@ -1,0 +1,13 @@
+"pages",,,
+,"uid","pid","title"
+,1,0,"reserve"
+
+"tx_reserve_domain_model_facility",,,,,,,,
+,"uid","pid","periods","name","confirmation_mail_subject","confirmation_mail_html","reservation_mail_subject","reservation_mail_html"
+,1,1,3,"Test","Test confirmation","Test ###ORDER_DETAILS###","Test reservation","Test ###RESERVATION###"
+
+"tx_reserve_domain_model_period",,,,,,,,,
+,"uid","pid","facility","begin","end","max_participants","max_participants_per_order","booking_begin","date"
+,1,1,1,46800,54000,50,3,1596106800,2051218800
+,2,1,1,70200,78300,50,3,1623142380,2051478000
+,3,1,1,60300,72000,50,3,1623142380,2051391600

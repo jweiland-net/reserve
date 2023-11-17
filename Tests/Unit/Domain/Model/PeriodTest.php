@@ -15,19 +15,15 @@ use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * @testdox An period
  * @covers \JWeiland\Reserve\Domain\Model\Period
  */
 class PeriodTest extends UnitTestCase
 {
-    /**
-     * @var Period
-     */
-    protected $subject;
+    protected Period $subject;
 
     protected function setUp(): void
     {
@@ -36,7 +32,9 @@ class PeriodTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        unset($this->subject);
+        unset(
+            $this->subject
+        );
 
         parent::tearDown();
     }

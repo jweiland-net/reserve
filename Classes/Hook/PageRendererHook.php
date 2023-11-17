@@ -9,11 +9,13 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Hooks;
+namespace JWeiland\Reserve\Hook;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Page\PageRenderer;
 
-class PageRenderer
+class PageRendererHook
 {
     public const MODAL_SESSION_KEY = 'tx_reserve_modal';
 
@@ -22,22 +24,15 @@ class PageRenderer
      * using the information from current BE_USER. Then remove the configuration when the
      * current settings are processed.
      */
-    public function processTxReserveModalUserSetting(
-        array $params,
-        \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer
-    ): void {
+    public function processTxReserveModalUserSetting(array $params, PageRenderer $pageRenderer): void
+    {
         if (
-            TYPO3_MODE === 'BE'
+            ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()
             && $this->getBackendUserAuthentication()->user
             && $configuration = $this->getBackendUserAuthentication()->getSessionData(self::MODAL_SESSION_KEY)
         ) {
-            $pageRenderer->addJsInlineCode(
-                'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule',
-                'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);'
-            );
-
-            foreach ($configuration['jsInlineCode'] as $name => $block) {
-                $pageRenderer->addJsInlineCode($name, $block);
+            foreach ($configuration['requireJsModules'] as $moduleName => $block) {
+                $pageRenderer->loadRequireJsModule($moduleName, $block);
             }
 
             foreach ($configuration['inlineSettings'] as $namespace => $array) {

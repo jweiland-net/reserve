@@ -32,35 +32,17 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class CheckoutController extends ActionController
 {
-    /**
-     * @var FacilityRepository
-     */
-    protected $facilityRepository;
+    protected FacilityRepository $facilityRepository;
 
-    /**
-     * @var PeriodRepository
-     */
-    protected $periodRepository;
+    protected PeriodRepository $periodRepository;
 
-    /**
-     * @var OrderRepository
-     */
-    protected $orderRepository;
+    protected OrderRepository $orderRepository;
 
-    /**
-     * @var CheckoutService
-     */
-    protected $checkoutService;
+    protected CheckoutService $checkoutService;
 
-    /**
-     * @var DataTablesService
-     */
-    protected $dataTablesService;
+    protected DataTablesService $dataTablesService;
 
-    /**
-     * @var CancellationService
-     */
-    protected $cancellationService;
+    protected CancellationService $cancellationService;
 
     public function injectFacilityRepository(FacilityRepository $facilityRepository): void
     {
@@ -94,12 +76,6 @@ class CheckoutController extends ActionController
 
     public function listAction(): void
     {
-        // Uncached list action used for redirects with flash messages as they are cached otherwise!
-        // See: https://forge.typo3.org/issues/72703
-        if ($this->controllerContext->getFlashMessageQueue()->count()) {
-            $GLOBALS['TSFE']->no_cache = true;
-        }
-
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));

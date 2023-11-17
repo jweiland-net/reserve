@@ -1,0 +1,8 @@
+"tx_reserve_domain_model_order",,,,,,,,,
+,"uid","pid","booked_period","activated","first_name","last_name","activation_code","email","reservations"
+,1,1,1,0,"John","Doe","123456789","john@doe.tld",2
+
+"tx_reserve_domain_model_reservation",,,,,,,
+,"uid","pid","first_name","last_name","customer_order","code","used"
+,1,1,"Meg","Griffin",1,"firstCode",0
+,2,1,"Chris","Griffin",1,"secondCode",0

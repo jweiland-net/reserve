@@ -20,79 +20,43 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class Order extends AbstractEntity
 {
-    /**
-     * @var Period
-     */
-    protected $bookedPeriod;
+    protected Period $bookedPeriod;
 
-    /**
-     * @var string
-     */
-    protected $activationCode = '';
+    protected string $activationCode = '';
 
-    /**
-     * @var bool
-     */
-    protected $activated = false;
+    protected bool $activated = false;
 
-    /**
-     * @var string
-     */
-    protected $firstName = '';
+    protected string $firstName = '';
 
-    /**
-     * @var string
-     */
-    protected $lastName = '';
+    protected string $lastName = '';
 
-    /**
-     * @var string
-     */
-    protected $email = '';
+    protected string $email = '';
 
-    /**
-     * @var string
-     */
-    protected $phone = '';
+    protected string $phone = '';
 
-    /**
-     * @var string
-     */
-    protected $address = '';
+    protected string $address = '';
 
-    /**
-     * @var string
-     */
-    protected $zip = '';
+    protected string $zip = '';
 
-    /**
-     * @var string
-     */
-    protected $city = '';
+    protected string $city = '';
 
-    /**
-     * @var string
-     */
-    protected $organization = '';
+    protected string $organization = '';
 
-    /**
-     * @var string
-     */
-    protected $remarks = '';
+    protected string $remarks = '';
 
     /**
      * @var ObjectStorage<Participant>
      *
      * @Extbase\ORM\Transient
      */
-    protected $participants;
+    protected ObjectStorage $participants;
 
     /**
      * @var ObjectStorage<Reservation>
      *
      * @Extbase\ORM\Cascade("remove")
      */
-    protected $reservations;
+    protected ObjectStorage $reservations;
 
     public function __construct()
     {

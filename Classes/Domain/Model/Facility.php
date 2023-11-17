@@ -18,98 +18,53 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class Facility extends AbstractEntity
 {
-    /**
-     * @var string
-     */
-    protected $name = '';
+    protected string $name = '';
 
-    /**
-     * @var string
-     */
-    protected $shortName = '';
+    protected string $shortName = '';
 
     /**
      * @var ObjectStorage<Period>
      *
      * @Extbase\ORM\Lazy
      */
-    protected $periods;
+    protected ObjectStorage $periods;
 
-    /**
-     * @var string
-     */
-    protected $confirmationMailSubject = '';
+    protected string $confirmationMailSubject = '';
 
-    /**
-     * @var string
-     */
-    protected $fromName = '';
+    protected string $fromName = '';
 
-    /**
-     * @var string
-     */
-    protected $fromEmail = '';
+    protected string $fromEmail = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToName = '';
+    protected string $replyToName = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToEmail = '';
+    protected string $replyToEmail = '';
 
-    /**
-     * @var string
-     */
-    protected $confirmationMailHtml = '';
+    protected string $confirmationMailHtml = '';
 
-    /**
-     * @var string
-     */
-    protected $reservationMailSubject = '';
+    protected string $reservationMailSubject = '';
 
-    /**
-     * @var string
-     */
-    protected $reservationMailHtml = '';
+    protected string $reservationMailHtml = '';
 
-    /**
+    /*
      * QR Code settings
      */
 
-    /**
-     * @var int
-     */
-    protected $qrCodeSize = 0;
+    protected int $qrCodeSize = 0;
 
-    /**
-     * @var int
-     */
-    protected $qrCodeLabelSize = 0;
+    protected int $qrCodeLabelSize = 0;
 
     /**
      * @var ObjectStorage<FileReference>
      *
      * @Extbase\ORM\Lazy
      */
-    protected $qrCodeLogo;
+    protected ObjectStorage $qrCodeLogo;
 
-    /**
-     * @var int
-     */
-    protected $qrCodeLogoWidth = 0;
+    protected int $qrCodeLogoWidth = 0;
 
-    /**
-     * @var bool
-     */
-    protected $cancelable = false;
+    protected bool $cancelable = false;
 
-    /**
-     * @var int
-     */
-    protected $cancelableUntilMinutes = 0;
+    protected int $cancelableUntilMinutes = 0;
 
     public function __construct()
     {

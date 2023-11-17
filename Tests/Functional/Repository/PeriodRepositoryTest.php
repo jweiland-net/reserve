@@ -9,36 +9,32 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Tests\Repository;
+namespace JWeiland\Reserve\Tests\Functional\Repository;
 
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class PeriodRepositoryTest extends FunctionalTestCase
 {
-    protected $testExtensionsToLoad = ['typo3conf/ext/reserve'];
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
+    ];
 
-    /**
-     * @var PeriodRepository
-     */
-    protected $periodRepository;
+    protected PeriodRepository $periodRepository;
 
-    /**
-     * @var \DateTime
-     */
-    protected $testDateMidnight;
+    protected \DateTime $testDateMidnight;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->periodRepository = GeneralUtility::makeInstance(ObjectManager::class)->get(PeriodRepository::class);
 
-        $this->importDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.xml');
-        $this->importDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.xml');
+        $this->periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
+
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
+        $this->importCSVDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.csv');
 
         $this->testDateMidnight = new \DateTime('+2 days midnight');
 
@@ -91,6 +87,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp(123456);
+
         self::assertSame(
             0,
             $this->periodRepository->findByDateAndBegin($dateTime, 1)->count(),

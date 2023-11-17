@@ -19,19 +19,13 @@ use JWeiland\Reserve\Service\DataTablesService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
 {
-    /**
-     * @var PeriodRepository
-     */
-    private $periodRepository;
-    /**
-     * @var ReservationRepository
-     */
-    private $reservationRepository;
+    private PeriodRepository $periodRepository;
+
+    private ReservationRepository $reservationRepository;
 
     public function injectPeriodRepository(PeriodRepository $periodRepository): void
     {
@@ -43,7 +37,7 @@ class ManagementController extends ActionController
         $this->reservationRepository = $reservationRepository;
     }
 
-    protected function initializeView(ViewInterface $view): void
+    protected function initializeView($view): void
     {
         $view->assign('jsConf', [
             'datatables' => GeneralUtility::makeInstance(DataTablesService::class)->getConfiguration(),
@@ -94,9 +88,7 @@ class ManagementController extends ActionController
 
     public function scanAction(Reservation $reservation, bool $entireOrder = false): string
     {
-        $view = GeneralUtility::makeInstance(JsonView::class);
-
-        $view->setControllerContext($this->controllerContext);
+        $view = $this->getJsonView();
         $view->setVariablesToRender(['status']);
 
         $error = 0;
@@ -139,5 +131,10 @@ class ManagementController extends ActionController
         );
 
         return $view->render();
+    }
+
+    protected function getJsonView(): JsonView
+    {
+        return GeneralUtility::makeInstance(JsonView::class);
     }
 }

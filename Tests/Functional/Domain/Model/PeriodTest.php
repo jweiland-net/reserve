@@ -12,24 +12,17 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Period;
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * @testdox An period
  * @covers \JWeiland\Reserve\Domain\Model\Period
  */
 class PeriodTest extends FunctionalTestCase
 {
-    /**
-     * @var Period
-     */
-    protected $subject;
+    protected Period $subject;
 
-    /*
-     * @var array
-     */
-    protected $testExtensionsToLoad = [
-        'typo3conf/ext/reserve',
+    protected array $testExtensionsToLoad = [
+        'jweiland/reserve',
     ];
 
     protected function setUp(): void
@@ -42,7 +35,9 @@ class PeriodTest extends FunctionalTestCase
 
     protected function tearDown(): void
     {
-        unset($this->subject);
+        unset(
+            $this->subject
+        );
 
         parent::tearDown();
     }
@@ -65,7 +60,7 @@ class PeriodTest extends FunctionalTestCase
      */
     public function getRemainingParticipants(int $maxParticipants, int $expectedResult): void
     {
-        $this->importDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         $this->subject->setMaxParticipants($maxParticipants);
 
@@ -92,7 +87,7 @@ class PeriodTest extends FunctionalTestCase
      */
     public function getMaxParticipantsPerOrder(int $maxParticipantsForOrder, int $expectedResult): void
     {
-        $this->importDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         $this->subject->setMaxParticipants(50);
         $this->subject->setMaxParticipantsPerOrder($maxParticipantsForOrder);
@@ -108,7 +103,7 @@ class PeriodTest extends FunctionalTestCase
      */
     public function countReservationsWillReturnAmountOfActivatedReservations(): void
     {
-        $this->importDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         self::assertSame(
             3,
@@ -121,7 +116,7 @@ class PeriodTest extends FunctionalTestCase
      */
     public function countReservationsWillReturnAmountOfAllReservations(): void
     {
-        $this->importDataSet(__DIR__ . '/../../Fixtures/non_activated_order_with_reservations.xml');
+        $this->importCSVDataSet(__DIR__ . '/../../Fixtures/non_activated_order_with_reservations.csv');
 
         self::assertSame(
             2,

@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the package jweiland/reserve.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
@@ -11,7 +18,6 @@ return [
         'sortby' => 'sorting',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'title' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email',
         'delete' => 'deleted',
         'transOrigPointerField' => 'l18n_parent',
@@ -75,17 +81,7 @@ return [
             'exclude' => true,
             'label' => $localLangGeneral . ':LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'special' => 'languages',
-                'items' => [
-                    [
-                        $localLangGeneral . ':LGL.allLanguages',
-                        -1,
-                        'flags-multiple',
-                    ],
-                ],
-                'default' => 0,
+                'type' => 'language',
             ],
         ],
         'l18n_parent' => [
@@ -190,7 +186,6 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.periods',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tx_reserve_domain_model_period',
                 'fieldControl' => [
                     'editPopup' => [

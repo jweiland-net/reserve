@@ -21,7 +21,6 @@ use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Controller to render an example QR code based on a selected facility
@@ -29,8 +28,12 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class QrCodePreviewController
 {
-    public function __construct()
+    protected FacilityRepository $facilityRepository;
+
+    public function __construct(FacilityRepository $facilityRepository)
     {
+        $this->facilityRepository = $facilityRepository;
+
         $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
         $GLOBALS['LANG']->init($GLOBALS['BE_USER']->uc['lang']);
     }
@@ -40,7 +43,7 @@ class QrCodePreviewController
         $facilityUid = (int)($request->getQueryParams()['facility'] ?? 0);
         $data = ['hasErrors' => false, 'message' => '', 'qrCode' => ''];
         if ($facilityUid) {
-            $facility = $this->getFacilityRepository()->findByUid($facilityUid);
+            $facility = $this->facilityRepository->findByUid($facilityUid);
             if ($facility instanceof Facility) {
                 $reservation = $this->getEmptyReservation();
                 $reservation->setCode('an-example-' . time());
@@ -85,11 +88,5 @@ class QrCodePreviewController
     private function getEmptyPeriod(): Period
     {
         return GeneralUtility::makeInstance(Period::class);
-    }
-
-    private function getFacilityRepository(): FacilityRepository
-    {
-        // ToDo: Remove ObjectManager while removing TYPO3 10 compatibility
-        return GeneralUtility::makeInstance(ObjectManager::class)->get(FacilityRepository::class);
     }
 }

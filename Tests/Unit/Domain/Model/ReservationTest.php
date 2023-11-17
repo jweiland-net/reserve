@@ -13,18 +13,14 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * @testdox An reservation
  * @covers \JWeiland\Reserve\Domain\Model\Reservation
  */
 class ReservationTest extends UnitTestCase
 {
-    /**
-     * @var Reservation
-     */
-    protected $subject;
+    protected Reservation $subject;
 
     protected function setUp(): void
     {
@@ -33,7 +29,9 @@ class ReservationTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        unset($this->subject);
+        unset(
+            $this->subject
+        );
 
         parent::tearDown();
     }
