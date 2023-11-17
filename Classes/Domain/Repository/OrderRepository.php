@@ -95,15 +95,15 @@ class OrderRepository extends Repository
                 'o.booked_period = p.uid'
             )
             ->where(
-                $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->orX(
+                $queryBuilder->expr()->and(
+                    $queryBuilder->expr()->or(
                         // not less than equal because this would remove events without respecting the field "end"
                         // days before the calculated day
                         $queryBuilder->expr()->lt(
                             'p.date',
                             $queryBuilder->createNamedParameter($periodDate->getTimestamp())
                         ),
-                        $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->and(
                             // calculated day AND calculated end time
                             $queryBuilder->expr()->eq(
                                 'p.date',
