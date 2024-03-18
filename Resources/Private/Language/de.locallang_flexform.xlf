@@ -3,37 +3,37 @@
   <file t3:id="1589362099839" source-language="en" datatype="plaintext" target-language="de">
     <header/>
     <body>
-      <trans-unit id="reservation.title">
+      <trans-unit id="reservation.title" approved="yes">
         <source>Reservation</source>
-        <target state="needs-translation">Reservation</target>
+        <target state="final">Reservierung</target>
       </trans-unit>
-      <trans-unit id="reservation.facility">
+      <trans-unit id="reservation.facility" approved="yes">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="final">Einrichtung</target>
       </trans-unit>
-      <trans-unit id="reservation.facility.description">
+      <trans-unit id="reservation.facility.description" approved="yes">
         <source>You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</source>
-        <target state="needs-translation">You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</target>
+        <target state="final">Es können eine oder mehrere Einrichtungen ausgewählt werden. Der Name der Einrichtung wird in jeder Zeile ausgegeben, sobald mehr als eine Einrichtung ausgewählt wurde.</target>
       </trans-unit>
-      <trans-unit id="reservation.orderPid">
+      <trans-unit id="reservation.orderPid" approved="yes">
         <source>Storage folder for reservations</source>
-        <target state="needs-translation">Storage folder for reservations</target>
+        <target state="final">Speicherordner für Reservierungen</target>
       </trans-unit>
-      <trans-unit id="management.facility">
+      <trans-unit id="management.facility" approved="yes">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="final">Einrichtung</target>
       </trans-unit>
-      <trans-unit id="reservation.mainFields">
+      <trans-unit id="reservation.mainFields" approved="yes">
         <source>What data should the user provide?</source>
-        <target state="needs-translation">What data should the user provide?</target>
+        <target state="final">Welche Angaben soll der Benutzer machen?</target>
       </trans-unit>
-      <trans-unit id="reservation.mainFields.description">
+      <trans-unit id="reservation.mainFields.description" approved="yes">
         <source>Fields that are always displayed: First name, E-Mail</source>
-        <target state="needs-translation">Fields that are always displayed: First name, E-Mail</target>
+        <target state="final">Felder die immer angezeigt werden: Vorname, E-Mail</target>
       </trans-unit>
-      <trans-unit id="reservation.showFieldsForFurtherParticipants">
+      <trans-unit id="reservation.showFieldsForFurtherParticipants" approved="yes">
         <source>Should the personal data of further participants be asked?</source>
-        <target state="needs-translation">Should the personal data of further participants be asked?</target>
+        <target state="final">Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
       </trans-unit>
     </body>
   </file>
