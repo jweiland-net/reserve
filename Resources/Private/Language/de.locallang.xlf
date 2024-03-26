@@ -331,10 +331,10 @@
 
 <p>Updated reservation data:</p>
 <p>###RESERVATION###</p>]]></source>
-        <target state="final"><![CDATA[<![CDATA[<p class="greeting-de">Lieber Besucher,</p>
+        <target state="final"><![CDATA[<p class="greeting-de">Lieber Besucher,</p>
 <p>wir haben ein paar Änderungen an den Zeiten ihrer gebuchten Tickets vorgenommen.<br>
 Aktualisierte Reservierungszeit:</p>
-<p>###RESERVATION###</p>]]]]><![CDATA[>]]></target>
+<p>###RESERVATION###</p>]]></target>
       </trans-unit>
       <trans-unit id="email.body.afterPeriodDeletion" approved="yes">
         <source><![CDATA[<p>Dear visitor,</p>
