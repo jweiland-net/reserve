@@ -340,9 +340,8 @@ Aktualisierte Reservierungszeit:</p>
         <source><![CDATA[<p>Dear visitor,</p>
 <p>we are sorry but your reserved ticket got cancelled!</p>
 ]]></source>
-        <target state="final"><![CDATA[<![CDATA[<p>Lieber Besucher,</p>
-<p>es tut uns sehr leid, aber Ihr gebuchtes Ticket wurde leider gestrichen!</p>
-]]]]><![CDATA[>]]></target>
+        <target state="final"><![CDATA[<p>Lieber Besucher,</p>
+<p>es tut uns sehr leid, aber Ihr gebuchtes Ticket wurde leider gestrichen!</p>]]></target>
       </trans-unit>
       <trans-unit id="orderValidator.isNotBookable" approved="yes">
         <source>The selected period can not be booked at the moment!</source>
