@@ -21,7 +21,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\DataTablesService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -100,7 +100,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
                 '',
-                AbstractMessage::INFO
+                ContextualFeedbackSeverity::INFO
             );
             $this->redirect('list');
         }
@@ -123,7 +123,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'You are not allowed to order right now.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
             $this->redirect('list');
         }
@@ -137,7 +137,7 @@ class CheckoutController extends ActionController
         $this->addFlashMessage(
             LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
             '',
-            AbstractMessage::ERROR
+            ContextualFeedbackSeverity::ERROR
         );
 
         $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
@@ -151,7 +151,7 @@ class CheckoutController extends ActionController
                 $this->addFlashMessage(
                     'Your order is already confirmed! Please check your mailbox.',
                     '',
-                    AbstractMessage::INFO
+                    ContextualFeedbackSeverity::INFO
                 );
                 $this->redirect('list');
             }
@@ -161,7 +161,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
         }
     }
@@ -175,7 +175,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
             $this->redirect('list');
         }
@@ -191,7 +191,7 @@ class CheckoutController extends ActionController
                     $this->addFlashMessage(
                         'Could not cancel your order. Please contact the administrator!',
                         '',
-                        AbstractMessage::ERROR
+                        ContextualFeedbackSeverity::ERROR
                     );
                 }
             } else {
@@ -210,7 +210,7 @@ class CheckoutController extends ActionController
                     ]
                 ),
                 '',
-                AbstractMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         } else {
             $this->addFlashMessage(
@@ -219,7 +219,7 @@ class CheckoutController extends ActionController
                     'reserve'
                 ),
                 '',
-                AbstractMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         }
 
