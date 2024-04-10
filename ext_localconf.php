@@ -36,25 +36,6 @@ call_user_func(static function (): void {
         'class' => \JWeiland\Reserve\Form\Element\QrCodePreviewElement::class,
     ];
 
-    // ToDo: Migrate to Configuration/Icons.php while removing TYPO3 10 compatibility
-    $icons = ['facility', 'order', 'order_1', 'period', 'reservation', 'email'];
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Imaging\IconRegistry::class
-    );
-    foreach ($icons as $model) {
-        $identifier = 'tx_reserve_domain_model_' . $model;
-        $iconRegistry->registerIcon(
-            $identifier,
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            ['source' => 'EXT:reserve/Resources/Public/Icons/' . $identifier . '.svg']
-        );
-    }
-    $iconRegistry->registerIcon(
-        'ext-reserve-wizard-icon',
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-        ['source' => 'EXT:reserve/Resources/Public/Icons/Extension.svg']
-    );
-
     // Add reserve plugin to new element wizard
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:reserve/Configuration/TSconfig/ContentElementWizard.tsconfig">'
