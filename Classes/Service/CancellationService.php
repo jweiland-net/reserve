@@ -14,9 +14,9 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -33,28 +33,25 @@ class CancellationService implements SingletonInterface
 
     protected FluidService $fluidService;
 
-    protected PersistenceManager $persistenceManager;
+    protected DataHandler $dataHandler;
 
-    public function __construct(FluidService $fluidService, PersistenceManager $persistenceManager)
+    public function __construct(FluidService $fluidService, DataHandler $dataHandler)
     {
         $this->fluidService = $fluidService;
-        $this->persistenceManager = $persistenceManager;
+        $this->dataHandler = $dataHandler;
     }
 
     /**
      * @param string $reason use CancellationService::REASON_ constants or add your own reason
      * @param array $vars additional variables that will be assigned to the fluid template
      * @param bool $sendMailToCustomer set false to cancel the order without sending a mail to the customer
-     * @param bool $persist set false to persist the order by yourself using $cancellationService->getPersistenceManager()->persistAll()
      */
     public function cancel(
         Order $order,
         string $reason = self::REASON_CUSTOMER,
         array $vars = [],
-        bool $sendMailToCustomer = true,
-        bool $persist = true
+        bool $sendMailToCustomer = true
     ): void {
-        $this->persistenceManager->remove($order);
         if ($sendMailToCustomer) {
             $view = $this->getStandaloneView();
 
@@ -73,10 +70,12 @@ class CancellationService implements SingletonInterface
                 );
         }
 
-        if ($persist) {
-            $this->persistenceManager->persistAll();
-            CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
-        }
+        // Remove with DataHandler
+        $this->dataHandler->start([], []);
+        $this->dataHandler->deleteRecord('tx_yourext_domain_model_order', $order->getUid());
+        $this->dataHandler->process_datamap();
+
+        CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
             $order->getBookedPeriod()->getFacility()->getUid()
@@ -86,16 +85,6 @@ class CancellationService implements SingletonInterface
     public function getStandaloneView(): StandaloneView
     {
         return GeneralUtility::makeInstance(StandaloneView::class);
-    }
-
-    /**
-     * ToDo: SF: This should not be public.
-     * Currently used from RemoveInactiveOrdersCommand
-     * Should be set to private or migrated to Command
-     */
-    public function getPersistenceManager(): PersistenceManager
-    {
-        return $this->persistenceManager;
     }
 
     protected function getMailService(): MailService

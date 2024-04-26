@@ -19,7 +19,6 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Command to remove inactive orders after a given expiration time
@@ -81,21 +80,16 @@ class RemoveInactiveOrdersCommand extends Command
                     $inactiveOrder,
                     CancellationService::REASON_INACTIVE,
                     ['expirationTime' => $input->getOption('expiration-time')],
-                    true,
-                    false
+                    true
                 );
             } catch (\Throwable $exception) {
                 $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');
-                // Anyway make sure to remove the order!
-                $this->cancellationService->getPersistenceManager()->remove($inactiveOrder);
             }
 
             $progressBar->advance();
         }
 
         $progressBar->finish();
-
-        $this->cancellationService->getPersistenceManager()->persistAll();
 
         $output->writeln('Clear caches for affected facilities list views...');
 
