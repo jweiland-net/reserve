@@ -26,6 +26,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class RemoveInactiveOrdersCommand extends Command
 {
+    protected CancellationService $cancellationService;
+
+    protected OrderRepository $orderRepository;
+
+    public function injectOrderRepository(OrderRepository $orderRepository): void
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
+    public function injectCancellationService(CancellationService $cancellationService): void
+    {
+        $this->cancellationService = $cancellationService;
+    }
+
     protected function configure(): void
     {
         $this->setDescription('Remove inactive orders after a given time.');
@@ -51,8 +65,7 @@ class RemoveInactiveOrdersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
-        $cancellationService = $this->getCancellationService();
-        $inactiveOrders = $this->getOrderRepository()->findInactiveOrders(
+        $inactiveOrders = $this->orderRepository->findInactiveOrders(
             (int)$input->getOption('expiration-time')
         );
         $inactiveOrders->getQuery()->setLimit(30);
@@ -64,7 +77,7 @@ class RemoveInactiveOrdersCommand extends Command
         foreach ($inactiveOrders as $inactiveOrder) {
             try {
                 $affectedFacilities[$inactiveOrder->getBookedPeriod()->getFacility()->getUid()] = true;
-                $cancellationService->cancel(
+                $this->cancellationService->cancel(
                     $inactiveOrder,
                     CancellationService::REASON_INACTIVE,
                     ['expirationTime' => $input->getOption('expiration-time')],
@@ -74,7 +87,7 @@ class RemoveInactiveOrdersCommand extends Command
             } catch (\Throwable $exception) {
                 $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');
                 // Anyway make sure to remove the order!
-                $cancellationService->getPersistenceManager()->remove($inactiveOrder);
+                $this->cancellationService->getPersistenceManager()->remove($inactiveOrder);
             }
 
             $progressBar->advance();
@@ -82,7 +95,7 @@ class RemoveInactiveOrdersCommand extends Command
 
         $progressBar->finish();
 
-        $cancellationService->getPersistenceManager()->persistAll();
+        $this->cancellationService->getPersistenceManager()->persistAll();
 
         $output->writeln('Clear caches for affected facilities list views...');
 
@@ -90,15 +103,5 @@ class RemoveInactiveOrdersCommand extends Command
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($facilityUid);
         }
         return 0;
-    }
-
-    public function getCancellationService(): CancellationService
-    {
-        return GeneralUtility::makeInstance(CancellationService::class);
-    }
-
-    public function getOrderRepository(): OrderRepository
-    {
-        return GeneralUtility::makeInstance(OrderRepository::class);
     }
 }
