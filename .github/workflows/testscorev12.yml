@@ -1,7 +1,7 @@
 name: Test reserve for TYPO3 12 LTS
 
 on:
-  pull_request:
+  pull_request
 
 jobs:
   CGL:

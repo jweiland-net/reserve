@@ -17,13 +17,26 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Remove past periods and all related records like orders, reservations, codes.
  */
 class RemovePastPeriodsCommand extends Command
 {
+    protected DataHandler $dataHandler;
+
+    protected OrderRepository $orderRepository;
+
+    public function injectDataHandler(DataHandler $dataHandler): void
+    {
+        $this->dataHandler = $dataHandler;
+    }
+
+    public function injectOrderRepository(OrderRepository $orderRepository): void
+    {
+        $this->orderRepository = $orderRepository;
+    }
+
     protected function configure(): void
     {
         $this->setDescription('Remove past periods and all related records like orders, reservations, codes.');
@@ -47,7 +60,7 @@ HELP
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $periods = $this->getOrderRepository()->findWherePeriodEndedRaw(
+        $periods = $this->orderRepository->findWherePeriodEndedRaw(
             (int)$input->getOption('ended-since'),
             [
                 'p.uid',
@@ -62,26 +75,15 @@ HELP
 
         $GLOBALS['BE_USER']->backendCheckLogin();
 
-        $dataHandler = $this->getDataHandler();
-        $dataHandler->start([], $cmd);
-        $dataHandler->process_cmdmap();
+        $this->dataHandler->start([], $cmd);
+        $this->dataHandler->process_cmdmap();
 
-        if (!empty($dataHandler->errorLog)) {
+        if (!empty($this->dataHandler->errorLog)) {
             $output->writeln('Errors during DataHandler operations:');
-            $output->writeln($dataHandler->errorLog);
+            $output->writeln($this->dataHandler->errorLog);
             return 1;
         }
 
         return 0;
-    }
-
-    protected function getDataHandler(): DataHandler
-    {
-        return GeneralUtility::makeInstance(DataHandler::class);
-    }
-
-    protected function getOrderRepository(): OrderRepository
-    {
-        return GeneralUtility::makeInstance(OrderRepository::class);
     }
 }

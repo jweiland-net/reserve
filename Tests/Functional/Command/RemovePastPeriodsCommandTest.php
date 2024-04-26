@@ -12,11 +12,13 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Command;
 
 use JWeiland\Reserve\Command\RemovePastPeriodsCommand;
+use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use Symfony\Component\Console\Tester\CommandTester;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -52,7 +54,11 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         // set date to past date for these tests!
         GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_period')
-            ->update('tx_reserve_domain_model_period', ['date' => (new \DateTime('yesterday midnight'))->getTimestamp()], ['uid' => 1]);
+            ->update(
+                'tx_reserve_domain_model_period',
+                ['date' => (new \DateTime('yesterday midnight'))->getTimestamp()],
+                ['uid' => 1]
+            );
     }
 
     /**
@@ -60,7 +66,16 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
      */
     public function commandRemovesOrderRelatedToPeriod(): void
     {
-        $commandTester = new CommandTester(new RemovePastPeriodsCommand());
+        // Mock dependencies
+        $dataHandler = $this->createMock(DataHandler::class);
+        $orderRepository = $this->createMock(OrderRepository::class);
+
+        // Create an instance of the command and inject dependencies
+        $command = new RemovePastPeriodsCommand();
+        $command->injectDataHandler($dataHandler);
+        $command->injectOrderRepository($orderRepository);
+
+        $commandTester = new CommandTester($command);
         $commandTester->execute([]);
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_order')
@@ -74,12 +89,28 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
      */
     public function commandRemovesReservationsRelatedToOrderThatWasRelatedToPeriod(): void
     {
-        $commandTester = new CommandTester(new RemovePastPeriodsCommand());
+        // Mock dependencies
+        $dataHandler = $this->createMock(DataHandler::class);
+        $orderRepository = $this->createMock(OrderRepository::class);
+
+        // Set expectations for the mock objects if needed
+
+        // Create an instance of the command and inject dependencies
+        $command = new RemovePastPeriodsCommand();
+        $command->injectDataHandler($dataHandler);
+        $command->injectOrderRepository($orderRepository);
+
+        $commandTester = new CommandTester($command);
         $commandTester->execute([]);
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_reservation')
             ->select(['*'], 'tx_reserve_domain_model_reservation', ['customer_order' => 1])
             ->fetchAllAssociative();
-        self::assertEquals([], $orders, 'No more reservations related to the order that was related to the past period in database after command has been executed.');
+        self::assertEquals(
+            [],
+            $orders,
+            'No more reservations related to the order that was related to the past ' .
+            'period in database after command has been executed.'
+        );
     }
 }
