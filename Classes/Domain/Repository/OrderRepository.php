@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Repository;
 
 use JWeiland\Reserve\Domain\Model\Order;
-use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
