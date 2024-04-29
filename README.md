@@ -1,5 +1,8 @@
 # TYPO3 Extension `reserve`
-
+[![Latest Stable Version](https://poser.pugx.org/jweiland/reserve/v/stable.svg)](https://extensions.typo3.org/extension/reserve/)
+[![TYPO3 12](https://img.shields.io/badge/TYPO3-12-orange.svg?style=flat-square)](https://get.typo3.org/version/12)
+[![Total Downloads](https://poser.pugx.org/jweiland/reserve/d/total.svg)](https://packagist.org/packages/jweiland/reserve)
+[![Monthly Downloads](https://poser.pugx.org/jweiland/reserve/d/monthly)](https://packagist.org/packages/jweiland/reserve)
 ![Build Status](https://github.com/jweiland-net/reserve/workflows/CI/badge.svg)
 
 The extension reserve allows you to reserve tickets for one or more persons
