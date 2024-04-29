@@ -12,13 +12,11 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Command;
 
 use JWeiland\Reserve\Command\RemovePastPeriodsCommand;
-use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use Symfony\Component\Console\Tester\CommandTester;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -66,15 +64,8 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
      */
     public function commandRemovesOrderRelatedToPeriod(): void
     {
-        // Mock dependencies
-        $dataHandler = $this->createMock(DataHandler::class);
-        $orderRepository = $this->createMock(OrderRepository::class);
-
         // Create an instance of the command and inject dependencies
-        $command = new RemovePastPeriodsCommand();
-        $command->injectDataHandler($dataHandler);
-        $command->injectOrderRepository($orderRepository);
-
+        $command = GeneralUtility::makeInstance(RemovePastPeriodsCommand::class);
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -89,17 +80,8 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
      */
     public function commandRemovesReservationsRelatedToOrderThatWasRelatedToPeriod(): void
     {
-        // Mock dependencies
-        $dataHandler = $this->createMock(DataHandler::class);
-        $orderRepository = $this->createMock(OrderRepository::class);
-
-        // Set expectations for the mock objects if needed
-
         // Create an instance of the command and inject dependencies
-        $command = new RemovePastPeriodsCommand();
-        $command->injectDataHandler($dataHandler);
-        $command->injectOrderRepository($orderRepository);
-
+        $command = GeneralUtility::makeInstance(RemovePastPeriodsCommand::class);
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
