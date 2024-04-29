@@ -12,6 +12,10 @@ services:
   JWeiland\Reserve\Configuration\ExtConf:
     public: true
 
+  # Called by container or makeInstance in Route Dispatcher
+  JWeiland\Reserve\Controller\Backend\QrCodePreviewController:
+    public: true
+
   # Called by makeInstance in our own DataHandler
   JWeiland\Reserve\DataHandler\AskForMailAfterPeriodDeletion:
     public: true
@@ -24,7 +28,17 @@ services:
   JWeiland\Reserve\DataHandler\FacilityClearCacheAfterUpdate:
     public: true
 
-  # Called by makeInstance in our PeriodRegistrationViewHelper
+  # Make all of our Services public
+  JWeiland\Reserve\Service\CancellationService:
+    public: true
+  JWeiland\Reserve\Service\CheckoutService:
+    public: true
+  JWeiland\Reserve\Service\DataTablesService:
+    public: true
+  JWeiland\Reserve\Service\FluidService:
+    public: true
+  JWeiland\Reserve\Service\MailService:
+    public: true
   JWeiland\Reserve\Service\ReserveService:
     public: true
 

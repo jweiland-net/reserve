@@ -16,24 +16,15 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * @testdox An order
  * @covers \JWeiland\Reserve\Domain\Model\Order
- * @uses \JWeiland\Reserve\Domain\Model\Participant
  */
 class OrderTest extends UnitTestCase
 {
-    use ProphecyTrait;
-
-    /**
-     * @var Order
-     */
-    protected $subject;
+    protected Order $subject;
 
     protected function setUp(): void
     {
@@ -42,7 +33,9 @@ class OrderTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        unset($this->subject);
+        unset(
+            $this->subject
+        );
 
         parent::tearDown();
     }
@@ -697,14 +690,13 @@ class OrderTest extends UnitTestCase
 
         $this->subject->setParticipants($participants);
 
-        /** @var Period|ObjectProphecy $periodProphecy */
-        $periodProphecy = $this->prophesize(Period::class);
-        $periodProphecy
-            ->getMaxParticipantsPerOrder()
-            ->shouldBeCalled()
+        $periodMock = $this->createMock(Period::class);
+        $periodMock
+            ->expects(self::atLeastOnce())
+            ->method('getMaxParticipantsPerOrder')
             ->willReturn($maxParticipantsPerOrder);
 
-        $this->subject->setBookedPeriod($periodProphecy->reveal());
+        $this->subject->setBookedPeriod($periodMock);
 
         self::assertSame(
             $expectedResult,

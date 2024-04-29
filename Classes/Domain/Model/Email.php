@@ -19,67 +19,45 @@ class Email extends AbstractEntity
     public const RECEIVER_TYPE_PERIODS = 0;
     public const RECEIVER_TYPE_MANUAL = 1;
 
-    /**
-     * @var string
-     */
-    protected $subject = '';
+    protected string $subject = '';
+
+    protected string $body = '';
 
     /**
-     * @var string
+     * Use RECEIVER_TYPE_ constants!
      */
-    protected $body = '';
+    protected int $receiverType = self::RECEIVER_TYPE_PERIODS;
 
-    /**
-     * @var int use RECEIVER_TYPE_ constants!
-     */
-    protected $receiverType = self::RECEIVER_TYPE_PERIODS;
+    protected string $fromName = '';
 
-    /**
-     * @var string
-     */
-    protected $fromName = '';
+    protected string $fromEmail = '';
 
-    /**
-     * @var string
-     */
-    protected $fromEmail = '';
+    protected string $replyToName = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToName = '';
+    protected string $replyToEmail = '';
 
-    /**
-     * @var string
-     */
-    protected $replyToEmail = '';
-
-    /**
-     * @var string
-     */
-    protected $customReceivers = '';
+    protected string $customReceivers = '';
 
     /**
      * @var ObjectStorage<Period>
      */
-    protected $periods;
+    protected ObjectStorage $periods;
+
+    protected bool $locked = false;
 
     /**
-     * @var bool
-     */
-    protected $locked = false;
-
-    /**
-     * @var string serialized json!
+     * Serialized JSON!
+     *
      * @internal
      */
-    protected $commandData = '';
+    protected string $commandData = '';
 
     /**
-     * @var array unserialized object
+     * Unserialized object
+     *
      * @internal
      */
-    protected $commandDataUnserialized = [];
+    protected array $commandDataUnserialized = [];
 
     public function __construct()
     {

@@ -21,7 +21,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\DataTablesService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -32,35 +32,17 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class CheckoutController extends ActionController
 {
-    /**
-     * @var FacilityRepository
-     */
-    protected $facilityRepository;
+    protected FacilityRepository $facilityRepository;
 
-    /**
-     * @var PeriodRepository
-     */
-    protected $periodRepository;
+    protected PeriodRepository $periodRepository;
 
-    /**
-     * @var OrderRepository
-     */
-    protected $orderRepository;
+    protected OrderRepository $orderRepository;
 
-    /**
-     * @var CheckoutService
-     */
-    protected $checkoutService;
+    protected CheckoutService $checkoutService;
 
-    /**
-     * @var DataTablesService
-     */
-    protected $dataTablesService;
+    protected DataTablesService $dataTablesService;
 
-    /**
-     * @var CancellationService
-     */
-    protected $cancellationService;
+    protected CancellationService $cancellationService;
 
     public function injectFacilityRepository(FacilityRepository $facilityRepository): void
     {
@@ -94,12 +76,6 @@ class CheckoutController extends ActionController
 
     public function listAction(): void
     {
-        // Uncached list action used for redirects with flash messages as they are cached otherwise!
-        // See: https://forge.typo3.org/issues/72703
-        if ($this->controllerContext->getFlashMessageQueue()->count()) {
-            $GLOBALS['TSFE']->no_cache = true;
-        }
-
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
         $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
@@ -124,7 +100,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
                 '',
-                AbstractMessage::INFO
+                ContextualFeedbackSeverity::INFO
             );
             $this->redirect('list');
         }
@@ -147,7 +123,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'You are not allowed to order right now.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
             $this->redirect('list');
         }
@@ -161,7 +137,7 @@ class CheckoutController extends ActionController
         $this->addFlashMessage(
             LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
             '',
-            AbstractMessage::ERROR
+            ContextualFeedbackSeverity::ERROR
         );
 
         $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
@@ -175,7 +151,7 @@ class CheckoutController extends ActionController
                 $this->addFlashMessage(
                     'Your order is already confirmed! Please check your mailbox.',
                     '',
-                    AbstractMessage::INFO
+                    ContextualFeedbackSeverity::INFO
                 );
                 $this->redirect('list');
             }
@@ -185,7 +161,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
         }
     }
@@ -199,7 +175,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                AbstractMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
             $this->redirect('list');
         }
@@ -215,7 +191,7 @@ class CheckoutController extends ActionController
                     $this->addFlashMessage(
                         'Could not cancel your order. Please contact the administrator!',
                         '',
-                        AbstractMessage::ERROR
+                        ContextualFeedbackSeverity::ERROR
                     );
                 }
             } else {
@@ -234,7 +210,7 @@ class CheckoutController extends ActionController
                     ]
                 ),
                 '',
-                AbstractMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         } else {
             $this->addFlashMessage(
@@ -243,7 +219,7 @@ class CheckoutController extends ActionController
                     'reserve'
                 ),
                 '',
-                AbstractMessage::WARNING
+                ContextualFeedbackSeverity::WARNING
             );
         }
 

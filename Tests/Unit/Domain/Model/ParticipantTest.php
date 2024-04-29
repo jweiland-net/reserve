@@ -12,18 +12,14 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Participant;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
- * @testdox An participant
  * @covers \JWeiland\Reserve\Domain\Model\Participant
  */
 class ParticipantTest extends UnitTestCase
 {
-    /**
-     * @var Participant
-     */
-    protected $subject;
+    protected Participant $subject;
 
     protected function setUp(): void
     {
@@ -32,7 +28,9 @@ class ParticipantTest extends UnitTestCase
 
     protected function tearDown(): void
     {
-        unset($this->subject);
+        unset(
+            $this->subject
+        );
 
         parent::tearDown();
     }

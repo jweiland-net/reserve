@@ -14,15 +14,14 @@ namespace JWeiland\Reserve\Command;
 use JWeiland\Reserve\Domain\Model\Email;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Repository\EmailRepository;
+use JWeiland\Reserve\Service\FluidService;
 use JWeiland\Reserve\Service\MailService;
-use JWeiland\Reserve\Utility\FluidUtility;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
@@ -30,49 +29,47 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class SendMailsCommand extends Command
 {
-    /**
-     * @var EmailRepository
-     */
-    protected $emailRepository;
+    protected EmailRepository $emailRepository;
 
-    /**
-     * @var PersistenceManager
-     */
-    protected $persistenceManager;
+    protected FluidService $fluidService;
 
-    /**
-     * @var Email
-     */
-    protected $email;
+    protected PersistenceManager $persistenceManager;
+
+    protected ?Email $email = null;
 
     /**
      * @var array|Order[]
      */
-    protected $orders = [];
+    protected array $orders = [];
 
     /**
      * @var array|string[]
      */
-    protected $receivers = [];
+    protected array $receivers = [];
 
-    /**
-     * @var int
-     */
-    protected $currentReceiverKey = 0;
+    protected int $currentReceiverKey = 0;
 
     public function __construct(string $name = null)
     {
         parent::__construct($name);
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->emailRepository = $objectManager->get(EmailRepository::class);
-        $this->persistenceManager = $objectManager->get(PersistenceManager::class);
+
+        $this->emailRepository = $this->getEmailRepository();
+        $this->fluidService = $this->getFluidService();
+        $this->persistenceManager = $this->getPersistenceManager();
     }
 
     protected function configure(): void
     {
         $this->setDescription('Send mails using all tx_reserve_domain_model_mail records.');
         $this->setHelp('Send mails using all tx_reserve_domain_model_mail records.');
-        $this->addOption('mailLimit', 'm', InputOption::VALUE_OPTIONAL, 'How many mails per execution?', 100);
+
+        $this->addOption(
+            'mailLimit',
+            'm',
+            InputOption::VALUE_OPTIONAL,
+            'How many mails per execution?',
+            100
+        );
         $this->addOption(
             'locale',
             'l',
@@ -87,8 +84,11 @@ class SendMailsCommand extends Command
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $mailLimit = (int)$input->getOption('mailLimit');
+
         $progressBar = new ProgressBar($output);
+
         $output->writeln('Send mails...');
+
         $sentMails = 0;
         while ($sentMails < $mailLimit) {
             if (!$this->sendNextMail()) {
@@ -118,18 +118,20 @@ class SendMailsCommand extends Command
             if ($this->email->getReceiverType() === Email::RECEIVER_TYPE_PERIODS) {
                 // attach the associated order because we know that an order exists
                 $order = $this->orders[$this->currentReceiverKey];
-                GeneralUtility::makeInstance(MailService::class)->sendMailToCustomer(
+                $this->getMailService()->sendMailToCustomer(
                     $order,
                     $this->email->getSubject(),
-                    FluidUtility::replaceMarkerByRenderedTemplate(
+                    $this->fluidService->replaceMarkerByRenderedTemplate(
                         '###RESERVATION###',
                         'UpdatedReservation',
                         $this->email->getBody(),
-                        ['order' => $order]
+                        [
+                            'order' => $order,
+                        ]
                     )
                 );
             } else {
-                GeneralUtility::makeInstance(MailService::class)->sendMail(
+                $this->getMailService()->sendMail(
                     $this->email->getSubject(),
                     $this->email->getBody(),
                     $receiver,
@@ -152,13 +154,15 @@ class SendMailsCommand extends Command
 
     protected function getNextReceiver(): string
     {
-        if (empty($this->receivers)) {
-            if ($this->email) {
+        if ($this->receivers === []) {
+            if ($this->email instanceof Email) {
                 // all orders of current email are processed now
                 $this->unlockAndUpdateProcessedEmail();
                 $this->removeProcessedEmail();
             }
+
             $this->email = $this->emailRepository->findOneUnlocked();
+
             if ($this->email instanceof Email) {
                 // lock current record
                 $this->emailRepository->lockEmail($this->email->getUid(), $this->email);
@@ -171,7 +175,9 @@ class SendMailsCommand extends Command
             }
             $this->receivers = $this->email->getReceivers($this->orders);
         }
+
         $this->currentReceiverKey = key($this->receivers);
+
         return (string)array_shift($this->receivers);
     }
 
@@ -193,5 +199,25 @@ class SendMailsCommand extends Command
     {
         $this->persistenceManager->remove($this->email);
         $this->persistenceManager->persistAll();
+    }
+
+    protected function getEmailRepository(): EmailRepository
+    {
+        return GeneralUtility::makeInstance(EmailRepository::class);
+    }
+
+    protected function getMailService(): MailService
+    {
+        return GeneralUtility::makeInstance(MailService::class);
+    }
+
+    protected function getFluidService(): FluidService
+    {
+        return GeneralUtility::makeInstance(FluidService::class);
+    }
+
+    protected function getPersistenceManager(): PersistenceManager
+    {
+        return GeneralUtility::makeInstance(PersistenceManager::class);
     }
 }

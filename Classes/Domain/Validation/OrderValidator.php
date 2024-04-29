@@ -12,9 +12,10 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Validation;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Event\ValidateOrderEvent;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
 /**
@@ -38,23 +39,20 @@ class OrderValidator extends AbstractValidator
 
     protected function attachForeignResults(Order $order): void
     {
-        $results = new ObjectStorage();
-        $this->getDispatcher()->dispatch(__CLASS__, 'validateOrder', [
-            'order' => $order,
-            'errorResults' => $results,
-        ]);
+        $errorResults = new ObjectStorage();
 
-        foreach ($results as $result) {
-            $this->result->merge($result);
+        /** @var ValidateOrderEvent $event */
+        $event = $this->getEventDispatcher()->dispatch(
+            new ValidateOrderEvent($order, $errorResults)
+        );
+
+        foreach ($event->getErrorResults() as $errorResult) {
+            $this->result->merge($errorResult);
         }
     }
 
-    /**
-     * ToDo: Switch to Symfony Event
-     * SignalSlot will be removed with TYPO3 12.0
-     */
-    protected function getDispatcher(): Dispatcher
+    protected function getEventDispatcher(): EventDispatcher
     {
-        return GeneralUtility::makeInstance(Dispatcher::class);
+        return GeneralUtility::makeInstance(EventDispatcher::class);
     }
 }

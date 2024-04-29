@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\DataHandler;
 
-use JWeiland\Reserve\Hooks\PageRenderer;
+use JWeiland\Reserve\Hook\PageRendererHook;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Core\Environment;
@@ -31,15 +31,9 @@ class AskForMailAfterPeriodUpdate
 {
     private const TABLE = 'tx_reserve_domain_model_period';
 
-    /**
-     * @var DataHandler
-     */
-    protected $dataHandler;
+    protected DataHandler $dataHandler;
 
-    /**
-     * @var array
-     */
-    protected $updatedRecords = [];
+    protected array $updatedRecords = [];
 
     public function processDataHandlerResultAfterAllOperations(DataHandler $dataHandler): bool
     {
@@ -50,7 +44,7 @@ class AskForMailAfterPeriodUpdate
         $this->dataHandler = $dataHandler;
         if (!Environment::isCli()) {
             $this->checkForUpdatedRecords();
-            if (!empty($this->updatedRecords) && $this->checkIfUpdatedRecordsAffectsOrders()) {
+            if (($this->updatedRecords !== []) && $this->checkIfUpdatedRecordsAffectsOrders()) {
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }
@@ -73,7 +67,7 @@ class AskForMailAfterPeriodUpdate
         $checkFields = ['begin', 'end', 'date'];
         $updatedRecords = [];
         foreach ($historyRecordsProperty->getValue($this->dataHandler) as $recordId => $historyRecord) {
-            if (strpos($recordId, self::TABLE) === false) {
+            if (!str_contains($recordId, self::TABLE)) {
                 continue;
             }
 
@@ -98,8 +92,8 @@ class AskForMailAfterPeriodUpdate
             ->count('uid')
             ->from('tx_reserve_domain_model_order')
             ->where($queryBuilder->expr()->in('booked_period', implode(',', $this->updatedRecords)))
-            ->execute()
-            ->fetchColumn();
+            ->executeQuery()
+            ->fetchOne();
     }
 
     protected function addJavaScriptAndSettingsToPageRenderer(): void
@@ -112,7 +106,7 @@ class AskForMailAfterPeriodUpdate
             [
                 'uid' => current($this->updatedRecords),
             ]
-        )->fetch();
+        )->fetchAssociative();
 
         $params = [
             'edit' => ['tx_reserve_domain_model_email' => [$row['pid'] => 'new']],
@@ -127,14 +121,15 @@ class AskForMailAfterPeriodUpdate
 
         ];
 
-        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        $uriBuilder = $this->getUriBuilder();
+
         // Add configuration to tx_reserve_modal in user session. This will be checked inside the PageRenderer hook
-        // Class: JWeiland\Reserve\Hooks\PageRenderer->processTxReserveModalUserSetting()
+        // Class: JWeiland\Reserve\Hook\PageRenderer->processTxReserveModalUserSetting()
         $this->getBackendUserAuthentication()->setAndSaveSessionData(
-            PageRenderer::MODAL_SESSION_KEY,
+            PageRendererHook::MODAL_SESSION_KEY,
             [
-                'jsInlineCode' => [
-                    'Require-JS-Module-TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => 'require(["TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule"]);',
+                'requireJsModules' => [
+                    'TYPO3/CMS/Reserve/Backend/AskForMailAfterEditModule' => null,
                 ],
                 'inlineSettings' => [
                     'reserve.showModal' => [
@@ -167,13 +162,18 @@ class AskForMailAfterPeriodUpdate
         return $queryBuilder;
     }
 
+    protected function getBackendUserAuthentication(): BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'];
+    }
+
     protected function getConnectionPool(): ConnectionPool
     {
         return GeneralUtility::makeInstance(ConnectionPool::class);
     }
 
-    protected function getBackendUserAuthentication(): BackendUserAuthentication
+    protected function getUriBuilder(): UriBuilder
     {
-        return $GLOBALS['BE_USER'];
+        return GeneralUtility::makeInstance(UriBuilder::class);
     }
 }
