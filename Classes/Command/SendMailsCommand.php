@@ -154,7 +154,7 @@ class SendMailsCommand extends Command
 
     protected function getNextReceiver(): string
     {
-        if (empty($this->receivers)) {
+        if ($this->receivers === []) {
             if ($this->email instanceof Email) {
                 // all orders of current email are processed now
                 $this->unlockAndUpdateProcessedEmail();

@@ -44,7 +44,7 @@ class AskForMailAfterPeriodUpdate
         $this->dataHandler = $dataHandler;
         if (!Environment::isCli()) {
             $this->checkForUpdatedRecords();
-            if (!empty($this->updatedRecords) && $this->checkIfUpdatedRecordsAffectsOrders()) {
+            if (($this->updatedRecords !== []) && $this->checkIfUpdatedRecordsAffectsOrders()) {
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }

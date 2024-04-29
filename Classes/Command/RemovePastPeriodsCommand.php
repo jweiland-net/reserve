@@ -78,7 +78,7 @@ HELP
         $this->dataHandler->start([], $cmd);
         $this->dataHandler->process_cmdmap();
 
-        if (!empty($this->dataHandler->errorLog)) {
+        if ($this->dataHandler->errorLog !== []) {
             $output->writeln('Errors during DataHandler operations:');
             $output->writeln($this->dataHandler->errorLog);
             return 1;

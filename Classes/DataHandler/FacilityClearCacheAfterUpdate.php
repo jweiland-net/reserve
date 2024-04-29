@@ -41,7 +41,7 @@ class FacilityClearCacheAfterUpdate
         // maybe split this big condition block into separated methods
         if (array_key_exists('tx_reserve_domain_model_facility', $dataHandler->datamap)) {
             foreach ($dataHandler->datamap['tx_reserve_domain_model_facility'] as $uid => $row) {
-                if (is_int($uid) && !empty($row['name'])) {
+                if (is_int($uid) && ($row['name'] !== '')) {
                     // only call this method if current facility isn't new, hidden or deleted!
                     $this->clearPageCacheAndAddFacilityName($uid);
                 }
@@ -92,7 +92,7 @@ class FacilityClearCacheAfterUpdate
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         }
-        if (!empty($this->facilityNames)) {
+        if ($this->facilityNames !== []) {
             $flashMessageQueue = $this->getFlashMessageService()->getMessageQueueByIdentifier();
             $flashMessage = GeneralUtility::makeInstance(
                 FlashMessage::class,
