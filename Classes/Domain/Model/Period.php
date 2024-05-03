@@ -42,12 +42,12 @@ class Period extends AbstractEntity
     /**
      * @var \DateTime
      */
-    protected $begin;
+    protected $begin = null;
 
     /**
      * @var \DateTime
      */
-    protected $end;
+    protected $end = null;
 
     /**
      * @var int
@@ -148,9 +148,12 @@ class Period extends AbstractEntity
      */
     public function getBegin(): \DateTime
     {
-        if ($this->begin->getTimezone() !== 'UTC') {
+        if ($this->begin instanceof \DateTime && $this->begin->getTimezone() !== 'UTC') {
             $this->begin->setTimezone(new \DateTimeZone('UTC'));
+        } else {
+            $this->begin = new \DateTime('00:00');
         }
+
         return $this->begin;
     }
 
@@ -167,9 +170,12 @@ class Period extends AbstractEntity
      */
     public function getEnd(): \DateTime
     {
-        if ($this->end->getTimezone() !== 'UTC') {
+        if ($this->end instanceof \DateTime && $this->end->getTimezone()->getName() !== 'UTC') {
             $this->end->setTimezone(new \DateTimeZone('UTC'));
+        } else {
+            $this->end = new \DateTime('00:00');
         }
+
         return $this->end;
     }
 
