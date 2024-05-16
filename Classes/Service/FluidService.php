@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use Psr\Http\Message\RequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -64,8 +65,8 @@ class FluidService
         string $content,
         array $vars = []
     ): string {
-        $view = self::getStandaloneView();
-        static::configureStandaloneViewForMailing($view);
+        $view = $this->getStandaloneView();
+        $this->configureStandaloneViewForMailing($view);
         $view->assignMultiple($vars);
         $view->setTemplate($template);
 
@@ -75,5 +76,16 @@ class FluidService
     private function getStandaloneView(): StandaloneView
     {
         return GeneralUtility::makeInstance(StandaloneView::class);
+        $view = GeneralUtility::makeInstance(StandaloneView::class);
+        if (!($view->getRequest() instanceof RequestInterface)) {
+            $view->setRequest($this->getRequest());
+        }
+
+        return $view;
+    }
+
+    private function getRequest(): RequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }

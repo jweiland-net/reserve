@@ -111,7 +111,7 @@ class FacilityClearCacheAfterUpdate
     protected function replaceNewWithIds(array $ids): array
     {
         foreach ($ids as &$id) {
-            if (is_string($id) && str_starts_with($id, 'NEW')) {
+            if (is_string($id) && str_starts_with($id, 'NEW') && isset($this->dataHandler->substNEWwithIDs[$id])) {
                 $id = $this->dataHandler->substNEWwithIDs[$id];
             }
         }

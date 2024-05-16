@@ -33,6 +33,9 @@ return [
         'typeicon_classes' => [
             'default' => 'tx_reserve_domain_model_period',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
     ],
     'types' => [
         '1' => [
