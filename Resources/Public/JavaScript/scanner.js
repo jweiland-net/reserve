@@ -18,6 +18,7 @@ $(() => {
     });
 
     let canvasElement = document.getElementById('canvas');
+    let basePath = canvasElement.getAttribute('data-base-path');
     let activeScan = false;
     let video = null;
     let codeInImage = null;
@@ -125,7 +126,8 @@ $(() => {
             requestAnimationFrame(tick);
         });
 
-        let qrReader = new Worker(`/typo3conf/ext/reserve/Resources/Public/JavaScript/qrReader.js`);
+        let qrReader = new Worker(basePath + '/qrReader.js');
+        qrReader.postMessage({basePath: basePath});
         let qrReaderReady = true;
 
         function tick(timestamp) {

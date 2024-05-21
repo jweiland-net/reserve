@@ -8,7 +8,7 @@
     <f:translate key="scanner_unavailable"/>
 </div>
 
-<canvas id="canvas" hidden></canvas>
+<canvas id="canvas" data-base-path="{f:uri.resource(path: 'JavaScript', extensionName: 'reserve')}" hidden></canvas>
 
 <f:render partial="Reservations" arguments="{datatable: 1, reservations: reservations, showAdditionalInformation: 1}"/>
 </html>
