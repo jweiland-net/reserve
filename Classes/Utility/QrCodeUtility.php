@@ -79,7 +79,7 @@ class QrCodeUtility
         // Ensure the format is compatible with DateTime
         $format = strtr($format, [
             '%a' => 'D', '%d' => 'd', '%m' => 'm', '%Y' => 'Y',
-            '%H' => 'H', '%M' => 'i', '%S' => 's', '%B' => 'F'
+            '%H' => 'H', '%M' => 'i', '%S' => 's', '%B' => 'F',
         ]);
 
         $dateTime = new \DateTime();
