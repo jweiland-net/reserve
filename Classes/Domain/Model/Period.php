@@ -148,9 +148,9 @@ class Period extends AbstractEntity
      */
     public function getBegin(): \DateTime
     {
-        if ($this->begin instanceof \DateTime && $this->begin->getTimezone() !== 'UTC') {
+        if ($this->begin instanceof \DateTime && $this->begin->getTimezone()->getLocation() === false) {
             $this->begin->setTimezone(new \DateTimeZone('UTC'));
-        } else {
+        } elseif ($this->begin === null) {
             $this->begin = new \DateTime('00:00');
         }
 
@@ -170,9 +170,9 @@ class Period extends AbstractEntity
      */
     public function getEnd(): \DateTime
     {
-        if ($this->end instanceof \DateTime && $this->end->getTimezone()->getName() !== 'UTC') {
+        if ($this->end instanceof \DateTime && $this->end->getTimezone()->getLocation() === false) {
             $this->end->setTimezone(new \DateTimeZone('UTC'));
-        } else {
+        } elseif ($this->end === null) {
             $this->end = new \DateTime('00:00');
         }
 
