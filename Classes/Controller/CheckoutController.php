@@ -21,6 +21,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\DataTablesService;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
@@ -74,7 +75,7 @@ class CheckoutController extends ActionController
         $this->cancellationService = $cancellationService;
     }
 
-    public function listAction(): void
+    public function listAction(): ResponseInterface
     {
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
@@ -89,9 +90,11 @@ class CheckoutController extends ActionController
             ]
         );
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
+
+        return $this->htmlResponse();
     }
 
-    public function formAction(Period $period): void
+    public function formAction(Period $period): ResponseInterface
     {
         if (!$period->isBookable()) {
             $this->redirect('list');
@@ -108,12 +111,14 @@ class CheckoutController extends ActionController
         $order = GeneralUtility::makeInstance(Order::class);
         $order->setBookedPeriod($period);
         $this->view->assign('order', $order);
+
+        return $this->htmlResponse();
     }
 
     /**
      * @Extbase\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
      */
-    public function createAction(Order $order, int $furtherParticipants = 0): void
+    public function createAction(Order $order, int $furtherParticipants = 0): ResponseInterface
     {
         if (!(
             $order->_isNew()
@@ -125,13 +130,13 @@ class CheckoutController extends ActionController
                 '',
                 ContextualFeedbackSeverity::ERROR
             );
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
             $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         $this->addFlashMessage(
@@ -140,10 +145,10 @@ class CheckoutController extends ActionController
             ContextualFeedbackSeverity::ERROR
         );
 
-        $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
+        return $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
     }
 
-    public function confirmAction(string $email, string $activationCode): void
+    public function confirmAction(string $email, string $activationCode): ResponseInterface
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
@@ -153,7 +158,7 @@ class CheckoutController extends ActionController
                     '',
                     ContextualFeedbackSeverity::INFO
                 );
-                $this->redirect('list');
+                return $this->redirect('list');
             }
             $this->checkoutService->confirm($order);
             $this->view->assign('order', $order);
@@ -164,9 +169,11 @@ class CheckoutController extends ActionController
                 ContextualFeedbackSeverity::ERROR
             );
         }
+
+        return $this->htmlResponse();
     }
 
-    public function cancelAction(string $email, string $activationCode, bool $confirm = false): void
+    public function cancelAction(string $email, string $activationCode, bool $confirm = false): ResponseInterface
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
 
@@ -177,7 +184,7 @@ class CheckoutController extends ActionController
                 '',
                 ContextualFeedbackSeverity::ERROR
             );
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         $redirect = true;
@@ -225,8 +232,10 @@ class CheckoutController extends ActionController
 
         if ($redirect) {
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
-            $this->redirect('list');
+            return $this->redirect('list');
         }
+
+        return $this->htmlResponse();
     }
 
     private function getAdditionalDefaultConfiguration(int $orderColumnBegin): array

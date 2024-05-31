@@ -43,9 +43,9 @@ class QrCodeUtility
                 sprintf(
                     '%s %s %s %s',
                     $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
-                    strftime(
+                    self::formatTime(
                         LocalizationUtility::translate('date_format', 'reserve'),
-                        $bookedPeriod->getDate()->getTimestamp()
+                        (int)$bookedPeriod->getDate()->getTimestamp()
                     ),
                     $begin,
                     $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
@@ -72,5 +72,17 @@ class QrCodeUtility
                 )
                 ->logoResizeToWidth($facility->getQrCodeLogoWidth());
         }
+    }
+
+    public static function formatTime(string $format, $timestamp = null): string
+    {
+        // Ensure the format is compatible with DateTime
+        $format = strtr($format, [
+            '%a' => 'D', '%d' => 'd', '%m' => 'm', '%Y' => 'Y',
+            '%H' => 'H', '%M' => 'i', '%S' => 's', '%B' => 'F',
+        ]);
+
+        $dateTime = new \DateTime();
+        return $dateTime->setTimestamp($timestamp)->format($format);
     }
 }

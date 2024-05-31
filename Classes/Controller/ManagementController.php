@@ -16,6 +16,7 @@ use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use JWeiland\Reserve\Service\DataTablesService;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\JsonView;
@@ -55,7 +56,7 @@ class ManagementController extends ActionController
         ]);
     }
 
-    public function overviewAction(): void
+    public function overviewAction(): ResponseInterface
     {
         $this->view->assign(
             'periods',
@@ -63,19 +64,25 @@ class ManagementController extends ActionController
                 [(int)$this->settings['facility']]
             )
         );
+
+        return $this->htmlResponse();
     }
 
-    public function scannerAction(Period $period): void
+    public function scannerAction(Period $period): ResponseInterface
     {
         $this->view->assign('period', $period);
+
+        return $this->htmlResponse();
     }
 
-    public function periodAction(Period $period): void
+    public function periodAction(Period $period): ResponseInterface
     {
         $this->view->assign('period', $period);
+
+        return $this->htmlResponse();
     }
 
-    public function periodsOnSameDayAction(Period $period): void
+    public function periodsOnSameDayAction(Period $period): ResponseInterface
     {
         $this->view->assign(
             'periods',
@@ -84,9 +91,11 @@ class ManagementController extends ActionController
                 (int)$this->settings['facility']
             )
         );
+
+        return $this->htmlResponse();
     }
 
-    public function scanAction(Reservation $reservation, bool $entireOrder = false): string
+    public function scanAction(Reservation $reservation, bool $entireOrder = false): ResponseInterface
     {
         $view = $this->getJsonView();
         $view->setVariablesToRender(['status']);
@@ -130,7 +139,7 @@ class ManagementController extends ActionController
             ]
         );
 
-        return $view->render();
+        return $this->jsonResponse($view->render());
     }
 
     protected function getJsonView(): JsonView

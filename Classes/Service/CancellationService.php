@@ -72,7 +72,7 @@ class CancellationService implements SingletonInterface
 
         // Remove with DataHandler
         $this->dataHandler->start([], []);
-        $this->dataHandler->deleteRecord('tx_yourext_domain_model_order', $order->getUid());
+        $this->dataHandler->deleteRecord('tx_reserve_domain_model_order', $order->getUid());
         $this->dataHandler->process_datamap();
 
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());

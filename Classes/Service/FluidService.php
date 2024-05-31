@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -42,6 +43,7 @@ class FluidService
         $standaloneView->setTemplateRootPaths(
             $extbaseFrameworkConfiguration['view']['templateRootPaths'] ?? ['EXT:reserve/Resources/Private/Templates/']
         );
+
         $standaloneView->setLayoutRootPaths(
             $extbaseFrameworkConfiguration['view']['layoutRootPaths'] ?? ['EXT:reserve/Resources/Private/Layouts/']
         );
@@ -64,8 +66,8 @@ class FluidService
         string $content,
         array $vars = []
     ): string {
-        $view = self::getStandaloneView();
-        static::configureStandaloneViewForMailing($view);
+        $view = $this->getStandaloneView();
+        $this->configureStandaloneViewForMailing($view);
         $view->assignMultiple($vars);
         $view->setTemplate($template);
 
@@ -74,6 +76,14 @@ class FluidService
 
     private function getStandaloneView(): StandaloneView
     {
-        return GeneralUtility::makeInstance(StandaloneView::class);
+        $view = GeneralUtility::makeInstance(StandaloneView::class);
+        $view->setRequest($this->getRequest());
+
+        return $view;
+    }
+
+    public function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
