@@ -1,4 +1,4 @@
-name: Test reserve for TYPO3 12 LTS
+name: Test reserve for TYPO3 13 LTS
 
 on:
   pull_request

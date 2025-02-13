@@ -24,14 +24,18 @@
 	},
 	"require": {
 		"ext-json": "*",
-		"typo3/cms-core": "^12.4.8",
-		"endroid/qr-code": "^4.3.5"
+		"typo3/cms-core": "^13.4",
+		"endroid/qr-code": "^6.0.3"
 	},
 	"require-dev": {
+		"ergebnis/composer-normalize": "^2.44",
 		"friendsofphp/php-cs-fixer": "^3.14",
-		"phpunit/phpunit": "^9.6",
-		"typo3/coding-standards": "^0.6",
-		"typo3/testing-framework": "^7.0.2"
+		"phpstan/phpdoc-parser": "^1.33",
+		"phpstan/phpstan": "1.10",
+		"phpunit/phpunit": "^11.2.5",
+		"roave/security-advisories": "dev-latest",
+		"typo3/coding-standards": "^0.8",
+		"typo3/testing-framework": "^9.0.1"
 	},
 	"suggest": {
 		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
@@ -51,6 +55,7 @@
 	},
 	"config": {
 		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
 			"typo3/cms-composer-installers": true,
 			"typo3/class-alias-loader": true
 		},
@@ -60,6 +65,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
+			"app-dir": ".Build",
 			"extension-key": "reserve",
 			"web-dir": ".Build/Web"
 		}
