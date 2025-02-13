@@ -1,5 +1,7 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -11,19 +13,19 @@ if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+ExtensionManagementUtility::addStaticFile(
     'reserve',
     'Configuration/TypoScript',
     'Reserve'
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+ExtensionManagementUtility::addStaticFile(
     'reserve',
     'Configuration/TypoScript/Scanner',
     'Reserve scanner'
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+ExtensionManagementUtility::addStaticFile(
     'reserve',
     'Configuration/TypoScript/Reservation',
     'Reserve reservation'

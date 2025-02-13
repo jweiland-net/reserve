@@ -94,9 +94,11 @@ class SendMailsCommand extends Command
             if (!$this->sendNextMail()) {
                 break;
             }
+
             $sentMails++;
             $progressBar->advance();
         }
+
         if ($sentMails === ($mailLimit - 1)) {
             // we have run into the mailLimit so save the current process
             $this->unlockAndUpdateProcessedEmail();
@@ -109,7 +111,7 @@ class SendMailsCommand extends Command
 
     protected function sendNextMail(): bool
     {
-        if (!$receiver = $this->getNextReceiver()) {
+        if (($receiver = $this->getNextReceiver()) === '' || ($receiver = $this->getNextReceiver()) === '0') {
             // no more mails to send
             return false;
         }
@@ -173,6 +175,7 @@ class SendMailsCommand extends Command
                 // no more records in db
                 return '';
             }
+
             $this->receivers = $this->email->getReceivers($this->orders);
         }
 

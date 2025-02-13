@@ -42,7 +42,7 @@ class QrCodePreviewController
     {
         $facilityUid = (int)($request->getQueryParams()['facility'] ?? 0);
         $data = ['hasErrors' => false, 'message' => '', 'qrCode' => ''];
-        if ($facilityUid) {
+        if ($facilityUid !== 0) {
             $facility = $this->facilityRepository->findByUid($facilityUid);
             if ($facility instanceof Facility) {
                 $reservation = $this->getEmptyReservation();
@@ -69,7 +69,7 @@ class QrCodePreviewController
             }
         } else {
             $data['hasErrors'] = true;
-            $data['message'] = 'You have to provide the facility uid with param \'facility\'!';
+            $data['message'] = "You have to provide the facility uid with param 'facility'!";
         }
 
         return new JsonResponse($data);

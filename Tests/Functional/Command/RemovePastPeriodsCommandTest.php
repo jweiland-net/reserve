@@ -68,6 +68,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         $command = GeneralUtility::makeInstance(RemovePastPeriodsCommand::class);
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
+
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_order')
             ->select(['*'], 'tx_reserve_domain_model_order', ['uid' => 1])
@@ -84,6 +85,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         $command = GeneralUtility::makeInstance(RemovePastPeriodsCommand::class);
         $commandTester = new CommandTester($command);
         $commandTester->execute([]);
+
         $orders = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable('tx_reserve_domain_model_reservation')
             ->select(['*'], 'tx_reserve_domain_model_reservation', ['customer_order' => 1])

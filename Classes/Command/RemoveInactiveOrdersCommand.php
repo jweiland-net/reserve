@@ -93,9 +93,10 @@ class RemoveInactiveOrdersCommand extends Command
 
         $output->writeln('Clear caches for affected facilities list views...');
 
-        foreach ($affectedFacilities as $facilityUid => $_) {
+        foreach (array_keys($affectedFacilities) as $facilityUid) {
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($facilityUid);
         }
+
         return 0;
     }
 }

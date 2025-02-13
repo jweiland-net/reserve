@@ -386,6 +386,7 @@ class OrderTest extends UnitTestCase
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 
@@ -408,6 +409,7 @@ class OrderTest extends UnitTestCase
     {
         $participant = new Participant();
         $participant->setLastName('Weiland');
+
         $this->subject->addParticipant($participant);
 
         $objectStorage = new ObjectStorage();
@@ -450,6 +452,7 @@ class OrderTest extends UnitTestCase
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 
@@ -460,6 +463,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setParticipants($participants);
 
         $this->subject->removeParticipant($participant1);
+
         $participants->detach($participant1);
 
         self::assertEquals(
@@ -487,6 +491,7 @@ class OrderTest extends UnitTestCase
         $object = new Reservation();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setReservations($objectStorage);
 
         self::assertSame(
@@ -522,9 +527,11 @@ class OrderTest extends UnitTestCase
         $object = new Reservation();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setReservations($objectStorage);
 
         $this->subject->removeReservation($object);
+
         $objectStorage->detach($object);
 
         self::assertSame(
@@ -681,6 +688,7 @@ class OrderTest extends UnitTestCase
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 

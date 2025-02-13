@@ -17,6 +17,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class Email extends AbstractEntity
 {
     public const RECEIVER_TYPE_PERIODS = 0;
+
     public const RECEIVER_TYPE_MANUAL = 1;
 
     protected string $subject = '';
@@ -69,7 +70,7 @@ class Email extends AbstractEntity
      */
     public function initializeObject(): void
     {
-        $this->periods = $this->periods ?? new ObjectStorage();
+        $this->periods ??= new ObjectStorage();
     }
 
     public function getSubject(): string

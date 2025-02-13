@@ -48,6 +48,7 @@ class AskForMailAfterPeriodUpdate
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }
+
         return true;
     }
 
@@ -81,6 +82,7 @@ class AskForMailAfterPeriodUpdate
                 }
             }
         }
+
         $this->updatedRecords = $updatedRecords;
     }
 

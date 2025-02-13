@@ -1,5 +1,8 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Information\Typo3Version;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -12,7 +15,7 @@ if (!defined('TYPO3')) {
 }
 
 call_user_func(static function (): void {
-    $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-        \TYPO3\CMS\Core\Information\Typo3Version::class
+    $typo3Version = GeneralUtility::makeInstance(
+        Typo3Version::class
     );
 });

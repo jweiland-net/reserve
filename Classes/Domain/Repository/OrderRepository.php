@@ -47,6 +47,7 @@ class OrderRepository extends Repository
     {
         $olderThan = new \DateTime();
         $olderThan->modify('-' . $olderThanInSeconds . 'seconds');
+
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching(
@@ -72,6 +73,7 @@ class OrderRepository extends Repository
     ): QueryBuilder {
         $dateTime = new \DateTime('now');
         $dateTime->modify('-' . $endedSinceSeconds . 'seconds');
+
         $periodDate = new \DateTime(sprintf('%s 0:0:0', $dateTime->format('Y-m-d')), new \DateTimeZone('UTC'));
         $periodEnd = new \DateTime(sprintf('1970-01-01 %s', $dateTime->format('H:i:s')), new \DateTimeZone('UTC'));
         unset($dateTime);

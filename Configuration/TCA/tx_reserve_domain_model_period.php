@@ -1,5 +1,7 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\PathUtility;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -8,7 +10,7 @@
  */
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
+if (!is_file(PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 

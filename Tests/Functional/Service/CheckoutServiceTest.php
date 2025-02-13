@@ -64,6 +64,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         if (method_exists($GLOBALS['TSFE']->fe_user, 'initializeUserSessionManager')) {
             $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
         }
+
         $GLOBALS['TSFE']->id = 1;
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
@@ -106,6 +107,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
         $participant1->setLastName('Last Name');
+
         $participants->attach($participant1);
 
         $order = new Order();
@@ -132,9 +134,11 @@ class CheckoutServiceTest extends FunctionalTestCase
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
         $participant1->setLastName('Last Name');
+
         $participant2 = new Participant();
         $participant2->setFirstName('First Name2');
         $participant2->setLastName('Last Name2');
+
         $participants->attach($participant1);
         $participants->attach($participant2);
 
@@ -168,12 +172,15 @@ class CheckoutServiceTest extends FunctionalTestCase
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
         $participant1->setLastName('Last Name');
+
         $participant2 = new Participant();
         $participant2->setFirstName('First Name2');
         $participant2->setLastName('Last Name2');
+
         $participant3 = new Participant();
         $participant3->setFirstName('First Name3');
         $participant3->setLastName('Last Name3');
+
         $participants->attach($participant1);
         $participants->attach($participant2);
         $participants->attach($participant3);
@@ -218,10 +225,8 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->mailServiceMock
             ->expects(self::atLeastOnce())
             ->method('sendMailToCustomer')
-            ->willReturnCallback(static function (Order $order, string $subject, string $body, ...$others) {
-                return $subject === 'Test confirmation'
-                    && $body === 'Confirm your reservation';
-            });
+            ->willReturnCallback(static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test confirmation'
+                && $body === 'Confirm your reservation');
 
         $this->subject->sendConfirmationMail($order);
     }
@@ -253,10 +258,8 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->mailServiceMock
             ->expects(self::atLeastOnce())
             ->method('sendMailToCustomer')
-            ->willReturnCallback(static function (Order $order, string $subject, string $body, ...$others) {
-                return $subject === 'Test reservation'
-                    && str_contains($body, 'alt="firstCode"');
-            });
+            ->willReturnCallback(static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test reservation'
+                && str_contains($body, 'alt="firstCode"'));
 
         $this->subject->confirm($order);
 

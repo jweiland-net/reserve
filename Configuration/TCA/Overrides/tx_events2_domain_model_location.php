@@ -1,5 +1,7 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -12,7 +14,7 @@ if (!defined('TYPO3')) {
 }
 
 call_user_func(static function () {
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('events2')) {
+    if (ExtensionManagementUtility::isLoaded('events2')) {
         $ll = 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:';
 
         $locationColumns = [
@@ -34,12 +36,12 @@ call_user_func(static function () {
             ],
         ];
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+        ExtensionManagementUtility::addTCAcolumns(
             'tx_events2_domain_model_location',
             $locationColumns
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+        ExtensionManagementUtility::addToAllTCAtypes(
             'tx_events2_domain_model_location',
             'facility',
             '',

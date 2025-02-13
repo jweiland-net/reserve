@@ -114,9 +114,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         self::assertSame(
             [1, 3, 2],
             array_map(
-                static function (Period $period) {
-                    return $period->getUid();
-                },
+                static fn(Period $period) => $period->getUid(),
                 $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->toArray()
             ),
             'findUpcomingAndRunningByFacilityUids() uses date and begin as ordering for result'

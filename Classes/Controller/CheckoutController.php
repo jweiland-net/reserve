@@ -79,7 +79,13 @@ class CheckoutController extends ActionController
     {
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
-        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
+        $this->view->assign(
+            'periods',
+            $this->periodRepository->findUpcomingAndRunningByFacilityUids(
+                GeneralUtility::trimExplode(',', $this->settings['facility'])
+            )
+        );
+
         $orderColumnBegin = count($facilities) === 1 ? 0 : 1;
         $dataTablesConfiguration = $this->dataTablesService->getConfiguration();
         $additionalDefaultConfigurarion = $this->getAdditionalDefaultConfiguration($orderColumnBegin);
@@ -99,6 +105,7 @@ class CheckoutController extends ActionController
         if (!$period->isBookable()) {
             $this->redirect('list');
         }
+
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
@@ -107,9 +114,11 @@ class CheckoutController extends ActionController
             );
             $this->redirect('list');
         }
+
         /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
         $order->setBookedPeriod($period);
+
         $this->view->assign('order', $order);
 
         return $this->htmlResponse();
@@ -160,6 +169,7 @@ class CheckoutController extends ActionController
                 );
                 return $this->redirect('list');
             }
+
             $this->checkoutService->confirm($order);
             $this->view->assign('order', $order);
         } else {

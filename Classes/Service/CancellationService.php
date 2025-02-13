@@ -29,6 +29,7 @@ class CancellationService implements SingletonInterface
      * Reasons for cancellation
      */
     private const REASON_CUSTOMER = 'customer';
+
     public const REASON_INACTIVE = 'inactive';
 
     protected FluidService $fluidService;

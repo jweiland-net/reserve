@@ -1,5 +1,9 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Resource\AbstractFile;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -8,7 +12,7 @@
  */
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
+if (!is_file(PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
@@ -269,7 +273,7 @@ DEFAULT_RESERVATION
         ],
         'qr_code_logo' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'qr_code_logo',
                 [
                     'minitems' => 0,
@@ -288,7 +292,7 @@ DEFAULT_RESERVATION
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                                 --palette--;;filePalette',
                             ],
-                            \TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE => [
+                            AbstractFile::FILETYPE_IMAGE => [
                                 'showitem' => '
                                 --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
                                 --palette--;;filePalette',

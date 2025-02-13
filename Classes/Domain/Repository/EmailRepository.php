@@ -54,7 +54,7 @@ class EmailRepository extends Repository
                 ]
             );
 
-        if ($email) {
+        if ($email instanceof Email) {
             $email->setLocked(true);
         }
     }

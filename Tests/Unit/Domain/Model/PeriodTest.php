@@ -219,6 +219,7 @@ class PeriodTest extends UnitTestCase
         $object = new Order();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setOrders($objectStorage);
 
         self::assertSame(
@@ -254,9 +255,11 @@ class PeriodTest extends UnitTestCase
         $object = new Order();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setOrders($objectStorage);
 
         $this->subject->removeOrder($object);
+
         $objectStorage->detach($object);
 
         self::assertSame(
@@ -438,8 +441,10 @@ class PeriodTest extends UnitTestCase
     {
         $reservation1 = new Reservation();
         $reservation1->setUsed(false);
+
         $reservation2 = new Reservation();
         $reservation2->setUsed(false);
+
         $reservation3 = new Reservation();
         $reservation3->setUsed(true);
 

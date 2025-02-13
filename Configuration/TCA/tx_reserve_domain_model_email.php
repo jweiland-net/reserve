@@ -1,5 +1,8 @@
 <?php
 
+use TYPO3\CMS\Core\Utility\PathUtility;
+use JWeiland\Reserve\Domain\Model\Email;
+
 /*
  * This file is part of the package jweiland/reserve.
  *
@@ -8,7 +11,7 @@
  */
 
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
+if (!is_file(PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
@@ -34,11 +37,11 @@ return [
         'type' => 'receiver_type',
     ],
     'types' => [
-        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS => [
+        Email::RECEIVER_TYPE_PERIODS => [
             'showitem' => 'subject,body,receiver_type,periods,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
         ],
-        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL => [
+        Email::RECEIVER_TYPE_MANUAL => [
             'showitem' => 'subject,body,receiver_type,--palette--;;mail_from,--palette--;;reply_to,custom_receivers,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
         ],
@@ -134,10 +137,10 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'default' => \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS,
+                'default' => Email::RECEIVER_TYPE_PERIODS,
                 'items' => [
-                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.0', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS],
-                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.1', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL],
+                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.0', Email::RECEIVER_TYPE_PERIODS],
+                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.1', Email::RECEIVER_TYPE_MANUAL],
                 ],
             ],
         ],

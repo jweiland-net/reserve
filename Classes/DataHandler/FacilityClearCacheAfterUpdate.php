@@ -92,6 +92,7 @@ class FacilityClearCacheAfterUpdate
                 $this->clearPageCacheAndAddFacilityName((int)$row['uid']);
             }
         }
+
         if ($this->facilityNames !== []) {
             $flashMessageQueue = $this->getFlashMessageService()->getMessageQueueByIdentifier();
             $flashMessage = GeneralUtility::makeInstance(
@@ -115,6 +116,7 @@ class FacilityClearCacheAfterUpdate
                 $id = $this->dataHandler->substNEWwithIDs[$id];
             }
         }
+
         return $ids;
     }
 
