@@ -74,8 +74,8 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => '',
+                        'value' => '',
                         'invertStateDisplay' => true,
                     ],
                 ],
@@ -96,8 +96,8 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        '',
-                        0,
+                        'label' => '',
+                        'value' => 0,
                     ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_order',
@@ -141,7 +141,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 50,
-                'eval' => 'required',
+                'required' => true,
             ],
         ],
         'last_name' => [
@@ -154,9 +154,9 @@ return [
         'email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_order.email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 50,
-                'eval' => 'email,required',
+                'required' => true,
             ],
         ],
         'phone' => [

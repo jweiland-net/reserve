@@ -70,8 +70,8 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => '',
+                        'value' => '',
                         'invertStateDisplay' => true,
                     ],
                 ],
@@ -92,8 +92,8 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        '',
-                        0,
+                        'label' => '',
+                        'value' => 0,
                     ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_period',
@@ -120,45 +120,43 @@ return [
         'booking_begin' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_begin',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 30,
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int,required',
+                'eval' => 'datetime,int',
+                'required' => true,
             ],
         ],
         'booking_end' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_end',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 30,
-                'renderType' => 'inputDateTime',
                 'eval' => 'datetime,int',
             ],
         ],
         'date' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.date',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 30,
-                'renderType' => 'inputDateTime',
-                'eval' => 'date,int,required',
+                'eval' => 'date,int',
+                'required' => true,
             ],
         ],
         'begin' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.begin',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 30,
-                'renderType' => 'inputDateTime',
-                'eval' => 'time,int,required',
+                'eval' => 'time,int',
+                'required' => true,
             ],
         ],
         'end' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.end',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'size' => 30,
-                'renderType' => 'inputDateTime',
                 'eval' => 'time,int',
             ],
         ],
@@ -167,7 +165,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'num,required',
+                'eval' => 'num',
+                'required' => true,
                 'range' => [
                     'lower' => 1,
                 ],
@@ -178,7 +177,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'num,required',
+                'eval' => 'num',
+                'required' => true,
                 'range' => [
                     'lower' => 1,
                 ],
