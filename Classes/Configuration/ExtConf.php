@@ -11,42 +11,46 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Configuration;
 
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\SingletonInterface;
 
 /**
  * Extension configuration for EXT:reserve
  */
-class ExtConf implements SingletonInterface
+#[Autoconfigure(constructor: 'create')]
+final readonly class ExtConf
 {
-    private int $blockMultipleOrdersInSeconds = 3600;
+    private const EXT_KEY = 'reserve';
 
-    public function __construct(ExtensionConfiguration $extensionConfiguration)
+    private const BLOCK_MULTIPLE_ORDERS_IN_SECONDS = 3600;
+
+    private const DEFAULT_SETTINGS = [
+        'blockMultipleOrdersInSeconds' => 3600,
+    ];
+
+    public function __construct(private int $blockMultipleOrdersInSeconds = self::BLOCK_MULTIPLE_ORDERS_IN_SECONDS) {}
+
+    public static function create(ExtensionConfiguration $extensionConfiguration): self
     {
+        $extensionSettings = self::DEFAULT_SETTINGS;
+
         try {
-            $extConf = $extensionConfiguration->get('reserve');
-            if (is_array($extConf)) {
-                // call setter method foreach configuration entry
-                foreach ($extConf as $key => $value) {
-                    $methodName = 'set' . ucfirst($key);
-                    if (method_exists($this, $methodName)) {
-                        $this->$methodName($value);
-                    }
-                }
-            }
-        } catch (ExtensionConfigurationExtensionNotConfiguredException | ExtensionConfigurationPathDoesNotExistException $e) {
+            $extensionSettings = array_merge(
+                $extensionSettings,
+                $extensionConfiguration->get(self::EXT_KEY),
+            );
+        } catch (ExtensionConfigurationExtensionNotConfiguredException|ExtensionConfigurationPathDoesNotExistException) {
         }
+
+        return new self(
+            blockMultipleOrdersInSeconds: (int)$extensionSettings['blockMultipleOrdersInSeconds'],
+        );
     }
 
     public function getBlockMultipleOrdersInSeconds(): int
     {
         return $this->blockMultipleOrdersInSeconds;
-    }
-
-    public function setBlockMultipleOrdersInSeconds(string $blockMultipleOrdersInSeconds): void
-    {
-        $this->blockMultipleOrdersInSeconds = (int)$blockMultipleOrdersInSeconds;
     }
 }
