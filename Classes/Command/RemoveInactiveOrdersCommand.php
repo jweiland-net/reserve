@@ -49,7 +49,7 @@ class RemoveInactiveOrdersCommand extends Command
             't',
             InputOption::VALUE_OPTIONAL,
             'Expiration time of an inactive order in seconds',
-            '3600'
+            '3600',
         );
         $this->addOption(
             'locale',
@@ -57,7 +57,7 @@ class RemoveInactiveOrdersCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'Locale to be used inside templates and translations. Value that is available inside the Locales class '
             . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
-            'default'
+            'default',
         );
     }
 
@@ -65,7 +65,7 @@ class RemoveInactiveOrdersCommand extends Command
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $inactiveOrders = $this->orderRepository->findInactiveOrders(
-            (int)$input->getOption('expiration-time')
+            (int)$input->getOption('expiration-time'),
         );
         $inactiveOrders->getQuery()->setLimit(30);
 
@@ -80,7 +80,7 @@ class RemoveInactiveOrdersCommand extends Command
                     $inactiveOrder,
                     CancellationService::REASON_INACTIVE,
                     ['expirationTime' => $input->getOption('expiration-time')],
-                    true
+                    true,
                 );
             } catch (\Throwable $exception) {
                 $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');

@@ -34,7 +34,7 @@ class OrderTest extends UnitTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
@@ -51,7 +51,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $period,
-            $this->subject->getBookedPeriod()
+            $this->subject->getBookedPeriod(),
         );
     }
 
@@ -66,7 +66,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $period,
-            $this->subject->getBookedPeriod()
+            $this->subject->getBookedPeriod(),
         );
     }
 
@@ -77,7 +77,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getActivationCode()
+            $this->subject->getActivationCode(),
         );
     }
 
@@ -92,7 +92,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $activationCode,
-            $this->subject->getActivationCode()
+            $this->subject->getActivationCode(),
         );
     }
 
@@ -102,7 +102,7 @@ class OrderTest extends UnitTestCase
     public function isActivatedInitiallyWillReturnFalse(): void
     {
         self::assertFalse(
-            $this->subject->isActivated()
+            $this->subject->isActivated(),
         );
     }
 
@@ -114,7 +114,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setActivated(true);
 
         self::assertTrue(
-            $this->subject->isActivated()
+            $this->subject->isActivated(),
         );
     }
 
@@ -125,7 +125,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -138,7 +138,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -149,7 +149,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
@@ -162,7 +162,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
@@ -173,7 +173,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getEmail()
+            $this->subject->getEmail(),
         );
     }
 
@@ -186,7 +186,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getEmail()
+            $this->subject->getEmail(),
         );
     }
 
@@ -197,7 +197,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getPhone()
+            $this->subject->getPhone(),
         );
     }
 
@@ -210,7 +210,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getPhone()
+            $this->subject->getPhone(),
         );
     }
 
@@ -221,7 +221,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getAddress()
+            $this->subject->getAddress(),
         );
     }
 
@@ -234,7 +234,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getAddress()
+            $this->subject->getAddress(),
         );
     }
 
@@ -245,7 +245,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getZip()
+            $this->subject->getZip(),
         );
     }
 
@@ -258,7 +258,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getZip()
+            $this->subject->getZip(),
         );
     }
 
@@ -269,7 +269,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getCity()
+            $this->subject->getCity(),
         );
     }
 
@@ -282,7 +282,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getCity()
+            $this->subject->getCity(),
         );
     }
 
@@ -293,7 +293,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getOrganization()
+            $this->subject->getOrganization(),
         );
     }
 
@@ -306,7 +306,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getOrganization()
+            $this->subject->getOrganization(),
         );
     }
 
@@ -317,7 +317,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getRemarks()
+            $this->subject->getRemarks(),
         );
     }
 
@@ -330,7 +330,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getRemarks()
+            $this->subject->getRemarks(),
         );
     }
 
@@ -341,7 +341,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -356,7 +356,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -375,7 +375,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -398,7 +398,7 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             $participants,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -417,7 +417,7 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             $objectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -441,7 +441,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -468,7 +468,7 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             $participants,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
@@ -479,7 +479,7 @@ class OrderTest extends UnitTestCase
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -496,7 +496,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -515,7 +515,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -536,7 +536,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -548,7 +548,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setActivated(false);
 
         self::assertTrue(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
@@ -567,7 +567,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertFalse(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
@@ -594,7 +594,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertTrue(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
@@ -621,7 +621,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertFalse(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
@@ -639,7 +639,7 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertNull(
-            $this->subject->getCancelableUntil()
+            $this->subject->getCancelableUntil(),
         );
     }
 
@@ -666,7 +666,7 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             new \DateTime('+2 days 13:00:00'),
-            $this->subject->getCancelableUntil()
+            $this->subject->getCancelableUntil(),
         );
     }
 
@@ -708,7 +708,7 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $expectedResult,
-            $this->subject->canBeBooked()
+            $this->subject->canBeBooked(),
         );
     }
 
@@ -718,7 +718,7 @@ class OrderTest extends UnitTestCase
     public function shouldBlockFurtherOrdersForFacilityInitiallyReturnsTrue(): void
     {
         self::assertTrue(
-            $this->subject->shouldBlockFurtherOrdersForFacility()
+            $this->subject->shouldBlockFurtherOrdersForFacility(),
         );
     }
 }

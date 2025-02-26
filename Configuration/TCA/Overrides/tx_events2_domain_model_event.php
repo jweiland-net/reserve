@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the package jweiland/reserve.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /*
@@ -31,14 +38,14 @@ call_user_func(static function () {
 
         ExtensionManagementUtility::addTCAcolumns(
             'tx_events2_domain_model_event',
-            $eventColumns
+            $eventColumns,
         );
 
         ExtensionManagementUtility::addToAllTCAtypes(
             'tx_events2_domain_model_event',
             'registration_required',
             'single,recurring',
-            'before:teaser'
+            'before:teaser',
         );
     }
 });

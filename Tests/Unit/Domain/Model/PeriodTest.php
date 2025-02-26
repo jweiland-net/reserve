@@ -33,7 +33,7 @@ class PeriodTest extends UnitTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
@@ -50,7 +50,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $facility,
-            $this->subject->getFacility()
+            $this->subject->getFacility(),
         );
     }
 
@@ -64,7 +64,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $instance,
-            $this->subject->getFacility()
+            $this->subject->getFacility(),
         );
     }
 
@@ -79,7 +79,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $bookingBegin,
-            $this->subject->getBookingBegin()
+            $this->subject->getBookingBegin(),
         );
     }
 
@@ -93,7 +93,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $bookingBegin,
-            $this->subject->getBookingBegin()
+            $this->subject->getBookingBegin(),
         );
     }
 
@@ -103,7 +103,7 @@ class PeriodTest extends UnitTestCase
     public function getBookingEndInitiallyReturnsNull(): void
     {
         self::assertNull(
-            $this->subject->getBookingEnd()
+            $this->subject->getBookingEnd(),
         );
     }
 
@@ -117,7 +117,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getBookingEnd()
+            $this->subject->getBookingEnd(),
         );
     }
 
@@ -131,7 +131,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getDate()
+            $this->subject->getDate(),
         );
     }
 
@@ -145,7 +145,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getBegin()
+            $this->subject->getBegin(),
         );
     }
 
@@ -159,7 +159,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getEnd()
+            $this->subject->getEnd(),
         );
     }
 
@@ -170,7 +170,7 @@ class PeriodTest extends UnitTestCase
     {
         self::assertSame(
             0,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
@@ -183,7 +183,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             123456,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
@@ -196,7 +196,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             0,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
@@ -207,7 +207,7 @@ class PeriodTest extends UnitTestCase
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
@@ -224,7 +224,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
@@ -243,7 +243,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
@@ -264,7 +264,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
@@ -276,7 +276,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -289,7 +289,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingEnd(new \DateTime('tomorrow'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -301,7 +301,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -314,7 +314,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingEnd(new \DateTime('yesterday'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -326,7 +326,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -338,7 +338,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
@@ -350,7 +350,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingEnd(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookingTimeOver()
+            $this->subject->isBookingTimeOver(),
         );
     }
 
@@ -362,7 +362,7 @@ class PeriodTest extends UnitTestCase
         $this->subject->setBookingEnd(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookingTimeOver()
+            $this->subject->isBookingTimeOver(),
         );
     }
 
@@ -373,7 +373,7 @@ class PeriodTest extends UnitTestCase
     {
         self::assertSame(
             [],
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -400,7 +400,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $expectedReservations,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
@@ -430,7 +430,7 @@ class PeriodTest extends UnitTestCase
                 $reservation2,
                 $reservation3,
             ],
-            $this->subject->getReservations(true)
+            $this->subject->getReservations(true),
         );
     }
 
@@ -464,7 +464,7 @@ class PeriodTest extends UnitTestCase
             [
                 $reservation3,
             ],
-            $this->subject->getUsedReservations()
+            $this->subject->getUsedReservations(),
         );
     }
 
@@ -478,7 +478,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertEquals(
             new \DateTime('now 15:14:00'),
-            $this->subject->getBeginDateAndTime()
+            $this->subject->getBeginDateAndTime(),
         );
     }
 
@@ -491,7 +491,7 @@ class PeriodTest extends UnitTestCase
 
         self::assertEquals(
             new \DateTime('now 00:00'),
-            $this->subject->getBeginDateAndTime()
+            $this->subject->getBeginDateAndTime(),
         );
     }
 }

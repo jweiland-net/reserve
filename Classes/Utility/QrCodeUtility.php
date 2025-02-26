@@ -45,11 +45,11 @@ class QrCodeUtility
                     $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
                     self::formatTime(
                         LocalizationUtility::translate('date_format', 'reserve'),
-                        (int)$bookedPeriod->getDate()->getTimestamp()
+                        (int)$bookedPeriod->getDate()->getTimestamp(),
                     ),
                     $begin,
-                    $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
-                )
+                    $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : '',
+                ),
             )
             ->labelAlignment(new LabelAlignmentCenter());
 
@@ -67,8 +67,8 @@ class QrCodeUtility
             $builder
                 ->logoPath(
                     GeneralUtility::getFileAbsFileName(
-                        $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
-                    )
+                        $firstQrCodeLogo->getOriginalResource()->getPublicUrl(),
+                    ),
                 )
                 ->logoResizeToWidth($facility->getQrCodeLogoWidth());
         }

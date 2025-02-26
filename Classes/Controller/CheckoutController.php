@@ -82,8 +82,8 @@ class CheckoutController extends ActionController
         $this->view->assign(
             'periods',
             $this->periodRepository->findUpcomingAndRunningByFacilityUids(
-                GeneralUtility::trimExplode(',', $this->settings['facility'])
-            )
+                GeneralUtility::trimExplode(',', $this->settings['facility']),
+            ),
         );
 
         $orderColumnBegin = count($facilities) === 1 ? 0 : 1;
@@ -93,7 +93,7 @@ class CheckoutController extends ActionController
             'jsConf',
             [
                 'datatables' => $dataTablesConfiguration + $additionalDefaultConfigurarion,
-            ]
+            ],
         );
         CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
 
@@ -110,7 +110,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
                 '',
-                ContextualFeedbackSeverity::INFO
+                ContextualFeedbackSeverity::INFO,
             );
             $this->redirect('list');
         }
@@ -137,7 +137,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'You are not allowed to order right now.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
             return $this->redirect('list');
         }
@@ -151,7 +151,7 @@ class CheckoutController extends ActionController
         $this->addFlashMessage(
             LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
             '',
-            ContextualFeedbackSeverity::ERROR
+            ContextualFeedbackSeverity::ERROR,
         );
 
         return $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
@@ -165,7 +165,7 @@ class CheckoutController extends ActionController
                 $this->addFlashMessage(
                     'Your order is already confirmed! Please check your mailbox.',
                     '',
-                    ContextualFeedbackSeverity::INFO
+                    ContextualFeedbackSeverity::INFO,
                 );
                 return $this->redirect('list');
             }
@@ -176,7 +176,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
         }
 
@@ -192,7 +192,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
             return $this->redirect('list');
         }
@@ -208,7 +208,7 @@ class CheckoutController extends ActionController
                     $this->addFlashMessage(
                         'Could not cancel your order. Please contact the administrator!',
                         '',
-                        ContextualFeedbackSeverity::ERROR
+                        ContextualFeedbackSeverity::ERROR,
                     );
                 }
             } else {
@@ -222,21 +222,21 @@ class CheckoutController extends ActionController
                     [
                         strftime(
                             LocalizationUtility::translate('date_format_full', 'reserve'),
-                            $order->getCancelableUntil()->getTimestamp()
+                            $order->getCancelableUntil()->getTimestamp(),
                         ),
-                    ]
+                    ],
                 ),
                 '',
-                ContextualFeedbackSeverity::WARNING
+                ContextualFeedbackSeverity::WARNING,
             );
         } else {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'flashMessage.notCancelable',
-                    'reserve'
+                    'reserve',
                 ),
                 '',
-                ContextualFeedbackSeverity::WARNING
+                ContextualFeedbackSeverity::WARNING,
             );
         }
 

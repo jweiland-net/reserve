@@ -61,8 +61,8 @@ class ManagementController extends ActionController
         $this->view->assign(
             'periods',
             $this->periodRepository->findUpcomingAndRunningByFacilityUids(
-                [(int)$this->settings['facility']]
-            )
+                [(int)$this->settings['facility']],
+            ),
         );
 
         return $this->htmlResponse();
@@ -88,8 +88,8 @@ class ManagementController extends ActionController
             'periods',
             $this->periodRepository->findByDate(
                 $period->getDate(),
-                (int)$this->settings['facility']
-            )
+                (int)$this->settings['facility'],
+            ),
         );
 
         return $this->htmlResponse();
@@ -136,7 +136,7 @@ class ManagementController extends ActionController
 
                 ],
                 'codes' => $codes,
-            ]
+            ],
         );
 
         return $this->jsonResponse($view->render());

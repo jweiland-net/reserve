@@ -56,34 +56,34 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
             'facilityUid',
             'int',
             'The uid of the facility',
-            true
+            true,
         );
         $this->registerArgument(
             'dateAndBegin',
             'int',
             'Timestamp of period "date" and "begin".',
-            true
+            true,
         );
         $this->registerArgument(
             'as',
             'string',
             'Variable name that contains an array with Period objects',
             false,
-            'periods'
+            'periods',
         );
     }
 
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
+        RenderingContextInterface $renderingContext,
     ): string {
         $dateAndBegin = new \DateTime();
         $dateAndBegin->setTimestamp($arguments['dateAndBegin']);
 
         $renderingContext->getVariableProvider()->add(
             $arguments['as'],
-            self::getReserveService()->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin)
+            self::getReserveService()->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin),
         );
         $result = $renderChildrenClosure();
         $renderingContext->getVariableProvider()->remove($arguments['as']);

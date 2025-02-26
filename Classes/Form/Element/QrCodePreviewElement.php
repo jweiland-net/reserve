@@ -28,7 +28,7 @@ class QrCodePreviewElement extends AbstractFormElement
             LocalizationUtility::translate('LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_preview.notice'),
             $this->data['vanillaUid'],
             LocalizationUtility::translate('LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_preview.button'),
-            $this->data['vanillaUid']
+            $this->data['vanillaUid'],
         );
         $resultArray['additionalJavaScriptPost'][] = <<<JAVASCRIPT
 var elements = document.getElementsByClassName('generate-qr-code');

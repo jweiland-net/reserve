@@ -55,7 +55,7 @@ class FacilityClearCacheAfterUpdate
                 ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f', 'p.facility = f.uid')
                 ->where($queryBuilder->expr()->in('o.uid', $queryBuilder->createNamedParameter(
                     $this->replaceNewWithIds(array_keys($dataHandler->datamap['tx_reserve_domain_model_order'])),
-                    Connection::PARAM_INT_ARRAY
+                    Connection::PARAM_INT_ARRAY,
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
@@ -69,7 +69,7 @@ class FacilityClearCacheAfterUpdate
                 ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f', 'p.facility = f.uid')
                 ->where($queryBuilder->expr()->in('p.uid', $queryBuilder->createNamedParameter(
                     $this->replaceNewWithIds(array_keys($dataHandler->datamap['tx_reserve_domain_model_period'])),
-                    Connection::PARAM_INT_ARRAY
+                    Connection::PARAM_INT_ARRAY,
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
@@ -85,7 +85,7 @@ class FacilityClearCacheAfterUpdate
                 ->leftJoin('p', 'tx_reserve_domain_model_facility', 'f', 'p.facility = f.uid')
                 ->where($queryBuilder->expr()->in('r.uid', $queryBuilder->createNamedParameter(
                     $this->replaceNewWithIds(array_keys($dataHandler->datamap['tx_reserve_domain_model_reservation'])),
-                    Connection::PARAM_INT_ARRAY
+                    Connection::PARAM_INT_ARRAY,
                 )))
                 ->groupBy('f.uid');
             foreach ($queryBuilder->executeQuery()->fetchAllAssociative() as $row) {
@@ -99,7 +99,7 @@ class FacilityClearCacheAfterUpdate
                 FlashMessage::class,
                 LocalizationUtility::translate('flashMessage.clearedCacheForFacility', 'reserve', [implode(', ', $this->facilityNames)]),
                 '',
-                ContextualFeedbackSeverity::INFO
+                ContextualFeedbackSeverity::INFO,
             );
             $flashMessageQueue->addMessage($flashMessage);
 

@@ -33,7 +33,7 @@ class CreateForeignTableColumns
             PHP_EOL,
             'facility',
             PHP_EOL,
-            str_repeat(PHP_EOL, 3)
+            str_repeat(PHP_EOL, 3),
         );
     }
 
@@ -49,7 +49,7 @@ class CreateForeignTableColumns
             PHP_EOL,
             'registration_required',
             PHP_EOL,
-            str_repeat(PHP_EOL, 3)
+            str_repeat(PHP_EOL, 3),
         );
     }
 }

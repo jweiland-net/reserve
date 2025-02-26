@@ -40,7 +40,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             Environment::getVarPath(),
             Environment::getConfigPath(),
             Environment::getCurrentScript(),
-            Environment::isUnix() ? 'UNIX' : 'WINDOWS'
+            Environment::isUnix() ? 'UNIX' : 'WINDOWS',
         );
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
@@ -55,7 +55,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => (new \DateTime('yesterday midnight'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
     }
 
@@ -94,7 +94,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             [],
             $orders,
             'No more reservations related to the order that was related to the past ' .
-            'period in database after command has been executed.'
+            'period in database after command has been executed.',
         );
     }
 }

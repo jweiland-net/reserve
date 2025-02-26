@@ -51,7 +51,7 @@ class CancellationService implements SingletonInterface
         Order $order,
         string $reason = self::REASON_CUSTOMER,
         array $vars = [],
-        bool $sendMailToCustomer = true
+        bool $sendMailToCustomer = true,
     ): void {
         if ($sendMailToCustomer) {
             $view = $this->getStandaloneView();
@@ -67,7 +67,7 @@ class CancellationService implements SingletonInterface
                 ->sendMailToCustomer(
                     $order,
                     LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                    $view->render()
+                    $view->render(),
                 );
         }
 
@@ -79,7 +79,7 @@ class CancellationService implements SingletonInterface
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
-            $order->getBookedPeriod()->getFacility()->getUid()
+            $order->getBookedPeriod()->getFacility()->getUid(),
         );
     }
 

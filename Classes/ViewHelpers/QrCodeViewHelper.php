@@ -33,14 +33,14 @@ class QrCodeViewHelper extends AbstractViewHelper
             'reservation',
             Reservation::class,
             'Reservation instance',
-            true
+            true,
         );
     }
 
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
+        RenderingContextInterface $renderingContext,
     ): string {
         return QrCodeUtility::generateQrCode($arguments['reservation'])->getDataUri();
     }

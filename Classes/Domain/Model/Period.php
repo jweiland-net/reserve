@@ -156,7 +156,7 @@ class Period extends AbstractEntity
     {
         $this->maxParticipants = MathUtility::forceIntegerInRange(
             $maxParticipants,
-            0
+            0,
         );
     }
 
@@ -164,7 +164,7 @@ class Period extends AbstractEntity
     {
         return MathUtility::forceIntegerInRange(
             $this->maxParticipants - $this->countReservations(),
-            0
+            0,
         );
     }
 
@@ -191,7 +191,7 @@ class Period extends AbstractEntity
     {
         $this->maxParticipantsPerOrder = MathUtility::forceIntegerInRange(
             $maxParticipantsPerOrder,
-            0
+            0,
         );
     }
 
@@ -298,11 +298,11 @@ class Period extends AbstractEntity
                     'o',
                     'tx_reserve_domain_model_reservation',
                     'r',
-                    'r.customer_order = o.uid'
+                    'r.customer_order = o.uid',
                 )
                 ->where($queryBuilder->expr()->eq(
                     'o.booked_period',
-                    $queryBuilder->createNamedParameter($this->getUid())
+                    $queryBuilder->createNamedParameter($this->getUid()),
                 ));
 
             if ($activeOnly) {

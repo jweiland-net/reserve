@@ -38,7 +38,7 @@ class CheckoutService
         ConfigurationManager $configurationManager,
         FluidService $fluidService,
         MailService $mailService,
-        PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager,
     ) {
         $this->configurationManager = $configurationManager;
         $this->fluidService = $fluidService;
@@ -82,7 +82,7 @@ class CheckoutService
 
         if ($order->shouldBlockFurtherOrdersForFacility()) {
             OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession(
-                $order->getBookedPeriod()->getFacility()->getUid()
+                $order->getBookedPeriod()->getFacility()->getUid(),
             );
         }
 
@@ -105,7 +105,7 @@ class CheckoutService
         for ($i = 0; $i < $furtherParticipants; $i++) {
             $furtherParticipant = $this->getEmptyParticipant();
             $furtherParticipant->setFirstName(
-                LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1)
+                LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1),
             );
 
             $order->getParticipants()->attach($furtherParticipant);
@@ -124,8 +124,8 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -149,14 +149,14 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
+                ],
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     $qrCode = QrCodeUtility::generateQrCode($reservation);
                     $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
                 }
-            }
+            },
         );
     }
 

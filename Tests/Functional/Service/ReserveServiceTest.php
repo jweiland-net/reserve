@@ -42,7 +42,7 @@ class ReserveServiceTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => $this->testDateMidnight->getTimestamp()],
-                ['deleted' => 0]
+                ['deleted' => 0],
             );
     }
 
@@ -50,7 +50,7 @@ class ReserveServiceTest extends FunctionalTestCase
     {
         unset(
             $this->reserveService,
-            $this->testDateMidnight
+            $this->testDateMidnight,
         );
 
         parent::tearDown();
@@ -69,13 +69,13 @@ class ReserveServiceTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
 
         self::assertSame(
             47,
             $this->reserveService->getRemainingParticipants(1, $dateAndBegin),
-            'Remaining participants are returned as integer.'
+            'Remaining participants are returned as integer.',
         );
     }
 
@@ -89,7 +89,7 @@ class ReserveServiceTest extends FunctionalTestCase
 
         self::assertNull(
             $this->reserveService->getRemainingParticipants(1, $dateTime),
-            'Remaining participants are null because period could not be identified.'
+            'Remaining participants are null because period could not be identified.',
         );
     }
 }

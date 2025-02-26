@@ -30,7 +30,7 @@ class ReservationTest extends UnitTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
@@ -46,7 +46,7 @@ class ReservationTest extends UnitTestCase
 
         self::assertSame(
             $instance,
-            $this->subject->getCustomerOrder()
+            $this->subject->getCustomerOrder(),
         );
     }
 
@@ -57,7 +57,7 @@ class ReservationTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -70,7 +70,7 @@ class ReservationTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -81,7 +81,7 @@ class ReservationTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
@@ -94,7 +94,7 @@ class ReservationTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
@@ -105,7 +105,7 @@ class ReservationTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getCode()
+            $this->subject->getCode(),
         );
     }
 
@@ -118,7 +118,7 @@ class ReservationTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getCode()
+            $this->subject->getCode(),
         );
     }
 
@@ -128,7 +128,7 @@ class ReservationTest extends UnitTestCase
     public function getUsedInitiallyReturnsFalse(): void
     {
         self::assertFalse(
-            $this->subject->isUsed()
+            $this->subject->isUsed(),
         );
     }
 
@@ -139,7 +139,7 @@ class ReservationTest extends UnitTestCase
     {
         $this->subject->setUsed(true);
         self::assertTrue(
-            $this->subject->isUsed()
+            $this->subject->isUsed(),
         );
     }
 }

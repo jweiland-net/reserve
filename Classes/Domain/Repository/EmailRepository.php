@@ -51,7 +51,7 @@ class EmailRepository extends Repository
                 ],
                 [
                     'uid' => $uid,
-                ]
+                ],
             );
 
         if ($email instanceof Email) {

@@ -68,7 +68,7 @@ class SendMailsCommand extends Command
             'm',
             InputOption::VALUE_OPTIONAL,
             'How many mails per execution?',
-            100
+            100,
         );
         $this->addOption(
             'locale',
@@ -76,7 +76,7 @@ class SendMailsCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'Locale to be used inside templates and translations. Value that is available inside the Locales class '
             . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
-            'default'
+            'default',
         );
     }
 
@@ -129,8 +129,8 @@ class SendMailsCommand extends Command
                         $this->email->getBody(),
                         [
                             'order' => $order,
-                        ]
-                    )
+                        ],
+                    ),
                 );
             } else {
                 $this->getMailService()->sendMail(
@@ -140,7 +140,7 @@ class SendMailsCommand extends Command
                     $this->email->getFromEmail(),
                     $this->email->getFromName(),
                     $this->email->getReplyToEmail(),
-                    $this->email->getReplyToName()
+                    $this->email->getReplyToName(),
                 );
             }
         } catch (\Throwable $throwable) {

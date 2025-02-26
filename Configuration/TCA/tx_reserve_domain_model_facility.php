@@ -1,8 +1,13 @@
 <?php
 
+/*
+ * This file is part of the package jweiland/reserve.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE file that was distributed with this source code.
+ */
+
 use TYPO3\CMS\Core\Utility\PathUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Resource\AbstractFile;
 
 /*
  * This file is part of the package jweiland/reserve.
@@ -279,7 +284,7 @@ DEFAULT_RESERVATION
             'config' => [
                 'type' => 'file',
                 'maxitems' => 1,
-                'allowed' => 'common-image-types'
+                'allowed' => 'common-image-types',
             ],
         ],
         'qr_code_logo_width' => [

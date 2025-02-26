@@ -29,7 +29,7 @@ class ParticipantTest extends UnitTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
@@ -42,7 +42,7 @@ class ParticipantTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -55,7 +55,7 @@ class ParticipantTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -66,7 +66,7 @@ class ParticipantTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
@@ -79,7 +79,7 @@ class ParticipantTest extends UnitTestCase
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 }

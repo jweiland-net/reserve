@@ -43,7 +43,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => $this->testDateMidnight->getTimestamp()],
-                ['deleted' => 0]
+                ['deleted' => 0],
             );
     }
 
@@ -51,7 +51,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
     {
         unset(
             $this->periodRepository,
-            $this->testDateMidnight
+            $this->testDateMidnight,
         );
 
         parent::tearDown();
@@ -70,13 +70,13 @@ class PeriodRepositoryTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
 
         self::assertSame(
             1,
             $this->periodRepository->findByDateAndBegin($dateAndBegin, 1)->getFirst()->getUid(),
-            'findByDateTime() returns matching period with uid 1'
+            'findByDateTime() returns matching period with uid 1',
         );
     }
 
@@ -91,7 +91,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         self::assertSame(
             0,
             $this->periodRepository->findByDateAndBegin($dateTime, 1)->count(),
-            'findByDateTime() returns empty QueryResult if there is no matching period'
+            'findByDateTime() returns empty QueryResult if there is no matching period',
         );
     }
 
@@ -102,7 +102,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
     {
         self::assertSame(
             3,
-            $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->count()
+            $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->count(),
         );
     }
 
@@ -115,9 +115,9 @@ class PeriodRepositoryTest extends FunctionalTestCase
             [1, 3, 2],
             array_map(
                 static fn(Period $period) => $period->getUid(),
-                $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->toArray()
+                $this->periodRepository->findUpcomingAndRunningByFacilityUids([1])->toArray(),
             ),
-            'findUpcomingAndRunningByFacilityUids() uses date and begin as ordering for result'
+            'findUpcomingAndRunningByFacilityUids() uses date and begin as ordering for result',
         );
     }
 }

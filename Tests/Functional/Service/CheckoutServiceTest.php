@@ -77,7 +77,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             GeneralUtility::makeInstance(ConfigurationManagerInterface::class),
             $this->fluidServiceMock,
             $this->mailServiceMock,
-            GeneralUtility::makeInstance(PersistenceManagerInterface::class)
+            GeneralUtility::makeInstance(PersistenceManagerInterface::class),
         );
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
@@ -87,7 +87,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => (new \DateTime('+2 days midnight'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
     }
 
@@ -157,7 +157,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         self::assertCount(
             3,
             $reservations,
-            'Database contains 3 reservations after checkout of reservation with 2 further participants'
+            'Database contains 3 reservations after checkout of reservation with 2 further participants',
         );
     }
 
@@ -194,7 +194,7 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         self::assertFalse(
             $this->subject->checkout($order),
-            'Checkout returns false and does not persist order because too much participants are requested.'
+            'Checkout returns false and does not persist order because too much participants are requested.',
         );
     }
 
@@ -218,7 +218,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
+                ],
             )
             ->willReturn('Confirm your reservation');
 
@@ -251,7 +251,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
+                ],
             )
             ->willReturn('alt="firstCode"');
 

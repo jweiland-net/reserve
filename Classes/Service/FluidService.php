@@ -33,7 +33,7 @@ class FluidService
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
             'reserve',
-            'Reservation'
+            'Reservation',
         );
 
         // Mail templates can be overridden using the standard Extbase way plugin.tx_reserve.templateRootPaths ...
@@ -41,14 +41,14 @@ class FluidService
         // $extbaseFrameworkConfiguration['view']['templateRootPaths'] would be null and throw an exception so let's
         // set some default values!
         $standaloneView->setTemplateRootPaths(
-            $extbaseFrameworkConfiguration['view']['templateRootPaths'] ?? ['EXT:reserve/Resources/Private/Templates/']
+            $extbaseFrameworkConfiguration['view']['templateRootPaths'] ?? ['EXT:reserve/Resources/Private/Templates/'],
         );
 
         $standaloneView->setLayoutRootPaths(
-            $extbaseFrameworkConfiguration['view']['layoutRootPaths'] ?? ['EXT:reserve/Resources/Private/Layouts/']
+            $extbaseFrameworkConfiguration['view']['layoutRootPaths'] ?? ['EXT:reserve/Resources/Private/Layouts/'],
         );
         $standaloneView->setPartialRootPaths(
-            $extbaseFrameworkConfiguration['view']['partialRootPaths'] ?? ['EXT:reserve/Resources/Private/Partials/']
+            $extbaseFrameworkConfiguration['view']['partialRootPaths'] ?? ['EXT:reserve/Resources/Private/Partials/'],
         );
 
         $standaloneView->getRenderingContext()->setControllerName('Mail');
@@ -64,7 +64,7 @@ class FluidService
         string $marker,
         string $template,
         string $content,
-        array $vars = []
+        array $vars = [],
     ): string {
         $view = $this->getStandaloneView();
         $this->configureStandaloneViewForMailing($view);

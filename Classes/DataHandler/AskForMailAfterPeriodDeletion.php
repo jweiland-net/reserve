@@ -45,7 +45,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
         int $id,
         array $recordToDelete,
         bool $recordWasDeleted,
-        DataHandler $dataHandler
+        DataHandler $dataHandler,
     ): void {
         if ($table !== self::TABLE || Environment::isCli()) {
             return;
@@ -140,11 +140,11 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                     'reserve.showModal' => [
                         'title' => LocalizationUtility::translate(
                             'modal.periodAskForMailAfterDeletion.title',
-                            'reserve'
+                            'reserve',
                         ),
                         'message' => LocalizationUtility::translate(
                             'modal.periodAskForMailAfterDeletion.message',
-                            'reserve'
+                            'reserve',
                         ),
                         'uri' => (string)$uriBuilder->buildUriFromRoute('record_edit', $params),
                     ],
@@ -152,7 +152,7 @@ class AskForMailAfterPeriodDeletion implements SingletonInterface
                 'inlineLanguageLabel' => [
                     'reserve.modal.button.writeMail' => LocalizationUtility::translate('modal.button.writeMail', 'reserve'),
                 ],
-            ]
+            ],
         );
     }
 

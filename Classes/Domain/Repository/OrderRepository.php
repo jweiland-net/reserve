@@ -33,7 +33,7 @@ class OrderRepository extends Repository
             $query->logicalAnd(
                 $query->equals('email', $email),
                 $query->equals('activationCode', $activationCode),
-            )
+            ),
         );
 
         return $query->execute()->getFirst();
@@ -54,7 +54,7 @@ class OrderRepository extends Repository
             $query->logicalAnd(
                 $query->equals('activated', 0),
                 $query->lessThan('crdate', $olderThan->getTimestamp()),
-            )
+            ),
         );
 
         return $query->execute();
@@ -69,7 +69,7 @@ class OrderRepository extends Repository
     protected function findWherePeriodEndedQueryBuilder(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): QueryBuilder {
         $dateTime = new \DateTime('now');
         $dateTime->modify('-' . $endedSinceSeconds . 'seconds');
@@ -94,7 +94,7 @@ class OrderRepository extends Repository
                 'o',
                 'tx_reserve_domain_model_period',
                 'p',
-                'o.booked_period = p.uid'
+                'o.booked_period = p.uid',
             )
             ->where(
                 $queryBuilder->expr()->and(
@@ -103,21 +103,21 @@ class OrderRepository extends Repository
                         // days before the calculated day
                         $queryBuilder->expr()->lt(
                             'p.date',
-                            $queryBuilder->createNamedParameter($periodDate->getTimestamp())
+                            $queryBuilder->createNamedParameter($periodDate->getTimestamp()),
                         ),
                         $queryBuilder->expr()->and(
                             // calculated day AND calculated end time
                             $queryBuilder->expr()->eq(
                                 'p.date',
-                                $queryBuilder->createNamedParameter($periodDate->getTimestamp())
+                                $queryBuilder->createNamedParameter($periodDate->getTimestamp()),
                             ),
                             $queryBuilder->expr()->lte(
                                 'p.end',
-                                $queryBuilder->createNamedParameter($periodEnd->getTimestamp())
-                            )
-                        )
-                    )
-                )
+                                $queryBuilder->createNamedParameter($periodEnd->getTimestamp()),
+                            ),
+                        ),
+                    ),
+                ),
             )
             ->setMaxResults($maxResults);
 
@@ -133,7 +133,7 @@ class OrderRepository extends Repository
     public function findWherePeriodEndedRaw(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): array {
         return $this
             ->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults)
@@ -151,7 +151,7 @@ class OrderRepository extends Repository
     public function findWherePeriodEnded(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): QueryResultInterface {
         /** @var Query $query */
         $query = $this->createQuery();

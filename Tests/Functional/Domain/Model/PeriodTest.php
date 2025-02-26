@@ -36,7 +36,7 @@ class PeriodTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
@@ -66,7 +66,7 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             $expectedResult,
-            $this->subject->getRemainingParticipants()
+            $this->subject->getRemainingParticipants(),
         );
     }
 
@@ -94,7 +94,7 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             $expectedResult,
-            $this->subject->getMaxParticipantsPerOrder()
+            $this->subject->getMaxParticipantsPerOrder(),
         );
     }
 
@@ -107,7 +107,7 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             3,
-            $this->subject->countReservations(true)
+            $this->subject->countReservations(true),
         );
     }
 
@@ -120,7 +120,7 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             2,
-            $this->subject->countReservations()
+            $this->subject->countReservations(),
         );
     }
 }

@@ -47,7 +47,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => $this->testDateMidnight->getTimestamp()],
-                ['deleted' => 0]
+                ['deleted' => 0],
             );
 
         GeneralUtility::makeInstance(ConnectionPool::class)
@@ -55,7 +55,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
 
         $this->standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
@@ -70,7 +70,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         unset(
             $this->standaloneView,
             $this->testDateMidnight,
-            $this->testDateAndBegin
+            $this->testDateAndBegin,
         );
 
         parent::tearDown();
@@ -87,7 +87,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->method('findPeriodsByDateAndBegin')
             ->with(
                 self::equalTo(1),
-                self::equalTo($this->testDateAndBegin)
+                self::equalTo($this->testDateAndBegin),
             )
             ->willReturn([]);
 
@@ -108,7 +108,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
             $this->standaloneView->render(),
-            'ViewHelper renders remaining participants if facility and period date match.'
+            'ViewHelper renders remaining participants if facility and period date match.',
         );
     }
 
@@ -122,7 +122,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
-            'ViewHelper renders info that no period was found.'
+            'ViewHelper renders info that no period was found.',
         );
     }
 
@@ -136,7 +136,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             'Test',
             $this->standaloneView->render(),
-            'ViewHelper sets periods to custom variable name'
+            'ViewHelper sets periods to custom variable name',
         );
     }
 }

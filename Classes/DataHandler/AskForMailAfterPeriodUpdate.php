@@ -107,7 +107,7 @@ class AskForMailAfterPeriodUpdate
             self::TABLE,
             [
                 'uid' => current($this->updatedRecords),
-            ]
+            ],
         )->fetchAssociative();
 
         $params = [
@@ -143,10 +143,10 @@ class AskForMailAfterPeriodUpdate
                 'inlineLanguageLabel' => [
                     'reserve.modal.button.writeMail' => LocalizationUtility::translate(
                         'modal.button.writeMail',
-                        'reserve'
+                        'reserve',
                     ),
                 ],
-            ]
+            ],
         );
     }
 
