@@ -28,6 +28,8 @@ class OrderTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Order();
     }
 
@@ -670,7 +672,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    public function canBeBookedDataProvider(): array
+    public static function canBeBookedDataProvider(): array
     {
         return [
             'More participants than currently registered' => [5, true],
