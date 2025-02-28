@@ -12,7 +12,8 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Utility;
 
 use JWeiland\Reserve\Configuration\ExtConf;
-use JWeiland\Reserve\Utility\Traits\TypoScriptFrontenendTrait;
+use JWeiland\Reserve\Utility\Traits\FrontendUserTrait;
+use TYPO3\CMS\Core\Session\UserSessionManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -24,7 +25,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class OrderSessionUtility
 {
-    use TypoScriptFrontenendTrait;
+    use FrontendUserTrait;
 
     private const SESSION_KEY = 'tx_reserve_orders';
 
@@ -32,33 +33,32 @@ class OrderSessionUtility
     {
         // [<facility_uid> => <timestamp_of_confirmation>]
         $orders = [];
-        if (self::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY)) {
-            $orders = self::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY);
+        if (self::getFrontendUserAuthentication()->getSessionData(self::SESSION_KEY)) {
+            $orders = self::getFrontendUserAuthentication()->getSessionData(self::SESSION_KEY);
         }
 
         $orders[$facilityUid] = time();
-
-        self::getTypoScriptFrontendController()->fe_user->setKey('ses', self::SESSION_KEY, $orders);
+        self::getFrontendUserAuthentication()->setAndSaveSessionData(self::SESSION_KEY, $orders);
     }
 
     public static function unblockNewOrdersForFacilityInCurrentSession(int $facilityUid): void
     {
         // [<facility_uid> => <timestamp_of_confirmation>]
         $orders = [];
-        if (self::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY)) {
-            $orders = self::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY);
+        if (self::getFrontendUserAuthentication()->getSessionData(self::SESSION_KEY)) {
+            $orders = self::getFrontendUserAuthentication()->getSessionData(self::SESSION_KEY);
         }
 
         unset($orders[$facilityUid]);
 
-        self::getTypoScriptFrontendController()->fe_user->setKey('ses', self::SESSION_KEY, $orders);
+        self::getFrontendUserAuthentication()->setAndSaveSessionData(self::SESSION_KEY, $orders);
     }
 
     public static function isUserAllowedToOrder(int $facilityUid): bool
     {
         $allowed = true;
         if (
-            ($orders = self::getTypoScriptFrontendController()->fe_user->getKey('ses', self::SESSION_KEY))
+            ($orders = self::getFrontendUserAuthentication()->getSessionData(self::SESSION_KEY))
             && array_key_exists($facilityUid, $orders)
         ) {
             $allowed = (time() - $orders[$facilityUid]) > self::getExtConf()->getBlockMultipleOrdersInSeconds();
