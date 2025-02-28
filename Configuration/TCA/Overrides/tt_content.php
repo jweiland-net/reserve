@@ -7,6 +7,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
+use JWeiland\Reserve\Backend\Preview\ReservePluginPreview;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
@@ -17,27 +18,46 @@ if (!defined('TYPO3')) {
 ExtensionUtility::registerPlugin(
     'Reserve',
     'Reservation',
-    'LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:plugin.reservation.title',
+    'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_reservation.title',
+    'tx_reserve_domain_model_reservation',
+    'plugins',
+    'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_reservation.description',
 );
 
 ExtensionUtility::registerPlugin(
     'Reserve',
     'Management',
-    'LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:plugin.management.title',
+    'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_management.title',
+    'ext-reserve-wizard-icon',
+    'plugins',
+    'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:plugin.reserve_management.description',
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['reserve_reservation'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
-    'reserve_reservation',
+    '*',
     'FILE:EXT:reserve/Configuration/FlexForms/Reservation.xml',
+    'reserve_reservation'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['reserve_reservation'] = 'recursive,pages';
+ExtensionManagementUtility::addToAllTCAtypes(
+    'tt_content',
+    '--div--;Configuration,pi_flexform',
+    'reserve_reservation',
+    'after:subheader',
+);
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['reserve_management'] = 'pi_flexform';
 ExtensionManagementUtility::addPiFlexFormValue(
-    'reserve_management',
+    '*',
     'FILE:EXT:reserve/Configuration/FlexForms/Management.xml',
+    'reserve_management',
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['reserve_management'] = 'recursive,pages';
+ExtensionManagementUtility::addToAllTCAtypes(
+    'tt_content',
+    '--div--;Configuration,pi_flexform',
+    'reserve_management',
+    'after:subheader',
+);
+
+$GLOBALS['TCA']['tt_content']['types']['reserve_reservation']['previewRenderer'] = ReservePluginPreview::class;
+$GLOBALS['TCA']['tt_content']['types']['reserve_management']['previewRenderer'] = ReservePluginPreview::class;
