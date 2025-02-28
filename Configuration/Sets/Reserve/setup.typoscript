@@ -25,6 +25,6 @@ plugin.tx_reserve {
   }
 
   settings {
-    requiredFormFields = {$plugin.tx_reserve.settings.requiredFormFields}
+    requiredFormFields = {$reserve.requiredFormFields}
   }
 }

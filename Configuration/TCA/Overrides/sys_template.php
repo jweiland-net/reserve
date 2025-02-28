@@ -15,12 +15,6 @@ if (!defined('TYPO3')) {
 
 ExtensionManagementUtility::addStaticFile(
     'reserve',
-    'Configuration/TypoScript',
-    'Reserve',
-);
-
-ExtensionManagementUtility::addStaticFile(
-    'reserve',
     'Configuration/TypoScript/Scanner',
     'Reserve scanner',
 );
