@@ -1,91 +1,110 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <T3DataStructure>
-	<sheets>
-		<sDEF>
-			<ROOT>
-				<TCEforms>
-					<sheetTitle>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.title</sheetTitle>
-				</TCEforms>
-				<type>array</type>
-				<el>
-					<settings.facility>
-						<TCEforms>
-							<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility</label>
-							<description>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility.description</description>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>tx_reserve_domain_model_facility</allowed>
-								<maxitems>99</maxitems>
-								<minitems>1</minitems>
-								<size>10</size>
-								<default>0</default>
-							</config>
-						</TCEforms>
-					</settings.facility>
-					<settings.orderPid>
-						<TCEforms>
-							<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.orderPid</label>
-							<config>
-								<type>group</type>
-								<internal_type>db</internal_type>
-								<allowed>pages</allowed>
-								<maxitems>1</maxitems>
-								<minitems>1</minitems>
-								<size>1</size>
-								<default>0</default>
-							</config>
-						</TCEforms>
-					</settings.orderPid>
-					<settings.mainFields>
-						<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.mainFields</label>
-						<description>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.mainFields.description</description>
-						<config>
-							<type>select</type>
-							<renderType>selectCheckBox</renderType>
-							<default></default>
-							<minitems>0</minitems>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.lastName</numIndex>
-									<numIndex index="1">lastName</numIndex>
-								</numIndex>
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.phone</numIndex>
-									<numIndex index="1">phone</numIndex>
-								</numIndex>
-								<numIndex index="2" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.address</numIndex>
-									<numIndex index="1">address</numIndex>
-								</numIndex>
-								<numIndex index="3" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.zip</numIndex>
-									<numIndex index="1">zip</numIndex>
-								</numIndex>
-								<numIndex index="4" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.city</numIndex>
-									<numIndex index="1">city</numIndex>
-								</numIndex>
-								<numIndex index="5" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.organization</numIndex>
-									<numIndex index="1">organization</numIndex>
-								</numIndex>
-								<numIndex index="6" type="array">
-									<numIndex index="0">LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.remarks</numIndex>
-									<numIndex index="1">remarks</numIndex>
-								</numIndex>
-							</items>
-						</config>
-					</settings.mainFields>
-					<settings.showFieldsForFurtherParticipants>
-						<label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.showFieldsForFurtherParticipants</label>
-						<config>
-							<type>check</type>
-							<renderType>checkboxToggle</renderType>
-						</config>
-					</settings.showFieldsForFurtherParticipants>
-				</el>
-			</ROOT>
-		</sDEF>
-	</sheets>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.title
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.facility>
+                        <label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility
+                        </label>
+                        <description>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.facility.description
+                        </description>
+                        <config>
+                            <type>group</type>
+                            <internal_type>db</internal_type>
+                            <allowed>tx_reserve_domain_model_facility</allowed>
+                            <maxitems>99</maxitems>
+                            <minitems>1</minitems>
+                            <size>10</size>
+                            <default>0</default>
+                        </config>
+                    </settings.facility>
+                    <settings.orderPid>
+                        <label>LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.orderPid
+                        </label>
+                        <config>
+                            <type>group</type>
+                            <internal_type>db</internal_type>
+                            <allowed>pages</allowed>
+                            <maxitems>1</maxitems>
+                            <minitems>1</minitems>
+                            <size>1</size>
+                            <default>0</default>
+                        </config>
+                    </settings.orderPid>
+                    <settings.mainFields>
+                        <label>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.mainFields
+                        </label>
+                        <description>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.mainFields.description
+                        </description>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectCheckBox</renderType>
+                            <default></default>
+                            <minitems>0</minitems>
+                            <items type="array">
+                                <numIndex index="0" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.lastName
+                                    </numIndex>
+                                    <numIndex index="1">lastName</numIndex>
+                                </numIndex>
+                                <numIndex index="1" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.phone
+                                    </numIndex>
+                                    <numIndex index="1">phone</numIndex>
+                                </numIndex>
+                                <numIndex index="2" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.address
+                                    </numIndex>
+                                    <numIndex index="1">address</numIndex>
+                                </numIndex>
+                                <numIndex index="3" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.zip
+                                    </numIndex>
+                                    <numIndex index="1">zip</numIndex>
+                                </numIndex>
+                                <numIndex index="4" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.city
+                                    </numIndex>
+                                    <numIndex index="1">city</numIndex>
+                                </numIndex>
+                                <numIndex index="5" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.organization
+                                    </numIndex>
+                                    <numIndex index="1">organization</numIndex>
+                                </numIndex>
+                                <numIndex index="6" type="array">
+                                    <numIndex index="0">
+                                        LLL:EXT:reserve/Resources/Private/Language/locallang.xlf:form.order.remarks
+                                    </numIndex>
+                                    <numIndex index="1">remarks</numIndex>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.mainFields>
+                    <settings.showFieldsForFurtherParticipants>
+                        <label>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.showFieldsForFurtherParticipants
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <renderType>checkboxToggle</renderType>
+                        </config>
+                    </settings.showFieldsForFurtherParticipants>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
 </T3DataStructure>
