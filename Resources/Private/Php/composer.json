@@ -3,7 +3,7 @@
     "description": "Libraries for non composer TYPO3 instances",
     "type": "library",
     "require": {
-        "endroid/qr-code": "4.3.5"
+        "endroid/qr-code": "^6.0.3"
     },
     "autoload": {
         "psr-4": {
