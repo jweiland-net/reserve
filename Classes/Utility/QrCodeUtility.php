@@ -14,11 +14,11 @@ namespace JWeiland\Reserve\Utility;
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
 use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\Label\Font\OpenSans;
+use Endroid\QrCode\Label\LabelAlignment;
 use Endroid\QrCode\RoundBlockSizeMode;
 use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\Result\ResultInterface;
-use Endroid\QrCode\Label\LabelAlignment;
-use Endroid\QrCode\Label\Font\OpenSans;
 use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -39,7 +39,7 @@ class QrCodeUtility
             labelText: self::generateLabelText($bookedPeriod),
             labelFontSize: $facility->getQrCodeLabelSize(),
             logoPath: self::getLogoPath($facility),
-            logoWidth: $facility->getQrCodeLogoWidth()
+            logoWidth: $facility->getQrCodeLogoWidth(),
         );
     }
 
@@ -48,7 +48,7 @@ class QrCodeUtility
         string $labelText,
         int $labelFontSize,
         string $logoPath = '',
-        int $logoWidth = 40
+        int $logoWidth = 40,
     ): ResultInterface {
         $builder = new Builder(
             writer: new PngWriter(),
@@ -65,7 +65,7 @@ class QrCodeUtility
             logoPunchoutBackground: true,
             labelText: $labelText,
             labelFont: new OpenSans($labelFontSize),
-            labelAlignment: LabelAlignment::Center
+            labelAlignment: LabelAlignment::Center,
         );
 
         return $builder->build();
@@ -82,7 +82,7 @@ class QrCodeUtility
             $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
             self::formatTime(LocalizationUtility::translate('date_format', 'reserve'), (int)$bookedPeriod->getDate()->getTimestamp()),
             $begin,
-            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
+            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : '',
         );
     }
 
@@ -91,7 +91,7 @@ class QrCodeUtility
         if ($facility->getQrCodeLogo()->count() > 0) {
             $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
             return GeneralUtility::getFileAbsFileName(
-                $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
+                $firstQrCodeLogo->getOriginalResource()->getPublicUrl(),
             );
         }
 

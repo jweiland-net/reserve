@@ -36,7 +36,7 @@ ExtensionUtility::registerPlugin(
 ExtensionManagementUtility::addPiFlexFormValue(
     '*',
     'FILE:EXT:reserve/Configuration/FlexForms/Reservation.xml',
-    'reserve_reservation'
+    'reserve_reservation',
 );
 
 ExtensionManagementUtility::addToAllTCAtypes(
