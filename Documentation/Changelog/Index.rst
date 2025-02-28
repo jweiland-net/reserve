@@ -7,6 +7,16 @@
 Changelog
 =========
 
+Version 4.0.0
+=============
+
+*   [TASK] Fixes for TYPO3 13 Compatibility
+*   [TASK] Removed TYPO3 12 Compatibility
+*   [TASK] Updated QR Code Library to version 6
+*   [TASK] Added new PSR 14 Events
+*   [TASK] Changed General Plugins to CType
+*   [TASK] New Update Wizard migrating plugins to CType
+
 Version 3.0.1
 =============
 
