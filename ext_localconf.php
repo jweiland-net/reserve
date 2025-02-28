@@ -34,6 +34,7 @@ call_user_func(static function (): void {
         [
             CheckoutController::class => 'form,create,confirm,cancel',
         ],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     ExtensionUtility::configurePlugin(
@@ -45,6 +46,7 @@ call_user_func(static function (): void {
         [
             ManagementController::class => 'overview,period,periodsOnSameDay,scanner,scan',
         ],
+        ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT,
     );
 
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1590659241206] = [
