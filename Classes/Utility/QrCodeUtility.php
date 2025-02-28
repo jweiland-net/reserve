@@ -12,12 +12,13 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Utility;
 
 use Endroid\QrCode\Builder\Builder;
-use Endroid\QrCode\Builder\BuilderInterface;
 use Endroid\QrCode\Encoding\Encoding;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
-use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
-use Endroid\QrCode\Label\Font\NotoSans;
+use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\RoundBlockSizeMode;
+use Endroid\QrCode\Writer\PngWriter;
 use Endroid\QrCode\Writer\Result\ResultInterface;
+use Endroid\QrCode\Label\LabelAlignment;
+use Endroid\QrCode\Label\Font\OpenSans;
 use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -31,58 +32,79 @@ class QrCodeUtility
     public static function generateQrCode(Reservation $reservation): ResultInterface
     {
         $bookedPeriod = $reservation->getCustomerOrder()->getBookedPeriod();
-        $begin = $bookedPeriod->getBegin() instanceof \DateTime
-            ? $bookedPeriod->getBegin()->format('H:i')
-            : '00:00';
+        $facility = $bookedPeriod->getFacility();
 
-        $builder = Builder::create()
-            ->data($reservation->getCode())
-            ->encoding(new Encoding('UTF-8'))
-            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-            ->labelText(
-                sprintf(
-                    '%s %s %s %s',
-                    $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
-                    self::formatTime(
-                        LocalizationUtility::translate('date_format', 'reserve'),
-                        (int)$bookedPeriod->getDate()->getTimestamp(),
-                    ),
-                    $begin,
-                    $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : '',
-                ),
-            )
-            ->labelAlignment(new LabelAlignmentCenter());
+        return self::buildQrCode(
+            data: $reservation->getCode(),
+            labelText: self::generateLabelText($bookedPeriod),
+            labelFontSize: $facility->getQrCodeLabelSize(),
+            logoPath: self::getLogoPath($facility),
+            logoWidth: $facility->getQrCodeLogoWidth()
+        );
+    }
 
-        self::applyQrCodeSettingsFromFacility($builder, $bookedPeriod->getFacility());
+    private static function buildQrCode(
+        string $data,
+        string $labelText,
+        int $labelFontSize,
+        string $logoPath = '',
+        int $logoWidth = 40
+    ): ResultInterface {
+        $builder = new Builder(
+            writer: new PngWriter(),
+            writerOptions: [],
+            validateResult: false,
+            data: $data,
+            encoding: new Encoding('UTF-8'),
+            errorCorrectionLevel: ErrorCorrectionLevel::High,
+            size: 300,
+            margin: 10,
+            roundBlockSizeMode: RoundBlockSizeMode::Margin,
+            logoPath: $logoPath,
+            logoResizeToWidth: $logoWidth,
+            logoPunchoutBackground: true,
+            labelText: $labelText,
+            labelFont: new OpenSans($labelFontSize),
+            labelAlignment: LabelAlignment::Center
+        );
 
         return $builder->build();
     }
 
-    protected static function applyQrCodeSettingsFromFacility(BuilderInterface $builder, Facility $facility): void
+    private static function generateLabelText($bookedPeriod): string
     {
-        $builder->labelFont(new NotoSans($facility->getQrCodeLabelSize()));
+        $begin = $bookedPeriod->getBegin() instanceof \DateTime
+            ? $bookedPeriod->getBegin()->format('H:i')
+            : '00:00';
 
-        if ($facility->getQrCodeLogo()->count()) {
-            $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
-            $builder
-                ->logoPath(
-                    GeneralUtility::getFileAbsFileName(
-                        $firstQrCodeLogo->getOriginalResource()->getPublicUrl(),
-                    ),
-                )
-                ->logoResizeToWidth($facility->getQrCodeLogoWidth());
-        }
+        return sprintf(
+            '%s %s %s %s',
+            $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
+            self::formatTime(LocalizationUtility::translate('date_format', 'reserve'), (int)$bookedPeriod->getDate()->getTimestamp()),
+            $begin,
+            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
+        );
     }
 
-    public static function formatTime(string $format, $timestamp = null): string
+    private static function getLogoPath(Facility $facility): string
     {
-        // Ensure the format is compatible with DateTime
+        if ($facility->getQrCodeLogo()->count() > 0) {
+            $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
+            return GeneralUtility::getFileAbsFileName(
+                $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
+            );
+        }
+
+        return '';
+    }
+
+    private static function formatTime(string $format, int $timestamp = null): string
+    {
         $format = strtr($format, [
             '%a' => 'D', '%d' => 'd', '%m' => 'm', '%Y' => 'Y',
             '%H' => 'H', '%M' => 'i', '%S' => 's', '%B' => 'F',
         ]);
 
-        $dateTime = new \DateTime();
-        return $dateTime->setTimestamp($timestamp)->format($format);
+        return (new \DateTime())->setTimestamp($timestamp)->format($format);
     }
 }
