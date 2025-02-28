@@ -13,7 +13,6 @@ namespace JWeiland\Reserve\Utility;
 
 use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Utility\Traits\FrontendUserTrait;
-use TYPO3\CMS\Core\Session\UserSessionManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
