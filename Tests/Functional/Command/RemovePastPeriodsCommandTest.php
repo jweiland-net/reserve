@@ -17,6 +17,7 @@ use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
@@ -44,7 +45,9 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         );
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
-        Bootstrap::initializeLanguageObject();
+        $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences(
+            $GLOBALS['BE_USER'],
+        );
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/activated_order_with_reservations.csv');

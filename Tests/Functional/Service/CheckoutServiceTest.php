@@ -24,9 +24,14 @@ use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Site\Entity\Site;
+use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
+use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
@@ -57,6 +62,18 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         parent::setUp();
 
+        $frontendTypoScript = new FrontendTypoScript(new RootNode(), [], [], []);
+        $frontendTypoScript->setSetupArray([]);
+
+        $frontendUserAuthentication = new FrontendUserAuthentication();
+        $frontendUserAuthentication->initializeUserSessionManager();
+        $frontendUserAuthentication->createAnonymousSession();
+
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
+            ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+            ->withAttribute('frontend.typoscript', $frontendTypoScript)
+            ->withAttribute('frontend.user', $frontendUserAuthentication);
+
         $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
         $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
         $GLOBALS['TSFE']->_set('sys_page', new PageRepository((new Context())));
@@ -68,7 +85,9 @@ class CheckoutServiceTest extends FunctionalTestCase
         $GLOBALS['TSFE']->id = 1;
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
-        Bootstrap::initializeLanguageObject();
+        $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences(
+            $GLOBALS['BE_USER'],
+        );
 
         $this->fluidServiceMock = $this->createMock(FluidService::class);
         $this->mailServiceMock = $this->createMock(MailService::class);

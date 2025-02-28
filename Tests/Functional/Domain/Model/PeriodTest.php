@@ -42,7 +42,7 @@ class PeriodTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    public function remainingParticipantsDataProvider(): array
+    public static function remainingParticipantsDataProvider(): array
     {
         return [
             'high amount of max participants' => [50, 47],
@@ -70,7 +70,7 @@ class PeriodTest extends FunctionalTestCase
         );
     }
 
-    public function maxParticipantsPerOrderDataProvider(): array
+    public static function maxParticipantsPerOrderDataProvider(): array
     {
         return [
             'max participants per order equals max participants' => [50, 47],
