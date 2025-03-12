@@ -28,14 +28,13 @@ use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
 use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -112,7 +111,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             $this->mailServiceMock,
             GeneralUtility::makeInstance(PersistenceManagerInterface::class),
             $this->eventDispatcherMock,
-            $this->extConf
+            $this->extConf,
         );
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
@@ -252,7 +251,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 self::equalTo($order->getBookedPeriod()->getFacility()->getConfirmationMailHtml()),
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
-                    'order' => $order
+                    'order' => $order,
                 ],
             )
             ->willReturn('Confirm your reservation');
