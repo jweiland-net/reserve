@@ -14,7 +14,7 @@ namespace JWeiland\Reserve\Event;
 use JWeiland\Reserve\Domain\Model\Order;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-class ValidateOrderEvent
+final class ValidateOrderEvent
 {
     private Order $order;
 
