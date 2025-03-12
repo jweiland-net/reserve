@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Tests\Functional\Service;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
@@ -33,6 +34,7 @@ use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
 use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
@@ -57,6 +59,13 @@ class CheckoutServiceTest extends FunctionalTestCase
      * @var MailService|MockObject
      */
     protected $mailServiceMock;
+
+    /**
+     * @var EventDispatcher|MockObject
+     */
+    protected $eventDispatcherMock;
+
+    protected ExtConf $extConf;
 
     protected function setUp(): void
     {
@@ -91,12 +100,19 @@ class CheckoutServiceTest extends FunctionalTestCase
 
         $this->fluidServiceMock = $this->createMock(FluidService::class);
         $this->mailServiceMock = $this->createMock(MailService::class);
+        $this->eventDispatcherMock = $this->createMock(EventDispatcher::class);
 
+        $extensionConfiguration = [
+            'blockMultipleOrdersInSeconds' => 3600,
+            'disableQRCodeGeneration' => false,
+        ];
+        $this->extConf = new ExtConf(...$extensionConfiguration);
         $this->subject = new CheckoutService(
-            GeneralUtility::makeInstance(ConfigurationManagerInterface::class),
             $this->fluidServiceMock,
             $this->mailServiceMock,
             GeneralUtility::makeInstance(PersistenceManagerInterface::class),
+            $this->eventDispatcherMock,
+            $this->extConf
         );
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
@@ -236,7 +252,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 self::equalTo($order->getBookedPeriod()->getFacility()->getConfirmationMailHtml()),
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
-                    'order' => $order,
+                    'order' => $order
                 ],
             )
             ->willReturn('Confirm your reservation');
@@ -270,6 +286,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
+                    'configurations' => $this->extConf,
                 ],
             )
             ->willReturn('alt="firstCode"');
