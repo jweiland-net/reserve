@@ -35,7 +35,7 @@ final readonly class ExtConf
 
     public function __construct(
         private int $blockMultipleOrdersInSeconds = self::BLOCK_MULTIPLE_ORDERS_IN_SECONDS,
-        private int $disableQRCodeGeneration = self::DISABLE_QR_CODE_GENERATION
+        private int $disableQRCodeGeneration = self::DISABLE_QR_CODE_GENERATION,
     ) {}
 
     public static function create(ExtensionConfiguration $extensionConfiguration): self
