@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
@@ -31,7 +32,8 @@ class CheckoutService
         private readonly FluidService $fluidService,
         private readonly MailService $mailService,
         private readonly PersistenceManager $persistenceManager,
-        private readonly EventDispatcherInterface $eventDispatcher
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ExtConf $extConf,
     ) {}
 
     /**
@@ -137,12 +139,15 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
+                    'configurations' => $this->extConf,
                 ],
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
-                    $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    if ($this->extConf->isQrCodeGenerationEnabled()) {
+                        $qrCode = QrCodeUtility::generateQrCode($reservation);
+                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    }
                     /** @var DoingThisAndThatEvent $event */
                     $event = $this->eventDispatcher->dispatch(
                         new SendReservationEmailEvent($mailMessage),

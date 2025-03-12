@@ -26,11 +26,17 @@ final readonly class ExtConf
 
     private const BLOCK_MULTIPLE_ORDERS_IN_SECONDS = 3600;
 
+    private const DISABLE_QR_CODE_GENERATION = false;
+
     private const DEFAULT_SETTINGS = [
         'blockMultipleOrdersInSeconds' => 3600,
+        'disableQRCodeGeneration' => false,
     ];
 
-    public function __construct(private int $blockMultipleOrdersInSeconds = self::BLOCK_MULTIPLE_ORDERS_IN_SECONDS) {}
+    public function __construct(
+        private int $blockMultipleOrdersInSeconds = self::BLOCK_MULTIPLE_ORDERS_IN_SECONDS,
+        private int $disableQRCodeGeneration = self::DISABLE_QR_CODE_GENERATION
+    ) {}
 
     public static function create(ExtensionConfiguration $extensionConfiguration): self
     {
@@ -46,11 +52,22 @@ final readonly class ExtConf
 
         return new self(
             blockMultipleOrdersInSeconds: (int)$extensionSettings['blockMultipleOrdersInSeconds'],
+            disableQRCodeGeneration: (int)$extensionSettings['disableQRCodeGeneration'],
         );
     }
 
     public function getBlockMultipleOrdersInSeconds(): int
     {
         return $this->blockMultipleOrdersInSeconds;
+    }
+
+    public function getDisableQRCodeGeneration(): int
+    {
+        return $this->disableQRCodeGeneration;
+    }
+
+    public function isQrCodeGenerationEnabled(): bool
+    {
+        return !$this->disableQRCodeGeneration;
     }
 }
