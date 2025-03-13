@@ -18,10 +18,10 @@ When register to an event you can always access the class where the event is
 fired. For additional items see column "Access to" in the table below.
 
 .. csv-table:: Events
-   :header: "Event class", "Fired in class", "Access to"
+    :header: "Event class", "Fired in class", "Access to"
 
-   "SendReservationEmailEvent", "CheckoutService", "getMailMessage()"
-   "ValidateOrderEvent", "OrderValidator", "getOrder();getErrorResults()"
+    "SendReservationEmailEvent", "CheckoutService", "getMailMessage()"
+    "ValidateOrderEvent", "OrderValidator", "getOrder();getErrorResults()"
 
 
 
