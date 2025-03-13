@@ -90,7 +90,7 @@ class CheckoutController extends ActionController
         $this->view->assign(
             'periods',
             $this->periodRepository->findUpcomingAndRunningByFacilityUids(
-                GeneralUtility::trimExplode(',', $this->settings['facility']),
+                GeneralUtility::trimExplode(',', $this->settings['facility'], true),
             ),
         );
 
