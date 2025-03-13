@@ -35,15 +35,15 @@ To connect to an event, you need to register an event listener in your custom
 extension. All what it needs is an entry in your
 :file:`Configuration/Services.yaml` file:
 
-.. code-block:: yaml
+..  code-block:: yaml
 
-   services:
-     Vendor\Extension\EventListener\YourListener:
-       tags:
-         - name: event.listener
-           identifier: 'your-self-choosen-identifier'
-           method: 'methodToConnectToEvent'
-           event: JWeiland\Reserve\Event\SendReservationEmailEvent
+    services:
+      Vendor\Extension\EventListener\YourListener:
+        tags:
+          - name: event.listener
+            identifier: 'your-self-choosen-identifier'
+            method: 'methodToConnectToEvent'
+            event: JWeiland\Reserve\Event\SendReservationEmailEvent
 
 An example event listener can look like this:
 
