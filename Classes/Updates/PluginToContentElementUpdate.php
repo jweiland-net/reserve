@@ -15,7 +15,7 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate;
 
 /**
- * With TYPO3 13 all plugins have to be declared as content elements (CType) insteadof "list_type"
+ * With TYPO3 13 all plugins must be declared as content elements (CType) instead of "list_type"
  */
 #[UpgradeWizard('reserve_migratePluginsToContentElementsUpdate')]
 class PluginToContentElementUpdate extends AbstractListTypeToCTypeUpdate
