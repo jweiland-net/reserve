@@ -21,6 +21,7 @@ use JWeiland\Reserve\Domain\Repository\ReservationRepository;
 use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\FluidService;
 use JWeiland\Reserve\Service\MailService;
+use JWeiland\Reserve\Service\QrCodeService;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
@@ -64,6 +65,8 @@ class CheckoutServiceTest extends FunctionalTestCase
      */
     protected $eventDispatcherMock;
 
+    protected $qrCodeServiceMock;
+
     protected ExtConf $extConf;
 
     protected function setUp(): void
@@ -100,6 +103,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->fluidServiceMock = $this->createMock(FluidService::class);
         $this->mailServiceMock = $this->createMock(MailService::class);
         $this->eventDispatcherMock = $this->createMock(EventDispatcher::class);
+        $this->qrCodeServiceMock = $this->createMock(QrCodeService::class);
 
         $extensionConfiguration = [
             'blockMultipleOrdersInSeconds' => 3600,
@@ -112,6 +116,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             GeneralUtility::makeInstance(PersistenceManagerInterface::class),
             $this->eventDispatcherMock,
             $this->extConf,
+            $this->qrCodeServiceMock,
         );
 
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/example_facility_with_period.csv');
