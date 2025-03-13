@@ -26,9 +26,4 @@ final class SendReservationEmailEvent
     {
         return $this->mailMessage;
     }
-
-    public function setMailMessage(MailMessage $mailMessage): void
-    {
-        $this->mailMessage = $mailMessage;
-    }
 }
