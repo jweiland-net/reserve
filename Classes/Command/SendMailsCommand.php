@@ -111,7 +111,7 @@ class SendMailsCommand extends Command
 
     protected function sendNextMail(): bool
     {
-        if (($receiver = $this->getNextReceiver()) === '' || ($receiver = $this->getNextReceiver()) === '0') {
+        if (($receiver = (string)$this->getNextReceiver()) === '') {
             // no more mails to send
             return false;
         }
