@@ -105,7 +105,7 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     protected function getPiFlexformData(array $ttContentRecord): array
     {
         $data = [];
-        if (!empty($ttContentRecord['pi_flexform'] ?? '')) {
+        if ((int)($ttContentRecord['pi_flexform'] ?? '') !== '') {
             $data = $this->flexFormService->convertFlexFormContentToArray($ttContentRecord['pi_flexform']);
         }
 
