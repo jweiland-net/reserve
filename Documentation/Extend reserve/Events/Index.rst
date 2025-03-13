@@ -1,4 +1,4 @@
-.. _eventsTutorial:
+..  _eventsTutorial:
 
 ======
 Events
