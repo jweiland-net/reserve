@@ -69,7 +69,7 @@ class QrCodePreviewController
             }
         } else {
             $data['hasErrors'] = true;
-            $data['message'] = "You have to provide the facility uid with param 'facility'!";
+            $data['message'] = 'You have to provide the facility uid with param "facility"!';
         }
 
         return new JsonResponse($data);
