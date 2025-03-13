@@ -6,9 +6,9 @@ Events
 
 Several events can be used to modify the behaviour of EXT:reserve.
 
-.. contents::
-      :local:
-      :depth: 2
+..  contents::
+    :local:
+    :depth: 2
 
 
 Available events
