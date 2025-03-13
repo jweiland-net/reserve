@@ -26,7 +26,7 @@ class ManagementController extends ActionController
 {
     public function __construct(
         protected readonly PeriodRepository $periodRepository,
-        protected readonly ReservationRepository $reservationRepository
+        protected readonly ReservationRepository $reservationRepository,
     ) {}
 
     protected function initializeView($view): void

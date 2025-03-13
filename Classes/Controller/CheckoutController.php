@@ -41,7 +41,7 @@ class CheckoutController extends ActionController
         protected readonly CheckoutService $checkoutService,
         protected readonly DataTablesService $dataTablesService,
         protected readonly CancellationService $cancellationService,
-        protected readonly ExtConf $extConf
+        protected readonly ExtConf $extConf,
     ) {}
 
     public function listAction(): ResponseInterface

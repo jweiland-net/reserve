@@ -39,7 +39,7 @@ class QrCodeService
             $this->generateLabelText($bookedPeriod),
             $facility->getQrCodeLabelSize(),
             $this->getLogoPath($facility),
-            $facility->getQrCodeLogoWidth()
+            $facility->getQrCodeLogoWidth(),
         );
     }
 
@@ -48,7 +48,7 @@ class QrCodeService
         string $labelText,
         int $labelFontSize,
         string $logoPath = '',
-        int $logoWidth = 40
+        int $logoWidth = 40,
     ): ResultInterface {
         $builder = new Builder(
             writer: new PngWriter(),
@@ -82,7 +82,7 @@ class QrCodeService
             $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
             $this->formatTime(LocalizationUtility::translate('date_format', 'reserve'), (int)$bookedPeriod->getDate()->getTimestamp()),
             $begin,
-            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
+            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : '',
         );
     }
 
@@ -91,7 +91,7 @@ class QrCodeService
         if ($facility->getQrCodeLogo()->count() > 0) {
             $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
             return GeneralUtility::getFileAbsFileName(
-                $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
+                $firstQrCodeLogo->getOriginalResource()->getPublicUrl(),
             );
         }
 
