@@ -49,25 +49,25 @@ An example event listener can look like this:
 
 .. code-block:: php
 
-   <?php
+    <?php
 
-   declare(strict_types=1);
+    declare(strict_types=1);
 
-   namespace Vendor\Extension\EventListener;
+    namespace Vendor\Extension\EventListener;
 
-   use JWeiland\Reserve\Event\SendReservationEmailEvent;
+    use JWeiland\Reserve\Event\SendReservationEmailEvent;
 
-   class YourListener
-   {
-       /**
-        * Do what you want...
-        */
-       public function methodToConnectToEvent(SendReservationEmailEvent $event): void
-       {
-           $mailMessage = $event->getMailMessage();
+    class YourListener
+    {
+        /**
+         * Do what you want...
+         */
+        public function methodToConnectToEvent(SendReservationEmailEvent $event): void
+        {
+            $mailMessage = $event->getMailMessage();
 
-           // Do some stuff
+            // Do some stuff
 
-           $event->setMailMessage($mailMessage);
-       }
-   }
+            $event->setMailMessage($mailMessage);
+        }
+    }
