@@ -19,7 +19,6 @@ use JWeiland\Reserve\Event\SendReservationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
-use JWeiland\Reserve\Utility\QrCodeUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -34,6 +33,7 @@ class CheckoutService
         private readonly PersistenceManager $persistenceManager,
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ExtConf $extConf,
+        private readonly QrCodeService $qrCodeService,
     ) {}
 
     /**
@@ -145,10 +145,10 @@ class CheckoutService
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
                     if ($this->extConf->isQrCodeGenerationEnabled()) {
-                        $qrCode = QrCodeUtility::generateQrCode($reservation);
+                        $qrCode = $this->qrCodeService->generateQrCode($reservation);
                         $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
                     }
-                    /** @var DoingThisAndThatEvent $event */
+                    /** @var SendReservationEmailEvent $event */
                     $event = $this->eventDispatcher->dispatch(
                         new SendReservationEmailEvent($mailMessage),
                     );

@@ -9,7 +9,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Utility;
+namespace JWeiland\Reserve\Service;
 
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
@@ -25,30 +25,30 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
- * Utility to generate QrCodes for a reservation.
+ * Service to generate QrCodes for a reservation.
  */
-class QrCodeUtility
+class QrCodeService
 {
-    public static function generateQrCode(Reservation $reservation): ResultInterface
+    public function generateQrCode(Reservation $reservation): ResultInterface
     {
         $bookedPeriod = $reservation->getCustomerOrder()->getBookedPeriod();
         $facility = $bookedPeriod->getFacility();
 
-        return self::buildQrCode(
-            data: $reservation->getCode(),
-            labelText: self::generateLabelText($bookedPeriod),
-            labelFontSize: $facility->getQrCodeLabelSize(),
-            logoPath: self::getLogoPath($facility),
-            logoWidth: $facility->getQrCodeLogoWidth(),
+        return $this->buildQrCode(
+            $reservation->getCode(),
+            $this->generateLabelText($bookedPeriod),
+            $facility->getQrCodeLabelSize(),
+            $this->getLogoPath($facility),
+            $facility->getQrCodeLogoWidth()
         );
     }
 
-    private static function buildQrCode(
+    private function buildQrCode(
         string $data,
         string $labelText,
         int $labelFontSize,
         string $logoPath = '',
-        int $logoWidth = 40,
+        int $logoWidth = 40
     ): ResultInterface {
         $builder = new Builder(
             writer: new PngWriter(),
@@ -71,34 +71,34 @@ class QrCodeUtility
         return $builder->build();
     }
 
-    private static function generateLabelText($bookedPeriod): string
+    private function generateLabelText($bookedPeriod): string
     {
         $begin = $bookedPeriod->getBegin() instanceof \DateTime
             ? $bookedPeriod->getBegin()->format('H:i')
             : '00:00';
 
         return sprintf(
-            '%s %s %s %s',
+            '%s %s %s%s',
             $bookedPeriod->getFacility()->getShortName() ?: $bookedPeriod->getFacility()->getName(),
-            self::formatTime(LocalizationUtility::translate('date_format', 'reserve'), (int)$bookedPeriod->getDate()->getTimestamp()),
+            $this->formatTime(LocalizationUtility::translate('date_format', 'reserve'), (int)$bookedPeriod->getDate()->getTimestamp()),
             $begin,
-            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : '',
+            $bookedPeriod->getEnd() ? (' - ' . $bookedPeriod->getEnd()->format('H:i')) : ''
         );
     }
 
-    private static function getLogoPath(Facility $facility): string
+    private function getLogoPath(Facility $facility): string
     {
         if ($facility->getQrCodeLogo()->count() > 0) {
             $firstQrCodeLogo = current($facility->getQrCodeLogo()->toArray());
             return GeneralUtility::getFileAbsFileName(
-                $firstQrCodeLogo->getOriginalResource()->getPublicUrl(),
+                $firstQrCodeLogo->getOriginalResource()->getPublicUrl()
             );
         }
 
         return '';
     }
 
-    private static function formatTime(string $format, int $timestamp = null): string
+    private function formatTime(string $format, int $timestamp = null): string
     {
         $format = strtr($format, [
             '%a' => 'D', '%d' => 'd', '%m' => 'm', '%Y' => 'Y',

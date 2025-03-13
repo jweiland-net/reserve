@@ -16,7 +16,7 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
 use JWeiland\Reserve\Domain\Repository\FacilityRepository;
-use JWeiland\Reserve\Utility\QrCodeUtility;
+use JWeiland\Reserve\Service\QrCodeService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\JsonResponse;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -28,12 +28,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class QrCodePreviewController
 {
-    protected FacilityRepository $facilityRepository;
-
-    public function __construct(FacilityRepository $facilityRepository)
-    {
-        $this->facilityRepository = $facilityRepository;
-
+    public function __construct(
+        protected readonly FacilityRepository $facilityRepository,
+        protected readonly QrCodeService $qrCodeService,
+    ) {
         $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
         $GLOBALS['LANG']->init($GLOBALS['BE_USER']->uc['lang']);
     }
@@ -62,7 +60,7 @@ class QrCodePreviewController
 
                 $reservation->setCustomerOrder($order);
 
-                $data['qrCode'] = QrCodeUtility::generateQrCode($reservation)->getDataUri();
+                $data['qrCode'] = $this->qrCodeService->generateQrCode($reservation)->getDataUri();
             } else {
                 $data['hasErrors'] = true;
                 $data['message'] = 'Could not find facility!';

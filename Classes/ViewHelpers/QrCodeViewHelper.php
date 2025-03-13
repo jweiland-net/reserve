@@ -12,10 +12,8 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\ViewHelpers;
 
 use JWeiland\Reserve\Domain\Model\Reservation;
-use JWeiland\Reserve\Utility\QrCodeUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use JWeiland\Reserve\Service\QrCodeService;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * ViewHelper to render QrCodes inside an image tag
@@ -23,9 +21,9 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class QrCodeViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     protected $escapeOutput = false;
+
+    public function __construct(protected readonly QrCodeService $qrCodeService) {}
 
     public function initializeArguments(): void
     {
@@ -37,11 +35,10 @@ class QrCodeViewHelper extends AbstractViewHelper
         );
     }
 
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext,
-    ): string {
-        return QrCodeUtility::generateQrCode($arguments['reservation'])->getDataUri();
+    public function render(): string
+    {
+        return $this->qrCodeService
+            ->generateQrCode($this->arguments['reservation'])
+            ->getDataUri();
     }
 }

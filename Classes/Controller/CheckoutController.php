@@ -34,54 +34,15 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class CheckoutController extends ActionController
 {
-    protected FacilityRepository $facilityRepository;
-
-    protected PeriodRepository $periodRepository;
-
-    protected OrderRepository $orderRepository;
-
-    protected CheckoutService $checkoutService;
-
-    protected DataTablesService $dataTablesService;
-
-    protected CancellationService $cancellationService;
-
-    protected ExtConf $extConf;
-
-    public function injectFacilityRepository(FacilityRepository $facilityRepository): void
-    {
-        $this->facilityRepository = $facilityRepository;
-    }
-
-    public function injectPeriodRepository(PeriodRepository $periodRepository): void
-    {
-        $this->periodRepository = $periodRepository;
-    }
-
-    public function injectOrderRepository(OrderRepository $orderRepository): void
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    public function injectCheckoutService(CheckoutService $checkoutService): void
-    {
-        $this->checkoutService = $checkoutService;
-    }
-
-    public function injectDataTablesService(DataTablesService $dataTablesService): void
-    {
-        $this->dataTablesService = $dataTablesService;
-    }
-
-    public function injectCancellationService(CancellationService $cancellationService): void
-    {
-        $this->cancellationService = $cancellationService;
-    }
-
-    public function injectExtConf(ExtConf $extConf): void
-    {
-        $this->extConf = $extConf;
-    }
+    public function __construct(
+        protected readonly FacilityRepository $facilityRepository,
+        protected readonly PeriodRepository $periodRepository,
+        protected readonly OrderRepository $orderRepository,
+        protected readonly CheckoutService $checkoutService,
+        protected readonly DataTablesService $dataTablesService,
+        protected readonly CancellationService $cancellationService,
+        protected readonly ExtConf $extConf
+    ) {}
 
     public function listAction(): ResponseInterface
     {
