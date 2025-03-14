@@ -20,6 +20,7 @@ use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
@@ -44,7 +45,7 @@ class CheckoutService
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0): bool
+    public function checkout(Order $order, ServerRequestInterface $request, int $pid = 0, int $furtherParticipants = 0): bool
     {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
@@ -73,6 +74,7 @@ class CheckoutService
         if ($order->shouldBlockFurtherOrdersForFacility()) {
             OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession(
                 $order->getBookedPeriod()->getFacility()->getUid(),
+                $request
             );
         }
 

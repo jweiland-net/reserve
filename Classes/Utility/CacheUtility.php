@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Utility;
 
-use JWeiland\Reserve\Traits\TypoScriptFrontenendTrait;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -20,18 +20,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class CacheUtility
 {
-    use TypoScriptFrontenendTrait;
-
     private const FACILITY_CACHE_IDENTIFIER = 'tx_reserve_facility_';
 
-    public static function addFacilityToCurrentPageCacheTags(int $facilityUid): void
+    public static function addFacilityToCurrentPageCacheTags(int $facilityUid, ServerRequestInterface $request): void
     {
-        static::getTypoScriptFrontendController()->addCacheTags([static::FACILITY_CACHE_IDENTIFIER . $facilityUid]);
+        static::getCacheCollector($request)->addCacheTags([static::FACILITY_CACHE_IDENTIFIER . $facilityUid]);
     }
 
     public static function clearPageCachesForPagesWithCurrentFacility(int $facilityUid): void
     {
         self::getCacheManager()->flushCachesByTag(static::FACILITY_CACHE_IDENTIFIER . $facilityUid);
+    }
+
+    protected static function getCacheCollector(ServerRequestInterface $request)
+    {
+        return $request->getAttribute('frontend.cache.collector');
     }
 
     private static function getCacheManager(): CacheManager

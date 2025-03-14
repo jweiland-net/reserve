@@ -24,6 +24,7 @@ use JWeiland\Reserve\Service\MailService;
 use JWeiland\Reserve\Service\QrCodeService;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -72,6 +73,8 @@ class CheckoutServiceTest extends FunctionalTestCase
 
     protected PersistenceManagerInterface $persistenceManager;
 
+    protected ServerRequestInterface $request;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -87,6 +90,8 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
             ->withAttribute('frontend.typoscript', $frontendTypoScript)
             ->withAttribute('frontend.user', $frontendUserAuthentication);
+
+        $this->request = $GLOBALS['TYPO3_REQUEST'];
 
         $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
         $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
@@ -158,7 +163,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setBookedPeriod($period);
         $order->setParticipants($participants);
 
-        $this->subject->checkout($order);
+        $this->subject->checkout($order, $this->request);
 
         self::assertEquals(1, $order->getUid(), 'Order UID changes to 1 after checkout');
     }
@@ -188,7 +193,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setBookedPeriod($period);
         $order->setParticipants($participants);
 
-        $this->subject->checkout($order);
+        $this->subject->checkout($order, $this->request);
 
         $reservationRepository = GeneralUtility::makeInstance(ReservationRepository::class);
         $reservations = $reservationRepository->findByCustomerOrder(1);
@@ -230,7 +235,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $order->setParticipants($participants);
 
         self::assertFalse(
-            $this->subject->checkout($order),
+            $this->subject->checkout($order, $this->request),
             'Checkout returns false and does not persist order because too much participants are requested.',
         );
     }

@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -49,6 +50,7 @@ class CancellationService implements SingletonInterface
      */
     public function cancel(
         Order $order,
+        ServerRequestInterface $request,
         string $reason = self::REASON_CUSTOMER,
         array $vars = [],
         bool $sendMailToCustomer = true,
@@ -80,6 +82,7 @@ class CancellationService implements SingletonInterface
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
             $order->getBookedPeriod()->getFacility()->getUid(),
+            $request
         );
     }
 

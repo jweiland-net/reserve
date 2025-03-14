@@ -64,7 +64,7 @@ class CheckoutController extends ActionController
                 'datatables' => $dataTablesConfiguration + $additionalDefaultConfigurarion,
             ],
         );
-        CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
+        CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility'], $this->request);
 
         return $this->htmlResponse();
     }
@@ -75,7 +75,7 @@ class CheckoutController extends ActionController
             $this->redirect('list');
         }
 
-        if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
+        if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid(), $this->request)) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
                 '',
@@ -101,7 +101,10 @@ class CheckoutController extends ActionController
         if (!(
             $order->_isNew()
             && $order->getBookedPeriod()->isBookable()
-            && OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
+            && OrderSessionUtility::isUserAllowedToOrder(
+                $order->getBookedPeriod()->getFacility()->getUid(),
+                $this->request
+            )
         )) {
             $this->addFlashMessage(
                 'You are not allowed to order right now.',
@@ -111,7 +114,7 @@ class CheckoutController extends ActionController
             return $this->redirect('list');
         }
 
-        if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
+        if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
             $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
             return $this->redirect('list');

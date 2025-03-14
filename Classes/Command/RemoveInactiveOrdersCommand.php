@@ -19,24 +19,22 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Site\SiteFinder;
 
 /**
  * Command to remove inactive orders after a given expiration time
  */
 class RemoveInactiveOrdersCommand extends Command
 {
-    protected CancellationService $cancellationService;
-
-    protected OrderRepository $orderRepository;
-
-    public function injectOrderRepository(OrderRepository $orderRepository): void
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    public function injectCancellationService(CancellationService $cancellationService): void
-    {
-        $this->cancellationService = $cancellationService;
+    public function __construct(
+        private readonly CancellationService $cancellationService,
+        private readonly OrderRepository $orderRepository,
+        private readonly SiteFinder $siteFinder,
+    ) {
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -74,11 +72,22 @@ class RemoveInactiveOrdersCommand extends Command
         $affectedFacilities = [];
         foreach ($inactiveOrders as $inactiveOrder) {
             try {
+                Bootstrap::initializeBackendAuthentication();
+
+                // The site has to have a fully qualified domain name
+                $site = $this->siteFinder->getSiteByPageId(1);
+
+                $request = (new ServerRequest())
+                    ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+                    ->withAttribute('site', $site);
+                $GLOBALS['TYPO3_REQUEST'] = $request;
+
                 $facilityUids = $this->orderRepository->findAffectedFacilities($inactiveOrder['uid']);
                 $affectedFacilities = array_fill_keys($facilityUids, true);
                 $affectedFacilities[$inactiveOrder->getBookedPeriod()->getFacility()->getUid()] = true;
                 $this->cancellationService->cancel(
                     $inactiveOrder,
+                    $this->request,
                     CancellationService::REASON_INACTIVE,
                     ['expirationTime' => $input->getOption('expiration-time')],
                     true,
