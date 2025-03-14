@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Participant;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -37,9 +38,7 @@ class ParticipantTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -48,9 +47,7 @@ class ParticipantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstName(): void
     {
         $this->subject->setFirstName('foo bar');
@@ -72,9 +69,7 @@ class ParticipantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');

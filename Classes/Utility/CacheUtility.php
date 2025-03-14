@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Utility;
 
-use JWeiland\Reserve\Utility\Traits\TypoScriptFrontenendTrait;
+use JWeiland\Reserve\Traits\TypoScriptFrontenendTrait;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

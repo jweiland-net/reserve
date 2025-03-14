@@ -22,6 +22,7 @@ use JWeiland\Reserve\Service\CheckoutService;
 use JWeiland\Reserve\Service\FluidService;
 use JWeiland\Reserve\Service\MailService;
 use JWeiland\Reserve\Service\QrCodeService;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Context\Context;
@@ -69,6 +70,8 @@ class CheckoutServiceTest extends FunctionalTestCase
 
     protected ExtConf $extConf;
 
+    protected PersistenceManagerInterface $persistenceManager;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -99,7 +102,8 @@ class CheckoutServiceTest extends FunctionalTestCase
         $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences(
             $GLOBALS['BE_USER'],
         );
-
+        $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManagerInterface::class);
+        $this->persistenceManager->persistAll();
         $this->fluidServiceMock = $this->createMock(FluidService::class);
         $this->mailServiceMock = $this->createMock(MailService::class);
         $this->eventDispatcherMock = $this->createMock(EventDispatcher::class);
@@ -113,7 +117,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->subject = new CheckoutService(
             $this->fluidServiceMock,
             $this->mailServiceMock,
-            GeneralUtility::makeInstance(PersistenceManagerInterface::class),
+            $this->persistenceManager,
             $this->eventDispatcherMock,
             $this->extConf,
             $this->qrCodeServiceMock,
@@ -135,9 +139,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         unset($this->subject);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function checkoutPersistsNewOrderIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
@@ -161,9 +163,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         self::assertEquals(1, $order->getUid(), 'Order UID changes to 1 after checkout');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function checkoutPersistsMultipleReservationsIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
@@ -200,9 +200,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
@@ -237,9 +235,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sendConfirmationMailSendsMailWithActivationLinks(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.csv');
@@ -270,9 +266,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->subject->sendConfirmationMail($order);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function confirmActivatesOrderAndSendsReservationMail(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../Fixtures/non_activated_order_with_reservations.csv');

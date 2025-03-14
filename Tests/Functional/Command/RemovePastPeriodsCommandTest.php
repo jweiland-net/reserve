@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Command;
 
 use JWeiland\Reserve\Command\RemovePastPeriodsCommand;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Tester\CommandTester;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
 use TYPO3\CMS\Core\Core\Bootstrap;
@@ -62,9 +63,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
             );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function commandRemovesOrderRelatedToPeriod(): void
     {
         // Create an instance of the command and inject dependencies
@@ -79,9 +78,7 @@ class RemovePastPeriodsCommandTest extends FunctionalTestCase
         self::assertEquals([], $orders, 'No more order with uid 1 in database after command has been executed.');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function commandRemovesReservationsRelatedToOrderThatWasRelatedToPeriod(): void
     {
         // Create an instance of the command and inject dependencies

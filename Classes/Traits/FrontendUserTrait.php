@@ -9,7 +9,7 @@ declare(strict_types=1);
  * LICENSE file that was distributed with this source code.
  */
 
-namespace JWeiland\Reserve\Utility\Traits;
+namespace JWeiland\Reserve\Traits;
 
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 

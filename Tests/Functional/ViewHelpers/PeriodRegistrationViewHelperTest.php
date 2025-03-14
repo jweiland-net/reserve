@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Functional\ViewHelpers;
 
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\ReserveService;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -76,9 +77,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperUsesReserveServiceToFindPeriod(): void
     {
         $reserveServiceMock = $this->createMock(ReserveService::class);
@@ -96,9 +95,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         $this->standaloneView->render();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsAndRendersRemainingParticipants(): void
     {
         $remainingParticipants = GeneralUtility::makeInstance(PeriodRepository::class)
@@ -112,9 +109,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
         $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
@@ -126,9 +121,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
         $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');

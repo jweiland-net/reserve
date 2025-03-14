@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -38,9 +39,7 @@ class ReservationTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCustomerOrderSetsCustomerOrder(): void
     {
         $instance = new Order();
@@ -52,9 +51,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -63,9 +60,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstName(): void
     {
         $this->subject->setFirstName('foo bar');
@@ -76,9 +71,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -87,9 +80,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');
@@ -100,9 +91,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCodeInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -111,9 +100,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCodeSetsCode(): void
     {
         $this->subject->setCode('foo bar');
@@ -124,9 +111,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUsedInitiallyReturnsFalse(): void
     {
         self::assertFalse(
@@ -134,9 +119,7 @@ class ReservationTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setUsedSetsUsed(): void
     {
         $this->subject->setUsed(true);

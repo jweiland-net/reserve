@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Utility;
 
 use JWeiland\Reserve\Configuration\ExtConf;
-use JWeiland\Reserve\Utility\Traits\FrontendUserTrait;
+use JWeiland\Reserve\Traits\FrontendUserTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**

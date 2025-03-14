@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Service\ReserveService;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -56,9 +57,7 @@ class ReserveServiceTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemainingParticipantsReturnsIntInCaseOfMatch(): void
     {
         $dateAndBegin = clone $this->testDateMidnight;
@@ -79,9 +78,7 @@ class ReserveServiceTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemainingParticipantsReturnsNullIfPeriodCouldNotBeIdentified(): void
     {
         $dateTime = new \DateTime();

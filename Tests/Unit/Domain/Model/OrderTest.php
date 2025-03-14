@@ -16,6 +16,7 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -42,9 +43,7 @@ class OrderTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookedPeriodAfterDataMapperWillReturnPeriod(): void
     {
         $period = new Period();
@@ -57,9 +56,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookedPeriodWillSetBookedPeriod(): void
     {
         $period = new Period();
@@ -72,9 +69,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getActivationCodeInitiallyWillReturnEmptyString(): void
     {
         self::assertSame(
@@ -83,9 +78,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setActivationCodeWillSetActivationCode(): void
     {
         $activationCode = '123*abc';
@@ -98,9 +91,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isActivatedInitiallyWillReturnFalse(): void
     {
         self::assertFalse(
@@ -108,9 +99,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setActivatedWillSetActivated(): void
     {
         $this->subject->setActivated(true);
@@ -120,9 +109,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -131,9 +118,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstname(): void
     {
         $this->subject->setFirstName('foo bar');
@@ -144,9 +129,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -155,9 +138,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');
@@ -168,9 +149,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getEmailInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -179,9 +158,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEmailSetsEmail(): void
     {
         $this->subject->setEmail('foo bar');
@@ -192,9 +169,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPhoneInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -203,9 +178,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPhoneSetsPhone(): void
     {
         $this->subject->setPhone('foo bar');
@@ -216,9 +189,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAddressInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -227,9 +198,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setAddressSetsAddress(): void
     {
         $this->subject->setAddress('foo bar');
@@ -240,9 +209,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getZipInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -251,9 +218,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setZipSetsZip(): void
     {
         $this->subject->setZip('foo bar');
@@ -264,9 +229,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCityInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -275,9 +238,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCitySetsCity(): void
     {
         $this->subject->setCity('foo bar');
@@ -288,9 +249,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOrganizationInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -299,9 +258,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOrganizationSetsOrganization(): void
     {
         $this->subject->setOrganization('foo bar');
@@ -312,9 +269,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemarksInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
@@ -323,9 +278,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setRemarksSetsRemarks(): void
     {
         $this->subject->setRemarks('foo bar');
@@ -336,9 +289,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getParticipantsInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
@@ -347,9 +298,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithEmptyObjectStorageKeepsParticipantsUntouched(): void
     {
         $originalObjectStorage = $this->subject->getParticipants();
@@ -362,9 +311,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithInvalidParticipantsKeepsParticipantsUntouched(): void
     {
         $originalObjectStorage = $this->subject->getParticipants();
@@ -381,9 +328,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithValidParticipantsSetsParticipants(): void
     {
         $participant1 = new Participant();
@@ -404,9 +349,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addParticipantWithNameAddsOneParticipant(): void
     {
         $participant = new Participant();
@@ -423,9 +366,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addParticipantWithoutNameKeepsParticipantsUntouched(): void
     {
         $validParticipant = new Participant();
@@ -447,9 +388,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeParticipantRemovesOneParticipant(): void
     {
         $participant1 = new Participant();
@@ -474,9 +413,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
@@ -485,9 +422,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setReservationsSetsReservations(): void
     {
         $object = new Reservation();
@@ -502,9 +437,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addReservationAddsOneReservation(): void
     {
         $objectStorage = new ObjectStorage();
@@ -521,9 +454,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeReservationRemovesOneReservation(): void
     {
         $object = new Reservation();
@@ -542,9 +473,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithDeactivatedOrderWillReturnTrue(): void
     {
         $this->subject->setActivated(false);
@@ -554,9 +483,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndNonCancelableFacilityWillReturnFalse(): void
     {
         $facility = new Facility();
@@ -573,9 +500,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndCancelableFacilityInFutureWillReturnTrue(): void
     {
         // Only the date of \DateTime will be used
@@ -600,9 +525,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndCancelableFacilityInPastWillReturnFalse(): void
     {
         // Only the date of \DateTime will be used
@@ -627,9 +550,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCancelableUntilWithNonCancelableFacilityWillReturnNull(): void
     {
         $facility = new Facility();
@@ -645,9 +566,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCancelableUntilWithCancelableFacilityWillReturnDateTime(): void
     {
         // Only the date of \DateTime will be used
@@ -714,9 +633,7 @@ class OrderTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldBlockFurtherOrdersForFacilityInitiallyReturnsTrue(): void
     {
         self::assertTrue(

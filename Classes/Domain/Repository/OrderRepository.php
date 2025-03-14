@@ -27,7 +27,9 @@ class OrderRepository extends Repository
 
     public function __construct(
         protected readonly ConnectionPool $connectionPool,
-    ) {}
+    ) {
+        parent::__construct();
+    }
 
     public function findByEmailAndActivationCode(string $email, string $activationCode): ?Order
     {

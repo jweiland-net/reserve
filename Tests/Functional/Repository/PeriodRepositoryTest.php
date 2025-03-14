@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Functional\Repository;
 
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -57,9 +58,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findByDateAndBeginReturnsPeriodsForGivenDateTime(): void
     {
         $dateAndBegin = clone $this->testDateMidnight;
@@ -80,9 +79,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findByDateAndBeginReturnsEmptyQueryResult(): void
     {
         $dateTime = new \DateTime();
@@ -95,9 +92,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findUpcomingAndRunningByFacilityUidsReturnsFilledQueryResult(): void
     {
         self::assertSame(
@@ -106,9 +101,7 @@ class PeriodRepositoryTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function findUpcomingAndRunningByFacilityUidUsesDateAndBeginAsOrdering(): void
     {
         self::assertSame(

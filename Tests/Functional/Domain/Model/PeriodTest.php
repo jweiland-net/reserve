@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Period;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -53,13 +55,11 @@ class PeriodTest extends FunctionalTestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider remainingParticipantsDataProvider
-     */
+    #[Test]
+    #[DataProvider('remainingParticipantsDataProvider')]
     public function getRemainingParticipants(int $maxParticipants, int $expectedResult): void
     {
+
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         $this->subject->setMaxParticipants($maxParticipants);
@@ -80,11 +80,8 @@ class PeriodTest extends FunctionalTestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider maxParticipantsPerOrderDataProvider
-     */
+    #[Test]
+    #[DataProvider('maxParticipantsPerOrderDataProvider')]
     public function getMaxParticipantsPerOrder(int $maxParticipantsForOrder, int $expectedResult): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
@@ -98,9 +95,7 @@ class PeriodTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function countReservationsWillReturnAmountOfActivatedReservations(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
@@ -111,9 +106,7 @@ class PeriodTest extends FunctionalTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function countReservationsWillReturnAmountOfAllReservations(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/non_activated_order_with_reservations.csv');

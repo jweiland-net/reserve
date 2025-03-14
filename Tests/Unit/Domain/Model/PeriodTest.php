@@ -15,6 +15,7 @@ use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -41,9 +42,7 @@ class PeriodTest extends UnitTestCase
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFacilityAfterDataMapperWillReturnFacility(): void
     {
         $facility = new Facility();
@@ -56,9 +55,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFacilitySetsFacility(): void
     {
         $instance = new Facility();
@@ -70,9 +67,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookingBeginAfterDataMapperWillReturnDateTime(): void
     {
         $bookingBegin = new \DateTime('now');
@@ -85,9 +80,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookingBeginSetsBookingBegin(): void
     {
         $bookingBegin = new \DateTime('now');
@@ -99,9 +92,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookingEndInitiallyReturnsNull(): void
     {
         self::assertNull(
@@ -109,9 +100,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookingEndSetsBookingEnd(): void
     {
         $date = new \DateTime();
@@ -123,9 +112,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDateSetsDate(): void
     {
         $date = new \DateTime();
@@ -137,9 +124,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBeginSetsBegin(): void
     {
         $date = new \DateTime();
@@ -151,9 +136,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEndSetsEnd(): void
     {
         $date = new \DateTime();
@@ -165,9 +148,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMaxParticipantsInitiallyReturnsZero(): void
     {
         self::assertSame(
@@ -176,9 +157,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxParticipantsSetsMaxParticipants(): void
     {
         $this->subject->setMaxParticipants(123456);
@@ -189,9 +168,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxParticipantsWithNegativeValueSetsMaxParticipantsToZero(): void
     {
         $this->subject->setMaxParticipants(-12);
@@ -202,9 +179,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOrdersInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
@@ -213,9 +188,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOrdersSetsOrders(): void
     {
         $object = new Order();
@@ -230,9 +203,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addOrderAddsOneOrder(): void
     {
         $objectStorage = new ObjectStorage();
@@ -249,9 +220,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeOrderRemovesOneOrder(): void
     {
         $object = new Order();
@@ -270,9 +239,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithValidBookingBeginWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
@@ -282,9 +249,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithValidBookingBeginAndBookingEndWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
@@ -295,9 +260,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithBookingBeginInFutureWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
@@ -307,9 +270,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithBookingEndInPastWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
@@ -320,9 +281,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingBeginReachedWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
@@ -332,9 +291,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingBeginReachedWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
@@ -344,9 +301,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingTimeOverWillReturnTrue(): void
     {
         $this->subject->setBookingEnd(new \DateTime('yesterday'));
@@ -356,9 +311,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingTimeOverWillReturnFalse(): void
     {
         $this->subject->setBookingEnd(new \DateTime('tomorrow'));
@@ -368,9 +321,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithZeroOrdersWillReturnEmptyArray(): void
     {
         self::assertSame(
@@ -379,9 +330,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithOrdersWillReturnAllReservations(): void
     {
         $expectedReservations = [
@@ -406,9 +355,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithOrdersWillReturnActiveReservations(): void
     {
         $reservation1 = new Reservation();
@@ -436,9 +383,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUsedReservationsWillReturnUsedReservations(): void
     {
         $reservation1 = new Reservation();
@@ -470,9 +415,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBeginDateAndTimeWillReturnCombinedDateTime(): void
     {
         $this->subject->setDate(new \DateTime('now'));
@@ -484,9 +427,7 @@ class PeriodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBeginDateAndTimeWithEmptyBeginWillReturnCombinedDateTimeAtMidnight(): void
     {
         $this->subject->setDate(new \DateTime('now'));
