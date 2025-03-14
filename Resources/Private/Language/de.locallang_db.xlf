@@ -7,17 +7,17 @@
         <source>Reserve: Reservation</source>
         <target state="final">Reserve: Reservierung</target>
       </trans-unit>
-      <trans-unit id="plugin.reserve_reservation.description" approved="yes">
-        <source>Display and reserve periods</source>
-        <target state="final">Zeitblöcke anzeigen und reservieren</target>
+      <trans-unit id="plugin.reserve_reservation.description">
+        <source>Reserve: Display and reserve periods</source>
+        <target state="needs-translation">Reserve: Display and reserve periods</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_management.title" approved="yes">
         <source>Reserve: Management</source>
         <target state="final">Reserve: Management</target>
       </trans-unit>
-      <trans-unit id="plugin.reserve_management.description" approved="yes">
-        <source>Manage reservations and scan reservation codes</source>
-        <target state="final">Verwalte Reservierungen und scanne Reservierungscodes</target>
+      <trans-unit id="plugin.reserve_management.description">
+        <source>Reserve: Manage reservations and scan reservation codes</source>
+        <target state="needs-translation">Reserve: Manage reservations and scan reservation codes</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility" approved="yes">
         <source>Facility</source>
