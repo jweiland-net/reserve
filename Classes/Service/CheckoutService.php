@@ -74,7 +74,7 @@ class CheckoutService
         if ($order->shouldBlockFurtherOrdersForFacility()) {
             OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession(
                 $order->getBookedPeriod()->getFacility()->getUid(),
-                $request
+                $request,
             );
         }
 

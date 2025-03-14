@@ -82,7 +82,7 @@ class CancellationService implements SingletonInterface
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
             $order->getBookedPeriod()->getFacility()->getUid(),
-            $request
+            $request,
         );
     }
 

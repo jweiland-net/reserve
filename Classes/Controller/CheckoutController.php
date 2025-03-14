@@ -103,7 +103,7 @@ class CheckoutController extends ActionController
             && $order->getBookedPeriod()->isBookable()
             && OrderSessionUtility::isUserAllowedToOrder(
                 $order->getBookedPeriod()->getFacility()->getUid(),
-                $this->request
+                $this->request,
             )
         )) {
             $this->addFlashMessage(
