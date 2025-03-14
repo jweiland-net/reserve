@@ -8,16 +8,16 @@
         <target state="needs-translation">Reserve: Reservation</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_reservation.description">
-        <source>Display and reserve periods</source>
-        <target state="needs-translation">Display and reserve periods</target>
+        <source>Reserve: Display and reserve periods</source>
+        <target state="needs-translation">Reserve: Display and reserve periods</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_management.title">
         <source>Reserve: Management</source>
         <target state="needs-translation">Reserve: Management</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_management.description">
-        <source>Manage reservations and scan reservation codes</source>
-        <target state="needs-translation">Manage reservations and scan reservation codes</target>
+        <source>Reserve: Manage reservations and scan reservation codes</source>
+        <target state="needs-translation">Reserve: Manage reservations and scan reservation codes</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility">
         <source>Facility</source>
