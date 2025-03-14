@@ -68,7 +68,7 @@ class SendMailsCommand extends Command
             'm',
             InputOption::VALUE_OPTIONAL,
             'How many mails per execution?',
-            100
+            100,
         );
         $this->addOption(
             'locale',
@@ -76,7 +76,7 @@ class SendMailsCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'Locale to be used inside templates and translations. Value that is available inside the Locales class '
             . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
-            'default'
+            'default',
         );
     }
 
@@ -94,9 +94,11 @@ class SendMailsCommand extends Command
             if (!$this->sendNextMail()) {
                 break;
             }
+
             $sentMails++;
             $progressBar->advance();
         }
+
         if ($sentMails === ($mailLimit - 1)) {
             // we have run into the mailLimit so save the current process
             $this->unlockAndUpdateProcessedEmail();
@@ -109,7 +111,7 @@ class SendMailsCommand extends Command
 
     protected function sendNextMail(): bool
     {
-        if (!$receiver = $this->getNextReceiver()) {
+        if (($receiver = (string)$this->getNextReceiver()) === '') {
             // no more mails to send
             return false;
         }
@@ -127,8 +129,8 @@ class SendMailsCommand extends Command
                         $this->email->getBody(),
                         [
                             'order' => $order,
-                        ]
-                    )
+                        ],
+                    ),
                 );
             } else {
                 $this->getMailService()->sendMail(
@@ -138,7 +140,7 @@ class SendMailsCommand extends Command
                     $this->email->getFromEmail(),
                     $this->email->getFromName(),
                     $this->email->getReplyToEmail(),
-                    $this->email->getReplyToName()
+                    $this->email->getReplyToName(),
                 );
             }
         } catch (\Throwable $throwable) {
@@ -161,11 +163,10 @@ class SendMailsCommand extends Command
                 $this->removeProcessedEmail();
             }
 
-            $this->email = $this->emailRepository->findOneUnlocked();
-
-            if ($this->email instanceof Email) {
+            $emailRecord = $this->emailRepository->findUnlockedEmails();
+            if ($emailRecord !== []) {
                 // lock current record
-                $this->emailRepository->lockEmail($this->email->getUid(), $this->email);
+                $this->emailRepository->lockEmail((int)$emailRecord['uid']);
                 if (!$this->email->getCommandData()) {
                     $this->email->setCommandData(['processedReceiversByKey' => [], 'sendMailExceptions' => []]);
                 }
@@ -173,6 +174,7 @@ class SendMailsCommand extends Command
                 // no more records in db
                 return '';
             }
+
             $this->receivers = $this->email->getReceivers($this->orders);
         }
 

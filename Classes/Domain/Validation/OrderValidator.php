@@ -43,7 +43,7 @@ class OrderValidator extends AbstractValidator
 
         /** @var ValidateOrderEvent $event */
         $event = $this->getEventDispatcher()->dispatch(
-            new ValidateOrderEvent($order, $errorResults)
+            new ValidateOrderEvent($order, $errorResults),
         );
 
         foreach ($event->getErrorResults() as $errorResult) {

@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Domain\Repository;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Generic\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -25,6 +25,12 @@ class OrderRepository extends Repository
 {
     private const TABLE = 'tx_reserve_domain_model_order';
 
+    public function __construct(
+        protected readonly ConnectionPool $connectionPool,
+    ) {
+        parent::__construct();
+    }
+
     public function findByEmailAndActivationCode(string $email, string $activationCode): ?Order
     {
         $query = $this->createQuery();
@@ -33,30 +39,60 @@ class OrderRepository extends Repository
             $query->logicalAnd(
                 $query->equals('email', $email),
                 $query->equals('activationCode', $activationCode),
-            )
+            ),
         );
 
         return $query->execute()->getFirst();
     }
 
     /**
-     * @return QueryResultInterface|Order[]
-     * @throws InvalidQueryException
+     * @throws \Doctrine\DBAL\Exception
      */
-    public function findInactiveOrders(int $olderThanInSeconds): QueryResultInterface
+    public function findAffectedFacilities(int $inactiveOrder)
     {
-        $olderThan = new \DateTime();
-        $olderThan->modify('-' . $olderThanInSeconds . 'seconds');
-        $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
-        $query->matching(
-            $query->logicalAnd(
-                $query->equals('activated', 0),
-                $query->lessThan('crdate', $olderThan->getTimestamp()),
-            )
-        );
+        $queryBuilder = $this->connectionPool
+            ->getQueryBuilderForTable('tx_reserve_domain_model_period');
 
-        return $query->execute();
+        return $queryBuilder
+            ->select('facility.uid')
+            ->from('tx_reserve_domain_model_period', 'period')
+            ->innerJoin(
+                'period',
+                'tx_reserve_domain_model_facility',
+                'orders',
+                $queryBuilder->expr()->eq('period.facility', 'tx_reserve_domain_model_facility.uid'),
+            )
+            ->andWhere(
+                $queryBuilder->expr()->in(
+                    'period.orders',
+                    $queryBuilder->createNamedParameter($inactiveOrder, \TYPO3\CMS\Core\Database\Connection::PARAM_INT_ARRAY),
+                ),
+            )
+            ->executeQuery()
+            ->fetchFirstColumn();
+    }
+
+    /**
+     * @throws \DateMalformedStringException
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findInactiveOrders(int $olderThanInSeconds): array
+    {
+        $olderThanTimestamp = (new \DateTime())->modify("-{$olderThanInSeconds} seconds")->getTimestamp();
+
+        $queryBuilder = $this->connectionPool
+            ->getQueryBuilderForTable(self::TABLE);
+
+        return $queryBuilder
+            ->select('*')
+            ->from(self::TABLE)
+            ->setMaxResults(30)
+            ->where(
+                $queryBuilder->expr()->eq('activated', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT)),
+                $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($olderThanTimestamp, Connection::PARAM_INT)),
+            )
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -68,10 +104,11 @@ class OrderRepository extends Repository
     protected function findWherePeriodEndedQueryBuilder(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): QueryBuilder {
         $dateTime = new \DateTime('now');
         $dateTime->modify('-' . $endedSinceSeconds . 'seconds');
+
         $periodDate = new \DateTime(sprintf('%s 0:0:0', $dateTime->format('Y-m-d')), new \DateTimeZone('UTC'));
         $periodEnd = new \DateTime(sprintf('1970-01-01 %s', $dateTime->format('H:i:s')), new \DateTimeZone('UTC'));
         unset($dateTime);
@@ -92,7 +129,7 @@ class OrderRepository extends Repository
                 'o',
                 'tx_reserve_domain_model_period',
                 'p',
-                'o.booked_period = p.uid'
+                'o.booked_period = p.uid',
             )
             ->where(
                 $queryBuilder->expr()->and(
@@ -101,21 +138,21 @@ class OrderRepository extends Repository
                         // days before the calculated day
                         $queryBuilder->expr()->lt(
                             'p.date',
-                            $queryBuilder->createNamedParameter($periodDate->getTimestamp())
+                            $queryBuilder->createNamedParameter($periodDate->getTimestamp()),
                         ),
                         $queryBuilder->expr()->and(
                             // calculated day AND calculated end time
                             $queryBuilder->expr()->eq(
                                 'p.date',
-                                $queryBuilder->createNamedParameter($periodDate->getTimestamp())
+                                $queryBuilder->createNamedParameter($periodDate->getTimestamp()),
                             ),
                             $queryBuilder->expr()->lte(
                                 'p.end',
-                                $queryBuilder->createNamedParameter($periodEnd->getTimestamp())
-                            )
-                        )
-                    )
-                )
+                                $queryBuilder->createNamedParameter($periodEnd->getTimestamp()),
+                            ),
+                        ),
+                    ),
+                ),
             )
             ->setMaxResults($maxResults);
 
@@ -131,7 +168,7 @@ class OrderRepository extends Repository
     public function findWherePeriodEndedRaw(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): array {
         return $this
             ->findWherePeriodEndedQueryBuilder($endedSinceSeconds, $selects, $maxResults)
@@ -149,7 +186,7 @@ class OrderRepository extends Repository
     public function findWherePeriodEnded(
         int $endedSinceSeconds,
         array $selects = ['o.*'],
-        ?int $maxResults = null
+        ?int $maxResults = null,
     ): QueryResultInterface {
         /** @var Query $query */
         $query = $this->createQuery();

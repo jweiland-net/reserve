@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Controller;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\FacilityRepository;
@@ -33,53 +34,27 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  */
 class CheckoutController extends ActionController
 {
-    protected FacilityRepository $facilityRepository;
-
-    protected PeriodRepository $periodRepository;
-
-    protected OrderRepository $orderRepository;
-
-    protected CheckoutService $checkoutService;
-
-    protected DataTablesService $dataTablesService;
-
-    protected CancellationService $cancellationService;
-
-    public function injectFacilityRepository(FacilityRepository $facilityRepository): void
-    {
-        $this->facilityRepository = $facilityRepository;
-    }
-
-    public function injectPeriodRepository(PeriodRepository $periodRepository): void
-    {
-        $this->periodRepository = $periodRepository;
-    }
-
-    public function injectOrderRepository(OrderRepository $orderRepository): void
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    public function injectCheckoutService(CheckoutService $checkoutService): void
-    {
-        $this->checkoutService = $checkoutService;
-    }
-
-    public function injectDataTablesService(DataTablesService $dataTablesService): void
-    {
-        $this->dataTablesService = $dataTablesService;
-    }
-
-    public function injectCancellationService(CancellationService $cancellationService): void
-    {
-        $this->cancellationService = $cancellationService;
-    }
+    public function __construct(
+        protected readonly FacilityRepository $facilityRepository,
+        protected readonly PeriodRepository $periodRepository,
+        protected readonly OrderRepository $orderRepository,
+        protected readonly CheckoutService $checkoutService,
+        protected readonly DataTablesService $dataTablesService,
+        protected readonly CancellationService $cancellationService,
+        protected readonly ExtConf $extConf,
+    ) {}
 
     public function listAction(): ResponseInterface
     {
         $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
         $this->view->assign('facilities', $facilities);
-        $this->view->assign('periods', $this->periodRepository->findUpcomingAndRunningByFacilityUids(GeneralUtility::trimExplode(',', $this->settings['facility'])));
+        $this->view->assign(
+            'periods',
+            $this->periodRepository->findUpcomingAndRunningByFacilityUids(
+                GeneralUtility::trimExplode(',', $this->settings['facility'], true),
+            ),
+        );
+
         $orderColumnBegin = count($facilities) === 1 ? 0 : 1;
         $dataTablesConfiguration = $this->dataTablesService->getConfiguration();
         $additionalDefaultConfigurarion = $this->getAdditionalDefaultConfiguration($orderColumnBegin);
@@ -87,9 +62,9 @@ class CheckoutController extends ActionController
             'jsConf',
             [
                 'datatables' => $dataTablesConfiguration + $additionalDefaultConfigurarion,
-            ]
+            ],
         );
-        CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility']);
+        CacheUtility::addFacilityToCurrentPageCacheTags((int)$this->settings['facility'], $this->request);
 
         return $this->htmlResponse();
     }
@@ -99,17 +74,20 @@ class CheckoutController extends ActionController
         if (!$period->isBookable()) {
             $this->redirect('list');
         }
-        if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid())) {
+
+        if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid(), $this->request)) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('list.alerts.isBookingAllowed', 'reserve'),
                 '',
-                ContextualFeedbackSeverity::INFO
+                ContextualFeedbackSeverity::INFO,
             );
             $this->redirect('list');
         }
+
         /** @var Order $order */
         $order = GeneralUtility::makeInstance(Order::class);
         $order->setBookedPeriod($period);
+
         $this->view->assign('order', $order);
 
         return $this->htmlResponse();
@@ -123,17 +101,20 @@ class CheckoutController extends ActionController
         if (!(
             $order->_isNew()
             && $order->getBookedPeriod()->isBookable()
-            && OrderSessionUtility::isUserAllowedToOrder($order->getBookedPeriod()->getFacility()->getUid())
+            && OrderSessionUtility::isUserAllowedToOrder(
+                $order->getBookedPeriod()->getFacility()->getUid(),
+                $this->request,
+            )
         )) {
             $this->addFlashMessage(
                 'You are not allowed to order right now.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
             return $this->redirect('list');
         }
 
-        if ($this->checkoutService->checkout($order, (int)$this->settings['orderPid'], $furtherParticipants)) {
+        if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants)) {
             $this->checkoutService->sendConfirmationMail($order);
             $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
             return $this->redirect('list');
@@ -142,7 +123,7 @@ class CheckoutController extends ActionController
         $this->addFlashMessage(
             LocalizationUtility::translate('list.alerts.wrongAmountOfReservations', 'reserve'),
             '',
-            ContextualFeedbackSeverity::ERROR
+            ContextualFeedbackSeverity::ERROR,
         );
 
         return $this->redirect('form', null, null, ['period' => $order->getBookedPeriod()]);
@@ -150,23 +131,25 @@ class CheckoutController extends ActionController
 
     public function confirmAction(string $email, string $activationCode): ResponseInterface
     {
+        $this->view->assign('configurations', $this->extConf);
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
             if ($order->isActivated()) {
                 $this->addFlashMessage(
                     'Your order is already confirmed! Please check your mailbox.',
                     '',
-                    ContextualFeedbackSeverity::INFO
+                    ContextualFeedbackSeverity::INFO,
                 );
                 return $this->redirect('list');
             }
+
             $this->checkoutService->confirm($order);
             $this->view->assign('order', $order);
         } else {
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
         }
 
@@ -182,7 +165,7 @@ class CheckoutController extends ActionController
             $this->addFlashMessage(
                 'Could not find any order with current combination of email and activation code.',
                 '',
-                ContextualFeedbackSeverity::ERROR
+                ContextualFeedbackSeverity::ERROR,
             );
             return $this->redirect('list');
         }
@@ -198,7 +181,7 @@ class CheckoutController extends ActionController
                     $this->addFlashMessage(
                         'Could not cancel your order. Please contact the administrator!',
                         '',
-                        ContextualFeedbackSeverity::ERROR
+                        ContextualFeedbackSeverity::ERROR,
                     );
                 }
             } else {
@@ -212,21 +195,21 @@ class CheckoutController extends ActionController
                     [
                         strftime(
                             LocalizationUtility::translate('date_format_full', 'reserve'),
-                            $order->getCancelableUntil()->getTimestamp()
+                            $order->getCancelableUntil()->getTimestamp(),
                         ),
-                    ]
+                    ],
                 ),
                 '',
-                ContextualFeedbackSeverity::WARNING
+                ContextualFeedbackSeverity::WARNING,
             );
         } else {
             $this->addFlashMessage(
                 LocalizationUtility::translate(
                     'flashMessage.notCancelable',
-                    'reserve'
+                    'reserve',
                 ),
                 '',
-                ContextualFeedbackSeverity::WARNING
+                ContextualFeedbackSeverity::WARNING,
             );
         }
 

@@ -19,24 +19,22 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Site\SiteFinder;
 
 /**
  * Command to remove inactive orders after a given expiration time
  */
 class RemoveInactiveOrdersCommand extends Command
 {
-    protected CancellationService $cancellationService;
-
-    protected OrderRepository $orderRepository;
-
-    public function injectOrderRepository(OrderRepository $orderRepository): void
-    {
-        $this->orderRepository = $orderRepository;
-    }
-
-    public function injectCancellationService(CancellationService $cancellationService): void
-    {
-        $this->cancellationService = $cancellationService;
+    public function __construct(
+        private readonly CancellationService $cancellationService,
+        private readonly OrderRepository $orderRepository,
+        private readonly SiteFinder $siteFinder,
+    ) {
+        parent::__construct();
     }
 
     protected function configure(): void
@@ -49,7 +47,7 @@ class RemoveInactiveOrdersCommand extends Command
             't',
             InputOption::VALUE_OPTIONAL,
             'Expiration time of an inactive order in seconds',
-            '3600'
+            '3600',
         );
         $this->addOption(
             'locale',
@@ -57,7 +55,7 @@ class RemoveInactiveOrdersCommand extends Command
             InputOption::VALUE_OPTIONAL,
             'Locale to be used inside templates and translations. Value that is available inside the Locales class '
             . '(TYPO3\\CMS\\Core\\Localization\\Locales). Example: "default" for english, "de" for german.',
-            'default'
+            'default',
         );
     }
 
@@ -65,25 +63,37 @@ class RemoveInactiveOrdersCommand extends Command
     {
         $GLOBALS['LANG']->init((string)$input->getOption('locale'));
         $inactiveOrders = $this->orderRepository->findInactiveOrders(
-            (int)$input->getOption('expiration-time')
+            (int)$input->getOption('expiration-time'),
         );
-        $inactiveOrders->getQuery()->setLimit(30);
 
-        $progressBar = new ProgressBar($output, $inactiveOrders->count());
+        $progressBar = new ProgressBar($output, count($inactiveOrders));
         $progressBar->start();
 
         $affectedFacilities = [];
         foreach ($inactiveOrders as $inactiveOrder) {
             try {
+                Bootstrap::initializeBackendAuthentication();
+
+                // The site has to have a fully qualified domain name
+                $site = $this->siteFinder->getSiteByPageId(1);
+
+                $request = (new ServerRequest())
+                    ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
+                    ->withAttribute('site', $site);
+                $GLOBALS['TYPO3_REQUEST'] = $request;
+
+                $facilityUids = $this->orderRepository->findAffectedFacilities($inactiveOrder['uid']);
+                $affectedFacilities = array_fill_keys($facilityUids, true);
                 $affectedFacilities[$inactiveOrder->getBookedPeriod()->getFacility()->getUid()] = true;
                 $this->cancellationService->cancel(
                     $inactiveOrder,
+                    $this->request,
                     CancellationService::REASON_INACTIVE,
                     ['expirationTime' => $input->getOption('expiration-time')],
-                    true
+                    true,
                 );
             } catch (\Throwable $exception) {
-                $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');
+                $output->writeln('Could not cancel the order ' . $inactiveOrder['uid'] . ' using cancellation service!');
             }
 
             $progressBar->advance();
@@ -93,9 +103,10 @@ class RemoveInactiveOrdersCommand extends Command
 
         $output->writeln('Clear caches for affected facilities list views...');
 
-        foreach ($affectedFacilities as $facilityUid => $_) {
+        foreach (array_keys($affectedFacilities) as $facilityUid) {
             CacheUtility::clearPageCachesForPagesWithCurrentFacility($facilityUid);
         }
+
         return 0;
     }
 }

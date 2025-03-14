@@ -16,6 +16,7 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -28,21 +29,21 @@ class OrderTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Order();
     }
 
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookedPeriodAfterDataMapperWillReturnPeriod(): void
     {
         $period = new Period();
@@ -51,13 +52,11 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $period,
-            $this->subject->getBookedPeriod()
+            $this->subject->getBookedPeriod(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookedPeriodWillSetBookedPeriod(): void
     {
         $period = new Period();
@@ -66,24 +65,20 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $period,
-            $this->subject->getBookedPeriod()
+            $this->subject->getBookedPeriod(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getActivationCodeInitiallyWillReturnEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getActivationCode()
+            $this->subject->getActivationCode(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setActivationCodeWillSetActivationCode(): void
     {
         $activationCode = '123*abc';
@@ -92,262 +87,218 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $activationCode,
-            $this->subject->getActivationCode()
+            $this->subject->getActivationCode(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isActivatedInitiallyWillReturnFalse(): void
     {
         self::assertFalse(
-            $this->subject->isActivated()
+            $this->subject->isActivated(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setActivatedWillSetActivated(): void
     {
         $this->subject->setActivated(true);
 
         self::assertTrue(
-            $this->subject->isActivated()
+            $this->subject->isActivated(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstname(): void
     {
         $this->subject->setFirstName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getEmailInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getEmail()
+            $this->subject->getEmail(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEmailSetsEmail(): void
     {
         $this->subject->setEmail('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getEmail()
+            $this->subject->getEmail(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getPhoneInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getPhone()
+            $this->subject->getPhone(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setPhoneSetsPhone(): void
     {
         $this->subject->setPhone('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getPhone()
+            $this->subject->getPhone(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getAddressInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getAddress()
+            $this->subject->getAddress(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setAddressSetsAddress(): void
     {
         $this->subject->setAddress('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getAddress()
+            $this->subject->getAddress(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getZipInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getZip()
+            $this->subject->getZip(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setZipSetsZip(): void
     {
         $this->subject->setZip('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getZip()
+            $this->subject->getZip(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCityInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getCity()
+            $this->subject->getCity(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCitySetsCity(): void
     {
         $this->subject->setCity('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getCity()
+            $this->subject->getCity(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOrganizationInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getOrganization()
+            $this->subject->getOrganization(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOrganizationSetsOrganization(): void
     {
         $this->subject->setOrganization('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getOrganization()
+            $this->subject->getOrganization(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemarksInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getRemarks()
+            $this->subject->getRemarks(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setRemarksSetsRemarks(): void
     {
         $this->subject->setRemarks('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getRemarks()
+            $this->subject->getRemarks(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getParticipantsInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithEmptyObjectStorageKeepsParticipantsUntouched(): void
     {
         $originalObjectStorage = $this->subject->getParticipants();
@@ -356,13 +307,11 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithInvalidParticipantsKeepsParticipantsUntouched(): void
     {
         $originalObjectStorage = $this->subject->getParticipants();
@@ -375,17 +324,16 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setParticipantsWithValidParticipantsSetsParticipants(): void
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 
@@ -397,17 +345,16 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             $participants,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addParticipantWithNameAddsOneParticipant(): void
     {
         $participant = new Participant();
         $participant->setLastName('Weiland');
+
         $this->subject->addParticipant($participant);
 
         $objectStorage = new ObjectStorage();
@@ -415,13 +362,11 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             $objectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addParticipantWithoutNameKeepsParticipantsUntouched(): void
     {
         $validParticipant = new Participant();
@@ -439,17 +384,16 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $originalObjectStorage,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeParticipantRemovesOneParticipant(): void
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 
@@ -460,44 +404,40 @@ class OrderTest extends UnitTestCase
         $this->subject->setParticipants($participants);
 
         $this->subject->removeParticipant($participant1);
+
         $participants->detach($participant1);
 
         self::assertEquals(
             $participants,
-            $this->subject->getParticipants()
+            $this->subject->getParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setReservationsSetsReservations(): void
     {
         $object = new Reservation();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setReservations($objectStorage);
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addReservationAddsOneReservation(): void
     {
         $objectStorage = new ObjectStorage();
@@ -510,44 +450,40 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeReservationRemovesOneReservation(): void
     {
         $object = new Reservation();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setReservations($objectStorage);
 
         $this->subject->removeReservation($object);
+
         $objectStorage->detach($object);
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithDeactivatedOrderWillReturnTrue(): void
     {
         $this->subject->setActivated(false);
 
         self::assertTrue(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndNonCancelableFacilityWillReturnFalse(): void
     {
         $facility = new Facility();
@@ -560,13 +496,11 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertFalse(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndCancelableFacilityInFutureWillReturnTrue(): void
     {
         // Only the date of \DateTime will be used
@@ -587,13 +521,11 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertTrue(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isCancelableWithActivatedOrderAndCancelableFacilityInPastWillReturnFalse(): void
     {
         // Only the date of \DateTime will be used
@@ -614,13 +546,11 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertFalse(
-            $this->subject->isCancelable()
+            $this->subject->isCancelable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCancelableUntilWithNonCancelableFacilityWillReturnNull(): void
     {
         $facility = new Facility();
@@ -632,13 +562,11 @@ class OrderTest extends UnitTestCase
         $this->subject->setBookedPeriod($period);
 
         self::assertNull(
-            $this->subject->getCancelableUntil()
+            $this->subject->getCancelableUntil(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCancelableUntilWithCancelableFacilityWillReturnDateTime(): void
     {
         // Only the date of \DateTime will be used
@@ -659,11 +587,11 @@ class OrderTest extends UnitTestCase
 
         self::assertEquals(
             new \DateTime('+2 days 13:00:00'),
-            $this->subject->getCancelableUntil()
+            $this->subject->getCancelableUntil(),
         );
     }
 
-    public function canBeBookedDataProvider(): array
+    public static function canBeBookedDataProvider(): array
     {
         return [
             'More participants than currently registered' => [5, true],
@@ -681,6 +609,7 @@ class OrderTest extends UnitTestCase
     {
         $participant1 = new Participant();
         $participant1->setFirstName('Jochen');
+
         $participant2 = new Participant();
         $participant2->setLastName('Weiland');
 
@@ -700,17 +629,15 @@ class OrderTest extends UnitTestCase
 
         self::assertSame(
             $expectedResult,
-            $this->subject->canBeBooked()
+            $this->subject->canBeBooked(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function shouldBlockFurtherOrdersForFacilityInitiallyReturnsTrue(): void
     {
         self::assertTrue(
-            $this->subject->shouldBlockFurtherOrdersForFacility()
+            $this->subject->shouldBlockFurtherOrdersForFacility(),
         );
     }
 }

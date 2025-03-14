@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Endroid\QrCode\Writer\Result;
 
+use Endroid\QrCode\Matrix\MatrixInterface;
+
 final class PdfResult extends AbstractResult
 {
-    /** @var \FPDF */
-    private $fpdf;
-
-    public function __construct(\FPDF $fpdf)
-    {
-        $this->fpdf = $fpdf;
+    public function __construct(
+        MatrixInterface $matrix,
+        private readonly \FPDF $fpdf,
+    ) {
+        parent::__construct($matrix);
     }
 
     public function getPdf(): \FPDF

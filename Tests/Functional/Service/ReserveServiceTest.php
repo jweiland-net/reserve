@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Service;
 
 use JWeiland\Reserve\Service\ReserveService;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
@@ -42,7 +43,7 @@ class ReserveServiceTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => $this->testDateMidnight->getTimestamp()],
-                ['deleted' => 0]
+                ['deleted' => 0],
             );
     }
 
@@ -50,15 +51,13 @@ class ReserveServiceTest extends FunctionalTestCase
     {
         unset(
             $this->reserveService,
-            $this->testDateMidnight
+            $this->testDateMidnight,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemainingParticipantsReturnsIntInCaseOfMatch(): void
     {
         $dateAndBegin = clone $this->testDateMidnight;
@@ -69,19 +68,17 @@ class ReserveServiceTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
 
         self::assertSame(
             47,
             $this->reserveService->getRemainingParticipants(1, $dateAndBegin),
-            'Remaining participants are returned as integer.'
+            'Remaining participants are returned as integer.',
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getRemainingParticipantsReturnsNullIfPeriodCouldNotBeIdentified(): void
     {
         $dateTime = new \DateTime();
@@ -89,7 +86,7 @@ class ReserveServiceTest extends FunctionalTestCase
 
         self::assertNull(
             $this->reserveService->getRemainingParticipants(1, $dateTime),
-            'Remaining participants are null because period could not be identified.'
+            'Remaining participants are null because period could not be identified.',
         );
     }
 }

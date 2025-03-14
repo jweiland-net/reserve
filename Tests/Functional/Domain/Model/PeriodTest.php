@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Period;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
@@ -36,13 +38,13 @@ class PeriodTest extends FunctionalTestCase
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
     }
 
-    public function remainingParticipantsDataProvider(): array
+    public static function remainingParticipantsDataProvider(): array
     {
         return [
             'high amount of max participants' => [50, 47],
@@ -53,24 +55,22 @@ class PeriodTest extends FunctionalTestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider remainingParticipantsDataProvider
-     */
+    #[Test]
+    #[DataProvider('remainingParticipantsDataProvider')]
     public function getRemainingParticipants(int $maxParticipants, int $expectedResult): void
     {
+
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         $this->subject->setMaxParticipants($maxParticipants);
 
         self::assertSame(
             $expectedResult,
-            $this->subject->getRemainingParticipants()
+            $this->subject->getRemainingParticipants(),
         );
     }
 
-    public function maxParticipantsPerOrderDataProvider(): array
+    public static function maxParticipantsPerOrderDataProvider(): array
     {
         return [
             'max participants per order equals max participants' => [50, 47],
@@ -80,11 +80,8 @@ class PeriodTest extends FunctionalTestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider maxParticipantsPerOrderDataProvider
-     */
+    #[Test]
+    #[DataProvider('maxParticipantsPerOrderDataProvider')]
     public function getMaxParticipantsPerOrder(int $maxParticipantsForOrder, int $expectedResult): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
@@ -94,33 +91,29 @@ class PeriodTest extends FunctionalTestCase
 
         self::assertSame(
             $expectedResult,
-            $this->subject->getMaxParticipantsPerOrder()
+            $this->subject->getMaxParticipantsPerOrder(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function countReservationsWillReturnAmountOfActivatedReservations(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/activated_order_with_reservations.csv');
 
         self::assertSame(
             3,
-            $this->subject->countReservations(true)
+            $this->subject->countReservations(true),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function countReservationsWillReturnAmountOfAllReservations(): void
     {
         $this->importCSVDataSet(__DIR__ . '/../../Fixtures/non_activated_order_with_reservations.csv');
 
         self::assertSame(
             2,
-            $this->subject->countReservations()
+            $this->subject->countReservations(),
         );
     }
 }

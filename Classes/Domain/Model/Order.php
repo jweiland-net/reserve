@@ -69,8 +69,8 @@ class Order extends AbstractEntity
      */
     public function initializeObject(): void
     {
-        $this->participants = $this->participants ?? new ObjectStorage();
-        $this->reservations = $this->reservations ?? new ObjectStorage();
+        $this->participants ??= new ObjectStorage();
+        $this->reservations ??= new ObjectStorage();
     }
 
     public function getBookedPeriod(): Period

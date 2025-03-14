@@ -77,8 +77,8 @@ class Facility extends AbstractEntity
      */
     public function initializeObject(): void
     {
-        $this->periods = $this->periods ?? new ObjectStorage();
-        $this->qrCodeLogo = $this->qrCodeLogo ?? new ObjectStorage();
+        $this->periods ??= new ObjectStorage();
+        $this->qrCodeLogo ??= new ObjectStorage();
     }
 
     public function getName(): string

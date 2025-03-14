@@ -37,7 +37,7 @@ class PeriodRepository extends Repository
     {
         $query = $this->createQuery();
         $query = $query->matching(
-            $query->in('facility', $uids)
+            $query->in('facility', $uids),
         );
 
         return $query->execute();
@@ -50,7 +50,7 @@ class PeriodRepository extends Repository
             $query->logicalAnd(
                 $query->equals('date', $date->getTimestamp()),
                 $query->equals('facility', $facilityUid),
-            )
+            ),
         );
 
         return $query->execute();
@@ -69,7 +69,7 @@ class PeriodRepository extends Repository
                 $query->equals('facility', $facilityUid),
                 $query->equals('date', $date->getTimestamp()),
                 $query->equals('begin', $begin->getTimestamp()),
-            )
+            ),
         );
 
         return $query->execute();
@@ -89,17 +89,17 @@ class PeriodRepository extends Repository
                     $query->greaterThanOrEqual('date', (new \DateTime('tomorrow'))->getTimestamp()),
                     $query->logicalAnd(
                         $query->equals('date', $todayMidnight->getTimestamp()),
-                        $query->greaterThanOrEqual('end', $currentTime->getTimestamp())
-                    )
-                )
-            )
+                        $query->greaterThanOrEqual('end', $currentTime->getTimestamp()),
+                    ),
+                ),
+            ),
         );
 
         $query->setOrderings(
             [
                 'date' => QueryInterface::ORDER_ASCENDING,
                 'begin' => QueryInterface::ORDER_ASCENDING,
-            ]
+            ],
         );
 
         return $query->execute();

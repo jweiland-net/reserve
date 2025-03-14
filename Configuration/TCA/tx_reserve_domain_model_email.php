@@ -7,8 +7,11 @@
  * LICENSE file that was distributed with this source code.
  */
 
+use JWeiland\Reserve\Domain\Model\Email;
+use TYPO3\CMS\Core\Utility\PathUtility;
+
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
+if (!is_file(PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
@@ -34,11 +37,11 @@ return [
         'type' => 'receiver_type',
     ],
     'types' => [
-        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS => [
+        Email::RECEIVER_TYPE_PERIODS => [
             'showitem' => 'subject,body,receiver_type,periods,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
         ],
-        \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL => [
+        Email::RECEIVER_TYPE_MANUAL => [
             'showitem' => 'subject,body,receiver_type,--palette--;;mail_from,--palette--;;reply_to,custom_receivers,locked,command_data,--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,--palette--;;hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:language,--palette--;;language',
         ],
@@ -70,8 +73,8 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => '',
+                        'value' => '',
                         'invertStateDisplay' => true,
                     ],
                 ],
@@ -92,8 +95,8 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        '',
-                        0,
+                        'label' => '',
+                        'value' => 0,
                     ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_email',
@@ -112,7 +115,8 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 255,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'body' => [
@@ -122,7 +126,8 @@ return [
                 'cols' => 40,
                 'rows' => 15,
                 'softref' => 'typolink_tag,images,email[subst],url',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'enableRichtext' => true,
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
@@ -134,10 +139,16 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'default' => \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS,
+                'default' => Email::RECEIVER_TYPE_PERIODS,
                 'items' => [
-                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.0', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_PERIODS],
-                    ['LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.1', \JWeiland\Reserve\Domain\Model\Email::RECEIVER_TYPE_MANUAL],
+                    [
+                        'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.0',
+                        'value' => Email::RECEIVER_TYPE_PERIODS,
+                    ],
+                    [
+                        'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.receiver_type.1',
+                        'value' => Email::RECEIVER_TYPE_MANUAL,
+                    ],
                 ],
             ],
         ],
@@ -152,9 +163,8 @@ return [
         'from_email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.from_email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 50,
-                'eval' => 'email',
             ],
         ],
         'reply_to_name' => [
@@ -168,9 +178,8 @@ return [
         'reply_to_email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_email.reply_to_email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 50,
-                'eval' => 'email',
             ],
         ],
         'custom_receivers' => [
@@ -179,7 +188,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'required',
+                'required' => true,
             ],
         ],
         'periods' => [

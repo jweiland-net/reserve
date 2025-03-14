@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Participant;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -23,39 +24,37 @@ class ParticipantTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Participant();
     }
 
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstName(): void
     {
         $this->subject->setFirstName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
@@ -66,20 +65,18 @@ class ParticipantTest extends UnitTestCase
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 }

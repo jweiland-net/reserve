@@ -41,7 +41,7 @@ class Period extends AbstractEntity
      * DataHandler will return NULL on empty values.
      * So we have to add NULL as possible return value here.
      */
-    protected ?\DateTime $end;
+    protected ?\DateTime $end = null;
 
     protected int $maxParticipants = 0;
 
@@ -69,7 +69,7 @@ class Period extends AbstractEntity
      */
     public function initializeObject(): void
     {
-        $this->orders = $this->orders ?? new ObjectStorage();
+        $this->orders ??= new ObjectStorage();
     }
 
     public function getFacility(): Facility
@@ -156,7 +156,7 @@ class Period extends AbstractEntity
     {
         $this->maxParticipants = MathUtility::forceIntegerInRange(
             $maxParticipants,
-            0
+            0,
         );
     }
 
@@ -164,7 +164,7 @@ class Period extends AbstractEntity
     {
         return MathUtility::forceIntegerInRange(
             $this->maxParticipants - $this->countReservations(),
-            0
+            0,
         );
     }
 
@@ -191,7 +191,7 @@ class Period extends AbstractEntity
     {
         $this->maxParticipantsPerOrder = MathUtility::forceIntegerInRange(
             $maxParticipantsPerOrder,
-            0
+            0,
         );
     }
 
@@ -298,11 +298,11 @@ class Period extends AbstractEntity
                     'o',
                     'tx_reserve_domain_model_reservation',
                     'r',
-                    'r.customer_order = o.uid'
+                    'r.customer_order = o.uid',
                 )
                 ->where($queryBuilder->expr()->eq(
                     'o.booked_period',
-                    $queryBuilder->createNamedParameter($this->getUid())
+                    $queryBuilder->createNamedParameter($this->getUid()),
                 ));
 
             if ($activeOnly) {
@@ -329,9 +329,7 @@ class Period extends AbstractEntity
     {
         $reservations = $this->getActiveReservations();
 
-        usort($reservations, static function ($a, $b) {
-            return strcmp($a->getCode(), $b->getCode());
-        });
+        usort($reservations, static fn($a, $b) => strcmp($a->getCode(), $b->getCode()));
 
         return $reservations;
     }

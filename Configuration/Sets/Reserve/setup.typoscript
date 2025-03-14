@@ -1,0 +1,30 @@
+page {
+  includeJSFooterlibs {
+    jQueryForReserve = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
+    jQueryForReserve.if.isTrue = {$plugin.tx_reserve.settings.includeJQueryLibrary}
+    dataTables = EXT:reserve/Resources/Public/JavaScript/jquery.dataTables.min.js
+  }
+}
+
+plugin.tx_reserve {
+  view {
+    templateRootPaths {
+      0 = EXT:reserve/Resources/Private/Templates/
+      1 = {$plugin.tx_reserve.view.templateRootPath}
+    }
+
+    partialRootPaths {
+      0 = EXT:reserve/Resources/Private/Partials/
+      1 = {$plugin.tx_reserve.view.partialRootPath}
+    }
+
+    layoutRootPaths {
+      0 = EXT:reserve/Resources/Private/Layouts/
+      1 = {$plugin.tx_reserve.view.layoutRootPath}
+    }
+  }
+
+  settings {
+    requiredFormFields = {$reserve.requiredFormFields}
+  }
+}

@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Tests\Functional\Domain\Validation;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use JWeiland\Reserve\Event\ValidateOrderEvent;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Error\Result;
@@ -30,9 +31,7 @@ class OrderValidatorTest extends FunctionalTestCase
         'jweiland/reserve',
     ];
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addsResultsFromEvent(): void
     {
         $subject = new OrderValidator();
@@ -66,9 +65,7 @@ class OrderValidatorTest extends FunctionalTestCase
         self::assertSame('Example error', $result->getErrors()[0]->getMessage());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function doesNotDispatchIfInstanceIsNotAnOrder(): void
     {
         $subject = new OrderValidator();

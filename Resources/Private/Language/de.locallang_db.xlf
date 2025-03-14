@@ -7,13 +7,13 @@
 				<target>Reserve: Reservierung</target>
 			</trans-unit>
 			<trans-unit id="plugin.reserve_reservation.description">
-				<target>Zeitblöcke anzeigen und reservieren</target>
+				<target>Reserve: Zeitblöcke anzeigen und reservieren</target>
 			</trans-unit>
 			<trans-unit id="plugin.reserve_management.title">
 				<target>Reserve: Verwaltung</target>
 			</trans-unit>
 			<trans-unit id="plugin.reserve_management.description">
-				<target>Verwalte Reservierungen und scanne Reservierungscodes</target>
+				<target>Reserve: Verwalte Reservierungen und scanne Reservierungscodes</target>
 			</trans-unit>
 
 			<trans-unit id="tx_reserve_domain_model_facility">

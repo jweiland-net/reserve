@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Domain\Repository;
 
+use Doctrine\DBAL\Exception;
 use JWeiland\Reserve\Domain\Model\Email;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -20,12 +21,37 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class EmailRepository extends Repository
 {
+    private const TABLE = 'tx_reserve_domain_model_email';
+
+    public function __construct(
+        protected readonly ConnectionPool $connectionPool,
+    ) {}
+
     public function findAll(): QueryResultInterface
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         return $query->execute();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function findUnlockedEmails(): array
+    {
+        $queryBuilder = $this->connectionPool
+            ->getQueryBuilderForTable(self::TABLE);
+
+        return $queryBuilder
+            ->select('*')
+            ->from(self::TABLE)
+            ->where(
+                $queryBuilder->expr()->eq('locked', $queryBuilder->createNamedParameter(false, Connection::PARAM_BOOL)),
+            )
+            ->setMaxResults(1)
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     public function findOneUnlocked(): ?Email
@@ -43,18 +69,18 @@ class EmailRepository extends Repository
     public function lockEmail(int $uid, Email $email = null): void
     {
         $this
-            ->getConnectionForTable('tx_reserve_domain_model_email')
+            ->getConnectionForTable(self::TABLE)
             ->update(
-                'tx_reserve_domain_model_email',
+                self::TABLE,
                 [
                     'locked' => true,
                 ],
                 [
                     'uid' => $uid,
-                ]
+                ],
             );
 
-        if ($email) {
+        if ($email instanceof Email) {
             $email->setLocked(true);
         }
     }

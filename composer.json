@@ -1,10 +1,13 @@
 {
 	"name": "jweiland/reserve",
-	"type": "typo3-cms-extension",
 	"description": "",
 	"license": "GPL-2.0-or-later",
-	"keywords": ["typo3", "TYPO3 CMS", "reserve"],
-	"homepage": "https://jweiland.net",
+	"type": "typo3-cms-extension",
+	"keywords": [
+		"typo3",
+		"TYPO3 CMS",
+		"reserve"
+	],
 	"authors": [
 		{
 			"name": "Stefan Frömken",
@@ -17,6 +20,7 @@
 			"role": "Developer"
 		}
 	],
+	"homepage": "https://jweiland.net",
 	"support": {
 		"email": "projects@jweiland.net",
 		"issues": "https://github.com/jweiland-net/reserve/issues",
@@ -24,20 +28,24 @@
 	},
 	"require": {
 		"ext-json": "*",
-		"typo3/cms-core": "^12.4.8",
-		"endroid/qr-code": "^4.3.5"
+		"endroid/qr-code": "^6.0.3",
+		"typo3/cms-core": "^13.4"
 	},
 	"require-dev": {
+		"ergebnis/composer-normalize": "^2.44",
 		"friendsofphp/php-cs-fixer": "^3.14",
-		"phpunit/phpunit": "^9.6",
-		"typo3/coding-standards": "^0.6",
-		"typo3/testing-framework": "^7.0.2"
-	},
-	"suggest": {
-		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
+		"phpstan/phpdoc-parser": "^1.33",
+		"phpstan/phpstan": "1.10",
+		"phpunit/phpunit": "^11.2.5",
+		"roave/security-advisories": "dev-latest",
+		"typo3/coding-standards": "^0.8",
+		"typo3/testing-framework": "^9.0.1"
 	},
 	"replace": {
 		"typo3-ter/reserve": "self.version"
+	},
+	"suggest": {
+		"jweiland/events2": "EXT:reserve comes with an API to extend EXT:events2 to register for an event location"
 	},
 	"autoload": {
 		"psr-4": {
@@ -51,8 +59,9 @@
 	},
 	"config": {
 		"allow-plugins": {
-			"typo3/cms-composer-installers": true,
-			"typo3/class-alias-loader": true
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
 		},
 		"bin-dir": ".Build/bin",
 		"sort-packages": true,
@@ -60,6 +69,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
+			"app-dir": ".Build",
 			"extension-key": "reserve",
 			"web-dir": ".Build/Web"
 		}

@@ -15,6 +15,7 @@ use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -27,21 +28,21 @@ class PeriodTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Period();
     }
 
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFacilityAfterDataMapperWillReturnFacility(): void
     {
         $facility = new Facility();
@@ -50,13 +51,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $facility,
-            $this->subject->getFacility()
+            $this->subject->getFacility(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFacilitySetsFacility(): void
     {
         $instance = new Facility();
@@ -64,13 +63,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $instance,
-            $this->subject->getFacility()
+            $this->subject->getFacility(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookingBeginAfterDataMapperWillReturnDateTime(): void
     {
         $bookingBegin = new \DateTime('now');
@@ -79,13 +76,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $bookingBegin,
-            $this->subject->getBookingBegin()
+            $this->subject->getBookingBegin(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookingBeginSetsBookingBegin(): void
     {
         $bookingBegin = new \DateTime('now');
@@ -93,23 +88,19 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $bookingBegin,
-            $this->subject->getBookingBegin()
+            $this->subject->getBookingBegin(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBookingEndInitiallyReturnsNull(): void
     {
         self::assertNull(
-            $this->subject->getBookingEnd()
+            $this->subject->getBookingEnd(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBookingEndSetsBookingEnd(): void
     {
         $date = new \DateTime();
@@ -117,13 +108,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getBookingEnd()
+            $this->subject->getBookingEnd(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setDateSetsDate(): void
     {
         $date = new \DateTime();
@@ -131,13 +120,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getDate()
+            $this->subject->getDate(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setBeginSetsBegin(): void
     {
         $date = new \DateTime();
@@ -145,13 +132,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getBegin()
+            $this->subject->getBegin(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setEndSetsEnd(): void
     {
         $date = new \DateTime();
@@ -159,77 +144,66 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $date,
-            $this->subject->getEnd()
+            $this->subject->getEnd(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getMaxParticipantsInitiallyReturnsZero(): void
     {
         self::assertSame(
             0,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxParticipantsSetsMaxParticipants(): void
     {
         $this->subject->setMaxParticipants(123456);
 
         self::assertSame(
             123456,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setMaxParticipantsWithNegativeValueSetsMaxParticipantsToZero(): void
     {
         $this->subject->setMaxParticipants(-12);
 
         self::assertSame(
             0,
-            $this->subject->getMaxParticipants()
+            $this->subject->getMaxParticipants(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getOrdersInitiallyReturnsObjectStorage(): void
     {
         self::assertEquals(
             new ObjectStorage(),
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setOrdersSetsOrders(): void
     {
         $object = new Order();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setOrders($objectStorage);
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function addOrderAddsOneOrder(): void
     {
         $objectStorage = new ObjectStorage();
@@ -242,141 +216,121 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function removeOrderRemovesOneOrder(): void
     {
         $object = new Order();
         $objectStorage = new ObjectStorage();
         $objectStorage->attach($object);
+
         $this->subject->setOrders($objectStorage);
 
         $this->subject->removeOrder($object);
+
         $objectStorage->detach($object);
 
         self::assertSame(
             $objectStorage,
-            $this->subject->getOrders()
+            $this->subject->getOrders(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithValidBookingBeginWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithValidBookingBeginAndBookingEndWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
         $this->subject->setBookingEnd(new \DateTime('tomorrow'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithBookingBeginInFutureWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookableWithBookingEndInPastWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
         $this->subject->setBookingEnd(new \DateTime('yesterday'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingBeginReachedWillReturnTrue(): void
     {
         $this->subject->setBookingBegin(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingBeginReachedWillReturnFalse(): void
     {
         $this->subject->setBookingBegin(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookable()
+            $this->subject->isBookable(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingTimeOverWillReturnTrue(): void
     {
         $this->subject->setBookingEnd(new \DateTime('yesterday'));
 
         self::assertTrue(
-            $this->subject->isBookingTimeOver()
+            $this->subject->isBookingTimeOver(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function isBookingTimeOverWillReturnFalse(): void
     {
         $this->subject->setBookingEnd(new \DateTime('tomorrow'));
 
         self::assertFalse(
-            $this->subject->isBookingTimeOver()
+            $this->subject->isBookingTimeOver(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithZeroOrdersWillReturnEmptyArray(): void
     {
         self::assertSame(
             [],
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithOrdersWillReturnAllReservations(): void
     {
         $expectedReservations = [
@@ -397,13 +351,11 @@ class PeriodTest extends UnitTestCase
 
         self::assertSame(
             $expectedReservations,
-            $this->subject->getReservations()
+            $this->subject->getReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getReservationsWithOrdersWillReturnActiveReservations(): void
     {
         $reservation1 = new Reservation();
@@ -427,19 +379,19 @@ class PeriodTest extends UnitTestCase
                 $reservation2,
                 $reservation3,
             ],
-            $this->subject->getReservations(true)
+            $this->subject->getReservations(true),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUsedReservationsWillReturnUsedReservations(): void
     {
         $reservation1 = new Reservation();
         $reservation1->setUsed(false);
+
         $reservation2 = new Reservation();
         $reservation2->setUsed(false);
+
         $reservation3 = new Reservation();
         $reservation3->setUsed(true);
 
@@ -459,13 +411,11 @@ class PeriodTest extends UnitTestCase
             [
                 $reservation3,
             ],
-            $this->subject->getUsedReservations()
+            $this->subject->getUsedReservations(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBeginDateAndTimeWillReturnCombinedDateTime(): void
     {
         $this->subject->setDate(new \DateTime('now'));
@@ -473,20 +423,18 @@ class PeriodTest extends UnitTestCase
 
         self::assertEquals(
             new \DateTime('now 15:14:00'),
-            $this->subject->getBeginDateAndTime()
+            $this->subject->getBeginDateAndTime(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getBeginDateAndTimeWithEmptyBeginWillReturnCombinedDateTimeAtMidnight(): void
     {
         $this->subject->setDate(new \DateTime('now'));
 
         self::assertEquals(
             new \DateTime('now 00:00'),
-            $this->subject->getBeginDateAndTime()
+            $this->subject->getBeginDateAndTime(),
         );
     }
 }

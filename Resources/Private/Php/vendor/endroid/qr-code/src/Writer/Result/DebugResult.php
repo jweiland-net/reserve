@@ -6,32 +6,22 @@ namespace Endroid\QrCode\Writer\Result;
 
 use Endroid\QrCode\Label\LabelInterface;
 use Endroid\QrCode\Logo\LogoInterface;
+use Endroid\QrCode\Matrix\MatrixInterface;
 use Endroid\QrCode\QrCodeInterface;
 
 final class DebugResult extends AbstractResult
 {
-    /** @var QrCodeInterface */
-    private $qrCode;
+    private bool $validateResult = false;
 
-    /** @var LogoInterface|null */
-    private $logo;
-
-    /** @var LabelInterface|null */
-    private $label;
-
-    /** @var array<mixed> */
-    private $options;
-
-    /** @var bool */
-    private $validateResult = false;
-
-    /** @param array<mixed> $options */
-    public function __construct(QrCodeInterface $qrCode, LogoInterface $logo = null, LabelInterface $label = null, array $options = [])
-    {
-        $this->qrCode = $qrCode;
-        $this->logo = $logo;
-        $this->label = $label;
-        $this->options = $options;
+    public function __construct(
+        MatrixInterface $matrix,
+        private readonly QrCodeInterface $qrCode,
+        private readonly ?LogoInterface $logo = null,
+        private readonly ?LabelInterface $label = null,
+        /** @var array<string, mixed> $options */
+        private readonly array $options = [],
+    ) {
+        parent::__construct($matrix);
     }
 
     public function setValidateResult(bool $validateResult): void
@@ -60,6 +50,7 @@ final class DebugResult extends AbstractResult
             $debugLines[] = 'Logo path: '.$this->logo->getPath();
             $debugLines[] = 'Logo resize to width: '.$this->logo->getResizeToWidth();
             $debugLines[] = 'Logo resize to height: '.$this->logo->getResizeToHeight();
+            $debugLines[] = 'Logo punchout background: '.($this->logo->getPunchoutBackground() ? 'true' : 'false');
         }
 
         if (isset($this->label)) {

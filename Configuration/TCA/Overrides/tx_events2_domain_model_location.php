@@ -7,12 +7,14 @@
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
 call_user_func(static function () {
-    if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('events2')) {
+    if (ExtensionManagementUtility::isLoaded('events2')) {
         $ll = 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:';
 
         $locationColumns = [
@@ -34,16 +36,16 @@ call_user_func(static function () {
             ],
         ];
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+        ExtensionManagementUtility::addTCAcolumns(
             'tx_events2_domain_model_location',
-            $locationColumns
+            $locationColumns,
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+        ExtensionManagementUtility::addToAllTCAtypes(
             'tx_events2_domain_model_location',
             'facility',
             '',
-            'after:location'
+            'after:location',
         );
     }
 });

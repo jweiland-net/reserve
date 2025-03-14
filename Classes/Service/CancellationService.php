@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Service;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,6 +30,7 @@ class CancellationService implements SingletonInterface
      * Reasons for cancellation
      */
     private const REASON_CUSTOMER = 'customer';
+
     public const REASON_INACTIVE = 'inactive';
 
     protected FluidService $fluidService;
@@ -48,9 +50,10 @@ class CancellationService implements SingletonInterface
      */
     public function cancel(
         Order $order,
+        ServerRequestInterface $request,
         string $reason = self::REASON_CUSTOMER,
         array $vars = [],
-        bool $sendMailToCustomer = true
+        bool $sendMailToCustomer = true,
     ): void {
         if ($sendMailToCustomer) {
             $view = $this->getStandaloneView();
@@ -66,7 +69,7 @@ class CancellationService implements SingletonInterface
                 ->sendMailToCustomer(
                     $order,
                     LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                    $view->render()
+                    $view->render(),
                 );
         }
 
@@ -78,7 +81,8 @@ class CancellationService implements SingletonInterface
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(
-            $order->getBookedPeriod()->getFacility()->getUid()
+            $order->getBookedPeriod()->getFacility()->getUid(),
+            $request,
         );
     }
 

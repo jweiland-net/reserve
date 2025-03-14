@@ -24,19 +24,10 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class ManagementController extends ActionController
 {
-    private PeriodRepository $periodRepository;
-
-    private ReservationRepository $reservationRepository;
-
-    public function injectPeriodRepository(PeriodRepository $periodRepository): void
-    {
-        $this->periodRepository = $periodRepository;
-    }
-
-    public function injectReservationRepository(ReservationRepository $reservationRepository): void
-    {
-        $this->reservationRepository = $reservationRepository;
-    }
+    public function __construct(
+        protected readonly PeriodRepository $periodRepository,
+        protected readonly ReservationRepository $reservationRepository,
+    ) {}
 
     protected function initializeView($view): void
     {
@@ -61,8 +52,8 @@ class ManagementController extends ActionController
         $this->view->assign(
             'periods',
             $this->periodRepository->findUpcomingAndRunningByFacilityUids(
-                [(int)$this->settings['facility']]
-            )
+                [(int)$this->settings['facility']],
+            ),
         );
 
         return $this->htmlResponse();
@@ -88,8 +79,8 @@ class ManagementController extends ActionController
             'periods',
             $this->periodRepository->findByDate(
                 $period->getDate(),
-                (int)$this->settings['facility']
-            )
+                (int)$this->settings['facility'],
+            ),
         );
 
         return $this->htmlResponse();
@@ -136,7 +127,7 @@ class ManagementController extends ActionController
 
                 ],
                 'codes' => $codes,
-            ]
+            ],
         );
 
         return $this->jsonResponse($view->render());

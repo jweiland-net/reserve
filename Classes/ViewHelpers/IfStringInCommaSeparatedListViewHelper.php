@@ -26,13 +26,13 @@ class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
             'haystack',
             'string',
             'The comma separated list to search in',
-            true
+            true,
         );
         $this->registerArgument(
             'needle',
             'string',
             'The string that you are looking for',
-            true
+            true,
         );
     }
 

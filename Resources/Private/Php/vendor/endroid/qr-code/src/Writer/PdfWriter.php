@@ -11,14 +11,15 @@ use Endroid\QrCode\QrCodeInterface;
 use Endroid\QrCode\Writer\Result\PdfResult;
 use Endroid\QrCode\Writer\Result\ResultInterface;
 
-final class PdfWriter implements WriterInterface
+final readonly class PdfWriter implements WriterInterface
 {
     public const WRITER_OPTION_UNIT = 'unit';
     public const WRITER_OPTION_PDF = 'fpdf';
     public const WRITER_OPTION_X = 'x';
     public const WRITER_OPTION_Y = 'y';
+    public const WRITER_OPTION_LINK = 'link';
 
-    public function write(QrCodeInterface $qrCode, LogoInterface $logo = null, LabelInterface $label = null, array $options = []): ResultInterface
+    public function write(QrCodeInterface $qrCode, ?LogoInterface $logo = null, ?LabelInterface $label = null, array $options = []): ResultInterface
     {
         $matrixFactory = new MatrixFactory();
         $matrix = $matrixFactory->create($qrCode);
@@ -95,11 +96,16 @@ final class PdfWriter implements WriterInterface
 
         if ($label instanceof LabelInterface) {
             $fpdf->SetXY($x, $y + $matrix->getOuterSize() + $labelSpace - 25);
-            $fpdf->SetFont('Helvetica', null, $label->getFont()->getSize());
+            $fpdf->SetFont('Helvetica', '', $label->getFont()->getSize());
             $fpdf->Cell($matrix->getOuterSize(), 0, $label->getText(), 0, 0, 'C');
         }
 
-        return new PdfResult($fpdf);
+        if (isset($options[self::WRITER_OPTION_LINK])) {
+            $link = $options[self::WRITER_OPTION_LINK];
+            $fpdf->Link($x, $y, $x + $matrix->getOuterSize(), $y + $matrix->getOuterSize(), $link);
+        }
+
+        return new PdfResult($matrix, $fpdf);
     }
 
     private function addLogo(LogoInterface $logo, \FPDF $fpdf, float $x, float $y, float $size): void
@@ -109,7 +115,11 @@ final class PdfWriter implements WriterInterface
         $logoWidth = $logo->getResizeToWidth();
 
         if (null === $logoHeight || null === $logoWidth) {
-            [$logoSourceWidth, $logoSourceHeight] = \getimagesize($logoPath);
+            $imageSize = \getimagesize($logoPath);
+            if (!$imageSize) {
+                throw new \Exception(sprintf('Unable to read image size for logo "%s"', $logoPath));
+            }
+            [$logoSourceWidth, $logoSourceHeight] = $imageSize;
 
             if (null === $logoWidth) {
                 $logoWidth = (int) $logoSourceWidth;
@@ -121,8 +131,8 @@ final class PdfWriter implements WriterInterface
             }
         }
 
-        $logoX = $x + $size / 2 - (int) $logoWidth / 2;
-        $logoY = $y + $size / 2 - (int) $logoHeight / 2;
+        $logoX = $x + $size / 2 - $logoWidth / 2;
+        $logoY = $y + $size / 2 - $logoHeight / 2;
 
         $fpdf->Image($logoPath, $logoX, $logoY, $logoWidth, $logoHeight);
     }

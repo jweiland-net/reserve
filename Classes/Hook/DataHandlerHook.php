@@ -31,7 +31,7 @@ class DataHandlerHook
         int $id,
         array $recordToDelete,
         bool $recordWasDeleted,
-        \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler
+        \TYPO3\CMS\Core\DataHandling\DataHandler $dataHandler,
     ): void {
         GeneralUtility::makeInstance(AskForMailAfterPeriodDeletion::class)
             ->processDataHandlerCmdDeleteAction($table, $id, $recordToDelete, $recordWasDeleted, $dataHandler);

@@ -54,7 +54,7 @@ HELP
             'e',
             InputOption::VALUE_OPTIONAL,
             'Time since the period ended in seconds',
-            0
+            0,
         );
     }
 
@@ -65,7 +65,7 @@ HELP
             [
                 'p.uid',
             ],
-            5
+            5,
         );
 
         $cmd = ['tx_reserve_domain_model_period' => []];

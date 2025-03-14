@@ -48,6 +48,7 @@ class AskForMailAfterPeriodUpdate
                 $this->addJavaScriptAndSettingsToPageRenderer();
             }
         }
+
         return true;
     }
 
@@ -81,6 +82,7 @@ class AskForMailAfterPeriodUpdate
                 }
             }
         }
+
         $this->updatedRecords = $updatedRecords;
     }
 
@@ -105,7 +107,7 @@ class AskForMailAfterPeriodUpdate
             self::TABLE,
             [
                 'uid' => current($this->updatedRecords),
-            ]
+            ],
         )->fetchAssociative();
 
         $params = [
@@ -141,10 +143,10 @@ class AskForMailAfterPeriodUpdate
                 'inlineLanguageLabel' => [
                     'reserve.modal.button.writeMail' => LocalizationUtility::translate(
                         'modal.button.writeMail',
-                        'reserve'
+                        'reserve',
                     ),
                 ],
-            ]
+            ],
         );
     }
 

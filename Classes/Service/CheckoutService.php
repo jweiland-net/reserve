@@ -11,40 +11,31 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use JWeiland\Reserve\Event\SendReservationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
-use JWeiland\Reserve\Utility\QrCodeUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 class CheckoutService
 {
-    protected ConfigurationManager $configurationManager;
-
-    protected FluidService $fluidService;
-
-    protected MailService $mailService;
-
-    protected PersistenceManager $persistenceManager;
-
     public function __construct(
-        ConfigurationManager $configurationManager,
-        FluidService $fluidService,
-        MailService $mailService,
-        PersistenceManager $persistenceManager
-    ) {
-        $this->configurationManager = $configurationManager;
-        $this->fluidService = $fluidService;
-        $this->mailService = $mailService;
-        $this->persistenceManager = $persistenceManager;
-    }
+        private readonly FluidService $fluidService,
+        private readonly MailService $mailService,
+        private readonly PersistenceManager $persistenceManager,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ExtConf $extConf,
+        private readonly QrCodeService $qrCodeService,
+    ) {}
 
     /**
      * Create $amountOfReservations reservation records and add them to $order.
@@ -54,7 +45,7 @@ class CheckoutService
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0): bool
+    public function checkout(Order $order, ServerRequestInterface $request, int $pid = 0, int $furtherParticipants = 0): bool
     {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
@@ -82,7 +73,8 @@ class CheckoutService
 
         if ($order->shouldBlockFurtherOrdersForFacility()) {
             OrderSessionUtility::blockNewOrdersForFacilityInCurrentSession(
-                $order->getBookedPeriod()->getFacility()->getUid()
+                $order->getBookedPeriod()->getFacility()->getUid(),
+                $request,
             );
         }
 
@@ -105,7 +97,7 @@ class CheckoutService
         for ($i = 0; $i < $furtherParticipants; $i++) {
             $furtherParticipant = $this->getEmptyParticipant();
             $furtherParticipant->setFirstName(
-                LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1)
+                LocalizationUtility::translate('order.furtherParticipant', 'reserve') . ' ' . ($i + 1),
             );
 
             $order->getParticipants()->attach($furtherParticipant);
@@ -124,8 +116,8 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -149,14 +141,22 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
-                ]
+                    'configurations' => $this->extConf,
+                ],
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
-                    $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    if ($this->extConf->isQrCodeGenerationEnabled()) {
+                        $qrCode = $this->qrCodeService->generateQrCode($reservation);
+                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    }
+                    /** @var SendReservationEmailEvent $event */
+                    $event = $this->eventDispatcher->dispatch(
+                        new SendReservationEmailEvent($mailMessage),
+                    );
+                    $mailMessage = $event->getMailMessage();
                 }
-            }
+            },
         );
     }
 

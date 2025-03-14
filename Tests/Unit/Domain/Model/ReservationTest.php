@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -24,21 +25,21 @@ class ReservationTest extends UnitTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->subject = new Reservation();
     }
 
     protected function tearDown(): void
     {
         unset(
-            $this->subject
+            $this->subject,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCustomerOrderSetsCustomerOrder(): void
     {
         $instance = new Order();
@@ -46,100 +47,84 @@ class ReservationTest extends UnitTestCase
 
         self::assertSame(
             $instance,
-            $this->subject->getCustomerOrder()
+            $this->subject->getCustomerOrder(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getFirstNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setFirstNameSetsFirstName(): void
     {
         $this->subject->setFirstName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getFirstName()
+            $this->subject->getFirstName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setLastNameSetsLastName(): void
     {
         $this->subject->setLastName('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getLastName()
+            $this->subject->getLastName(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getCodeInitiallyReturnsEmptyString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getCode()
+            $this->subject->getCode(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setCodeSetsCode(): void
     {
         $this->subject->setCode('foo bar');
 
         self::assertSame(
             'foo bar',
-            $this->subject->getCode()
+            $this->subject->getCode(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getUsedInitiallyReturnsFalse(): void
     {
         self::assertFalse(
-            $this->subject->isUsed()
+            $this->subject->isUsed(),
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function setUsedSetsUsed(): void
     {
         $this->subject->setUsed(true);
         self::assertTrue(
-            $this->subject->isUsed()
+            $this->subject->isUsed(),
         );
     }
 }

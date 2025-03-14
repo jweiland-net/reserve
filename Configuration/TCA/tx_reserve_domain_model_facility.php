@@ -7,8 +7,10 @@
  * LICENSE file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Utility\PathUtility;
+
 $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-if (!is_file(\TYPO3\CMS\Core\Utility\PathUtility::getAbsoluteWebPath($localLangGeneral))) {
+if (!is_file(PathUtility::getAbsoluteWebPath($localLangGeneral))) {
     $localLangGeneral = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
 }
 
@@ -68,8 +70,8 @@ return [
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => '',
+                        'value' => '',
                         'invertStateDisplay' => true,
                     ],
                 ],
@@ -90,8 +92,8 @@ return [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        '',
-                        0,
+                        'label' => '',
+                        'value' => 0,
                     ],
                 ],
                 'foreign_table' => 'tx_reserve_domain_model_facility',
@@ -110,7 +112,8 @@ return [
                 'type' => 'input',
                 'size' => 50,
                 'max' => 255,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'short_name' => [
@@ -149,9 +152,8 @@ return [
         'from_email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.from_email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 50,
-                'eval' => 'email',
             ],
         ],
         'reply_to_name' => [
@@ -165,16 +167,16 @@ return [
         'reply_to_email' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reply_to_email',
             'config' => [
-                'type' => 'input',
+                'type' => 'email',
                 'size' => 50,
-                'eval' => 'email',
             ],
         ],
         'confirmation_mail_subject' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.confirmation_mail_subject',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => 'Please confirm your reservation',
             ],
         ],
@@ -192,7 +194,8 @@ return [
 <p>###ORDER_DETAILS###</p>
 DEFAULT_CONFIRMATION
                 ,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
@@ -203,7 +206,8 @@ DEFAULT_CONFIRMATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.reservation_mail_subject',
             'config' => [
                 'type' => 'input',
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'default' => 'Details of your reservation',
             ],
         ],
@@ -221,7 +225,8 @@ DEFAULT_CONFIRMATION
 <p>###RESERVATION###</p>
 DEFAULT_RESERVATION
                 ,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
                 'softref' => 'typolink_tag,images,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
@@ -238,8 +243,8 @@ DEFAULT_RESERVATION
         'qr_code_size' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_size',
             'config' => [
-                'type' => 'input',
-                'eval' => 'trim,int',
+                'type' => 'number',
+                'eval' => 'trim',
                 'range' => [
                     'lower' => 10,
                     'upper' => 800,
@@ -254,8 +259,8 @@ DEFAULT_RESERVATION
         'qr_code_label_size' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_label_size',
             'config' => [
-                'type' => 'input',
-                'eval' => 'trim,int',
+                'type' => 'number',
+                'eval' => 'trim',
                 'range' => [
                     'lower' => 10,
                     'upper' => 800,
@@ -269,41 +274,17 @@ DEFAULT_RESERVATION
         ],
         'qr_code_logo' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo',
-            'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                'qr_code_logo',
-                [
-                    'minitems' => 0,
-                    'maxitems' => 1,
-                    'foreign_match_fields' => [
-                        'fieldname' => 'qr_code_logo',
-                        'tablenames' => 'tx_reserve_domain_model_facility',
-                    ],
-                    'behaviour' => [
-                        'allowLanguageSynchronization' => true,
-                    ],
-                    'overrideChildTca' => [
-                        'types' => [
-                            '0' => [
-                                'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                            ],
-                            \TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE => [
-                                'showitem' => '
-                                --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
-                                --palette--;;filePalette',
-                            ],
-                        ],
-                    ],
-                ],
-                'png,jpg,jpeg,gif,bmp',
-            ),
+            'config' => [
+                'type' => 'file',
+                'maxitems' => 1,
+                'allowed' => 'common-image-types',
+            ],
         ],
         'qr_code_logo_width' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.qr_code_logo_width',
             'config' => [
-                'type' => 'input',
-                'eval' => 'trim,int',
+                'type' => 'number',
+                'eval' => 'trim',
                 'range' => [
                     'lower' => 10,
                     'upper' => 800,
@@ -323,8 +304,8 @@ DEFAULT_RESERVATION
                 'renderType' => 'checkboxToggle',
                 'items' => [
                     [
-                        0 => '',
-                        1 => '',
+                        'label' => '',
+                        'value' => '',
                     ],
                 ],
                 'default' => true,
@@ -334,9 +315,9 @@ DEFAULT_RESERVATION
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_facility.cancelable_until_minutes',
             'displayCond' => 'FIELD:cancelable:REQ:true',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 10,
-                'eval' => 'trim,num',
+                'eval' => 'trim',
                 'default' => 60,
             ],
         ],

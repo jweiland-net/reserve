@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Tests\Functional\ViewHelpers;
 
 use JWeiland\Reserve\Domain\Repository\PeriodRepository;
 use JWeiland\Reserve\Service\ReserveService;
+use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -47,7 +48,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['date' => $this->testDateMidnight->getTimestamp()],
-                ['deleted' => 0]
+                ['deleted' => 0],
             );
 
         GeneralUtility::makeInstance(ConnectionPool::class)
@@ -55,7 +56,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->update(
                 'tx_reserve_domain_model_period',
                 ['begin' => (new \DateTime('1970-01-01T14:00:00.00Z'))->getTimestamp()],
-                ['uid' => 1]
+                ['uid' => 1],
             );
 
         $this->standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
@@ -70,15 +71,13 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         unset(
             $this->standaloneView,
             $this->testDateMidnight,
-            $this->testDateAndBegin
+            $this->testDateAndBegin,
         );
 
         parent::tearDown();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperUsesReserveServiceToFindPeriod(): void
     {
         $reserveServiceMock = $this->createMock(ReserveService::class);
@@ -87,7 +86,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
             ->method('findPeriodsByDateAndBegin')
             ->with(
                 self::equalTo(1),
-                self::equalTo($this->testDateAndBegin)
+                self::equalTo($this->testDateAndBegin),
             )
             ->willReturn([]);
 
@@ -96,9 +95,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         $this->standaloneView->render();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsAndRendersRemainingParticipants(): void
     {
         $remainingParticipants = GeneralUtility::makeInstance(PeriodRepository::class)
@@ -108,13 +105,11 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
             $this->standaloneView->render(),
-            'ViewHelper renders remaining participants if facility and period date match.'
+            'ViewHelper renders remaining participants if facility and period date match.',
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
         $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
@@ -122,13 +117,11 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             'Could not find any period for given time.',
             $this->standaloneView->render(),
-            'ViewHelper renders info that no period was found.'
+            'ViewHelper renders info that no period was found.',
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
         $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');
@@ -136,7 +129,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         self::assertStringContainsString(
             'Test',
             $this->standaloneView->render(),
-            'ViewHelper sets periods to custom variable name'
+            'ViewHelper sets periods to custom variable name',
         );
     }
 }

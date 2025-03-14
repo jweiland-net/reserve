@@ -43,7 +43,7 @@ class ReserveService implements SingletonInterface
     {
         $periods = $this->findPeriodsByDateAndBegin($facilityUid, $dateTimeOfPeriod);
         $remainingParticipants = null;
-        if ($periods) {
+        if ($periods !== []) {
             $remainingParticipants = reset($periods)->getRemainingParticipants();
         }
 

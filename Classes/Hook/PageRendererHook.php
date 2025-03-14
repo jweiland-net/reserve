@@ -31,10 +31,6 @@ class PageRendererHook
             && $this->getBackendUserAuthentication()->user
             && $configuration = $this->getBackendUserAuthentication()->getSessionData(self::MODAL_SESSION_KEY)
         ) {
-            foreach ($configuration['requireJsModules'] as $moduleName => $block) {
-                $pageRenderer->loadRequireJsModule($moduleName, $block);
-            }
-
             foreach ($configuration['inlineSettings'] as $namespace => $array) {
                 $pageRenderer->addInlineSettingArray($namespace, $array);
             }
