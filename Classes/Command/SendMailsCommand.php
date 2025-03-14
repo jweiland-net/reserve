@@ -163,11 +163,10 @@ class SendMailsCommand extends Command
                 $this->removeProcessedEmail();
             }
 
-            $this->email = $this->emailRepository->findOneUnlocked();
-
-            if ($this->email instanceof Email) {
+            $emailRecord = $this->emailRepository->findUnlockedEmails();
+            if ($emailRecord !== []) {
                 // lock current record
-                $this->emailRepository->lockEmail($this->email->getUid(), $this->email);
+                $this->emailRepository->lockEmail((int)$emailRecord['uid']);
                 if (!$this->email->getCommandData()) {
                     $this->email->setCommandData(['processedReceiversByKey' => [], 'sendMailExceptions' => []]);
                 }

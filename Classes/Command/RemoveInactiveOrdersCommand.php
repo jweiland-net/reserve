@@ -67,14 +67,15 @@ class RemoveInactiveOrdersCommand extends Command
         $inactiveOrders = $this->orderRepository->findInactiveOrders(
             (int)$input->getOption('expiration-time'),
         );
-        $inactiveOrders->getQuery()->setLimit(30);
 
-        $progressBar = new ProgressBar($output, $inactiveOrders->count());
+        $progressBar = new ProgressBar($output, count($inactiveOrders));
         $progressBar->start();
 
         $affectedFacilities = [];
         foreach ($inactiveOrders as $inactiveOrder) {
             try {
+                $facilityUids = $this->orderRepository->findAffectedFacilities($inactiveOrder['uid']);
+                $affectedFacilities = array_fill_keys($facilityUids, true);
                 $affectedFacilities[$inactiveOrder->getBookedPeriod()->getFacility()->getUid()] = true;
                 $this->cancellationService->cancel(
                     $inactiveOrder,
@@ -83,7 +84,7 @@ class RemoveInactiveOrdersCommand extends Command
                     true,
                 );
             } catch (\Throwable $exception) {
-                $output->writeln('Could not cancel the order ' . $inactiveOrder->getUid() . ' using cancellation service!');
+                $output->writeln('Could not cancel the order ' . $inactiveOrder['uid'] . ' using cancellation service!');
             }
 
             $progressBar->advance();
