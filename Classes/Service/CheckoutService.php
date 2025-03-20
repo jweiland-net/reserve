@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
@@ -42,14 +43,21 @@ class CheckoutService
      */
     protected $mailService;
 
+    /**
+     * @var ExtConf
+     */
+    protected $extensionConfiguration;
+
     public function __construct(
         PersistenceManager $persistenceManager,
         ConfigurationManager $configurationManager,
-        MailService $mailService
+        MailService $mailService,
+        ExtConf $extensionConfiguration
     ) {
         $this->persistenceManager = $persistenceManager;
         $this->configurationManager = $configurationManager;
         $this->mailService = $mailService;
+        $this->extensionConfiguration = $extensionConfiguration;
     }
 
     /**
@@ -155,12 +163,15 @@ class CheckoutService
                 [
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
+                    'configurations' => $this->extensionConfiguration,
                 ]
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
-                    $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    if (!$this->extensionConfiguration->getDisableQRCodeGeneration()) {
+                        $qrCode = QrCodeUtility::generateQrCode($reservation);
+                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    }
                 }
             }
         );

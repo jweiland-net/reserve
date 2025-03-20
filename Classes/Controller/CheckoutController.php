@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Controller;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Repository\FacilityRepository;
@@ -62,6 +63,11 @@ class CheckoutController extends ActionController
      */
     protected $cancellationService;
 
+    /**
+     * @param ExtConf $extConf
+     */
+    protected $extConf;
+
     public function injectFacilityRepository(FacilityRepository $facilityRepository): void
     {
         $this->facilityRepository = $facilityRepository;
@@ -90,6 +96,11 @@ class CheckoutController extends ActionController
     public function injectCancellationService(CancellationService $cancellationService): void
     {
         $this->cancellationService = $cancellationService;
+    }
+
+    public function injectExtConf(ExtConf $extConf): void
+    {
+        $this->extConf = $extConf;
     }
 
     public function listAction(): void
@@ -169,6 +180,7 @@ class CheckoutController extends ActionController
 
     public function confirmAction(string $email, string $activationCode): void
     {
+        $this->view->assign('configurations', $this->extConf);
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
         if ($order instanceof Order) {
             if ($order->isActivated()) {

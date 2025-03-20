@@ -21,7 +21,9 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class ExtConf implements SingletonInterface
 {
-    private $blockMultipleOrdersInSeconds = 3600;
+    private int $blockMultipleOrdersInSeconds = 3600;
+
+    private bool $disableQRCodeGeneration = false;
 
     public function __construct(ExtensionConfiguration $extensionConfiguration)
     {
@@ -31,7 +33,9 @@ class ExtConf implements SingletonInterface
                 // call setter method foreach configuration entry
                 foreach ($extConf as $key => $value) {
                     $methodName = 'set' . ucfirst($key);
-                    if (method_exists($this, $methodName)) {
+                    if ($methodName === 'setDisableQRCodeGeneration') {
+                        $this->$methodName((bool)$value);
+                    } else if (method_exists($this, $methodName)) {
                         $this->$methodName($value);
                     }
                 }
@@ -48,5 +52,15 @@ class ExtConf implements SingletonInterface
     public function setBlockMultipleOrdersInSeconds(string $blockMultipleOrdersInSeconds): void
     {
         $this->blockMultipleOrdersInSeconds = (int)$blockMultipleOrdersInSeconds;
+    }
+
+    public function getDisableQRCodeGeneration(): bool
+    {
+        return $this->disableQRCodeGeneration;
+    }
+
+    public function setDisableQRCodeGeneration(bool $disableQRCodeGeneration): void
+    {
+        $this->disableQRCodeGeneration = $disableQRCodeGeneration;
     }
 }
