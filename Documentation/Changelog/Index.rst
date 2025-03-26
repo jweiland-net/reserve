@@ -11,6 +11,7 @@ Version 2.2.0
 =============
 
 2025-03-18 Backporting QR Code Disabling Functionality
+2025-03-26 Backporting SendReservationEmailEvent from new version
 
 Version 2.1.0
 =============
