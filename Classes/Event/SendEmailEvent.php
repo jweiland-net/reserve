@@ -13,7 +13,7 @@ namespace JWeiland\Reserve\Event;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 
-final class SendReservationEmailEvent
+final class SendEmailEvent
 {
     protected MailMessage $mailMessage;
 

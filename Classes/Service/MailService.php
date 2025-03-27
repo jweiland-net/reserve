@@ -12,6 +12,8 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Event\SendEmailEvent;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,6 +23,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailService implements SingletonInterface
 {
+    protected $eventDispatcher;
+
+    public function __construct(
+        EventDispatcher $eventDispatcher
+    ) {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     public function sendMailToCustomer(
         Order $order,
         string $subject,
@@ -70,6 +80,12 @@ class MailService implements SingletonInterface
         if ($postProcess) {
             $postProcess($postProcessData, $subject, $bodyHtml, $mail);
         }
+
+        /** @var SendEmailEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new SendEmailEvent($mail),
+        );
+        $mail = $event->getMailMessage();
 
         return $mail->send();
     }

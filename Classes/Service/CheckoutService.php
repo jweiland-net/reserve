@@ -15,13 +15,11 @@ use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
-use JWeiland\Reserve\Event\SendReservationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\FluidUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use JWeiland\Reserve\Utility\QrCodeUtility;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -34,11 +32,6 @@ class CheckoutService
      * @var PersistenceManager
      */
     protected $persistenceManager;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    protected $eventDispatcher;
 
     /**
      * @var ConfigurationManager
@@ -57,13 +50,11 @@ class CheckoutService
 
     public function __construct(
         PersistenceManager $persistenceManager,
-        EventDispatcherInterface $eventDispatcher,
         ConfigurationManager $configurationManager,
         MailService $mailService,
         ExtConf $extensionConfiguration
     ) {
         $this->persistenceManager = $persistenceManager;
-        $this->eventDispatcher = $eventDispatcher;
         $this->configurationManager = $configurationManager;
         $this->mailService = $mailService;
         $this->extensionConfiguration = $extensionConfiguration;
@@ -181,11 +172,6 @@ class CheckoutService
                         $qrCode = QrCodeUtility::generateQrCode($reservation);
                         $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
                     }
-                    /** @var SendReservationEmailEvent $event */
-                    $event = $this->eventDispatcher->dispatch(
-                        new SendReservationEmailEvent($mailMessage),
-                    );
-                    $mailMessage = $event->getMailMessage();
                 }
             }
         );
