@@ -17,9 +17,12 @@ Version 4.0.0
 *   [TASK] Changed General Plugins to CType
 *   [TASK] New Update Wizard migrating plugins to CType
 
-Version 3.0.1
+Version 3.0.2
 =============
 
+*   [BUGFIX] Added SendReservationEmailEvent
+*   [BUGFIX] Added SendCancellationEmailEvent
+*   [BUGFIX] Added SendEmailEvent
 *   [BUGFIX] HTML Response not set properly on controller
 *   [BUGFIX] StandAloneView initialization issue fixed
 *   [BUGFIX] Replaced deprecated function `strftime`

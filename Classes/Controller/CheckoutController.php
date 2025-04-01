@@ -46,14 +46,15 @@ class CheckoutController extends ActionController
 
     public function listAction(): ResponseInterface
     {
-        $facilities = $this->facilityRepository->findByUids(GeneralUtility::trimExplode(',', $this->settings['facility']));
-        $this->view->assign('facilities', $facilities);
-        $this->view->assign(
-            'periods',
-            $this->periodRepository->findUpcomingAndRunningByFacilityUids(
-                GeneralUtility::trimExplode(',', $this->settings['facility'], true),
-            ),
+        $facilities = $this->facilityRepository->findByUids(
+            GeneralUtility::trimExplode(',', $this->settings['facility'])
         );
+        $periods = $this->periodRepository->findUpcomingAndRunningByFacilityUids(
+            GeneralUtility::trimExplode(',', $this->settings['facility'], true),
+        );
+
+        $this->view->assign('facilities', $facilities);
+        $this->view->assign('periods', $periods);
 
         $orderColumnBegin = count($facilities) === 1 ? 0 : 1;
         $dataTablesConfiguration = $this->dataTablesService->getConfiguration();
@@ -159,7 +160,6 @@ class CheckoutController extends ActionController
     public function cancelAction(string $email, string $activationCode, bool $confirm = false): ResponseInterface
     {
         $order = $this->orderRepository->findByEmailAndActivationCode($email, $activationCode);
-
         // Early return
         if (!$order instanceof Order) {
             $this->addFlashMessage(
@@ -175,7 +175,7 @@ class CheckoutController extends ActionController
             $this->view->assign('order', $order);
             if ($confirm) {
                 try {
-                    $this->cancellationService->cancel($order);
+                    $this->cancellationService->cancel($order, $this->request);
                     $this->addFlashMessage(LocalizationUtility::translate('cancel.cancelled', 'reserve'));
                 } catch (\Throwable $exception) {
                     $this->addFlashMessage(

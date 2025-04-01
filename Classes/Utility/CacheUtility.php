@@ -13,6 +13,7 @@ namespace JWeiland\Reserve\Utility;
 
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\CacheTag;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -24,7 +25,7 @@ class CacheUtility
 
     public static function addFacilityToCurrentPageCacheTags(int $facilityUid, ServerRequestInterface $request): void
     {
-        static::getCacheCollector($request)->addCacheTags([static::FACILITY_CACHE_IDENTIFIER . $facilityUid]);
+        static::getCacheCollector($request)->addCacheTags(new CacheTag(static::FACILITY_CACHE_IDENTIFIER . $facilityUid));
     }
 
     public static function clearPageCachesForPagesWithCurrentFacility(int $facilityUid): void
