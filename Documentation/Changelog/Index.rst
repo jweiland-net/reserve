@@ -7,6 +7,14 @@
 Changelog
 =========
 
+Version 4.1.0
+=============
+
+*   [TASK] Added SendReservationEmailEvent
+*   [TASK] Added SendCancellationEmailEvent
+*   [TASK] Added SendEmailEvent
+*   [BUGFIX] Fixed template of Cancellation Email
+
 Version 4.0.0
 =============
 
@@ -20,9 +28,6 @@ Version 4.0.0
 Version 3.0.2
 =============
 
-*   [BUGFIX] Added SendReservationEmailEvent
-*   [BUGFIX] Added SendCancellationEmailEvent
-*   [BUGFIX] Added SendEmailEvent
 *   [BUGFIX] HTML Response not set properly on controller
 *   [BUGFIX] StandAloneView initialization issue fixed
 *   [BUGFIX] Replaced deprecated function `strftime`
