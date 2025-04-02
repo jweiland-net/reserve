@@ -47,7 +47,7 @@ class CheckoutController extends ActionController
     public function listAction(): ResponseInterface
     {
         $facilities = $this->facilityRepository->findByUids(
-            GeneralUtility::trimExplode(',', $this->settings['facility'])
+            GeneralUtility::trimExplode(',', $this->settings['facility']),
         );
         $periods = $this->periodRepository->findUpcomingAndRunningByFacilityUids(
             GeneralUtility::trimExplode(',', $this->settings['facility'], true),

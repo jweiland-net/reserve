@@ -38,8 +38,7 @@ class CancellationService implements SingletonInterface
         private readonly DataHandler $dataHandler,
         private readonly EventDispatcher $eventDispatcher,
         private readonly MailService $mailService,
-    ) {
-    }
+    ) {}
 
     /**
      * @param string $reason use CancellationService::REASON_ constants or add your own reason
@@ -74,7 +73,7 @@ class CancellationService implements SingletonInterface
                         );
                         $mailMessage = $event->getMailMessage();
                     }
-                }
+                },
             );
         }
 

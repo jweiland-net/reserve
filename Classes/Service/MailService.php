@@ -26,7 +26,7 @@ class MailService implements SingletonInterface
     protected EventDispatcher $eventDispatcher;
 
     public function __construct(
-        EventDispatcher $eventDispatcher
+        EventDispatcher $eventDispatcher,
     ) {
         $this->eventDispatcher = $eventDispatcher;
     }
