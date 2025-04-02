@@ -7,6 +7,14 @@
 Changelog
 =========
 
+Version 4.1.0
+=============
+
+*   [TASK] Added SendReservationEmailEvent
+*   [TASK] Added SendCancellationEmailEvent
+*   [TASK] Added SendEmailEvent
+*   [BUGFIX] Fixed template of Cancellation Email
+
 Version 4.0.0
 =============
 
@@ -17,7 +25,7 @@ Version 4.0.0
 *   [TASK] Changed General Plugins to CType
 *   [TASK] New Update Wizard migrating plugins to CType
 
-Version 3.0.1
+Version 3.0.2
 =============
 
 *   [BUGFIX] HTML Response not set properly on controller
