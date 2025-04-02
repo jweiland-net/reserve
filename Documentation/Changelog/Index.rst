@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 2.3.0
+=============
+
+2025-05-02 BUGFIX in Fluid Template Email Cancellation
+
 Version 2.2.0
 =============
 
