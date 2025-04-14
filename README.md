@@ -1,7 +1,6 @@
 # TYPO3 Extension `reserve`
 [![Packagist][packagist-logo-stable]][extension-packagist-url]
 [![Latest Stable Version][extension-build-shield]][extension-ter-url]
-[![License][LICENSE_BADGE]][extension-packagist-url]
 [![Total Downloads][extension-downloads-badge]][extension-packagist-url]
 [![Monthly Downloads][extension-monthly-downloads]][extension-packagist-url]
 [![TYPO3 13.4][TYPO3-shield]][TYPO3-13-url]
@@ -49,5 +48,3 @@ Download and install `reserve` with the extension manager module.
 [TYPO3-13-url]: https://get.typo3.org/version/13
 
 [TYPO3-shield]: https://img.shields.io/badge/TYPO3-13.4-green.svg?style=for-the-badge&logo=typo3
-
-[LICENSE_BADGE]: https://img.shields.io/github/license/jweiland-net/reserve?label=license&style=for-the-badge
