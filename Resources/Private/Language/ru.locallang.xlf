@@ -5,331 +5,327 @@
     <body>
       <trans-unit id="plugin.reservation.title">
         <source>Display and reserve periods</source>
-        <target state="needs-translation">Display and reserve periods</target>
+        <target state="translated">Отображение и резервирование периодов</target>
       </trans-unit>
       <trans-unit id="plugin.management.title">
         <source>Manage reservations and scan reservation codes</source>
-        <target state="needs-translation">Manage reservations and scan reservation codes</target>
+        <target state="translated">Управление бронированием и сканирование кодов бронирования</target>
       </trans-unit>
       <trans-unit id="form.order.submit">
         <source>Reserve</source>
-        <target state="needs-translation">Reserve</target>
+        <target state="translated">Бронь</target>
       </trans-unit>
       <trans-unit id="form.order.email">
         <source>E-Mail</source>
-        <target state="needs-translation">E-Mail</target>
+        <target state="translated">Электронная почта</target>
       </trans-unit>
       <trans-unit id="form.order.phone">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="translated">Телефон</target>
       </trans-unit>
       <trans-unit id="form.order.address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Адрес</target>
       </trans-unit>
       <trans-unit id="form.order.zip">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="translated">Почтовый индекс</target>
       </trans-unit>
       <trans-unit id="form.order.city">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="translated">Город</target>
       </trans-unit>
       <trans-unit id="form.order.organization">
         <source>Organization</source>
-        <target state="needs-translation">Organization</target>
+        <target state="translated">Организация</target>
       </trans-unit>
       <trans-unit id="form.order.remarks">
         <source>Remarks</source>
-        <target state="needs-translation">Remarks</target>
+        <target state="translated">Примечания</target>
       </trans-unit>
       <trans-unit id="form.order.furtherParticipants">
         <source>Further participants</source>
-        <target state="needs-translation">Further participants</target>
+        <target state="translated">Дальнейший участники</target>
       </trans-unit>
       <trans-unit id="order.furtherParticipant">
         <source>Further participant</source>
-        <target state="needs-translation">Further participant</target>
+        <target state="translated">Дальнейший участник</target>
       </trans-unit>
       <trans-unit id="form.order.participants.firstName">
         <source>First name of participant %d</source>
-        <target state="needs-translation">First name of participant %d</target>
+        <target state="translated">Имя участника %d</target>
       </trans-unit>
       <trans-unit id="form.order.participants.lastName">
         <source>Last name of participant %d</source>
-        <target state="needs-translation">Last name of participant %d</target>
+        <target state="translated">Фамилия участника %d</target>
       </trans-unit>
       <trans-unit id="form.order.period">
         <source>Selected period</source>
-        <target state="needs-translation">Selected period</target>
+        <target state="translated">Выбранный период</target>
       </trans-unit>
       <trans-unit id="form.order.amountOfPeople">
         <source>Amount of people (max. %d)</source>
-        <target state="needs-translation">Amount of people (max. %d)</target>
+        <target state="translated">Кол-во людей (макс. %d)</target>
       </trans-unit>
       <trans-unit id="form.order.header">
         <source>Reserve a ticket for %s</source>
-        <target state="needs-translation">Reserve a ticket for %s</target>
+        <target state="translated">Забронировать заявку для %s</target>
       </trans-unit>
       <trans-unit id="form.order.description">
         <source>This reservation will be valid at %s between %s - %s</source>
-        <target state="needs-translation">This reservation will be valid at %s between %s - %s</target>
+        <target state="translated">Это бронирование будет действительным на %s между %s - %s</target>
       </trans-unit>
       <trans-unit id="form.order.firstName">
         <source>First name</source>
-        <target state="needs-translation">First name</target>
+        <target state="translated">Имя</target>
       </trans-unit>
       <trans-unit id="form.order.lastName">
         <source>Last name</source>
-        <target state="needs-translation">Last name</target>
+        <target state="translated">Фамилия</target>
       </trans-unit>
       <trans-unit id="scan.status.orderNotActive">
         <source>Order was not activated</source>
-        <target state="needs-translation">Order was not activated</target>
+        <target state="translated">Заказ не был активирован</target>
       </trans-unit>
       <trans-unit id="scan.status.codeAlreadyScanned">
         <source>Code was already scanned</source>
-        <target state="needs-translation">Code was already scanned</target>
+        <target state="translated">Код уже сканирован</target>
       </trans-unit>
       <trans-unit id="scan.status.reservationActivated">
         <source>Reservation successfully scanned.</source>
-        <target state="needs-translation">Reservation successfully scanned.</target>
+        <target state="translated">Бронирование успешно сканировано.</target>
       </trans-unit>
       <trans-unit id="scan.status.error.0">
         <source>Success</source>
-        <target state="needs-translation">Success</target>
+        <target state="translated">Успешно</target>
       </trans-unit>
       <trans-unit id="scan.status.error.1">
         <source>Error</source>
-        <target state="needs-translation">Error</target>
+        <target state="translated">Ошибка</target>
       </trans-unit>
       <trans-unit id="list.alerts.isBookingAllowed">
         <source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can
 					reserve more tickets.
 				</source>
-        <target state="needs-translation">You have recently reserved at least one ticket for this facility. Please wait a moment until you can
-					reserve more tickets.
-				</target>
+        <target state="translated">Недавно вы зарезервировали по крайней мере один билет на это заведение. Пожалуйста, подождите немного, пока вы не сможете
+зарезервировать больше билетов.</target>
       </trans-unit>
       <trans-unit id="list.alerts.wrongAmountOfReservations">
         <source>Could not create an order for your selected amount of people!</source>
-        <target state="needs-translation">Could not create an order for your selected amount of people!</target>
+        <target state="translated">Не удалось создать заказ для указанного количества людей!</target>
       </trans-unit>
       <trans-unit id="list.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Заведение</target>
       </trans-unit>
       <trans-unit id="list.date">
         <source>Date</source>
-        <target state="needs-translation">Date</target>
+        <target state="translated">Дата</target>
       </trans-unit>
       <trans-unit id="list.begin">
         <source>Begin</source>
-        <target state="needs-translation">Begin</target>
+        <target state="translated">Начало</target>
       </trans-unit>
       <trans-unit id="list.end">
         <source>End</source>
-        <target state="needs-translation">End</target>
+        <target state="translated">Конец</target>
       </trans-unit>
       <trans-unit id="list.free_slots">
         <source>Remaining slots</source>
-        <target state="needs-translation">Remaining slots</target>
+        <target state="translated">Оставшиеся слоты</target>
       </trans-unit>
       <trans-unit id="list.participants">
         <source>Participants</source>
-        <target state="needs-translation">Participants</target>
+        <target state="translated">Участники</target>
       </trans-unit>
       <trans-unit id="list.action">
         <source>Action</source>
-        <target state="needs-translation">Action</target>
+        <target state="translated">Действие</target>
       </trans-unit>
       <trans-unit id="list.choose_this_period">
         <source>Choose this period</source>
-        <target state="needs-translation">Choose this period</target>
+        <target state="translated">Выберите этот период</target>
       </trans-unit>
       <trans-unit id="list.bookable_from">
         <source>Bookable from %s</source>
-        <target state="needs-translation">Bookable from %s</target>
+        <target state="translated">Можно забронировать от %s</target>
       </trans-unit>
       <trans-unit id="list.in_use">
         <source>Is in use?</source>
-        <target state="needs-translation">Is in use?</target>
+        <target state="translated">Уже используется?</target>
       </trans-unit>
       <trans-unit id="list.no_more_tickets">
         <source>No more tickets!</source>
-        <target state="needs-translation">No more tickets!</target>
+        <target state="translated">Больше нет заявок!</target>
       </trans-unit>
       <trans-unit id="list.code">
         <source>Code</source>
-        <target state="needs-translation">Code</target>
+        <target state="translated">Код</target>
       </trans-unit>
       <trans-unit id="scanner_unavailable">
         <source>Unable to access video stream (please make sure you have a camera enabled)</source>
-        <target state="needs-translation">Unable to access video stream (please make sure you have a camera enabled)</target>
+        <target state="translated">Не удается получить доступ к камере (пожалуйста, убедитесь, что камера включена)</target>
       </trans-unit>
       <trans-unit id="of">
         <source>of</source>
-        <target state="needs-translation">of</target>
+        <target state="translated">из</target>
       </trans-unit>
       <trans-unit id="mail.salutation">
         <source>Dear %s %s,</source>
-        <target state="needs-translation">Dear %s %s,</target>
+        <target state="translated">Уважаемый(ая) %s %s,</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.subject">
         <source>Your cancellation</source>
-        <target state="needs-translation">Your cancellation</target>
+        <target state="translated">Ваша отмена</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.inactive">
         <source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
-        <target state="needs-translation">your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</target>
+        <target state="translated">Твоё бронирование для %s было отменено, потому что вы не подтвердили его в течение %d минут.</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.customer">
         <source>we cancelled your reservation for %s.</source>
-        <target state="needs-translation">we cancelled your reservation for %s.</target>
+        <target state="translated">Мы отменили резервирование для %s.</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.confirm_link_text">
         <source>Confirm your reservation</source>
-        <target state="needs-translation">Confirm your reservation</target>
+        <target state="translated">Подтвердить бронирование</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.cancel_link_text">
         <source>Cancel your reservation</source>
-        <target state="needs-translation">Cancel your reservation</target>
+        <target state="translated">Отменить бронирование</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.cancel_notice">
         <source>Not your order or placed by mistake?</source>
-        <target state="needs-translation">Not your order or placed by mistake?</target>
+        <target state="translated">Не ваш заказ или размещён по ошибке?</target>
       </trans-unit>
       <trans-unit id="mail.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Заведение</target>
       </trans-unit>
       <trans-unit id="mail.period">
         <source>Period</source>
-        <target state="needs-translation">Period</target>
+        <target state="translated">Период</target>
       </trans-unit>
       <trans-unit id="mail.reservation.print_notice">
         <source>Please print out this mail or save the code(s) on your phone.</source>
-        <target state="needs-translation">Please print out this mail or save the code(s) on your phone.</target>
+        <target state="translated">Пожалуйста, распечатайте это письмо или сохраните код(ы) на вашем телефоне.</target>
       </trans-unit>
       <trans-unit id="mail.reservation.cancelable_until">
         <source>If the reservation is no longer needed, it can be cancelled until %s.</source>
-        <target state="needs-translation">If the reservation is no longer needed, it can be cancelled until %s.</target>
+        <target state="translated">Если бронирование больше не нужно, его можно отменить до %s.</target>
       </trans-unit>
       <trans-unit id="reservation.no_printer_notice">
         <source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring
 					them to the event:
 				</source>
-        <target state="needs-translation">If you neither have a printer nor a phone you can write down the following code(s) by hand and bring
-					them to the event:
-				</target>
+        <target state="translated">Если у вас нет ни принтера, ни телефона, вы можете записать следующие коды вручную и принести их на мероприятие</target>
       </trans-unit>
       <trans-unit id="list">
         <source>List</source>
-        <target state="needs-translation">List</target>
+        <target state="translated">Список</target>
       </trans-unit>
       <trans-unit id="date_format">
         <source>%a %d-%m-%Y</source>
-        <target state="needs-translation">%a %d-%m-%Y</target>
+        <target state="translated">%a %d-%m-%Y</target>
       </trans-unit>
       <trans-unit id="date_format_full">
         <source>%a %d-%m-%Y %H:%I</source>
-        <target state="needs-translation">%a %d-%m-%Y %H:%I</target>
+        <target state="translated">%a %d-%m-%Y, %H:%I</target>
       </trans-unit>
       <trans-unit id="redeem">
         <source>Redeem</source>
-        <target state="needs-translation">Redeem</target>
+        <target state="translated">Погасить</target>
       </trans-unit>
       <trans-unit id="reservation.created">
         <source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
-        <target state="needs-translation">We have send you a confirmation mail to get your tickets. Please check your mailbox.</target>
+        <target state="translated">Мы отправили вам письмо с подтверждением, чтобы получить ваши билеты. Пожалуйста, проверьте вау почту.</target>
       </trans-unit>
       <trans-unit id="reservation.confirmed">
         <source>Your reservation at %s has been confirmed successfully.</source>
-        <target state="needs-translation">Your reservation at %s has been confirmed successfully.</target>
+        <target state="translated">Ваше бронирование на %s было успешно подтверждено.</target>
       </trans-unit>
       <trans-unit id="reservation.mail_with_code_sent">
         <source>We sent you a second mail that contains your reservation code.</source>
-        <target state="needs-translation">We sent you a second mail that contains your reservation code.</target>
+        <target state="translated">Мы отправили Вам второе письмо, содержащее код бронирования.</target>
       </trans-unit>
       <trans-unit id="reservation.print_or_show_code">
         <source>Please either print out this page, the second mail or show your mail at the entrance.</source>
-        <target state="needs-translation">Please either print out this page, the second mail or show your mail at the entrance.</target>
+        <target state="translated">Пожалуйста, распечатайте эту страницу, вторую почту или покажите вашу почту на входе.</target>
       </trans-unit>
       <trans-unit id="loading_video">
         <source>Loading video..</source>
-        <target state="needs-translation">Loading video..</target>
+        <target state="translated">Загрузка видео..</target>
       </trans-unit>
       <trans-unit id="code_not_found">
         <source>Code not found!</source>
-        <target state="needs-translation">Code not found!</target>
+        <target state="translated">Код не найден!</target>
       </trans-unit>
       <trans-unit id="reservations">
         <source>Reservations</source>
-        <target state="needs-translation">Reservations</target>
+        <target state="translated">Бронирования</target>
       </trans-unit>
       <trans-unit id="close">
         <source>Close</source>
-        <target state="needs-translation">Close</target>
+        <target state="translated">Закрыть</target>
       </trans-unit>
       <trans-unit id="day_list">
         <source>Day list</source>
-        <target state="needs-translation">Day list</target>
+        <target state="translated">Дневной список</target>
       </trans-unit>
       <trans-unit id="scanEntireOrder">
         <source>Activate entire order with all its reservations</source>
-        <target state="needs-translation">Activate entire order with all its reservations</target>
+        <target state="translated">Активировать весь заказ со всеми его бронированиями</target>
       </trans-unit>
       <trans-unit id="redeemed">
         <source>Redeemed</source>
-        <target state="needs-translation">Redeemed</target>
+        <target state="translated">Активирован</target>
       </trans-unit>
       <trans-unit id="cancel.warning">
         <source>Do you really want to cancel the reservation for %s?</source>
-        <target state="needs-translation">Do you really want to cancel the reservation for %s?</target>
+        <target state="translated">Вы действительно хотите отменить бронирование на %s?</target>
       </trans-unit>
       <trans-unit id="cancel.button">
         <source>Cancel reservation</source>
-        <target state="needs-translation">Cancel reservation</target>
+        <target state="translated">Отменить бронирование</target>
       </trans-unit>
       <trans-unit id="cancel.cancelled">
         <source>The reservation has been cancelled sucessfully.</source>
-        <target state="needs-translation">The reservation has been cancelled sucessfully.</target>
+        <target state="translated">Заказ был успешно отменён.</target>
       </trans-unit>
       <trans-unit id="flashMessage.clearedCacheForFacility">
         <source>Cleared cache for %s list view(s) in frontend.</source>
-        <target state="needs-translation">Cleared cache for %s list view(s) in frontend.</target>
+        <target state="translated">Кэш для отображения списка просмотра(ов) %s в интерфейсе очищен.</target>
       </trans-unit>
       <trans-unit id="flashMessage.noLongerCancelable">
         <source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
-        <target state="needs-translation">The reservation could be cancelled until %s. It can no longer be canceled!</target>
+        <target state="translated">Бронирование может быть отменено до %s. Оно больше не может быть отменено!</target>
       </trans-unit>
       <trans-unit id="flashMessage.notCancelable">
         <source>The reservation could not be canceled.</source>
-        <target state="needs-translation">The reservation could not be canceled.</target>
+        <target state="translated">Бронирование не может быть отменено.</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMail.title">
         <source>You updated at least one period</source>
-        <target state="needs-translation">You updated at least one period</target>
+        <target state="translated">Вы обновили хотя бы один период</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMail.message">
         <source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected
 					visitors?
 				</source>
-        <target state="needs-translation">The time of at least one period was changed! Do you want to write an e-mail to inform the affected
-					visitors?
-				</target>
+        <target state="translated">Время как минимум одного периода было изменено! Хотите написать электронное письмо, чтобы проинформировать затронутых
+посетителей</target>
       </trans-unit>
       <trans-unit id="modal.button.writeMail">
         <source>Write e-mail</source>
-        <target state="needs-translation">Write e-mail</target>
+        <target state="translated">Написать e-mail</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMailAfterDeletion.title">
         <source>You deleted at least one period</source>
-        <target state="needs-translation">You deleted at least one period</target>
+        <target state="translated">Вы удалили хотя бы один период</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMailAfterDeletion.message">
         <source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
-        <target state="needs-translation">Do you want to inform the affected visitors about the cancellation of their reserved tickets?</target>
+        <target state="translated">Вы хотите сообщить затронутых посетителей об отмене их зарезервированных билетов?</target>
       </trans-unit>
       <trans-unit id="email.body.afterPeriodUpdate">
         <source><![CDATA[<p>Dear visitor,</p>
@@ -337,31 +333,31 @@
 
 <p>Updated reservation data:</p>
 <p>###RESERVATION###</p>]]></source>
-        <target state="needs-translation"><![CDATA[<p>Dear visitor,</p>
-<p>we changed some details of your booked time period!</p>
+        <target state="translated"><![CDATA[<p>Уважаемый посетитель,</p>
+<p>мы изменили некоторые детали Вашего забронированного периода!</p>
 
-<p>Updated reservation data:</p>
-<p>###RESERVATION###</p>]]></target>
+<p>Обновленные данные бронирования:</p>
+<p>###РЕЗЕРВИРОВАНИЕ###</p>]]></target>
       </trans-unit>
       <trans-unit id="email.body.afterPeriodDeletion">
         <source><![CDATA[<p>Dear visitor,</p>
 <p>we are sorry but your reserved ticket got cancelled!</p>
 ]]></source>
-        <target state="needs-translation"><![CDATA[<p>Dear visitor,</p>
-<p>we are sorry but your reserved ticket got cancelled!</p>
+        <target state="translated"><![CDATA[<p>Уважаемый посетитель,</p>
+<p>мы сожалеем, но Ваш зарезервированный билет был отменен!</p>
 ]]></target>
       </trans-unit>
       <trans-unit id="orderValidator.isNotBookable">
         <source>The selected period can not be booked at the moment!</source>
-        <target state="needs-translation">The selected period can not be booked at the moment!</target>
+        <target state="translated">Выбранный период не может быть забронирован в данный момент!</target>
       </trans-unit>
       <trans-unit id="datatables.languageFile">
         <source>‎</source>
-        <target state="needs-translation">‎</target>
+        <target state="translated">‎</target>
       </trans-unit>
       <trans-unit id="period.openEnd">
         <source>Open end</source>
-        <target state="needs-translation">Open end</target>
+        <target state="translated">Открыть конец</target>
       </trans-unit>
     </body>
   </file>
