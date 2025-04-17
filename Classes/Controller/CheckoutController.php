@@ -123,7 +123,7 @@ class CheckoutController extends ActionController
             } else {
                 $facility = $order->getBookedPeriod()->getFacility()->getName();
                 $this->addFlashMessage(
-                    sprintf(LocalizationUtility::translate('reservation.confirmed', 'reserve'), $facility)
+                    sprintf(LocalizationUtility::translate('reservation.confirmed', 'reserve'), $facility),
                 );
             }
 
