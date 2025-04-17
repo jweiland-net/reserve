@@ -115,9 +115,18 @@ class CheckoutController extends ActionController
             return $this->redirect('list');
         }
 
-        if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants)) {
-            $this->checkoutService->sendConfirmationMail($order);
-            $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
+        $disableDoubleOptin = (bool)$this->settings['disableDoupleOptin'];
+        if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants, $disableDoubleOptin)) {
+            if (!$disableDoubleOptin) {
+                $this->checkoutService->sendConfirmationMail($order);
+                $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
+            } else {
+                $facility = $order->getBookedPeriod()->getFacility()->getName();
+                $this->addFlashMessage(
+                    sprintf(LocalizationUtility::translate('reservation.confirmed', 'reserve'), $facility)
+                );
+            }
+
             return $this->redirect('list');
         }
 
