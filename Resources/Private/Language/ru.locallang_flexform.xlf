@@ -5,39 +5,39 @@
     <body>
       <trans-unit id="reservation.title">
         <source>Reservation</source>
-        <target state="needs-translation">Reservation</target>
+        <target state="translated">Бронирование</target>
       </trans-unit>
       <trans-unit id="reservation.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Заведение</target>
       </trans-unit>
       <trans-unit id="reservation.facility.description">
         <source>You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</source>
-        <target state="needs-translation">You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</target>
+        <target state="translated">Вы можете выбрать либо один объект, либо более. Если выбрать более одного, название объекта будет показано в каждой строке.</target>
       </trans-unit>
       <trans-unit id="reservation.orderPid">
         <source>Storage folder for reservations</source>
-        <target state="needs-translation">Storage folder for reservations</target>
+        <target state="translated">Папка хранения для бронирования</target>
       </trans-unit>
       <trans-unit id="management.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Заведение</target>
       </trans-unit>
       <trans-unit id="reservation.mainFields">
         <source>What data should the user provide?</source>
-        <target state="needs-translation">What data should the user provide?</target>
+        <target state="translated">Какие данные должен предоставить пользователь?</target>
       </trans-unit>
       <trans-unit id="reservation.mainFields.description">
         <source>Fields that are always displayed: First name, E-Mail</source>
-        <target state="needs-translation">Fields that are always displayed: First name, E-Mail</target>
+        <target state="translated">Поля, которые всегда отображаются: Имя, E-Mail</target>
       </trans-unit>
       <trans-unit id="reservation.showFieldsForFurtherParticipants">
         <source>Should the personal data of further participants be asked?</source>
-        <target state="needs-translation">Should the personal data of further participants be asked?</target>
+        <target state="translated">Должны ли запрашиваться личные данные других участников?</target>
       </trans-unit>
       <trans-unit id="reservation.disableDoupleOptin">
         <source>Disable double optin confirmation.</source>
-        <target state="needs-translation">Disable double optin confirmation.</target>
+        <target state="translated">Отключить двойное подтверждение выбора.</target>
       </trans-unit>
     </body>
   </file>
