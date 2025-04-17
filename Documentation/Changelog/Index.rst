@@ -7,10 +7,15 @@
 Changelog
 =========
 
+Version 2.4.0
+=============
+
+2025-04-17 Added new feature to disable double optin.
+
 Version 2.3.0
 =============
 
-2025-05-02 BUGFIX in Fluid Template Email Cancellation
+2025-04-02 BUGFIX in Fluid Template Email Cancellation
 
 Version 2.2.0
 =============

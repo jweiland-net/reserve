@@ -77,7 +77,7 @@ class CheckoutService
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0): bool
+    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0, $disableDoubleOptin = false): bool
     {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
@@ -110,6 +110,11 @@ class CheckoutService
         }
 
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
+
+        if ($disableDoubleOptin === true) {
+            $order->setActivated(true);
+            $this->sendReservationMail($order);
+        }
 
         return true;
     }

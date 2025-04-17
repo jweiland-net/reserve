@@ -29,6 +29,9 @@
 			<trans-unit id="reservation.showFieldsForFurtherParticipants">
 				<target>Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
 			</trans-unit>
+			<trans-unit id="reservation.disableDoupleOptin">
+				<target>Deaktivieren Sie die doppelte Opt-in-Bestätigung.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
