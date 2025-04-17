@@ -10,6 +10,7 @@ Changelog
 Version 4.1.0
 =============
 
+*   [TASK] Added new feature to disable double optin.
 *   [TASK] Added SendReservationEmailEvent
 *   [TASK] Added SendCancellationEmailEvent
 *   [TASK] Added SendEmailEvent
