@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.1.1
+=============
+
+*   [BUGFIX] Fixed an issue in IfStringInCommaSeparatedListViewHelper where it incorrectly returned false even when the field was checked.
+
 Version 4.1.0
 =============
 

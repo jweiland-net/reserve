@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\ViewHelpers;
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -37,9 +38,12 @@ class IfStringInCommaSeparatedListViewHelper extends AbstractConditionViewHelper
     }
 
     /**
-     * @param array|null $arguments
+     * @param array<string, mixed> $arguments
+     * @param RenderingContextInterface $renderingContext
+     *
+     * @return bool
      */
-    protected static function evaluateCondition($arguments = null): bool
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
     {
         return in_array($arguments['needle'], explode(',', (string)$arguments['haystack']), true);
     }
