@@ -13,9 +13,7 @@ namespace JWeiland\Reserve\ViewHelpers;
 
 use JWeiland\Reserve\Service\ReserveService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * This ViewHelpers allows you to embed an information monitor with registration link for a period of a facility.
@@ -43,8 +41,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class PeriodRegistrationViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     /**
      * @var bool
      */
@@ -73,20 +69,17 @@ class PeriodRegistrationViewHelper extends AbstractViewHelper
         );
     }
 
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext,
-    ): string {
+    public function render(): string
+    {
         $dateAndBegin = new \DateTime();
-        $dateAndBegin->setTimestamp($arguments['dateAndBegin']);
+        $dateAndBegin->setTimestamp($this->arguments['dateAndBegin']);
 
-        $renderingContext->getVariableProvider()->add(
-            $arguments['as'],
-            self::getReserveService()->findPeriodsByDateAndBegin($arguments['facilityUid'], $dateAndBegin),
+        $this->renderingContext->getVariableProvider()->add(
+            $this->arguments['as'],
+            self::getReserveService()->findPeriodsByDateAndBegin($this->arguments['facilityUid'], $dateAndBegin),
         );
-        $result = $renderChildrenClosure();
-        $renderingContext->getVariableProvider()->remove($arguments['as']);
+        $result = $this->renderChildren();
+        $this->renderingContext->getVariableProvider()->remove($this->arguments['as']);
 
         return $result;
     }

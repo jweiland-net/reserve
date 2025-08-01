@@ -14,6 +14,7 @@ namespace JWeiland\Reserve\Tests\Functional\Domain\Validation;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Validation\OrderValidator;
 use JWeiland\Reserve\Event\ValidateOrderEvent;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -22,9 +23,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Validation\OrderValidator
- */
+#[CoversClass(OrderValidator::class)]
 class OrderValidatorTest extends FunctionalTestCase
 {
     protected array $testExtensionsToLoad = [

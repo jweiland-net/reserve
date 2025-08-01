@@ -52,22 +52,13 @@ class CheckoutServiceTest extends FunctionalTestCase
 
     protected CheckoutService $subject;
 
-    /**
-     * @var FluidService|MockObject
-     */
-    protected $fluidServiceMock;
+    protected FluidService|MockObject $fluidServiceMock;
 
-    /**
-     * @var MailService|MockObject
-     */
-    protected $mailServiceMock;
+    protected MailService|MockObject $mailServiceMock;
 
-    /**
-     * @var EventDispatcher|MockObject
-     */
-    protected $eventDispatcherMock;
+    protected EventDispatcher|MockObject $eventDispatcherMock;
 
-    protected $qrCodeServiceMock;
+    protected QrCodeService|MockObject $qrCodeServiceMock;
 
     protected ExtConf $extConf;
 

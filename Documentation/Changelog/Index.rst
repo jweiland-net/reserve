@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.1.2
+=============
+
+*   [BUGFIX] Update testing directory
+
 Version 4.1.1
 =============
 

@@ -71,7 +71,7 @@
 		"typo3/cms": {
 			"app-dir": ".Build",
 			"extension-key": "reserve",
-			"web-dir": ".Build/Web"
+			"web-dir": ".Build/public"
 		}
 	}
 }

@@ -15,13 +15,12 @@ use JWeiland\Reserve\Domain\Model\Facility;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Model\Period
- */
+#[CoversClass(Period::class)]
 class PeriodTest extends UnitTestCase
 {
     protected Period $subject;
