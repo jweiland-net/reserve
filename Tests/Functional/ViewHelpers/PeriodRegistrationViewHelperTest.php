@@ -25,7 +25,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
         'jweiland/reserve',
     ];
 
-    private const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
+    private const string BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 
     protected StandaloneView $standaloneView;
 

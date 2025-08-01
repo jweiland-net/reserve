@@ -12,12 +12,11 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Participant;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Model\Participant
- */
+#[CoversClass(Participant::class)]
 class ParticipantTest extends UnitTestCase
 {
     protected Participant $subject;
@@ -58,9 +57,7 @@ class ParticipantTest extends UnitTestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function getLastNameInitiallyReturnsEmptyString(): void
     {
         self::assertSame(

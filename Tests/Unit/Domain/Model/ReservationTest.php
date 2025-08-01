@@ -13,12 +13,11 @@ namespace JWeiland\Reserve\Tests\Unit\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Model\Reservation
- */
+#[CoversClass(Reservation::class)]
 class ReservationTest extends UnitTestCase
 {
     protected Reservation $subject;

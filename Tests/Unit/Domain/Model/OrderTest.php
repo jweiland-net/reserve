@@ -16,13 +16,13 @@ use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Period;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Model\Order
- */
+#[CoversClass(Order::class)]
 class OrderTest extends UnitTestCase
 {
     protected Order $subject;
@@ -600,11 +600,8 @@ class OrderTest extends UnitTestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider canBeBookedDataProvider
-     */
+    #[Test]
+    #[DataProvider('canBeBookedDataProvider')]
     public function canBeBookedWithFreePlacesWillReturnTrue(int $maxParticipantsPerOrder, bool $expectedResult): void
     {
         $participant1 = new Participant();

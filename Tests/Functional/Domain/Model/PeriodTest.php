@@ -12,13 +12,12 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Tests\Functional\Domain\Model;
 
 use JWeiland\Reserve\Domain\Model\Period;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
-/**
- * @covers \JWeiland\Reserve\Domain\Model\Period
- */
+#[CoversClass(Period::class)]
 class PeriodTest extends FunctionalTestCase
 {
     protected Period $subject;
