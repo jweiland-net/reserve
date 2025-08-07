@@ -7,6 +7,16 @@
 Changelog
 =========
 
+Version 3.1.0
+=============
+
+*   [TASK] Disable QR Code - Backported functionality
+*   [TASK] Added new feature to disable double optin. - Backported functionality
+*   [TASK] Added SendReservationEmailEvent - Backported functionality
+*   [TASK] Added SendCancellationEmailEvent - Backported functionality
+*   [TASK] Added SendEmailEvent - Backported functionality
+*   [BUGFIX] Fixed template of Cancellation Email - Backported Fix
+
 Version 3.0.1
 =============
 
@@ -21,6 +31,24 @@ Version 3.0.0
 *   Add TYPO3 12 compatibility
 *   Remove TYPO3 11 compatibility
 *   Remove TYPO3 10 compatibility
+
+Version 2.4.0
+=============
+
+2025-04-17 Added new feature to disable double optin.
+
+Version 2.3.0
+=============
+
+2025-04-02 BUGFIX in Fluid Template Email Cancellation
+
+Version 2.2.0
+=============
+
+2025-03-18 Backporting QR Code Disabling Functionality
+2025-03-26 Backporting SendReservationEmailEvent from new version
+2025-03-26 Backporting SendCancellationEmailEvent from new version
+2025-03-26 Backporting SendEmailEvent from new version
 
 Version 2.1.0
 =============

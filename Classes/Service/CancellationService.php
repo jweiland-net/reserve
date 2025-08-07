@@ -12,9 +12,12 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Event\SendCancellationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
+use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -35,10 +38,16 @@ class CancellationService implements SingletonInterface
 
     protected DataHandler $dataHandler;
 
-    public function __construct(FluidService $fluidService, DataHandler $dataHandler)
-    {
-        $this->fluidService = $fluidService;
+    protected EventDispatcher $eventDispatcher;
+
+    public function __construct(
+        DataHandler $dataHandler,
+        EventDispatcher $eventDispatcher,
+        FluidService $fluidService,
+    ) {
         $this->dataHandler = $dataHandler;
+        $this->fluidService = $fluidService;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -57,8 +66,7 @@ class CancellationService implements SingletonInterface
 
             $this->fluidService->configureStandaloneViewForMailing($view);
 
-            $view->assignMultiple(['order' => $order, 'reason' => $reason]);
-            $view->assignMultiple($vars);
+            $view->assignMultiple(array_merge(['order' => $order, 'reason' => $reason], $vars));
             $view->setTemplate('Cancellation');
 
             $this
@@ -66,7 +74,16 @@ class CancellationService implements SingletonInterface
                 ->sendMailToCustomer(
                     $order,
                     LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
-                    $view->render()
+                    $view->render(),
+                    function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
+                        foreach ($data['order']->getReservations() as $reservation) {
+                            /** @var SendCancellationEmailEvent $event */
+                            $event = $this->eventDispatcher->dispatch(
+                                new SendCancellationEmailEvent($mailMessage),
+                            );
+                            $mailMessage = $event->getMailMessage();
+                        }
+                    }
                 );
         }
 

@@ -11,13 +11,16 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Service;
 
+use JWeiland\Reserve\Configuration\ExtConf;
 use JWeiland\Reserve\Domain\Model\Order;
 use JWeiland\Reserve\Domain\Model\Participant;
 use JWeiland\Reserve\Domain\Model\Reservation;
+use JWeiland\Reserve\Event\SendReservationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\CheckoutUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
 use JWeiland\Reserve\Utility\QrCodeUtility;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
@@ -34,16 +37,24 @@ class CheckoutService
 
     protected PersistenceManager $persistenceManager;
 
+    protected EventDispatcher $eventDispatcher;
+
+    protected ExtConf $extensionConfiguration;
+
     public function __construct(
         ConfigurationManager $configurationManager,
+        ExtConf $extensionConfiguration,
         FluidService $fluidService,
         MailService $mailService,
-        PersistenceManager $persistenceManager
+        PersistenceManager $persistenceManager,
+        EventDispatcher $eventDispatcher,
     ) {
         $this->configurationManager = $configurationManager;
+        $this->extensionConfiguration = $extensionConfiguration;
         $this->fluidService = $fluidService;
         $this->mailService = $mailService;
         $this->persistenceManager = $persistenceManager;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -54,7 +65,7 @@ class CheckoutService
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0): bool
+    public function checkout(Order $order, int $pid = 0, int $furtherParticipants = 0, $disableDoubleOptin = false): bool
     {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
@@ -87,6 +98,11 @@ class CheckoutService
         }
 
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
+
+        if ($disableDoubleOptin === true) {
+            $order->setActivated(true);
+            $this->sendReservationMail($order);
+        }
 
         return true;
     }
@@ -153,11 +169,21 @@ class CheckoutService
             ),
             function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                 foreach ($data['order']->getReservations() as $reservation) {
-                    $qrCode = QrCodeUtility::generateQrCode($reservation);
-                    $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    if (!$this->extensionConfiguration->getDisableQRCodeGeneration()) {
+                        $qrCode = QrCodeUtility::generateQrCode($reservation);
+                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                    }
+
+                    /** @var SendReservationEmailEvent $event */
+                    $event = $this->eventDispatcher->dispatch(
+                        new SendReservationEmailEvent($mailMessage),
+                    );
+                    $mailMessage = $event->getMailMessage();
                 }
             }
         );
+
+
     }
 
     private function getEmptyParticipant(): Participant

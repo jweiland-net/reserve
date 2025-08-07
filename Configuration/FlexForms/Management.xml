@@ -22,6 +22,15 @@
 							</config>
 						</TCEforms>
 					</settings.facility>
+                    <settings.disableDoupleOptin>
+                        <label>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.disableDoupleOptin
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <renderType>checkboxToggle</renderType>
+                        </config>
+                    </settings.disableDoupleOptin>
 				</el>
 			</ROOT>
 		</sDEF>

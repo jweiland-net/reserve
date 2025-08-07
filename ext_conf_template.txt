@@ -1,2 +1,5 @@
 # cat=Frontend; type=int; label=Block multiple orders for x seconds: This may prevent primitive users from placing multiple orders.
 blockMultipleOrdersInSeconds = 3600
+
+# cat=Frontend; type=boolean; label=Disable QR Code Generation and Attach to Email
+disableQRCodeGeneration = 0
