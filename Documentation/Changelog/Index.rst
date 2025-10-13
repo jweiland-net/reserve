@@ -7,6 +7,15 @@
 Changelog
 =========
 
+Version 4.1.3
+=============
+
+*   [BUGFIX] Avoid deprecation warning by explicitly marking Email parameter as nullable
+*   [BUGFIX] Fixed PHP warning for implicitly nullable Email parameter in lockEmail()
+*   [BUGFIX] Added explicit nullable type ?Email to resolve PHP 8.4 deprecation warning
+*   [BUGFIX] Prevent implicit nullability warning in lockEmail method
+*   [BUGFIX] Cleaned up method signature to be compatible with future PHP versions
+
 Version 4.1.2
 =============
 
