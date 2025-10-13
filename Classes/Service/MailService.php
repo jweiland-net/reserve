@@ -35,7 +35,7 @@ class MailService implements SingletonInterface
         Order $order,
         string $subject,
         string $bodyHtml,
-        \Closure $postProcess = null,
+        ?\Closure $postProcess = null,
     ): bool {
         return $this->sendMail(
             $subject,
@@ -58,7 +58,7 @@ class MailService implements SingletonInterface
         string $fromName = '',
         string $replyTo = '',
         string $replyToName = '',
-        \Closure $postProcess = null,
+        ?\Closure $postProcess = null,
         array $postProcessData = [],
     ): bool {
         $mail = $this->getMailMessage();

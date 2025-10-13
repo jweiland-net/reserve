@@ -66,7 +66,7 @@ class EmailRepository extends Repository
     /**
      * @param Email|null $email optional to set "locked" property in ExtBase domain model
      */
-    public function lockEmail(int $uid, Email $email = null): void
+    public function lockEmail(int $uid, ?Email $email = null): void
     {
         $this
             ->getConnectionForTable(self::TABLE)
