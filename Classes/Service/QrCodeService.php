@@ -98,7 +98,7 @@ class QrCodeService
         return '';
     }
 
-    private function formatTime(string $format, int $timestamp = null): string
+    private function formatTime(string $format, ?int $timestamp = null): string
     {
         $format = strtr($format, [
             '%a' => 'D', '%d' => 'd', '%m' => 'm', '%Y' => 'Y',

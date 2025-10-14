@@ -206,7 +206,7 @@ class Email extends AbstractEntity
      *
      * @param array|null $orders reference if you need the associated orders if type is RECEIVER_TYPE_PERIODS
      */
-    public function getReceivers(array &$orders = null): array
+    public function getReceivers(?array &$orders = null): array
     {
         if ($this->receiverType === self::RECEIVER_TYPE_PERIODS) {
             $receivers = $this->getReceiversTypePeriods($orders);
@@ -217,7 +217,7 @@ class Email extends AbstractEntity
         return $receivers;
     }
 
-    protected function getReceiversTypePeriods(array &$orders = null): array
+    protected function getReceiversTypePeriods(?array &$orders = null): array
     {
         $orders = [];
         $emails = [];
