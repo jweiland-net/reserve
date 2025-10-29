@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.1.4
+=============
+
+*   [BUGFIX] SiteSet identifier renamed by removing default
+
 Version 4.1.3
 =============
 
