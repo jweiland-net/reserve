@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.2.0
+=============
+
+*   [TASK] Added reserve_management plugin in list_type to CType upgrade wizard
+
 Version 4.1.4
 =============
 
