@@ -23,6 +23,7 @@ class PluginToContentElementUpdate extends AbstractListTypeToCTypeUpdate
     protected function getListTypeToCTypeMapping(): array
     {
         return [
+            'reserve_management' => 'reserve_management',
             'reserve_reservation' => 'reserve_reservation',
         ];
     }
