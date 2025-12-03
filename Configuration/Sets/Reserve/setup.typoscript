@@ -10,17 +10,17 @@ plugin.tx_reserve {
   view {
     templateRootPaths {
       0 = EXT:reserve/Resources/Private/Templates/
-      1 = {$plugin.tx_reserve.view.templateRootPath}
+      1 = {$reserve.templateRootPath}
     }
 
     partialRootPaths {
       0 = EXT:reserve/Resources/Private/Partials/
-      1 = {$plugin.tx_reserve.view.partialRootPath}
+      1 = {$reserve.partialRootPath}
     }
 
     layoutRootPaths {
       0 = EXT:reserve/Resources/Private/Layouts/
-      1 = {$plugin.tx_reserve.view.layoutRootPath}
+      1 = {$reserve.layoutRootPath}
     }
   }
 
