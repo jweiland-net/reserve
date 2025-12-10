@@ -1,7 +1,7 @@
 page {
   includeJSFooterlibs {
     jQueryForReserve = EXT:reserve/Resources/Public/JavaScript/jquery-3.5.1.js
-    jQueryForReserve.if.isTrue = {$plugin.tx_reserve.settings.includeJQueryLibrary}
+    jQueryForReserve.if.isTrue = {$reserve.includeJQueryLibrary}
     dataTables = EXT:reserve/Resources/Public/JavaScript/jquery.dataTables.min.js
   }
 }

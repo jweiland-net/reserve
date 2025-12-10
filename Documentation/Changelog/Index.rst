@@ -7,7 +7,12 @@
 Changelog
 =========
 
-Version 4.2.0
+Version 4.2.2
+=============
+
+*   [BUGFIX] SiteSet Configuration refactoring
+
+Version 4.2.1
 =============
 
 *   [BUGFIX] Issue related to SiteSet constant inclusion fixed
