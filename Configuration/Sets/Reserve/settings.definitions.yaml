@@ -42,3 +42,8 @@ settings:
     description: ''
     type: string
     default: 'lastName,firstName,email,phone,address,zip,city'
+  reserve.includeJQueryLibrary:
+    label: 'Include JQuery Library'
+    category: reserve.settings
+    type: bool
+    default: true
