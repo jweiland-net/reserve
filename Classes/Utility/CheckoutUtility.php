@@ -31,7 +31,7 @@ class CheckoutUtility
         $hashService = GeneralUtility::makeInstance(HashService::class);
         $hmac = $hashService->hmac(
             StringUtility::getUniqueId(),
-            'checkoutext-reservation-code'
+            'checkoutext-reservation-code',
         );
 
         return substr($hmac, 0, 9);
