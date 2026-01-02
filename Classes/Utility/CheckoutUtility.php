@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace JWeiland\Reserve\Utility;
 
+use TYPO3\CMS\Core\Crypto\HashService;
 use TYPO3\CMS\Core\Crypto\Random;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
@@ -27,7 +28,10 @@ class CheckoutUtility
 
     public static function generateCodeForReservation(): string
     {
-        return substr(GeneralUtility::hmac(StringUtility::getUniqueId()), 0, 9);
+        $hashService = GeneralUtility::makeInstance(HashService::class);
+        $hmac = $hashService->hmac(StringUtility::getUniqueId());
+
+        return substr($hmac, 0, 9);
     }
 
     private static function getRandom(): Random
