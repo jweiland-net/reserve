@@ -29,7 +29,10 @@ class CheckoutUtility
     public static function generateCodeForReservation(): string
     {
         $hashService = GeneralUtility::makeInstance(HashService::class);
-        $hmac = $hashService->hmac(StringUtility::getUniqueId());
+        $hmac = $hashService->hmac(
+            StringUtility::getUniqueId(),
+            'checkoutext-reservation-code'
+        );
 
         return substr($hmac, 0, 9);
     }
