@@ -55,11 +55,6 @@ call_user_func(static function (): void {
         'class' => QrCodePreviewElement::class,
     ];
 
-    // Add reserve plugin to new element wizard
-    ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:reserve/Configuration/TSconfig/ContentElementWizard.tsconfig">',
-    );
-
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][]
         = DataHandlerHook::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][]

@@ -7,6 +7,12 @@
 Changelog
 =========
 
+Version 4.2.3
+=============
+
+*   [BUGFIX] Replaced usage of GeneralUtility::hmac with Hash Service
+*   [BUGFIX] Removed invalid pageTS inclusion
+
 Version 4.2.2
 =============
 
