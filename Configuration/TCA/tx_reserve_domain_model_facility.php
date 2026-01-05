@@ -196,7 +196,7 @@ DEFAULT_CONFIRMATION
                 ,
                 'eval' => 'trim',
                 'required' => true,
-                'softref' => 'typolink_tag,images,email[subst],url',
+                'softref' => 'typolink_tag,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
@@ -227,7 +227,7 @@ DEFAULT_RESERVATION
                 ,
                 'eval' => 'trim',
                 'required' => true,
-                'softref' => 'typolink_tag,images,email[subst],url',
+                'softref' => 'typolink_tag,email[subst],url',
                 'behaviour' => [
                     'allowLanguageSynchronization' => true,
                 ],
