@@ -30,7 +30,7 @@ class PluginToContentElementUpdate extends AbstractListTypeToCTypeUpdate
 
     public function getTitle(): string
     {
-        return 'EXT:reserve Migrate plugins to Content Elements';
+        return '[reserve] Migrate plugins to Content Elements';
     }
 
     public function getDescription(): string
