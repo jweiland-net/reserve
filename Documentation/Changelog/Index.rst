@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.2.5
+=============
+
+*   [TASK] Updated wizard title with [extension] name format
+
 Version 4.2.4
 =============
 
