@@ -121,8 +121,8 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_begin',
             'config' => [
                 'type' => 'datetime',
+                'format' => 'datetime',
                 'size' => 30,
-                'eval' => 'datetime,int',
                 'required' => true,
             ],
         ],
@@ -130,16 +130,16 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.booking_end',
             'config' => [
                 'type' => 'datetime',
+                'format' => 'datetime',
                 'size' => 30,
-                'eval' => 'datetime,int',
             ],
         ],
         'date' => [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.date',
             'config' => [
                 'type' => 'datetime',
+                'format' => 'date',
                 'size' => 30,
-                'eval' => 'date,int',
                 'required' => true,
             ],
         ],
@@ -147,8 +147,8 @@ return [
             'label' => 'LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:tx_reserve_domain_model_period.begin',
             'config' => [
                 'type' => 'datetime',
+                'format' => 'time',
                 'size' => 30,
-                'eval' => 'time,int',
                 'required' => true,
             ],
         ],
@@ -157,7 +157,7 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'size' => 30,
-                'eval' => 'time,int',
+                'format' => 'time',
             ],
         ],
         'max_participants' => [
