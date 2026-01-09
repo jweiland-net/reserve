@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.2.6
+=============
+
+*   [BUGFIX] Fixed TCA date field formating
+
 Version 4.2.5
 =============
 
