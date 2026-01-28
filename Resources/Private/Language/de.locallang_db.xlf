@@ -17,7 +17,7 @@
       </trans-unit>
       <trans-unit id="plugin.reserve_management.description">
         <source>Reserve: Manage reservations and scan reservation codes</source>
-        <target state="needs-translation">Reserve: Manage reservations and scan reservation codes</target>
+        <target state="translated">Reserve: Manage reservations and scan reservation codes</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility" approved="yes">
         <source>Facility</source>
