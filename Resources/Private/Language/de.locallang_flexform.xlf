@@ -37,7 +37,7 @@
       </trans-unit>
       <trans-unit id="reservation.disableDoupleOptin">
         <source>Disable double optin confirmation.</source>
-        <target state="needs-translation">Disable double optin confirmation.</target>
+        <target state="translated">Deaktiviere doppelte Optinbestätigung.</target>
       </trans-unit>
     </body>
   </file>
