@@ -35,9 +35,9 @@
         <source>Should the personal data of further participants be asked?</source>
         <target state="final">Soll nach den Personalien der weiteren Teilnehmer gefragt werden?</target>
       </trans-unit>
-      <trans-unit id="reservation.disableDoupleOptin">
+      <trans-unit id="reservation.disableDoupleOptin" approved="yes">
         <source>Disable double optin confirmation.</source>
-        <target state="translated">Deaktiviere doppelte Optinbestätigung.</target>
+        <target state="final">Deaktiviere doppelte Optinbestätigung.</target>
       </trans-unit>
     </body>
   </file>
