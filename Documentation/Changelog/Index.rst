@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.2.7
+=============
+
+*   [BUGFIX] Fixed issue with reservation cancellation
+
 Version 4.2.6
 =============
 
@@ -85,6 +90,11 @@ Version 4.0.0
 *   [TASK] Added new PSR 14 Events
 *   [TASK] Changed General Plugins to CType
 *   [TASK] New Update Wizard migrating plugins to CType
+
+Version 3.1.1
+=============
+
+*   [BUGFIX] Fixed issue with reservation cancellation
 
 Version 3.0.2
 =============
