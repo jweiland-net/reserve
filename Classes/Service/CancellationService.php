@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace JWeiland\Reserve\Service;
 
 use JWeiland\Reserve\Domain\Model\Order;
+use JWeiland\Reserve\Domain\Repository\OrderRepository;
 use JWeiland\Reserve\Event\SendCancellationEmailEvent;
 use JWeiland\Reserve\Utility\CacheUtility;
 use JWeiland\Reserve\Utility\OrderSessionUtility;
@@ -20,6 +21,7 @@ use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -40,14 +42,18 @@ class CancellationService implements SingletonInterface
 
     protected EventDispatcher $eventDispatcher;
 
+    protected OrderRepository $orderRepository;
+
     public function __construct(
         DataHandler $dataHandler,
         EventDispatcher $eventDispatcher,
         FluidService $fluidService,
+        OrderRepository $orderRepository,
     ) {
         $this->dataHandler = $dataHandler;
         $this->fluidService = $fluidService;
         $this->eventDispatcher = $eventDispatcher;
+        $this->orderRepository = $orderRepository;
     }
 
     /**
@@ -87,11 +93,9 @@ class CancellationService implements SingletonInterface
                 );
         }
 
-        // Remove with DataHandler
-        $this->dataHandler->start([], []);
-        $this->dataHandler->deleteRecord('tx_reserve_domain_model_order', $order->getUid());
-        $this->dataHandler->process_datamap();
-
+        $this->orderRepository->remove($order);
+        $this->orderRepository->persistAll();
+        
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
 
         OrderSessionUtility::unblockNewOrdersForFacilityInCurrentSession(

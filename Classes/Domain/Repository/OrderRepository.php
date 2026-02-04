@@ -158,4 +158,9 @@ class OrderRepository extends Repository
 
         return $query->execute();
     }
+
+    public function persistAll()
+    {
+        $this->persistenceManager->persistAll();
+    }
 }

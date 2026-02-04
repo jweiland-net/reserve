@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 3.1.1
+=============
+
+*   [BUGFIX] Fixed issue with reservation cancellation
+
 Version 3.1.0
 =============
 
