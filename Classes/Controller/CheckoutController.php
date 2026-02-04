@@ -99,6 +99,7 @@ class CheckoutController extends ActionController
      */
     public function createAction(Order $order, int $furtherParticipants = 0): ResponseInterface
     {
+
         if (!(
             $order->_isNew()
             && $order->getBookedPeriod()->isBookable()
@@ -112,10 +113,11 @@ class CheckoutController extends ActionController
                 '',
                 ContextualFeedbackSeverity::ERROR,
             );
+
             return $this->redirect('list');
         }
 
-        $disableDoubleOptin = (bool)$this->settings['disableDoupleOptin'];
+        $disableDoubleOptin = (isset($this->settings['disableDoupleOptin']) && (bool)$this->settings['disableDoupleOptin']) ? 1 : 0;
         if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants, $disableDoubleOptin)) {
             if (!$disableDoubleOptin) {
                 $this->checkoutService->sendConfirmationMail($order);
