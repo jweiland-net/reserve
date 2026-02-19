@@ -7,6 +7,12 @@
 Changelog
 =========
 
+Version 4.2.8
+=============
+
+*   [BUGFIX] Fix typo in disableDoubleOptin and ensure persistence
+*   [TASK] An Upgrade Wizard is required to migrate existing FlexForm
+
 Version 4.2.7
 =============
 
