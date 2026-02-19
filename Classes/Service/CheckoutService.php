@@ -79,9 +79,10 @@ class CheckoutService
         }
 
         CacheUtility::clearPageCachesForPagesWithCurrentFacility($order->getBookedPeriod()->getFacility()->getUid());
-
         if ($disableDoubleOptin === true) {
             $order->setActivated(true);
+            $this->persistenceManager->add($order);
+            $this->persistenceManager->persistAll();
             $this->sendReservationMail($order);
         }
 

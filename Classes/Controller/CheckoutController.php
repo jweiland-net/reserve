@@ -117,7 +117,7 @@ class CheckoutController extends ActionController
             return $this->redirect('list');
         }
 
-        $disableDoubleOptin = (isset($this->settings['disableDoupleOptin']) && (bool)$this->settings['disableDoupleOptin']) ? 1 : 0;
+        $disableDoubleOptin = isset($this->settings['disableDoubleOptin']) && (bool)$this->settings['disableDoubleOptin'];
         if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants, $disableDoubleOptin)) {
             if (!$disableDoubleOptin) {
                 $this->checkoutService->sendConfirmationMail($order);
