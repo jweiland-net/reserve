@@ -103,7 +103,7 @@
                             <renderType>checkboxToggle</renderType>
                         </config>
                     </settings.showFieldsForFurtherParticipants>
-                    <settings.disableDoupleOptin>
+                    <settings.disableDoubleOptin>
                         <label>
                             LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.disableDoupleOptin
                         </label>
@@ -111,7 +111,7 @@
                             <type>check</type>
                             <renderType>checkboxToggle</renderType>
                         </config>
-                    </settings.disableDoupleOptin>
+                    </settings.disableDoubleOptin>
                 </el>
             </ROOT>
         </sDEF>
