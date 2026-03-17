@@ -112,6 +112,15 @@
                             <renderType>checkboxToggle</renderType>
                         </config>
                     </settings.disableDoubleOptin>
+                    <settings.disableQRCodeGeneration>
+                        <label>
+                            LLL:EXT:reserve/Resources/Private/Language/locallang_flexform.xlf:reservation.disableQRCodeGeneration
+                        </label>
+                        <config>
+                            <type>check</type>
+                            <renderType>checkboxToggle</renderType>
+                        </config>
+                    </settings.disableQRCodeGeneration>
                 </el>
             </ROOT>
         </sDEF>

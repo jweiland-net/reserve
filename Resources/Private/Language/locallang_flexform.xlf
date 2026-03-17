@@ -30,6 +30,9 @@
 			<trans-unit id="reservation.disableDoupleOptin">
 				<source>Disable double optin confirmation.</source>
 			</trans-unit>
+			<trans-unit id="reservation.disableQRCodeGeneration">
+				<source>Disable QR Code Generate</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

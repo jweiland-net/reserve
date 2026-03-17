@@ -17,10 +17,13 @@ pageUid: Page uid which contains the reserve checkout plugin
 <f:render partial="Mail/ReservationDetails" arguments="{order: order}"/>
 <f:if condition="{configurations.disableQRCodeGeneration}">
     <f:else>
-        <f:for each="{order.reservations}" as="reservation">
-            <img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>
-        </f:for>
-
+        <f:if condition="{settings.disableQRCodeGeneration}">
+            <f:else>
+                <f:for each="{order.reservations}" as="reservation">
+                    <img src="cid:{reservation.code}" title="QR Code" alt="{reservation.code}" style="padding: 40px;"/>
+                </f:for>
+            </f:else>
+        </f:if>
     </f:else>
 </f:if>
 <p>
