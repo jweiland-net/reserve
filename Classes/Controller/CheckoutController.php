@@ -25,7 +25,7 @@ use JWeiland\Reserve\Utility\OrderSessionUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -94,9 +94,7 @@ class CheckoutController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     * @Extbase\Validate("JWeiland\Reserve\Domain\Validation\OrderValidator", param="order")
-     */
+    #[Validate(['validatorName' => 'JWeiland\Reserve\Domain\Validation\OrderValidator', 'param' => 'order'])]
     public function createAction(Order $order, int $furtherParticipants = 0): ResponseInterface
     {
 
@@ -118,7 +116,14 @@ class CheckoutController extends ActionController
         }
 
         $disableDoubleOptin = isset($this->settings['disableDoubleOptin']) && (bool)$this->settings['disableDoubleOptin'];
-        if ($this->checkoutService->checkout($order, $this->request, (int)$this->settings['orderPid'], $furtherParticipants, $disableDoubleOptin)) {
+        if ($this->checkoutService->checkout(
+            $order,
+            $this->request,
+            (int)$this->settings['orderPid'],
+            $furtherParticipants,
+            $disableDoubleOptin,
+            $this->settings,
+        )) {
             if (!$disableDoubleOptin) {
                 $this->checkoutService->sendConfirmationMail($order);
                 $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
@@ -155,7 +160,7 @@ class CheckoutController extends ActionController
                 return $this->redirect('list');
             }
 
-            $this->checkoutService->confirm($order);
+            $this->checkoutService->confirm($order, $this->settings);
             $this->view->assign('order', $order);
         } else {
             $this->addFlashMessage(
