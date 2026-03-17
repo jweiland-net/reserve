@@ -7,6 +7,11 @@
 Changelog
 =========
 
+Version 4.3.0
+=============
+
+*   [TASK] Add functionality to disable QR Code in Mails and Reservation Confirmation
+
 Version 4.2.8
 =============
 
