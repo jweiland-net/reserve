@@ -35,6 +35,7 @@ class MailService implements SingletonInterface
         Order $order,
         string $subject,
         string $bodyHtml,
+        array $extensionSettings = [],
         ?\Closure $postProcess = null,
     ): bool {
         return $this->sendMail(
@@ -45,6 +46,7 @@ class MailService implements SingletonInterface
             $order->getBookedPeriod()->getFacility()->getFromName(),
             $order->getBookedPeriod()->getFacility()->getReplyToEmail(),
             $order->getBookedPeriod()->getFacility()->getReplyToName(),
+            $extensionSettings,
             $postProcess,
             ['order' => $order],
         );
@@ -58,6 +60,7 @@ class MailService implements SingletonInterface
         string $fromName = '',
         string $replyTo = '',
         string $replyToName = '',
+        array $extensionSettings = [],
         ?\Closure $postProcess = null,
         array $postProcessData = [],
     ): bool {
@@ -78,7 +81,7 @@ class MailService implements SingletonInterface
 
         // closure hook to add your own stuff to the $mail
         if ($postProcess) {
-            $postProcess($postProcessData, $subject, $bodyHtml, $mail);
+            $postProcess($postProcessData, $subject, $bodyHtml, $mail, $extensionSettings);
         }
 
         /** @var SendEmailEvent $event */
