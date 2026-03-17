@@ -35,8 +35,7 @@ class CheckoutService
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ExtConf $extConf,
         private readonly QrCodeService $qrCodeService,
-    ) {
-    }
+    ) {}
 
     /**
      * Create $amountOfReservations reservation records and add them to $order.
@@ -52,7 +51,7 @@ class CheckoutService
         int $pid = 0,
         int $furtherParticipants = 0,
         $disableDoubleOptin = false,
-        array $extensionSettings = []
+        array $extensionSettings = [],
     ): bool {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
@@ -168,7 +167,7 @@ class CheckoutService
                         $mailMessage->attach(
                             $qrCode->getString(),
                             $reservation->getCode(),
-                            $qrCode->getMimeType()
+                            $qrCode->getMimeType(),
                         );
                     }
                     /** @var SendReservationEmailEvent $event */
