@@ -35,7 +35,8 @@ class CheckoutService
         private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ExtConf $extConf,
         private readonly QrCodeService $qrCodeService,
-    ) {}
+    ) {
+    }
 
     /**
      * Create $amountOfReservations reservation records and add them to $order.
@@ -45,8 +46,14 @@ class CheckoutService
      * @param int $furtherParticipants anonymized further participants (Name: Further participant <n>)
      * @return bool true on success, otherwise false
      */
-    public function checkout(Order $order, ServerRequestInterface $request, int $pid = 0, int $furtherParticipants = 0, $disableDoubleOptin = false): bool
-    {
+    public function checkout(
+        Order $order,
+        ServerRequestInterface $request,
+        int $pid = 0,
+        int $furtherParticipants = 0,
+        $disableDoubleOptin = false,
+        array $extensionSettings = []
+    ): bool {
         $this->addFurtherParticipantsToOrder($order, $furtherParticipants);
         if ($order->canBeBooked() === false) {
             return false;
@@ -83,7 +90,7 @@ class CheckoutService
             $order->setActivated(true);
             $this->persistenceManager->add($order);
             $this->persistenceManager->persistAll();
-            $this->sendReservationMail($order);
+            $this->sendReservationMail($order, $extensionSettings);
         }
 
         return true;
@@ -127,15 +134,15 @@ class CheckoutService
         );
     }
 
-    public function confirm(Order $order): void
+    public function confirm(Order $order, array $extensionSettings = []): void
     {
         $order->setActivated(true);
-        $this->sendReservationMail($order);
+        $this->sendReservationMail($order, $extensionSettings);
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
     }
 
-    public function sendReservationMail(Order $order): bool
+    public function sendReservationMail(Order $order, array $extensionSettings = []): bool
     {
         return $this->mailService->sendMailToCustomer(
             $order,
@@ -148,13 +155,21 @@ class CheckoutService
                     'pageUid' => $GLOBALS['TSFE']->id,
                     'order' => $order,
                     'configurations' => $this->extConf,
+                    'settings' => $extensionSettings,
                 ],
             ),
-            function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
+            $extensionSettings,
+            function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage, array $extensionSettings) {
                 foreach ($data['order']->getReservations() as $reservation) {
-                    if ($this->extConf->isQrCodeGenerationEnabled()) {
+                    $disableQRCodeGeneration = (isset($extensionSettings['disableQRCodeGeneration']) && $extensionSettings['disableQRCodeGeneration']);
+                    // $this->extConf->isQrCodeGenerationEnabled() - this is global extension configuration
+                    if ($disableQRCodeGeneration === false && $this->extConf->isQrCodeGenerationEnabled()) {
                         $qrCode = $this->qrCodeService->generateQrCode($reservation);
-                        $mailMessage->attach($qrCode->getString(), $reservation->getCode(), $qrCode->getMimeType());
+                        $mailMessage->attach(
+                            $qrCode->getString(),
+                            $reservation->getCode(),
+                            $qrCode->getMimeType()
+                        );
                     }
                     /** @var SendReservationEmailEvent $event */
                     $event = $this->eventDispatcher->dispatch(
