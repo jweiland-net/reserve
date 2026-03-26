@@ -4,24 +4,50 @@
 
 <table class="table">
     <thead>
-    <tr>
-        <th>Config</th>
-        <th>Value</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td><strong>Plugin</strong></td>
-        <td>Reservation</td>
-    </tr>
-    <tr>
-        <td><strong>Facility</strong></td>
-        <td>{pi_flexform_transformed.settings.facility}</td>
-    </tr>
-    <tr>
-        <td><strong>Order PID</strong></td>
-        <td>{pi_flexform_transformed.settings.orderPid}</td>
-    </tr>
+        <tr>
+            <th>Config</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>Plugin</strong></td>
+            <td>Reservation</td>
+        </tr>
+        <tr>
+            <td><strong>Facility</strong></td>
+            <td>{pi_flexform_transformed.settings.facility}</td>
+        </tr>
+        <tr>
+            <td><strong>Order PID</strong></td>
+            <td>{pi_flexform_transformed.settings.orderPid}</td>
+        </tr>
+        <tr>
+            <td><strong>What data should the user provide?</strong></td>
+            <td>{pi_flexform_transformed.settings.mainFields}</td>
+        </tr>
+        <tr>
+            <td><strong>Should the personal data of further participants be asked?</strong></td>
+            <td>{pi_flexform_transformed.settings.showFieldsForFurtherParticipants}</td>
+        </tr>
+        <tr>
+            <td><strong>Disable double optin confirmation.</strong></td>
+            <td>
+                <f:if condition="{pi_flexform_transformed.settings.disableDoubleOptin}">
+                    <f:then>True</f:then>
+                    <f:else>False</f:else>
+                </f:if>
+            </td>
+        </tr>
+        <tr>
+            <td><strong>Disable QR Code Generate</strong></td>
+            <td>
+                <f:if condition="{pi_flexform_transformed.settings.disableQRCodeGeneration}">
+                    <f:then>True</f:then>
+                    <f:else>False</f:else>
+                </f:if>
+            </td>
+        </tr>
     </tbody>
 </table>
 </html>

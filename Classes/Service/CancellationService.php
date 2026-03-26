@@ -48,6 +48,7 @@ class CancellationService implements SingletonInterface
     public function cancel(
         Order $order,
         ServerRequestInterface $request,
+        $extensionSettings = [],
         string $reason = self::REASON_CUSTOMER,
         array $vars = [],
         bool $sendMailToCustomer = true,
@@ -65,6 +66,7 @@ class CancellationService implements SingletonInterface
                 $order,
                 LocalizationUtility::translate('mail.cancellation.subject', 'reserve'),
                 $view->render(),
+                $extensionSettings,
                 function (array $data, string $subject, string $bodyHtml, MailMessage $mailMessage) {
                     foreach ($data['order']->getReservations() as $reservation) {
                         /** @var SendCancellationEmailEvent $event */

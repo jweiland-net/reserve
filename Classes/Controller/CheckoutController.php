@@ -191,7 +191,7 @@ class CheckoutController extends ActionController
             $this->view->assign('order', $order);
             if ($confirm) {
                 try {
-                    $this->cancellationService->cancel($order, $this->request);
+                    $this->cancellationService->cancel($order, $this->request, $this->settings);
                     $this->addFlashMessage(LocalizationUtility::translate('cancel.cancelled', 'reserve'));
                 } catch (\Throwable $exception) {
                     $this->addFlashMessage(
