@@ -33,8 +33,7 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     public function __construct(
         private readonly FlexFormService $flexFormService,
         private readonly ViewFactoryInterface $viewFactory,
-    ) {
-    }
+    ) {}
 
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {

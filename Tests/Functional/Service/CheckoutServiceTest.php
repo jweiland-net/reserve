@@ -26,11 +26,9 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
@@ -42,7 +40,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class CheckoutServiceTest extends FunctionalTestCase
@@ -258,7 +255,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->method('sendMailToCustomer')
             ->willReturnCallback(
                 static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test confirmation'
-                    && $body === 'Confirm your reservation'
+                    && $body === 'Confirm your reservation',
             );
 
         $this->subject->sendConfirmationMail($order, $this->request);
@@ -299,7 +296,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->willReturnCallback(static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test reservation'
                 && str_contains($body, 'alt="firstCode"'));
 
-        $this->subject->confirm($order, $this->request , []);
+        $this->subject->confirm($order, $this->request, []);
 
         self::assertTrue($order->isActivated(), 'Order is activated after CheckoutService::confirm');
     }
