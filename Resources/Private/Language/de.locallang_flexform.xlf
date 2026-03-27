@@ -39,6 +39,10 @@
         <source>Disable double optin confirmation.</source>
         <target state="final">Deaktiviere doppelte Optinbestätigung.</target>
       </trans-unit>
+      <trans-unit id="reservation.disableQRCodeGeneration">
+        <source>Disable QR Code Generate</source>
+        <target state="needs-translation">Disable QR Code Generate</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
