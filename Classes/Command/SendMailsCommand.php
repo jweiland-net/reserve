@@ -49,7 +49,7 @@ class SendMailsCommand extends Command
 
     protected int $currentReceiverKey = 0;
 
-    public function __construct(string $name = null)
+    public function __construct(?string $name = null)
     {
         parent::__construct($name);
 

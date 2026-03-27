@@ -16,7 +16,9 @@ use JWeiland\Reserve\Service\ReserveService;
 use PHPUnit\Framework\Attributes\Test;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class PeriodRegistrationViewHelperTest extends FunctionalTestCase
@@ -27,7 +29,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
     private const BASE_TEMPLATE_PATH = 'EXT:reserve/Tests/Functional/ViewHelpers/Fixtures';
 
-    protected StandaloneView $standaloneView;
+    protected ViewInterface $view;
 
     protected \DateTime $testDateMidnight;
 
@@ -59,17 +61,15 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
                 ['uid' => 1],
             );
 
-        $this->standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $this->standaloneView
-            ->assign('facilityUid', 1)
-            ->assign('dateAndBegin', $this->testDateAndBegin->getTimestamp())
-            ->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/remainingParticipants_periodRegistrationViewHelper.html');
+        $this->view = $this->createView();
+        $this->view->assign('facilityUid', 1);
+        $this->view->assign('dateAndBegin', $this->testDateAndBegin->getTimestamp());
     }
 
     protected function tearDown(): void
     {
         unset(
-            $this->standaloneView,
+            $this->view,
             $this->testDateMidnight,
             $this->testDateAndBegin,
         );
@@ -92,7 +92,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
         GeneralUtility::setSingletonInstance(ReserveService::class, $reserveServiceMock);
 
-        $this->standaloneView->render();
+        $this->view->render('remainingParticipants_periodRegistrationViewHelper');
     }
 
     #[Test]
@@ -104,7 +104,7 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
 
         self::assertStringContainsString(
             sprintf('<p>Remaining participants: %d</p>', $remainingParticipants),
-            $this->standaloneView->render(),
+            $this->view->render('remainingParticipants_periodRegistrationViewHelper'),
             'ViewHelper renders remaining participants if facility and period date match.',
         );
     }
@@ -112,11 +112,11 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     #[Test]
     public function viewHelperSetsPeriodsAndRendersInfoThatNoPeriodWasFound(): void
     {
-        $this->standaloneView->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
+        $this->view->assign('dateAndBegin', (new \DateTime('123456'))->getTimestamp());
 
         self::assertStringContainsString(
             'Could not find any period for given time.',
-            $this->standaloneView->render(),
+            $this->view->render('remainingParticipants_periodRegistrationViewHelper'),
             'ViewHelper renders info that no period was found.',
         );
     }
@@ -124,12 +124,19 @@ class PeriodRegistrationViewHelperTest extends FunctionalTestCase
     #[Test]
     public function viewHelperSetsPeriodsToCustomVariableName(): void
     {
-        $this->standaloneView->setTemplatePathAndFilename(self::BASE_TEMPLATE_PATH . '/customVariableName_periodRegistrationViewHelper.html');
-
         self::assertStringContainsString(
             'Test',
-            $this->standaloneView->render(),
+            $this->view->render('customVariableName_periodRegistrationViewHelper'),
             'ViewHelper sets periods to custom variable name',
         );
+    }
+
+    protected function createView(): ViewInterface
+    {
+        $viewFactoryData = new ViewFactoryData(
+            templateRootPaths: [self::BASE_TEMPLATE_PATH],
+        );
+
+        return GeneralUtility::makeInstance(ViewFactoryInterface::class)->create($viewFactoryData);
     }
 }

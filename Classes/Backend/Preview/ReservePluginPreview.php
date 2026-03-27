@@ -17,7 +17,6 @@ use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\View\ViewFactoryData;
 use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use TYPO3\CMS\Core\View\ViewInterface;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Add plugin preview for EXT:reserve
@@ -32,8 +31,8 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     ];
 
     public function __construct(
-        protected readonly FlexFormService $flexFormService,
-        protected readonly ViewFactoryInterface $viewFactory,
+        private readonly FlexFormService $flexFormService,
+        private readonly ViewFactoryInterface $viewFactory,
     ) {}
 
     public function renderPageModulePreviewContent(GridColumnItem $item): string
@@ -69,23 +68,15 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
     /**
      * @param array<string, mixed> $ttContentRecord
      */
-    protected function isValidPlugin(array $ttContentRecord): bool
+    private function isValidPlugin(array $ttContentRecord): bool
     {
-        if (!isset($ttContentRecord['CType'])) {
-            return false;
-        }
-
-        if (!in_array($ttContentRecord['CType'], self::ALLOWED_PLUGINS, true)) {
-            return false;
-        }
-
-        return true;
+        return in_array($ttContentRecord['CType'] ?? '', self::ALLOWED_PLUGINS, true);
     }
 
     /**
      * @param array<string, mixed> $ttContentRecord
      */
-    protected function addPluginName(ViewInterface $view, array $ttContentRecord): void
+    private function addPluginName(ViewInterface $view, array $ttContentRecord): void
     {
         $langKey = sprintf(
             'plugin.%s.title',
@@ -94,7 +85,7 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
 
         $view->assign(
             'pluginName',
-            LocalizationUtility::translate('LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:' . $langKey),
+            $this->translate($langKey),
         );
     }
 
@@ -102,13 +93,18 @@ class ReservePluginPreview extends StandardContentPreviewRenderer
      * @param array<string, mixed> $ttContentRecord
      * @return array<string, mixed>
      */
-    protected function getPiFlexformData(array $ttContentRecord): array
+    private function getPiFlexformData(array $ttContentRecord): array
     {
         $data = [];
-        if ((int)($ttContentRecord['pi_flexform'] ?? '') !== '') {
+        if (!empty($ttContentRecord['pi_flexform']) && is_string($ttContentRecord['pi_flexform'])) {
             $data = $this->flexFormService->convertFlexFormContentToArray($ttContentRecord['pi_flexform']);
         }
 
         return $data;
+    }
+
+    private function translate(string $translationKey): string
+    {
+        return $this->getLanguageService()->sL('LLL:EXT:reserve/Resources/Private/Language/locallang_db.xlf:' . $translationKey);
     }
 }

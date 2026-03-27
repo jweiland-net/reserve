@@ -52,13 +52,13 @@ class FlexFormSettingsUpdate implements UpgradeWizardInterface
                     $queryBuilder->expr()->and(
                         $queryBuilder->expr()->like(
                             'pi_flexform',
-                            $queryBuilder->createNamedParameter('%disableDoupleOptin%')
+                            $queryBuilder->createNamedParameter('%disableDoupleOptin%'),
                         ),
                         $queryBuilder->expr()->eq(
                             'CType',
-                            $queryBuilder->createNamedParameter('reserve_reservation')
-                        )
-                    )
+                            $queryBuilder->createNamedParameter('reserve_reservation'),
+                        ),
+                    ),
                 )
                 ->executeQuery()
                 ->fetchAllAssociative();
@@ -73,13 +73,13 @@ class FlexFormSettingsUpdate implements UpgradeWizardInterface
                 $connection->update(
                     'tt_content',
                     ['pi_flexform' => $newFlexForm],
-                    ['uid' => (int)$record['uid']]
+                    ['uid' => (int)$record['uid']],
                 );
             }
         } catch (Exception $e) {
             $this->logger->error(
                 'FlexFormSettingsUpdate failed',
-                ['exception' => $e]
+                ['exception' => $e],
             );
 
             return false;
@@ -102,20 +102,20 @@ class FlexFormSettingsUpdate implements UpgradeWizardInterface
                     $queryBuilder->expr()->and(
                         $queryBuilder->expr()->like(
                             'pi_flexform',
-                            $queryBuilder->createNamedParameter('%disableDoupleOptin%')
+                            $queryBuilder->createNamedParameter('%disableDoupleOptin%'),
                         ),
                         $queryBuilder->expr()->eq(
                             'CType',
-                            $queryBuilder->createNamedParameter('reserve_reservation')
-                        )
-                    )
+                            $queryBuilder->createNamedParameter('reserve_reservation'),
+                        ),
+                    ),
                 )
                 ->executeQuery()
                 ->fetchOne();
         } catch (Exception $e) {
             $this->logger->error(
                 'FlexFormSettingsUpdate failed',
-                ['exception' => $e]
+                ['exception' => $e],
             );
 
             return false;

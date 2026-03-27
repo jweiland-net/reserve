@@ -26,14 +26,13 @@ use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Authentication\CommandLineUserAuthentication;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Localization\LanguageServiceFactory;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
 use TYPO3\CMS\Core\TypoScript\FrontendTypoScript;
@@ -41,7 +40,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 class CheckoutServiceTest extends FunctionalTestCase
@@ -77,22 +75,17 @@ class CheckoutServiceTest extends FunctionalTestCase
         $frontendUserAuthentication->initializeUserSessionManager();
         $frontendUserAuthentication->createAnonymousSession();
 
+        $site = new Site('test', 1, []);
+        $pageArguments = new PageArguments(1, '1', []);
+
         $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
             ->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_FE)
             ->withAttribute('frontend.typoscript', $frontendTypoScript)
-            ->withAttribute('frontend.user', $frontendUserAuthentication);
+            ->withAttribute('frontend.user', $frontendUserAuthentication)
+            ->withAttribute('site', $site)
+            ->withAttribute('routing', $pageArguments);
 
         $this->request = $GLOBALS['TYPO3_REQUEST'];
-
-        $GLOBALS['TSFE'] = $this->getAccessibleMock(TypoScriptFrontendController::class, null, [], '', false);
-        $GLOBALS['TSFE']->_set('site', new Site('test', 1, []));
-        $GLOBALS['TSFE']->_set('sys_page', new PageRepository((new Context())));
-        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
-        if (method_exists($GLOBALS['TSFE']->fe_user, 'initializeUserSessionManager')) {
-            $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
-        }
-
-        $GLOBALS['TSFE']->id = 1;
 
         Bootstrap::initializeBackendUser(CommandLineUserAuthentication::class);
         $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageServiceFactory::class)->createFromUserPreferences(
@@ -139,7 +132,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     public function checkoutPersistsNewOrderIntoDatabase(): void
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
-        $period = $periodRepository->findByUid(1);
+        $period = $periodRepository->findOneBy(['uid' => 1]);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
@@ -164,7 +157,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
         /** @var Period $period */
-        $period = $periodRepository->findByUid(1);
+        $period = $periodRepository->findOneBy(['uid' => 1]);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
@@ -187,7 +180,7 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->subject->checkout($order, $this->request);
 
         $reservationRepository = GeneralUtility::makeInstance(ReservationRepository::class);
-        $reservations = $reservationRepository->findByCustomerOrder(1);
+        $reservations = $reservationRepository->findBy(['customerOrder' => 1]);
 
         self::assertCount(
             3,
@@ -200,7 +193,7 @@ class CheckoutServiceTest extends FunctionalTestCase
     public function checkoutDoesNotPersistBecauseTooMuchParticipants(): void
     {
         $periodRepository = GeneralUtility::makeInstance(PeriodRepository::class);
-        $period = $periodRepository->findByUid(1);
+        $period = $periodRepository->findOneBy(['uid' => 1]);
         $participants = new ObjectStorage();
         $participant1 = new Participant();
         $participant1->setFirstName('First Name');
@@ -239,6 +232,10 @@ class CheckoutServiceTest extends FunctionalTestCase
         $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
+        self::assertInstanceOf(Order::class, $order, 'Expected a test order to be loaded from the fixture.');
+
+        $routing = $this->request->getAttribute('routing');
+
         $this->fluidServiceMock
             ->expects(self::atLeastOnce())
             ->method('replaceMarkerByRenderedTemplate')
@@ -247,7 +244,7 @@ class CheckoutServiceTest extends FunctionalTestCase
                 self::equalTo('Confirmation'),
                 self::equalTo($order->getBookedPeriod()->getFacility()->getConfirmationMailHtml()),
                 [
-                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'pageUid' => $routing->getPageId(),
                     'order' => $order,
                 ],
             )
@@ -256,10 +253,12 @@ class CheckoutServiceTest extends FunctionalTestCase
         $this->mailServiceMock
             ->expects(self::atLeastOnce())
             ->method('sendMailToCustomer')
-            ->willReturnCallback(static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test confirmation'
-                && $body === 'Confirm your reservation');
+            ->willReturnCallback(
+                static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test confirmation'
+                    && $body === 'Confirm your reservation',
+            );
 
-        $this->subject->sendConfirmationMail($order);
+        $this->subject->sendConfirmationMail($order, $this->request);
     }
 
     #[Test]
@@ -270,6 +269,11 @@ class CheckoutServiceTest extends FunctionalTestCase
         $orderRepository = GeneralUtility::makeInstance(OrderRepository::class);
         $order = $orderRepository->findByUid(1);
 
+        self::assertInstanceOf(Order::class, $order, 'Expected a test order to be loaded from the fixture.');
+
+        $routing = $this->request->getAttribute('routing');
+        $pageUid = $routing->getPageId();
+
         $this->fluidServiceMock
             ->expects(self::atLeastOnce())
             ->method('replaceMarkerByRenderedTemplate')
@@ -278,9 +282,10 @@ class CheckoutServiceTest extends FunctionalTestCase
                 self::equalTo('Reservation'),
                 self::equalTo($order->getBookedPeriod()->getFacility()->getReservationMailHtml()),
                 [
-                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'pageUid' => $pageUid,
                     'order' => $order,
                     'configurations' => $this->extConf,
+                    'settings' => [],
                 ],
             )
             ->willReturn('alt="firstCode"');
@@ -291,7 +296,7 @@ class CheckoutServiceTest extends FunctionalTestCase
             ->willReturnCallback(static fn(Order $order, string $subject, string $body, ...$others) => $subject === 'Test reservation'
                 && str_contains($body, 'alt="firstCode"'));
 
-        $this->subject->confirm($order);
+        $this->subject->confirm($order, $this->request, []);
 
         self::assertTrue($order->isActivated(), 'Order is activated after CheckoutService::confirm');
     }
