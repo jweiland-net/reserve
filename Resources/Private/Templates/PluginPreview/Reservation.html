@@ -28,7 +28,12 @@
         </tr>
         <tr>
             <td><strong>Should the personal data of further participants be asked?</strong></td>
-            <td>{pi_flexform_transformed.settings.showFieldsForFurtherParticipants}</td>
+            <td>
+                <f:if condition="{pi_flexform_transformed.settings.showFieldsForFurtherParticipants}">
+                    <f:then>True</f:then>
+                    <f:else>False</f:else>
+                </f:if>
+            </td>
         </tr>
         <tr>
             <td><strong>Disable double optin confirmation.</strong></td>
