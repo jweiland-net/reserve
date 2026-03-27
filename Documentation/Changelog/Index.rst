@@ -10,7 +10,14 @@ Changelog
 Version 4.3.0
 =============
 
-*   [TASK] Add functionality to disable QR Code in Mails and Reservation Confirmation
+* [TASK] Add functionality to disable QR Code in Mails and Reservation Confirmation
+* [TASK] Replaced deprecated StandaloneView with ViewFactoryInterface for TYPO3 v13 compatibility
+* [TASK] Replaced deprecated magic Extbase repository methods with generic findOneBy()
+* [TASK] Migrated TSFE mocking to PSR-7 Request attributes in tests to resolve PHP 8.2 dynamic property deprecations
+* [TASK] Replaced deprecated global TSFE usage with PSR-7 Request attributes in CheckoutService
+* [BUGFIX] Fixed TypeError in CheckoutServiceTest by properly extracting the model from Extbase QueryResult
+* [BUGFIX] Resolved PHP 8.4 implicit nullable parameter deprecation in SendMailsCommand constructor
+* [BUGFIX] Fixed InvalidTemplateResourceException in tests by configuring ViewFactoryData with templateRootPaths
 
 Version 4.2.8
 =============
