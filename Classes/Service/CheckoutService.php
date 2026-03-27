@@ -89,7 +89,7 @@ class CheckoutService
             $order->setActivated(true);
             $this->persistenceManager->add($order);
             $this->persistenceManager->persistAll();
-            $this->sendReservationMail($order, $extensionSettings);
+            $this->sendReservationMail($order, $request, $extensionSettings);
         }
 
         return true;
@@ -116,8 +116,11 @@ class CheckoutService
         }
     }
 
-    public function sendConfirmationMail(Order $order): bool
+    public function sendConfirmationMail(Order $order, ServerRequestInterface $request): bool
     {
+        $routingAttribute = $request->getAttribute('routing');
+        $pageUid = $routingAttribute->getPageId();
+
         return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getConfirmationMailSubject(),
@@ -126,23 +129,26 @@ class CheckoutService
                 'Confirmation',
                 $order->getBookedPeriod()->getFacility()->getConfirmationMailHtml(),
                 [
-                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'pageUid' => $pageUid,
                     'order' => $order,
                 ],
             ),
         );
     }
 
-    public function confirm(Order $order, array $extensionSettings = []): void
+    public function confirm(Order $order, ServerRequestInterface $request, array $extensionSettings = []): void
     {
         $order->setActivated(true);
-        $this->sendReservationMail($order, $extensionSettings);
+        $this->sendReservationMail($order, $request, $extensionSettings);
         $this->persistenceManager->add($order);
         $this->persistenceManager->persistAll();
     }
 
-    public function sendReservationMail(Order $order, array $extensionSettings = []): bool
+    public function sendReservationMail(Order $order, ServerRequestInterface $request, array $extensionSettings = []): bool
     {
+        $routing = $request->getAttribute('routing');
+        $pageUid = $routing->getPageId();
+
         return $this->mailService->sendMailToCustomer(
             $order,
             $order->getBookedPeriod()->getFacility()->getReservationMailSubject(),
@@ -151,7 +157,7 @@ class CheckoutService
                 'Reservation',
                 $order->getBookedPeriod()->getFacility()->getReservationMailHtml(),
                 [
-                    'pageUid' => $GLOBALS['TSFE']->id,
+                    'pageUid' => $pageUid,
                     'order' => $order,
                     'configurations' => $this->extConf,
                     'settings' => $extensionSettings,

@@ -125,7 +125,7 @@ class CheckoutController extends ActionController
             $this->settings,
         )) {
             if (!$disableDoubleOptin) {
-                $this->checkoutService->sendConfirmationMail($order);
+                $this->checkoutService->sendConfirmationMail($order, $this->request);
                 $this->addFlashMessage(LocalizationUtility::translate('reservation.created', 'reserve'));
             } else {
                 $facility = $order->getBookedPeriod()->getFacility()->getName();
@@ -160,7 +160,7 @@ class CheckoutController extends ActionController
                 return $this->redirect('list');
             }
 
-            $this->checkoutService->confirm($order, $this->settings);
+            $this->checkoutService->confirm($order, $this->request, $this->settings);
             $this->view->assign('order', $order);
         } else {
             $this->addFlashMessage(
