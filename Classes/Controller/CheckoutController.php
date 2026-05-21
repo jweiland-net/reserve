@@ -94,10 +94,12 @@ class CheckoutController extends ActionController
         return $this->htmlResponse();
     }
 
-    #[Validate(['validatorName' => 'JWeiland\Reserve\Domain\Validation\OrderValidator', 'param' => 'order'])]
+    #[Validate([
+        'validator' => 'JWeiland\Reserve\Domain\Validation\OrderValidator',
+        'param' => 'order',
+    ])]
     public function createAction(Order $order, int $furtherParticipants = 0): ResponseInterface
     {
-
         if (!(
             $order->_isNew()
             && $order->getBookedPeriod()->isBookable()
