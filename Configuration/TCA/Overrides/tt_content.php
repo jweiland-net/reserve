@@ -41,7 +41,7 @@ ExtensionManagementUtility::addPiFlexFormValue(
 
 ExtensionManagementUtility::addToAllTCAtypes(
     'tt_content',
-    '--div--;Configuration,pi_flexform',
+    '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin,pi_flexform',
     'reserve_reservation',
     'after:subheader',
 );
@@ -54,7 +54,7 @@ ExtensionManagementUtility::addPiFlexFormValue(
 
 ExtensionManagementUtility::addToAllTCAtypes(
     'tt_content',
-    '--div--;Configuration,pi_flexform',
+    '--div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:plugin,pi_flexform',
     'reserve_management',
     'after:subheader',
 );
