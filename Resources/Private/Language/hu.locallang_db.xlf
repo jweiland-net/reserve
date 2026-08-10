@@ -5,287 +5,287 @@
     <body>
       <trans-unit id="plugin.reserve_reservation.title">
         <source>Reserve: Reservation</source>
-        <target state="needs-translation">Reserve: Reservation</target>
+        <target state="translated">Reserve: Foglalás</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_reservation.description">
         <source>Reserve: Display and reserve periods</source>
-        <target state="needs-translation">Reserve: Display and reserve periods</target>
+        <target state="translated">Reserve: Időszakok megjelenítése és foglalása</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_management.title">
         <source>Reserve: Management</source>
-        <target state="needs-translation">Reserve: Management</target>
+        <target state="translated">Reserve: Kezelés</target>
       </trans-unit>
       <trans-unit id="plugin.reserve_management.description">
         <source>Reserve: Manage reservations and scan reservation codes</source>
-        <target state="needs-translation">Reserve: Manage reservations and scan reservation codes</target>
+        <target state="translated">Reserve: Foglalások kezelése és foglalási kódok beolvasása</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.name">
         <source>Name</source>
-        <target state="needs-translation">Name</target>
+        <target state="translated">Név</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.short_name">
         <source>Short name for QR code label</source>
-        <target state="needs-translation">Short name for QR code label</target>
+        <target state="translated">Rövid név a QR-kód címkéjéhez</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.periods">
         <source>Periods</source>
-        <target state="needs-translation">Periods</target>
+        <target state="translated">Időszakok</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
         <source>E-Mail settings</source>
-        <target state="needs-translation">E-Mail settings</target>
+        <target state="translated">E-mail beállítások</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
         <source>Confirmation mail subject</source>
-        <target state="needs-translation">Confirmation mail subject</target>
+        <target state="translated">Megerősítő e-mail tárgya</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
         <source>Confirmation mail Text</source>
-        <target state="needs-translation">Confirmation mail Text</target>
+        <target state="translated">Megerősítő e-mail szövege</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
         <source>Reservation mail subject</source>
-        <target state="needs-translation">Reservation mail subject</target>
+        <target state="translated">Foglalási e-mail tárgya</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
         <source>Reservation mail Text</source>
-        <target state="needs-translation">Reservation mail Text</target>
+        <target state="translated">Foglalási e-mail szövege</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.from_name">
         <source>From name (optional)</source>
-        <target state="needs-translation">From name (optional)</target>
+        <target state="translated">Feladó neve (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.from_email">
         <source>From email (optional)</source>
-        <target state="needs-translation">From email (optional)</target>
+        <target state="translated">Feladó e-mail címe (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
         <source>Reply to name (optional)</source>
-        <target state="needs-translation">Reply to name (optional)</target>
+        <target state="translated">Válasz címzettjének neve (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
         <source>Reply to email (optional)</source>
-        <target state="needs-translation">Reply to email (optional)</target>
+        <target state="translated">Válasz címzettjének e-mail címe (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
         <source>QR Code settings</source>
-        <target state="needs-translation">QR Code settings</target>
+        <target state="translated">QR-kód beállítások</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
         <source>QR Code size (in px)</source>
-        <target state="needs-translation">QR Code size (in px)</target>
+        <target state="translated">QR-kód mérete (px-ben)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
         <source>QR Code label size (in px)</source>
-        <target state="needs-translation">QR Code label size (in px)</target>
+        <target state="translated">QR-kód címke mérete (px-ben)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
         <source>Insert logo into QR Code (optional)</source>
-        <target state="needs-translation">Insert logo into QR Code (optional)</target>
+        <target state="translated">Logó beillesztése a QR-kódba (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
         <source>Logo width (in px)</source>
-        <target state="needs-translation">Logo width (in px)</target>
+        <target state="translated">Logó szélessége (px-ben)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
         <source>Preview QR code</source>
-        <target state="needs-translation">Preview QR code</target>
+        <target state="translated">QR-kód előnézete</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
         <source>Render preview</source>
-        <target state="needs-translation">Render preview</target>
+        <target state="translated">Előnézet megjelenítése</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
         <source>Only saved changes are processed!</source>
-        <target state="needs-translation">Only saved changes are processed!</target>
+        <target state="translated">Csak a mentett módosítások kerülnek feldolgozásra!</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.cancelable">
         <source>Reservations are cancelable</source>
-        <target state="needs-translation">Reservations are cancelable</target>
+        <target state="translated">A foglalások lemondhatók</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
         <source>Reservations are cancelable until x minutes before begin</source>
-        <target state="needs-translation">Reservations are cancelable until x minutes before begin</target>
+        <target state="translated">A foglalások a kezdés előtti x percig mondhatók le</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period">
         <source>Period</source>
-        <target state="needs-translation">Period</target>
+        <target state="translated">Időszak</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.date">
         <source>Date</source>
-        <target state="needs-translation">Date</target>
+        <target state="translated">Dátum</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.begin">
         <source>Begin</source>
-        <target state="needs-translation">Begin</target>
+        <target state="translated">Kezdés</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.end">
         <source>End</source>
-        <target state="needs-translation">End</target>
+        <target state="translated">Befejezés</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.max_participants">
         <source>Max participants</source>
-        <target state="needs-translation">Max participants</target>
+        <target state="translated">Max. résztvevők</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
         <source>Max participants per order</source>
-        <target state="needs-translation">Max participants per order</target>
+        <target state="translated">Max. résztvevők rendelésenként</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.booking_begin">
         <source>Booking begin</source>
-        <target state="needs-translation">Booking begin</target>
+        <target state="translated">Foglalás kezdete</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.booking_end">
         <source>Booking end (optional)</source>
-        <target state="needs-translation">Booking end (optional)</target>
+        <target state="translated">Foglalás vége (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_period.orders">
         <source>Orders</source>
-        <target state="needs-translation">Orders</target>
+        <target state="translated">Rendelések</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order">
         <source>Reservation</source>
-        <target state="needs-translation">Reservation</target>
+        <target state="translated">Foglalás</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.activated">
         <source>Activated</source>
-        <target state="needs-translation">Activated</target>
+        <target state="translated">Aktiválva</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.activation_code">
         <source>Activation code</source>
-        <target state="needs-translation">Activation code</target>
+        <target state="translated">Aktiválási kód</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.email">
         <source>E-Mail</source>
-        <target state="needs-translation">E-Mail</target>
+        <target state="translated">E-mail</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.phone">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="translated">Telefon</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Cím</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.zip">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="translated">Irányítószám</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.city">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="translated">Város</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.organization">
         <source>Organization</source>
-        <target state="needs-translation">Organization</target>
+        <target state="translated">Szervezet</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.remarks">
         <source>Remarks</source>
-        <target state="needs-translation">Remarks</target>
+        <target state="translated">Megjegyzések</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.reservations">
         <source>Reservation codes</source>
-        <target state="needs-translation">Reservation codes</target>
+        <target state="translated">Foglalási kódok</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.first_name">
         <source>First name</source>
-        <target state="needs-translation">First name</target>
+        <target state="translated">Keresztnév</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.last_name">
         <source>Last name</source>
-        <target state="needs-translation">Last name</target>
+        <target state="translated">Vezetéknév</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_order.booked_period">
         <source>Select a period</source>
-        <target state="needs-translation">Select a period</target>
+        <target state="translated">Válasszon időszakot</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation">
         <source>Reservation code</source>
-        <target state="needs-translation">Reservation code</target>
+        <target state="translated">Foglalási kód</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation.code">
         <source>Code</source>
-        <target state="needs-translation">Code</target>
+        <target state="translated">Kód</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation.used">
         <source>Used</source>
-        <target state="needs-translation">Used</target>
+        <target state="translated">Felhasználva</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation.customer_order">
         <source>Reservation</source>
-        <target state="needs-translation">Reservation</target>
+        <target state="translated">Foglalás</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation.first_name">
         <source>First name</source>
-        <target state="needs-translation">First name</target>
+        <target state="translated">Keresztnév</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_reservation.last_name">
         <source>Last name</source>
-        <target state="needs-translation">Last name</target>
+        <target state="translated">Vezetéknév</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email">
         <source>E-Mail</source>
-        <target state="needs-translation">E-Mail</target>
+        <target state="translated">E-mail</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.subject">
         <source>Subject</source>
-        <target state="needs-translation">Subject</target>
+        <target state="translated">Tárgy</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.body">
         <source>Body</source>
-        <target state="needs-translation">Body</target>
+        <target state="translated">Törzs</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.periods">
         <source>Send mail to visitors of selected periods</source>
-        <target state="needs-translation">Send mail to visitors of selected periods</target>
+        <target state="translated">E-mail küldése a kiválasztott időszakok látogatóinak</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.locked">
         <source>Mails are currently being sent</source>
-        <target state="needs-translation">Mails are currently being sent</target>
+        <target state="translated">Az e-mailek éppen kiküldés alatt állnak</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.receiver_type">
         <source>Receiver type</source>
-        <target state="needs-translation">Receiver type</target>
+        <target state="translated">Címzett típusa</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
         <source>Send mail to visitors of selected periods</source>
-        <target state="needs-translation">Send mail to visitors of selected periods</target>
+        <target state="translated">E-mail küldése a kiválasztott időszakok látogatóinak</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
         <source>Write down E-Mail addresses manually</source>
-        <target state="needs-translation">Write down E-Mail addresses manually</target>
+        <target state="translated">E-mail címek kézi megadása</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.custom_receivers">
         <source>Receivers (comma separated list of mail addresses)</source>
-        <target state="needs-translation">Receivers (comma separated list of mail addresses)</target>
+        <target state="translated">Címzettek (vesszővel elválasztott e-mail címek listája)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.from_name">
         <source>From name (optional)</source>
-        <target state="needs-translation">From name (optional)</target>
+        <target state="translated">Feladó neve (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.from_email">
         <source>From email (optional)</source>
-        <target state="needs-translation">From email (optional)</target>
+        <target state="translated">Feladó e-mail címe (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.reply_to_name">
         <source>Reply to name (optional)</source>
-        <target state="needs-translation">Reply to name (optional)</target>
+        <target state="translated">Válasz címzettjének neve (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_reserve_domain_model_email.reply_to_email">
         <source>Reply to email (optional)</source>
-        <target state="needs-translation">Reply to email (optional)</target>
+        <target state="translated">Válasz címzettjének e-mail címe (opcionális)</target>
       </trans-unit>
       <trans-unit id="tx_events2_domain_model_event.registration_required">
         <source>Registration required</source>
-        <target state="needs-translation">Registration required</target>
+        <target state="translated">Regisztráció szükséges</target>
       </trans-unit>
       <trans-unit id="tx_events2_domain_model_location.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
     </body>
   </file>
