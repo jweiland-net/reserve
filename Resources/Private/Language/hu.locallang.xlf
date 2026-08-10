@@ -5,331 +5,331 @@
     <body>
       <trans-unit id="plugin.reservation.title">
         <source>Display and reserve periods</source>
-        <target state="needs-translation">Display and reserve periods</target>
+        <target state="translated">Időszakok megjelenítése és foglalása</target>
       </trans-unit>
       <trans-unit id="plugin.management.title">
         <source>Manage reservations and scan reservation codes</source>
-        <target state="needs-translation">Manage reservations and scan reservation codes</target>
+        <target state="translated">Foglalások kezelése és foglalási kódok beolvasása</target>
       </trans-unit>
       <trans-unit id="form.order.submit">
         <source>Reserve</source>
-        <target state="needs-translation">Reserve</target>
+        <target state="translated">Foglalás</target>
       </trans-unit>
       <trans-unit id="form.order.email">
         <source>E-Mail</source>
-        <target state="needs-translation">E-Mail</target>
+        <target state="translated">E-mail</target>
       </trans-unit>
       <trans-unit id="form.order.phone">
         <source>Phone</source>
-        <target state="needs-translation">Phone</target>
+        <target state="translated">Telefon</target>
       </trans-unit>
       <trans-unit id="form.order.address">
         <source>Address</source>
-        <target state="needs-translation">Address</target>
+        <target state="translated">Cím</target>
       </trans-unit>
       <trans-unit id="form.order.zip">
         <source>Zip</source>
-        <target state="needs-translation">Zip</target>
+        <target state="translated">Irányítószám</target>
       </trans-unit>
       <trans-unit id="form.order.city">
         <source>City</source>
-        <target state="needs-translation">City</target>
+        <target state="translated">Város</target>
       </trans-unit>
       <trans-unit id="form.order.organization">
         <source>Organization</source>
-        <target state="needs-translation">Organization</target>
+        <target state="translated">Szervezet</target>
       </trans-unit>
       <trans-unit id="form.order.remarks">
         <source>Remarks</source>
-        <target state="needs-translation">Remarks</target>
+        <target state="translated">Megjegyzések</target>
       </trans-unit>
       <trans-unit id="form.order.furtherParticipants">
         <source>Further participants</source>
-        <target state="needs-translation">Further participants</target>
+        <target state="translated">További résztvevők</target>
       </trans-unit>
       <trans-unit id="order.furtherParticipant">
         <source>Further participant</source>
-        <target state="needs-translation">Further participant</target>
+        <target state="translated">További résztvevő</target>
       </trans-unit>
       <trans-unit id="form.order.participants.firstName">
         <source>First name of participant %d</source>
-        <target state="needs-translation">First name of participant %d</target>
+        <target state="translated">%d. résztvevő keresztneve</target>
       </trans-unit>
       <trans-unit id="form.order.participants.lastName">
         <source>Last name of participant %d</source>
-        <target state="needs-translation">Last name of participant %d</target>
+        <target state="translated">%d. résztvevő vezetékneve</target>
       </trans-unit>
       <trans-unit id="form.order.period">
         <source>Selected period</source>
-        <target state="needs-translation">Selected period</target>
+        <target state="translated">Kiválasztott időszak</target>
       </trans-unit>
       <trans-unit id="form.order.amountOfPeople">
         <source>Amount of people (max. %d)</source>
-        <target state="needs-translation">Amount of people (max. %d)</target>
+        <target state="translated">Személyek száma (max. %d)</target>
       </trans-unit>
       <trans-unit id="form.order.header">
         <source>Reserve a ticket for %s</source>
-        <target state="needs-translation">Reserve a ticket for %s</target>
+        <target state="translated">Jegy foglalása: %s</target>
       </trans-unit>
       <trans-unit id="form.order.description">
         <source>This reservation will be valid at %s between %s - %s</source>
-        <target state="needs-translation">This reservation will be valid at %s between %s - %s</target>
+        <target state="translated">Ez a foglalás a(z) %s helyen lesz érvényes, %s és %s között</target>
       </trans-unit>
       <trans-unit id="form.order.firstName">
         <source>First name</source>
-        <target state="needs-translation">First name</target>
+        <target state="translated">Keresztnév</target>
       </trans-unit>
       <trans-unit id="form.order.lastName">
         <source>Last name</source>
-        <target state="needs-translation">Last name</target>
+        <target state="translated">Vezetéknév</target>
       </trans-unit>
       <trans-unit id="scan.status.orderNotActive">
         <source>Order was not activated</source>
-        <target state="needs-translation">Order was not activated</target>
+        <target state="translated">A rendelés nem lett aktiválva</target>
       </trans-unit>
       <trans-unit id="scan.status.codeAlreadyScanned">
         <source>Code was already scanned</source>
-        <target state="needs-translation">Code was already scanned</target>
+        <target state="translated">A kódot már beolvasták</target>
       </trans-unit>
       <trans-unit id="scan.status.reservationActivated">
         <source>Reservation successfully scanned.</source>
-        <target state="needs-translation">Reservation successfully scanned.</target>
+        <target state="translated">A foglalás sikeresen beolvasva.</target>
       </trans-unit>
       <trans-unit id="scan.status.error.0">
         <source>Success</source>
-        <target state="needs-translation">Success</target>
+        <target state="translated">Sikeres</target>
       </trans-unit>
       <trans-unit id="scan.status.error.1">
         <source>Error</source>
-        <target state="needs-translation">Error</target>
+        <target state="translated">Hiba</target>
       </trans-unit>
       <trans-unit id="list.alerts.isBookingAllowed">
         <source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can
 					reserve more tickets.
 				</source>
-        <target state="needs-translation">You have recently reserved at least one ticket for this facility. Please wait a moment until you can
-					reserve more tickets.
+        <target state="translated">Nemrég foglalt legalább egy jegyet ehhez a létesítményhez. Kérjük, várjon egy pillanatot, amíg
+					további jegyeket foglalhat.
 				</target>
       </trans-unit>
       <trans-unit id="list.alerts.wrongAmountOfReservations">
         <source>Could not create an order for your selected amount of people!</source>
-        <target state="needs-translation">Could not create an order for your selected amount of people!</target>
+        <target state="translated">Nem sikerült rendelést létrehozni a kiválasztott létszámhoz!</target>
       </trans-unit>
       <trans-unit id="list.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
       <trans-unit id="list.date">
         <source>Date</source>
-        <target state="needs-translation">Date</target>
+        <target state="translated">Dátum</target>
       </trans-unit>
       <trans-unit id="list.begin">
         <source>Begin</source>
-        <target state="needs-translation">Begin</target>
+        <target state="translated">Kezdés</target>
       </trans-unit>
       <trans-unit id="list.end">
         <source>End</source>
-        <target state="needs-translation">End</target>
+        <target state="translated">Befejezés</target>
       </trans-unit>
       <trans-unit id="list.free_slots">
         <source>Remaining slots</source>
-        <target state="needs-translation">Remaining slots</target>
+        <target state="translated">Fennmaradó helyek</target>
       </trans-unit>
       <trans-unit id="list.participants">
         <source>Participants</source>
-        <target state="needs-translation">Participants</target>
+        <target state="translated">Résztvevők</target>
       </trans-unit>
       <trans-unit id="list.action">
         <source>Action</source>
-        <target state="needs-translation">Action</target>
+        <target state="translated">Művelet</target>
       </trans-unit>
       <trans-unit id="list.choose_this_period">
         <source>Choose this period</source>
-        <target state="needs-translation">Choose this period</target>
+        <target state="translated">Időszak kiválasztása</target>
       </trans-unit>
       <trans-unit id="list.bookable_from">
         <source>Bookable from %s</source>
-        <target state="needs-translation">Bookable from %s</target>
+        <target state="translated">Foglalható ettől: %s</target>
       </trans-unit>
       <trans-unit id="list.in_use">
         <source>Is in use?</source>
-        <target state="needs-translation">Is in use?</target>
+        <target state="translated">Használatban van?</target>
       </trans-unit>
       <trans-unit id="list.no_more_tickets">
         <source>No more tickets!</source>
-        <target state="needs-translation">No more tickets!</target>
+        <target state="translated">Nincs több jegy!</target>
       </trans-unit>
       <trans-unit id="list.code">
         <source>Code</source>
-        <target state="needs-translation">Code</target>
+        <target state="translated">Kód</target>
       </trans-unit>
       <trans-unit id="scanner_unavailable">
         <source>Unable to access video stream (please make sure you have a camera enabled)</source>
-        <target state="needs-translation">Unable to access video stream (please make sure you have a camera enabled)</target>
+        <target state="translated">A videófolyam nem érhető el (kérjük, ellenőrizze, hogy a kamera engedélyezve van)</target>
       </trans-unit>
       <trans-unit id="of">
         <source>of</source>
-        <target state="needs-translation">of</target>
+        <target state="translated">a(z)</target>
       </trans-unit>
       <trans-unit id="mail.salutation">
         <source>Dear %s %s,</source>
-        <target state="needs-translation">Dear %s %s,</target>
+        <target state="translated">Kedves %s %s,</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.subject">
         <source>Your cancellation</source>
-        <target state="needs-translation">Your cancellation</target>
+        <target state="translated">Az Ön lemondása</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.inactive">
         <source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
-        <target state="needs-translation">your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</target>
+        <target state="translated">a(z) %s foglalását töröltük, mert nem erősítette meg %d percen belül.</target>
       </trans-unit>
       <trans-unit id="mail.cancellation.customer">
         <source>we cancelled your reservation for %s.</source>
-        <target state="needs-translation">we cancelled your reservation for %s.</target>
+        <target state="translated">lemondtuk a(z) %s foglalását.</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.confirm_link_text">
         <source>Confirm your reservation</source>
-        <target state="needs-translation">Confirm your reservation</target>
+        <target state="translated">Foglalás megerősítése</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.cancel_link_text">
         <source>Cancel your reservation</source>
-        <target state="needs-translation">Cancel your reservation</target>
+        <target state="translated">Foglalás lemondása</target>
       </trans-unit>
       <trans-unit id="mail.confirmation.cancel_notice">
         <source>Not your order or placed by mistake?</source>
-        <target state="needs-translation">Not your order or placed by mistake?</target>
+        <target state="translated">Nem az Ön rendelése, vagy tévedésből jött létre?</target>
       </trans-unit>
       <trans-unit id="mail.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
       <trans-unit id="mail.period">
         <source>Period</source>
-        <target state="needs-translation">Period</target>
+        <target state="translated">Időszak</target>
       </trans-unit>
       <trans-unit id="mail.reservation.print_notice">
         <source>Please print out this mail or save the code(s) on your phone.</source>
-        <target state="needs-translation">Please print out this mail or save the code(s) on your phone.</target>
+        <target state="translated">Kérjük, nyomtassa ki ezt az e-mailt, vagy mentse a kód(oka)t a telefonjára.</target>
       </trans-unit>
       <trans-unit id="mail.reservation.cancelable_until">
         <source>If the reservation is no longer needed, it can be cancelled until %s.</source>
-        <target state="needs-translation">If the reservation is no longer needed, it can be cancelled until %s.</target>
+        <target state="translated">Ha a foglalásra már nincs szükség, %s időpontig lemondható.</target>
       </trans-unit>
       <trans-unit id="reservation.no_printer_notice">
         <source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring
 					them to the event:
 				</source>
-        <target state="needs-translation">If you neither have a printer nor a phone you can write down the following code(s) by hand and bring
-					them to the event:
+        <target state="translated">Ha nincs sem nyomtatója, sem telefonja, a következő kód(oka)t kézzel is felírhatja, és
+					magával viheti az eseményre:
 				</target>
       </trans-unit>
       <trans-unit id="list">
         <source>List</source>
-        <target state="needs-translation">List</target>
+        <target state="translated">Lista</target>
       </trans-unit>
       <trans-unit id="date_format">
         <source>%a %d-%m-%Y</source>
-        <target state="needs-translation">%a %d-%m-%Y</target>
+        <target state="translated">%a %d-%m-%Y</target>
       </trans-unit>
       <trans-unit id="date_format_full">
         <source>%a %d-%m-%Y %H:%I</source>
-        <target state="needs-translation">%a %d-%m-%Y %H:%I</target>
+        <target state="translated">%a %d-%m-%Y %H:%I</target>
       </trans-unit>
       <trans-unit id="redeem">
         <source>Redeem</source>
-        <target state="needs-translation">Redeem</target>
+        <target state="translated">Beváltás</target>
       </trans-unit>
       <trans-unit id="reservation.created">
         <source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
-        <target state="needs-translation">We have send you a confirmation mail to get your tickets. Please check your mailbox.</target>
+        <target state="translated">Megerősítő e-mailt küldtünk a jegyekkel kapcsolatban. Kérjük, ellenőrizze a postafiókját.</target>
       </trans-unit>
       <trans-unit id="reservation.confirmed">
         <source>Your reservation at %s has been confirmed successfully.</source>
-        <target state="needs-translation">Your reservation at %s has been confirmed successfully.</target>
+        <target state="translated">A(z) %s foglalása sikeresen megerősítésre került.</target>
       </trans-unit>
       <trans-unit id="reservation.mail_with_code_sent">
         <source>We sent you a second mail that contains your reservation code.</source>
-        <target state="needs-translation">We sent you a second mail that contains your reservation code.</target>
+        <target state="translated">Küldtünk egy második e-mailt, amely a foglalási kódját tartalmazza.</target>
       </trans-unit>
       <trans-unit id="reservation.print_or_show_code">
         <source>Please either print out this page, the second mail or show your mail at the entrance.</source>
-        <target state="needs-translation">Please either print out this page, the second mail or show your mail at the entrance.</target>
+        <target state="translated">Kérjük, nyomtassa ki ezt az oldalt vagy a második e-mailt, vagy mutassa meg e-mailjét a bejáratnál.</target>
       </trans-unit>
       <trans-unit id="loading_video">
         <source>Loading video..</source>
-        <target state="needs-translation">Loading video..</target>
+        <target state="translated">Videó betöltése..</target>
       </trans-unit>
       <trans-unit id="code_not_found">
         <source>Code not found!</source>
-        <target state="needs-translation">Code not found!</target>
+        <target state="translated">A kód nem található!</target>
       </trans-unit>
       <trans-unit id="reservations">
         <source>Reservations</source>
-        <target state="needs-translation">Reservations</target>
+        <target state="translated">Foglalások</target>
       </trans-unit>
       <trans-unit id="close">
         <source>Close</source>
-        <target state="needs-translation">Close</target>
+        <target state="translated">Bezárás</target>
       </trans-unit>
       <trans-unit id="day_list">
         <source>Day list</source>
-        <target state="needs-translation">Day list</target>
+        <target state="translated">Napi lista</target>
       </trans-unit>
       <trans-unit id="scanEntireOrder">
         <source>Activate entire order with all its reservations</source>
-        <target state="needs-translation">Activate entire order with all its reservations</target>
+        <target state="translated">Teljes rendelés aktiválása az összes foglalásával</target>
       </trans-unit>
       <trans-unit id="redeemed">
         <source>Redeemed</source>
-        <target state="needs-translation">Redeemed</target>
+        <target state="translated">Beváltva</target>
       </trans-unit>
       <trans-unit id="cancel.warning">
         <source>Do you really want to cancel the reservation for %s?</source>
-        <target state="needs-translation">Do you really want to cancel the reservation for %s?</target>
+        <target state="translated">Valóban le szeretné mondani a(z) %s foglalást?</target>
       </trans-unit>
       <trans-unit id="cancel.button">
         <source>Cancel reservation</source>
-        <target state="needs-translation">Cancel reservation</target>
+        <target state="translated">Foglalás lemondása</target>
       </trans-unit>
       <trans-unit id="cancel.cancelled">
         <source>The reservation has been cancelled sucessfully.</source>
-        <target state="needs-translation">The reservation has been cancelled sucessfully.</target>
+        <target state="translated">A foglalás sikeresen lemondásra került.</target>
       </trans-unit>
       <trans-unit id="flashMessage.clearedCacheForFacility">
         <source>Cleared cache for %s list view(s) in frontend.</source>
-        <target state="needs-translation">Cleared cache for %s list view(s) in frontend.</target>
+        <target state="translated">Kiürítettük a frontend %s lista nézet(ek) gyorsítótárát.</target>
       </trans-unit>
       <trans-unit id="flashMessage.noLongerCancelable">
         <source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
-        <target state="needs-translation">The reservation could be cancelled until %s. It can no longer be canceled!</target>
+        <target state="translated">A foglalás %s időpontig volt lemondható. Többé már nem mondható le!</target>
       </trans-unit>
       <trans-unit id="flashMessage.notCancelable">
         <source>The reservation could not be canceled.</source>
-        <target state="needs-translation">The reservation could not be canceled.</target>
+        <target state="translated">A foglalást nem sikerült lemondani.</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMail.title">
         <source>You updated at least one period</source>
-        <target state="needs-translation">You updated at least one period</target>
+        <target state="translated">Legalább egy időszakot frissített</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMail.message">
         <source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected
 					visitors?
 				</source>
-        <target state="needs-translation">The time of at least one period was changed! Do you want to write an e-mail to inform the affected
-					visitors?
+        <target state="translated">Legalább egy időszak időpontja megváltozott! Szeretne e-mailt írni az érintett
+					látogatók tájékoztatására?
 				</target>
       </trans-unit>
       <trans-unit id="modal.button.writeMail">
         <source>Write e-mail</source>
-        <target state="needs-translation">Write e-mail</target>
+        <target state="translated">E-mail írása</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMailAfterDeletion.title">
         <source>You deleted at least one period</source>
-        <target state="needs-translation">You deleted at least one period</target>
+        <target state="translated">Legalább egy időszakot törölt</target>
       </trans-unit>
       <trans-unit id="modal.periodAskForMailAfterDeletion.message">
         <source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
-        <target state="needs-translation">Do you want to inform the affected visitors about the cancellation of their reserved tickets?</target>
+        <target state="translated">Szeretné tájékoztatni az érintett látogatókat a lefoglalt jegyeik lemondásáról?</target>
       </trans-unit>
       <trans-unit id="email.body.afterPeriodUpdate">
         <source><![CDATA[<p>Dear visitor,</p>
@@ -337,31 +337,31 @@
 
 <p>Updated reservation data:</p>
 <p>###RESERVATION###</p>]]></source>
-        <target state="needs-translation"><![CDATA[<p>Dear visitor,</p>
-<p>we changed some details of your booked time period!</p>
+        <target state="translated"><![CDATA[<p>Kedves látogató,</p>
+<p>megváltoztattuk a lefoglalt időszak néhány adatát!</p>
 
-<p>Updated reservation data:</p>
+<p>Frissített foglalási adatok:</p>
 <p>###RESERVATION###</p>]]></target>
       </trans-unit>
       <trans-unit id="email.body.afterPeriodDeletion">
         <source><![CDATA[<p>Dear visitor,</p>
 <p>we are sorry but your reserved ticket got cancelled!</p>
 ]]></source>
-        <target state="needs-translation"><![CDATA[<p>Dear visitor,</p>
-<p>we are sorry but your reserved ticket got cancelled!</p>
+        <target state="translated"><![CDATA[<p>Kedves látogató,</p>
+<p>sajnáljuk, de a lefoglalt jegye törlésre került!</p>
 ]]></target>
       </trans-unit>
       <trans-unit id="orderValidator.isNotBookable">
         <source>The selected period can not be booked at the moment!</source>
-        <target state="needs-translation">The selected period can not be booked at the moment!</target>
+        <target state="translated">A kiválasztott időszak jelenleg nem foglalható!</target>
       </trans-unit>
       <trans-unit id="datatables.languageFile">
         <source>‎</source>
-        <target state="needs-translation">‎</target>
+        <target state="translated">‎</target>
       </trans-unit>
       <trans-unit id="period.openEnd">
         <source>Open end</source>
-        <target state="needs-translation">Open end</target>
+        <target state="translated">Nyitott vég</target>
       </trans-unit>
     </body>
   </file>
