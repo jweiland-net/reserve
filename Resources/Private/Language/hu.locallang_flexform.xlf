@@ -5,43 +5,43 @@
     <body>
       <trans-unit id="reservation.title">
         <source>Reservation</source>
-        <target state="needs-translation">Reservation</target>
+        <target state="translated">Foglalás</target>
       </trans-unit>
       <trans-unit id="reservation.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
       <trans-unit id="reservation.facility.description">
         <source>You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</source>
-        <target state="needs-translation">You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</target>
+        <target state="translated">Választhat egy vagy több létesítményt. Ha egynél többet választ, a létesítmény neve minden sorban megjelenik.</target>
       </trans-unit>
       <trans-unit id="reservation.orderPid">
         <source>Storage folder for reservations</source>
-        <target state="needs-translation">Storage folder for reservations</target>
+        <target state="translated">Tárolási mappa a foglalásokhoz</target>
       </trans-unit>
       <trans-unit id="management.facility">
         <source>Facility</source>
-        <target state="needs-translation">Facility</target>
+        <target state="translated">Létesítmény</target>
       </trans-unit>
       <trans-unit id="reservation.mainFields">
         <source>What data should the user provide?</source>
-        <target state="needs-translation">What data should the user provide?</target>
+        <target state="translated">Milyen adatokat adjon meg a felhasználó?</target>
       </trans-unit>
       <trans-unit id="reservation.mainFields.description">
         <source>Fields that are always displayed: First name, E-Mail</source>
-        <target state="needs-translation">Fields that are always displayed: First name, E-Mail</target>
+        <target state="translated">Mindig megjelenített mezők: keresztnév, e-mail</target>
       </trans-unit>
       <trans-unit id="reservation.showFieldsForFurtherParticipants">
         <source>Should the personal data of further participants be asked?</source>
-        <target state="needs-translation">Should the personal data of further participants be asked?</target>
+        <target state="translated">Kérjük-e a további résztvevők személyes adatait?</target>
       </trans-unit>
       <trans-unit id="reservation.disableDoupleOptin">
         <source>Disable double optin confirmation.</source>
-        <target state="needs-translation">Disable double optin confirmation.</target>
+        <target state="translated">Kettős opt-in megerősítés letiltása.</target>
       </trans-unit>
       <trans-unit id="reservation.disableQRCodeGeneration">
         <source>Disable QR Code Generate</source>
-        <target state="needs-translation">Disable QR Code Generate</target>
+        <target state="translated">QR-kód generálás letiltása</target>
       </trans-unit>
     </body>
   </file>
