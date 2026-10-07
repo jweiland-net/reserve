@@ -73,7 +73,7 @@ class CheckoutController extends ActionController
     public function formAction(Period $period): ResponseInterface
     {
         if (!$period->isBookable()) {
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         if (!OrderSessionUtility::isUserAllowedToOrder($period->getFacility()->getUid(), $this->request)) {
@@ -82,7 +82,7 @@ class CheckoutController extends ActionController
                 '',
                 ContextualFeedbackSeverity::INFO,
             );
-            $this->redirect('list');
+            return $this->redirect('list');
         }
 
         /** @var Order $order */
