@@ -41,7 +41,7 @@
       </trans-unit>
       <trans-unit id="reservation.disableQRCodeGeneration">
         <source>Disable QR Code Generate</source>
-        <target state="needs-translation">Disable QR Code Generate</target>
+        <target state="translated">QR-Code generieren deaktivieren</target>
       </trans-unit>
     </body>
   </file>
