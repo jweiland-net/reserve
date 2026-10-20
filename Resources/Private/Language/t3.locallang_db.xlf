@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns:t3="http://typo3.org/schemas/xliff" version="1.0">
+  <file t3:id="1589355594067" source-language="en" datatype="plaintext" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="plugin.reserve_reservation.title">
+        <source>Reserve: Reservation</source>
+        <target>crwdns309064:0crwdne309064:0</target>
+      </trans-unit>
+      <trans-unit id="plugin.reserve_reservation.description">
+        <source>Reserve: Display and reserve periods</source>
+        <target>crwdns370503:0crwdne370503:0</target>
+      </trans-unit>
+      <trans-unit id="plugin.reserve_management.title">
+        <source>Reserve: Management</source>
+        <target>crwdns309068:0crwdne309068:0</target>
+      </trans-unit>
+      <trans-unit id="plugin.reserve_management.description">
+        <source>Reserve: Manage reservations and scan reservation codes</source>
+        <target>crwdns370505:0crwdne370505:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility">
+        <source>Facility</source>
+        <target>crwdns309072:0crwdne309072:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.name">
+        <source>Name</source>
+        <target>crwdns309074:0crwdne309074:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.short_name">
+        <source>Short name for QR code label</source>
+        <target>crwdns309076:0crwdne309076:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.periods">
+        <source>Periods</source>
+        <target>crwdns309078:0crwdne309078:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.div.mail_settings">
+        <source>E-Mail settings</source>
+        <target>crwdns309080:0crwdne309080:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_subject">
+        <source>Confirmation mail subject</source>
+        <target>crwdns309082:0crwdne309082:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.confirmation_mail_html">
+        <source>Confirmation mail Text</source>
+        <target>crwdns309084:0crwdne309084:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_subject">
+        <source>Reservation mail subject</source>
+        <target>crwdns309086:0crwdne309086:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reservation_mail_html">
+        <source>Reservation mail Text</source>
+        <target>crwdns309088:0crwdne309088:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.from_name">
+        <source>From name (optional)</source>
+        <target>crwdns309090:0crwdne309090:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.from_email">
+        <source>From email (optional)</source>
+        <target>crwdns309092:0crwdne309092:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reply_to_name">
+        <source>Reply to name (optional)</source>
+        <target>crwdns309094:0crwdne309094:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.reply_to_email">
+        <source>Reply to email (optional)</source>
+        <target>crwdns309096:0crwdne309096:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.div.qr_code">
+        <source>QR Code settings</source>
+        <target>crwdns309098:0crwdne309098:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_size">
+        <source>QR Code size (in px)</source>
+        <target>crwdns309100:0crwdne309100:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_label_size">
+        <source>QR Code label size (in px)</source>
+        <target>crwdns309102:0crwdne309102:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo">
+        <source>Insert logo into QR Code (optional)</source>
+        <target>crwdns309104:0crwdne309104:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_logo_width">
+        <source>Logo width (in px)</source>
+        <target>crwdns309106:0crwdne309106:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview">
+        <source>Preview QR code</source>
+        <target>crwdns309108:0crwdne309108:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.button">
+        <source>Render preview</source>
+        <target>crwdns309110:0crwdne309110:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.qr_code_preview.notice">
+        <source>Only saved changes are processed!</source>
+        <target>crwdns309112:0crwdne309112:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.cancelable">
+        <source>Reservations are cancelable</source>
+        <target>crwdns309114:0crwdne309114:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_facility.cancelable_until_minutes">
+        <source>Reservations are cancelable until x minutes before begin</source>
+        <target>crwdns309116:0crwdne309116:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period">
+        <source>Period</source>
+        <target>crwdns309118:0crwdne309118:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.date">
+        <source>Date</source>
+        <target>crwdns309120:0crwdne309120:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.begin">
+        <source>Begin</source>
+        <target>crwdns309122:0crwdne309122:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.end">
+        <source>End</source>
+        <target>crwdns309124:0crwdne309124:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.max_participants">
+        <source>Max participants</source>
+        <target>crwdns309126:0crwdne309126:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.max_participants_per_order">
+        <source>Max participants per order</source>
+        <target>crwdns309128:0crwdne309128:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.booking_begin">
+        <source>Booking begin</source>
+        <target>crwdns309130:0crwdne309130:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.booking_end">
+        <source>Booking end (optional)</source>
+        <target>crwdns309132:0crwdne309132:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_period.orders">
+        <source>Orders</source>
+        <target>crwdns309134:0crwdne309134:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order">
+        <source>Reservation</source>
+        <target>crwdns309136:0crwdne309136:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.activated">
+        <source>Activated</source>
+        <target>crwdns309138:0crwdne309138:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.activation_code">
+        <source>Activation code</source>
+        <target>crwdns309140:0crwdne309140:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.email">
+        <source>E-Mail</source>
+        <target>crwdns309142:0crwdne309142:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.phone">
+        <source>Phone</source>
+        <target>crwdns309144:0crwdne309144:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.address">
+        <source>Address</source>
+        <target>crwdns309146:0crwdne309146:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.zip">
+        <source>Zip</source>
+        <target>crwdns309148:0crwdne309148:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.city">
+        <source>City</source>
+        <target>crwdns309150:0crwdne309150:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.organization">
+        <source>Organization</source>
+        <target>crwdns309152:0crwdne309152:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.remarks">
+        <source>Remarks</source>
+        <target>crwdns309154:0crwdne309154:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.reservations">
+        <source>Reservation codes</source>
+        <target>crwdns309156:0crwdne309156:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.first_name">
+        <source>First name</source>
+        <target>crwdns309158:0crwdne309158:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.last_name">
+        <source>Last name</source>
+        <target>crwdns309160:0crwdne309160:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_order.booked_period">
+        <source>Select a period</source>
+        <target>crwdns309162:0crwdne309162:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation">
+        <source>Reservation code</source>
+        <target>crwdns309164:0crwdne309164:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.code">
+        <source>Code</source>
+        <target>crwdns309166:0crwdne309166:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.used">
+        <source>Used</source>
+        <target>crwdns309168:0crwdne309168:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.customer_order">
+        <source>Reservation</source>
+        <target>crwdns309170:0crwdne309170:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.first_name">
+        <source>First name</source>
+        <target>crwdns309172:0crwdne309172:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_reservation.last_name">
+        <source>Last name</source>
+        <target>crwdns309174:0crwdne309174:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email">
+        <source>E-Mail</source>
+        <target>crwdns309176:0crwdne309176:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.subject">
+        <source>Subject</source>
+        <target>crwdns309178:0crwdne309178:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.body">
+        <source>Body</source>
+        <target>crwdns309180:0crwdne309180:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.periods">
+        <source>Send mail to visitors of selected periods</source>
+        <target>crwdns309182:0crwdne309182:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.locked">
+        <source>Mails are currently being sent</source>
+        <target>crwdns309184:0crwdne309184:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type">
+        <source>Receiver type</source>
+        <target>crwdns309186:0crwdne309186:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type.0">
+        <source>Send mail to visitors of selected periods</source>
+        <target>crwdns309188:0crwdne309188:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.receiver_type.1">
+        <source>Write down E-Mail addresses manually</source>
+        <target>crwdns309190:0crwdne309190:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.custom_receivers">
+        <source>Receivers (comma separated list of mail addresses)</source>
+        <target>crwdns309192:0crwdne309192:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.from_name">
+        <source>From name (optional)</source>
+        <target>crwdns309194:0crwdne309194:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.from_email">
+        <source>From email (optional)</source>
+        <target>crwdns309196:0crwdne309196:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.reply_to_name">
+        <source>Reply to name (optional)</source>
+        <target>crwdns309198:0crwdne309198:0</target>
+      </trans-unit>
+      <trans-unit id="tx_reserve_domain_model_email.reply_to_email">
+        <source>Reply to email (optional)</source>
+        <target>crwdns309200:0crwdne309200:0</target>
+      </trans-unit>
+      <trans-unit id="tx_events2_domain_model_event.registration_required">
+        <source>Registration required</source>
+        <target>crwdns309202:0crwdne309202:0</target>
+      </trans-unit>
+      <trans-unit id="tx_events2_domain_model_location.facility">
+        <source>Facility</source>
+        <target>crwdns309204:0crwdne309204:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
