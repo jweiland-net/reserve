@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns:t3="http://typo3.org/schemas/xliff" version="1.0">
+  <file t3:id="1589362740560" source-language="en" datatype="plaintext" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="plugin.reservation.title">
+        <source>Display and reserve periods</source>
+        <target>crwdns308896:0crwdne308896:0</target>
+      </trans-unit>
+      <trans-unit id="plugin.management.title">
+        <source>Manage reservations and scan reservation codes</source>
+        <target>crwdns308898:0crwdne308898:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.submit">
+        <source>Reserve</source>
+        <target>crwdns308900:0crwdne308900:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.email">
+        <source>E-Mail</source>
+        <target>crwdns308902:0crwdne308902:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.phone">
+        <source>Phone</source>
+        <target>crwdns308904:0crwdne308904:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.address">
+        <source>Address</source>
+        <target>crwdns308906:0crwdne308906:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.zip">
+        <source>Zip</source>
+        <target>crwdns308908:0crwdne308908:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.city">
+        <source>City</source>
+        <target>crwdns308910:0crwdne308910:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.organization">
+        <source>Organization</source>
+        <target>crwdns308912:0crwdne308912:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.remarks">
+        <source>Remarks</source>
+        <target>crwdns308914:0crwdne308914:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.furtherParticipants">
+        <source>Further participants</source>
+        <target>crwdns308916:0crwdne308916:0</target>
+      </trans-unit>
+      <trans-unit id="order.furtherParticipant">
+        <source>Further participant</source>
+        <target>crwdns308918:0crwdne308918:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.participants.firstName">
+        <source>First name of participant %d</source>
+        <target>crwdns308920:0%dcrwdne308920:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.participants.lastName">
+        <source>Last name of participant %d</source>
+        <target>crwdns308922:0%dcrwdne308922:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.period">
+        <source>Selected period</source>
+        <target>crwdns308924:0crwdne308924:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.amountOfPeople">
+        <source>Amount of people (max. %d)</source>
+        <target>crwdns308926:0%dcrwdne308926:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.header">
+        <source>Reserve a ticket for %s</source>
+        <target>crwdns308928:0%scrwdne308928:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.description">
+        <source>This reservation will be valid at %s between %s - %s</source>
+        <target>crwdns308930:0%scrwdnd308930:0%scrwdnd308930:0%scrwdne308930:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.firstName">
+        <source>First name</source>
+        <target>crwdns308932:0crwdne308932:0</target>
+      </trans-unit>
+      <trans-unit id="form.order.lastName">
+        <source>Last name</source>
+        <target>crwdns308934:0crwdne308934:0</target>
+      </trans-unit>
+      <trans-unit id="scan.status.orderNotActive">
+        <source>Order was not activated</source>
+        <target>crwdns308936:0crwdne308936:0</target>
+      </trans-unit>
+      <trans-unit id="scan.status.codeAlreadyScanned">
+        <source>Code was already scanned</source>
+        <target>crwdns308938:0crwdne308938:0</target>
+      </trans-unit>
+      <trans-unit id="scan.status.reservationActivated">
+        <source>Reservation successfully scanned.</source>
+        <target>crwdns308940:0crwdne308940:0</target>
+      </trans-unit>
+      <trans-unit id="scan.status.error.0">
+        <source>Success</source>
+        <target>crwdns308942:0crwdne308942:0</target>
+      </trans-unit>
+      <trans-unit id="scan.status.error.1">
+        <source>Error</source>
+        <target>crwdns308944:0crwdne308944:0</target>
+      </trans-unit>
+      <trans-unit id="list.alerts.isBookingAllowed">
+        <source>You have recently reserved at least one ticket for this facility. Please wait a moment until you can
+					reserve more tickets.
+				</source>
+        <target>crwdns308946:0crwdne308946:0</target>
+      </trans-unit>
+      <trans-unit id="list.alerts.wrongAmountOfReservations">
+        <source>Could not create an order for your selected amount of people!</source>
+        <target>crwdns308948:0crwdne308948:0</target>
+      </trans-unit>
+      <trans-unit id="list.facility">
+        <source>Facility</source>
+        <target>crwdns308950:0crwdne308950:0</target>
+      </trans-unit>
+      <trans-unit id="list.date">
+        <source>Date</source>
+        <target>crwdns308952:0crwdne308952:0</target>
+      </trans-unit>
+      <trans-unit id="list.begin">
+        <source>Begin</source>
+        <target>crwdns308954:0crwdne308954:0</target>
+      </trans-unit>
+      <trans-unit id="list.end">
+        <source>End</source>
+        <target>crwdns308956:0crwdne308956:0</target>
+      </trans-unit>
+      <trans-unit id="list.free_slots">
+        <source>Remaining slots</source>
+        <target>crwdns308958:0crwdne308958:0</target>
+      </trans-unit>
+      <trans-unit id="list.participants">
+        <source>Participants</source>
+        <target>crwdns308960:0crwdne308960:0</target>
+      </trans-unit>
+      <trans-unit id="list.action">
+        <source>Action</source>
+        <target>crwdns308962:0crwdne308962:0</target>
+      </trans-unit>
+      <trans-unit id="list.choose_this_period">
+        <source>Choose this period</source>
+        <target>crwdns308964:0crwdne308964:0</target>
+      </trans-unit>
+      <trans-unit id="list.bookable_from">
+        <source>Bookable from %s</source>
+        <target>crwdns308966:0%scrwdne308966:0</target>
+      </trans-unit>
+      <trans-unit id="list.in_use">
+        <source>Is in use?</source>
+        <target>crwdns308968:0crwdne308968:0</target>
+      </trans-unit>
+      <trans-unit id="list.no_more_tickets">
+        <source>No more tickets!</source>
+        <target>crwdns308970:0crwdne308970:0</target>
+      </trans-unit>
+      <trans-unit id="list.code">
+        <source>Code</source>
+        <target>crwdns308972:0crwdne308972:0</target>
+      </trans-unit>
+      <trans-unit id="scanner_unavailable">
+        <source>Unable to access video stream (please make sure you have a camera enabled)</source>
+        <target>crwdns308974:0crwdne308974:0</target>
+      </trans-unit>
+      <trans-unit id="of">
+        <source>of</source>
+        <target>crwdns308976:0crwdne308976:0</target>
+      </trans-unit>
+      <trans-unit id="mail.salutation">
+        <source>Dear %s %s,</source>
+        <target>crwdns308978:0%scrwdnd308978:0%scrwdne308978:0</target>
+      </trans-unit>
+      <trans-unit id="mail.cancellation.subject">
+        <source>Your cancellation</source>
+        <target>crwdns308980:0crwdne308980:0</target>
+      </trans-unit>
+      <trans-unit id="mail.cancellation.inactive">
+        <source>your reservation for %s has been cancelled because you have not confirmed it within %d minutes.</source>
+        <target>crwdns308982:0%scrwdnd308982:0%dcrwdne308982:0</target>
+      </trans-unit>
+      <trans-unit id="mail.cancellation.customer">
+        <source>we cancelled your reservation for %s.</source>
+        <target>crwdns308984:0%scrwdne308984:0</target>
+      </trans-unit>
+      <trans-unit id="mail.confirmation.confirm_link_text">
+        <source>Confirm your reservation</source>
+        <target>crwdns308986:0crwdne308986:0</target>
+      </trans-unit>
+      <trans-unit id="mail.confirmation.cancel_link_text">
+        <source>Cancel your reservation</source>
+        <target>crwdns308988:0crwdne308988:0</target>
+      </trans-unit>
+      <trans-unit id="mail.confirmation.cancel_notice">
+        <source>Not your order or placed by mistake?</source>
+        <target>crwdns308990:0crwdne308990:0</target>
+      </trans-unit>
+      <trans-unit id="mail.facility">
+        <source>Facility</source>
+        <target>crwdns308992:0crwdne308992:0</target>
+      </trans-unit>
+      <trans-unit id="mail.period">
+        <source>Period</source>
+        <target>crwdns308994:0crwdne308994:0</target>
+      </trans-unit>
+      <trans-unit id="mail.reservation.print_notice">
+        <source>Please print out this mail or save the code(s) on your phone.</source>
+        <target>crwdns308996:0crwdne308996:0</target>
+      </trans-unit>
+      <trans-unit id="mail.reservation.cancelable_until">
+        <source>If the reservation is no longer needed, it can be cancelled until %s.</source>
+        <target>crwdns308998:0%scrwdne308998:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.no_printer_notice">
+        <source>If you neither have a printer nor a phone you can write down the following code(s) by hand and bring
+					them to the event:
+				</source>
+        <target>crwdns309000:0crwdne309000:0</target>
+      </trans-unit>
+      <trans-unit id="list">
+        <source>List</source>
+        <target>crwdns309002:0crwdne309002:0</target>
+      </trans-unit>
+      <trans-unit id="date_format">
+        <source>%a %d-%m-%Y</source>
+        <target>crwdns309004:0%acrwdnd309004:0%d-%m-%Ycrwdne309004:0</target>
+      </trans-unit>
+      <trans-unit id="date_format_full">
+        <source>%a %d-%m-%Y %H:%I</source>
+        <target>crwdns309006:0%acrwdnd309006:0%d-%m-%Ycrwdnd309006:0%H:%Icrwdne309006:0</target>
+      </trans-unit>
+      <trans-unit id="redeem">
+        <source>Redeem</source>
+        <target>crwdns309008:0crwdne309008:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.created">
+        <source>We have send you a confirmation mail to get your tickets. Please check your mailbox.</source>
+        <target>crwdns309010:0crwdne309010:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.confirmed">
+        <source>Your reservation at %s has been confirmed successfully.</source>
+        <target>crwdns309012:0%scrwdne309012:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.mail_with_code_sent">
+        <source>We sent you a second mail that contains your reservation code.</source>
+        <target>crwdns309014:0crwdne309014:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.print_or_show_code">
+        <source>Please either print out this page, the second mail or show your mail at the entrance.</source>
+        <target>crwdns309016:0crwdne309016:0</target>
+      </trans-unit>
+      <trans-unit id="loading_video">
+        <source>Loading video..</source>
+        <target>crwdns309018:0crwdne309018:0</target>
+      </trans-unit>
+      <trans-unit id="code_not_found">
+        <source>Code not found!</source>
+        <target>crwdns309020:0crwdne309020:0</target>
+      </trans-unit>
+      <trans-unit id="reservations">
+        <source>Reservations</source>
+        <target>crwdns309022:0crwdne309022:0</target>
+      </trans-unit>
+      <trans-unit id="close">
+        <source>Close</source>
+        <target>crwdns309024:0crwdne309024:0</target>
+      </trans-unit>
+      <trans-unit id="day_list">
+        <source>Day list</source>
+        <target>crwdns309026:0crwdne309026:0</target>
+      </trans-unit>
+      <trans-unit id="scanEntireOrder">
+        <source>Activate entire order with all its reservations</source>
+        <target>crwdns309028:0crwdne309028:0</target>
+      </trans-unit>
+      <trans-unit id="redeemed">
+        <source>Redeemed</source>
+        <target>crwdns309030:0crwdne309030:0</target>
+      </trans-unit>
+      <trans-unit id="cancel.warning">
+        <source>Do you really want to cancel the reservation for %s?</source>
+        <target>crwdns309032:0%scrwdne309032:0</target>
+      </trans-unit>
+      <trans-unit id="cancel.button">
+        <source>Cancel reservation</source>
+        <target>crwdns309034:0crwdne309034:0</target>
+      </trans-unit>
+      <trans-unit id="cancel.cancelled">
+        <source>The reservation has been cancelled sucessfully.</source>
+        <target>crwdns309036:0crwdne309036:0</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.clearedCacheForFacility">
+        <source>Cleared cache for %s list view(s) in frontend.</source>
+        <target>crwdns309038:0%scrwdne309038:0</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.noLongerCancelable">
+        <source>The reservation could be cancelled until %s. It can no longer be canceled!</source>
+        <target>crwdns309040:0%scrwdne309040:0</target>
+      </trans-unit>
+      <trans-unit id="flashMessage.notCancelable">
+        <source>The reservation could not be canceled.</source>
+        <target>crwdns309042:0crwdne309042:0</target>
+      </trans-unit>
+      <trans-unit id="modal.periodAskForMail.title">
+        <source>You updated at least one period</source>
+        <target>crwdns309044:0crwdne309044:0</target>
+      </trans-unit>
+      <trans-unit id="modal.periodAskForMail.message">
+        <source>The time of at least one period was changed! Do you want to write an e-mail to inform the affected
+					visitors?
+				</source>
+        <target>crwdns309046:0crwdne309046:0</target>
+      </trans-unit>
+      <trans-unit id="modal.button.writeMail">
+        <source>Write e-mail</source>
+        <target>crwdns309048:0crwdne309048:0</target>
+      </trans-unit>
+      <trans-unit id="modal.periodAskForMailAfterDeletion.title">
+        <source>You deleted at least one period</source>
+        <target>crwdns309050:0crwdne309050:0</target>
+      </trans-unit>
+      <trans-unit id="modal.periodAskForMailAfterDeletion.message">
+        <source>Do you want to inform the affected visitors about the cancellation of their reserved tickets?</source>
+        <target>crwdns309052:0crwdne309052:0</target>
+      </trans-unit>
+      <trans-unit id="email.body.afterPeriodUpdate">
+        <source><![CDATA[<p>Dear visitor,</p>
+<p>we changed some details of your booked time period!</p>
+
+<p>Updated reservation data:</p>
+<p>###RESERVATION###</p>]]></source>
+        <target><![CDATA[crwdns309054:0crwdne309054:0]]></target>
+      </trans-unit>
+      <trans-unit id="email.body.afterPeriodDeletion">
+        <source><![CDATA[<p>Dear visitor,</p>
+<p>we are sorry but your reserved ticket got cancelled!</p>
+]]></source>
+        <target><![CDATA[crwdns309056:0crwdne309056:0]]></target>
+      </trans-unit>
+      <trans-unit id="orderValidator.isNotBookable">
+        <source>The selected period can not be booked at the moment!</source>
+        <target>crwdns309058:0crwdne309058:0</target>
+      </trans-unit>
+      <trans-unit id="datatables.languageFile">
+        <source>‎</source>
+        <target>crwdns309060:0crwdne309060:0</target>
+      </trans-unit>
+      <trans-unit id="period.openEnd">
+        <source>Open end</source>
+        <target>crwdns309062:0crwdne309062:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
