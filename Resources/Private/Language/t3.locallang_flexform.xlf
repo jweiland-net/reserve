@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns:t3="http://typo3.org/schemas/xliff" version="1.0">
+  <file t3:id="1589362099839" source-language="en" datatype="plaintext" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="reservation.title">
+        <source>Reservation</source>
+        <target>crwdns309206:0crwdne309206:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.facility">
+        <source>Facility</source>
+        <target>crwdns309208:0crwdne309208:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.facility.description">
+        <source>You can select either one facility or more. If you select more than one, the facility name will be shown in each row.</source>
+        <target>crwdns309210:0crwdne309210:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.orderPid">
+        <source>Storage folder for reservations</source>
+        <target>crwdns309212:0crwdne309212:0</target>
+      </trans-unit>
+      <trans-unit id="management.facility">
+        <source>Facility</source>
+        <target>crwdns309214:0crwdne309214:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.mainFields">
+        <source>What data should the user provide?</source>
+        <target>crwdns309216:0crwdne309216:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.mainFields.description">
+        <source>Fields that are always displayed: First name, E-Mail</source>
+        <target>crwdns309218:0crwdne309218:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.showFieldsForFurtherParticipants">
+        <source>Should the personal data of further participants be asked?</source>
+        <target>crwdns309220:0crwdne309220:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.disableDoupleOptin">
+        <source>Disable double optin confirmation.</source>
+        <target>crwdns370804:0crwdne370804:0</target>
+      </trans-unit>
+      <trans-unit id="reservation.disableQRCodeGeneration">
+        <source>Disable QR Code Generate</source>
+        <target>crwdns393612:0crwdne393612:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
